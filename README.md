@@ -4,16 +4,16 @@
 
 ### Collaborative
 
-Image Upload
+- Image Upload
 
 ### Runding
 
-Password reset + account activation + remember me
-Tagging
-Chat Box
+- Password Reset + Account Activation + Remember Me
+- Tagging
+- Chat Box
 
 ### Kenneth
 
-Lessons
-Review System
-Searching and Sorting
+- Lessons
+- Review System
+- Searching and Sorting
