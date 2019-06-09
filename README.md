@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Features to implement:
 
-Things you may want to cover:
+Collaborative:
 
-* Ruby version
+Image Upload
 
-* System dependencies
+Runding:
 
-* Configuration
+Password reset + account activation + remember me
+Tagging
+Chat Box
 
-* Database creation
+Kenneth:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Lessons
+Review System
+Searching and Sorting
