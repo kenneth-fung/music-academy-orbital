@@ -1,18 +1,18 @@
 # README
 
-Features to implement:
+## Features to Implement
 
-Collaborative:
+### Collaborative
 
 Image Upload
 
-Runding:
+### Runding
 
 Password reset + account activation + remember me
 Tagging
 Chat Box
 
-Kenneth:
+### Kenneth
 
 Lessons
 Review System
