@@ -9,6 +9,7 @@
           <% if tutor? %>
             <li><%= link_to "New course", new_course_path %></li>
             <li><%= link_to "My students", students_tutor_path(current_user) %></li>
+            <li><%= link_to "My courses", courses_tutor_path(current_user) %></li>
           <% else %>
             <li><%= link_to "My courses", courses_student_path(current_user) %></li>
           <% end %>

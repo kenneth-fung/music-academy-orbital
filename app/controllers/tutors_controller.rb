@@ -39,6 +39,12 @@ class TutorsController < ApplicationController
     render 'tutors/show_students'
   end
 
+  def courses
+    @tutor = Tutor.find_by(params[:id])
+    @courses = @tutor.courses
+    render 'tutors/show_courses'
+  end
+
   private
 
   def tutor_params

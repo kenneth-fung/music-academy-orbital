@@ -7,6 +7,8 @@
   <%= f.label :content %>
   <%= f.text_field :content, class: 'form-control' %>
 
-  <%= f.submit "Create", class: "btn btn-primary" %>
+  <%= f.label :image %>
+  <%= f.file_field :image %>
 
+  <%= f.submit "Create", class: "btn btn-primary" %>
 <% end %>

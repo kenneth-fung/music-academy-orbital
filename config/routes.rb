@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post '/student_signup', to: 'students#create'
   resources :tutors do
     member do
-      get :students
+      get :students, :courses
     end
   end
   resources :courses

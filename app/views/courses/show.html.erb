@@ -1,5 +1,9 @@
 <h1><%= @course.title %></h1>
 <h1><%= @course.content %></h1>
+<% if @course.image.attached? %>
+  <%= image_tag (@course.image) %>
+<% else %>
+<% end %>
 <h2>
   <%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %>
 </h2>
