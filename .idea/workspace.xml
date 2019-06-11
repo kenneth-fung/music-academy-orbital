@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e748ffa8-bd59-4dc5-8a24-3ad9883a814c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Niibori.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Niibori.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/courses_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/courses_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/tutors_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/tutors_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/course.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/course.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/courses/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/courses/index.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/courses/new.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/courses/new.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/courses/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/courses/show.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layouts/_header.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/_header.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/credentials.yml.enc" beforeDir="false" afterPath="$PROJECT_DIR$/config/credentials.yml.enc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/environments/development.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/development.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/environments/production.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/production.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/environments/test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/test.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/storage.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/storage.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -49,20 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/storage.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Gemfile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="76" column="24" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+              <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -153,7 +128,6 @@
         <option value="$PROJECT_DIR$/test/controllers/videos_controller_test.rb" />
         <option value="$PROJECT_DIR$/test/fixtures/videos.yml" />
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
-        <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/app/models/course.rb" />
         <option value="$PROJECT_DIR$/app/controllers/courses_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/courses/new.html.erb" />
@@ -167,6 +141,7 @@
         <option value="$PROJECT_DIR$/app/views/courses/show.html.erb" />
         <option value="$PROJECT_DIR$/config/credentials.yml.enc" />
         <option value="$PROJECT_DIR$/config/storage.yml" />
+        <option value="$PROJECT_DIR$/config/environments/development.rb" />
       </list>
     </option>
   </component>
@@ -196,6 +171,12 @@
               <item name="Niibori" type="b2602c69:ProjectViewProjectNode" />
               <item name="Niibori" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Niibori" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Niibori" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="environments" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Niibori" type="b2602c69:ProjectViewProjectNode" />
@@ -378,12 +359,12 @@
       <workItem from="1559883514133" duration="5639000" />
       <workItem from="1559905622214" duration="4760000" />
       <workItem from="1559919153739" duration="3822000" />
-      <workItem from="1560263161423" duration="485000" />
+      <workItem from="1560263161423" duration="960000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42927000" />
+    <option name="totallyTimeSpent" value="43402000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="8" y="23" width="1260" height="671" extended-state="0" />
@@ -624,13 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -710,17 +684,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/storage.yml">
+    <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        <state relative-caret-position="1065">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gemfile">
+    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="76" column="24" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+        <state relative-caret-position="108">
+          <caret line="26" column="36" lean-forward="true" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/storage.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
         </state>
       </provider>
     </entry>
