@@ -30,13 +30,13 @@ class TutorsController < ApplicationController
 
   def students
     @title = "My Students"
-    # @courses = Tutor.find_by(params[:id]).courses
-    @students = Tutor.find_by(params[:id]).students_unique
+    # @courses = Tutor.find(params[:id]).courses
+    @students = Tutor.find(params[:id]).students_unique
     render 'tutors/show_students'
   end
 
   def courses
-    @tutor = Tutor.find_by(params[:id])
+    @tutor = Tutor.find(params[:id])
     @courses = @tutor.courses.paginate(page: params[:page])
     render 'tutors/show_courses'
   end

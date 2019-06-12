@@ -29,7 +29,7 @@ class StudentsController < ApplicationController
 
   def courses
     @title = "Enrolled Courses"
-    @courses = Student.find_by(params[:id]).courses.paginate(page: params[:page])
+    @courses = Student.find(params[:id]).courses.paginate(page: params[:page])
     render 'students/show_enrolled'
   end
 
