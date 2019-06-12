@@ -79,3 +79,5 @@ gem 'autoprefixer-rails'
 gem "aws-sdk-s3", require: false
 
 gem "mini_magick"
+
+gem "will_paginate", '3.1.7'

@@ -1,7 +1,8 @@
 class CoursesController < ApplicationController
   before_action :is_tutor?, only: [:new, :create, :edit, :update, :destroy]
+
   def index
-    @courses = Course.all
+    @courses = Course.paginate(page: params[:page])
   end
 
   def new

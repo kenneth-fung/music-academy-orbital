@@ -6,43 +6,44 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Student.create!(name:  "Runding",
-             email: "wangrunding@gmail.com",
-             password:              "wangrun123ding",
-             password_confirmation: "wangrun123ding")
-
-Tutor.create!(name:  "Runding",
                 email: "wangrunding@gmail.com",
                 password:              "wangrun123ding",
                 password_confirmation: "wangrun123ding")
 
+Tutor.create!(name:  "Runding",
+              email: "wangrunding@gmail.com",
+              password:              "wangrun123ding",
+              password_confirmation: "wangrun123ding")
 
+# Tutors
 (1..40).each do |n|
   name  = Faker::Name.name + " " + n.to_s
   email = "example-#{n}@gmail.org"
   password = "password"
   Tutor.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password)
-end
-
-(41..80).each do |n|
-  name  = Faker::Name.name + " " + n.to_s
-  email = "example-#{n+41}@gmail.org"
-  password = "password"
-  Student.create!(name:  name,
                 email: email,
                 password:              password,
                 password_confirmation: password)
 end
 
-tutors = Tutor.order(:created_at).take(6)
-50.times do
-  title = Faker::Music.instrument + " grade " + Faker::Number.between(1, 10).to_s
-  content = Faker::Lorem.sentence(5)
-  tutors.each { |tutor|
+# Students
+(41..80).each do |n|
+  name  = Faker::Name.name + " " + n.to_s
+  email = "example-#{n+41}@gmail.org"
+  password = "password"
+  Student.create!(name:  name,
+                  email: email,
+                  password:              password,
+                  password_confirmation: password)
+end
+
+# Courses
+Tutor.all.each do |tutor|
+  (rand(1..50)).times do
+    title = Faker::Music.instrument + ": Grade " + rand(1..10).to_s
+    content = Faker::Lorem.sentence(rand(3..8))
     tutor.courses.create!(title: title, content: content)
-  }
+  end
 end
 
 students = Student.all

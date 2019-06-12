@@ -29,11 +29,12 @@ class TutorsController < ApplicationController
   end
 
   def students
-    @title = "Students under me"
+    @title = "My Students"
     @courses = Tutor.find_by(params[:id]).courses
     @students = Array.new
     @courses.each do |course|
-      course.students.uniq { |p| p.id}.each {|i| @students << i }
+      # course.students.uniq { |p| p.id}.each {|i| @students << i }
+      course.students.each { |student| @students << student }
     end
     @students = @students.uniq { |p| p.id}
     render 'tutors/show_students'
@@ -41,7 +42,7 @@ class TutorsController < ApplicationController
 
   def courses
     @tutor = Tutor.find_by(params[:id])
-    @courses = @tutor.courses
+    @courses = @tutor.courses.paginate(page: params[:page])
     render 'tutors/show_courses'
   end
 

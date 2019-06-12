@@ -1,22 +1,25 @@
 <% provide(:title, "Courses") %>
+<h1>All Courses</h1>
+
 <table class="table table-dark">
   <thead>
-  <tr>
-    <th scope="col">Title</th>
-    <th scope="col">Tutor</th>
-  </tr>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Tutor</th>
+    </tr>
   </thead>
   <tbody>
-  <% @courses.each do |course| %>
-    <tr>
-      <td><%= link_to "#{course.title}", course_path(course) %></td>
-      <td><%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %></td>
-      <% if course.image %>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= link_to "#{course.title}", course_path(course) %></td>
+        <td><%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %></td>
+        <% if course.image %>
 
-      <% else %>
+        <% else %>
 
-      <% end %>
-    </tr>
-  <% end %>
+        <% end %>
+      </tr>
+    <% end %>
   </tbody>
- </table>
+</table>
+<%= will_paginate @courses, class: "pagination" %>
