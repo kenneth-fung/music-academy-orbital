@@ -1,5 +1,21 @@
-<%= @student.name %>
-<h1> I am a student </h1>
-<section class="stats">
-  <%= render 'shared/stats' %>
-</section>
+<% provide(:title, @student.name) %>
+<div class="student_profile">
+  <section class="stats">
+
+    <h1><%= @student.name %></h1>
+    <h2><%= @student.email %></h2>
+
+    <% if current_user?(@student) %>
+      You are
+    <% else %>
+      <%= @student.name %> is
+    <% end %>
+    taking
+    <a href="<%= courses_student_path(@student) %>">
+      <strong>
+        <%= @student.courses.count %>
+      </strong>
+      courses</a>.
+
+  </section>
+</div>

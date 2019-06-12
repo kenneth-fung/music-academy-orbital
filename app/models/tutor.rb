@@ -17,4 +17,13 @@ class Tutor < ApplicationRecord
                BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
+
+  # Gets an Array of all unique students across all courses
+  def students_unique
+    students = Array.new
+    self.courses.each do |course|
+      course.students.each { |student| students << student }
+    end
+    students.uniq { |p| p.id }
+  end
 end

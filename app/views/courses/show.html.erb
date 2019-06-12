@@ -1,11 +1,15 @@
+<% provide(:title, @course.title) %>
+
 <h1><%= @course.title %></h1>
 <h1><%= @course.content %></h1>
+
 <% if @course.image.attached? %>
   <%= image_tag (@course.image) %>
-<% else %>
 <% end %>
 <h2>
   <%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %>
 </h2>
 
-<%= render 'subscribe_form' %>
+<% unless current_user.class == Tutor.first.class %>
+  <%= render 'subscribe_form' %>
+<% end %>
