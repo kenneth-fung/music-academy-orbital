@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :is_logged_out?, only: [:new_student, :new_tutor, :create_student, :create_tutor]
+  before_action :is_logged_in?, only: [:destroy]
+
   def new_student
   end
 
@@ -32,5 +35,25 @@ class SessionsController < ApplicationController
   def destroy
     log_out if logged_in?
     redirect_to root_url
+  end
+
+  private 
+
+  # Before filters
+
+  # Confirms that the user is logged in
+  def is_logged_in?
+    if logged_out?
+      flash[:danger] = "You are not logged in."
+      redirect_to root_path
+    end
+  end
+
+  # Confirms that the user is logged out
+  def is_logged_out?
+    if logged_in?
+      flash[:danger] = "You have already logged in."
+      redirect_to root_path
+    end
   end
 end

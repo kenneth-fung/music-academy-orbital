@@ -1,4 +1,7 @@
 class TutorsController < ApplicationController
+  before_action :is_logged_in?, only: [:edit, :update]
+  before_action :is_logged_out?, only: [:new, :create]
+
   def new
     @tutor = Tutor.new
   end
@@ -45,4 +48,21 @@ class TutorsController < ApplicationController
   def tutor_params
     params.require(:tutor).permit(:name, :email, :password, :password_confirmation)
   end
+
+  # Confirms that the user is logged in
+  def is_logged_in?
+    if logged_out?
+      flash[:danger] = "Please log in."
+      redirect_to tutor_login_path
+    end
+  end
+
+  # Confirms that the user is logged out
+  def is_logged_out?
+    if logged_in?
+      flash[:danger] = "Please log out first."
+      redirect_to root_path
+    end
+  end
+
 end
