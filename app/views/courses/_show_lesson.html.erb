@@ -16,4 +16,17 @@
       %>
   <% end %>
 
+<% elsif !@course.lessons.any? %>
+
+  <section class="center">
+  <h3><b>This course currently has no lessons.</b></h3>
+  <% if tutor_and_course_is_mine %>
+    <%= 
+      link_to "Begin by Adding a Lesson", 
+        new_lesson_path(course_id: @course.id), 
+        class: 'btn btn-primary btn-lesson-add' 
+      %>
+  <% end %>
+  </section>
+
 <% end %>
