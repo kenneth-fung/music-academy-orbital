@@ -1,0 +1,19 @@
+<% student_and_subscribed = student? && current_user.subscribing?(@course) %>
+<% tutor_and_course_is_mine = tutor? && current_user?(@course.tutor) %>
+
+<% if @course.lessons.any? && (student_and_subscribed || tutor_and_course_is_mine) %>
+
+  <ol class="lessons">
+    <%= render @lessons %>
+  </ol>
+  <%= will_paginate @lessons %>
+
+  <% if tutor_and_course_is_mine %>
+    <%= 
+      link_to "Add a Lesson to this Course", 
+        new_lesson_path(course_id: @course.id), 
+        class: 'btn btn-primary btn-lesson-add pull-right' 
+      %>
+  <% end %>
+
+<% end %>

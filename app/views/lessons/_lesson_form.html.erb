@@ -1,0 +1,13 @@
+<%= form_for(@lesson, url: yield(:url_path)) do |f| %>
+  <%= render 'shared/error_messages', object: @lesson %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, class: 'form-control' %>
+
+  <%= hidden_field_tag :course_id, @course.id %>
+
+  <%= f.submit yield(:submit_text), class: 'btn btn-primary' %>
+<% end %>

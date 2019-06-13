@@ -34,10 +34,10 @@ module SessionsHelper
   end
 
   def student?
-    return current_user.class == Student.first.class
+    return !current_user.nil? && (current_user.class == Student)
   end
 
   def tutor?
-    return current_user.class == Tutor.first.class
+    return !current_user.nil? && (current_user.class == Tutor)
   end
 end

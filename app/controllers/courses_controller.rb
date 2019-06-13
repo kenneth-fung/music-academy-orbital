@@ -39,14 +39,13 @@ class CoursesController < ApplicationController
   private
 
   def is_tutor?
-    if !current_user.nil?
-      if current_user.class == Student.first.class
-        flash[:danger] = "You are not authorized"
-        redirect_to root_url
+    unless tutor?
+      if student?
+        flash[:danger] = "You are not authorized to access this page."
+      elsif logged_out?
+        flash[:danger] = "Please log in."
       end
-    else
-      flash[:danger] = "Please log in"
-      redirect_to root_url
+      redirect_to root_path
     end
   end
 

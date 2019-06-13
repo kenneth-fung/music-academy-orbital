@@ -3,29 +3,11 @@
 <div class="col">
 
   <div class="row lesson_info">
-    <% if @course.lessons.any? && 
-         ((student? && current_user.subscribing?(@course)) || 
-          (tutor? && (current_user.name == @course.tutor.name))) %>
-        <ol class="lessons">
-          <%= render @lessons %>
-        </ol>
-        <%= will_paginate @lessons %>
-      <% end %>
+    <%= render 'show_lesson' %>
   </div>
 
   <div class="row course_info">
-    <div class="container">
-
-      <h1 class="title"><%= @course.title %></h1>
-      <h2 class="content"><%= @course.content %></h2>
-
-      <h2 class="course_tutor"><%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %></h2>
-
-      <% unless current_user.class == Tutor %>
-        <%= render 'subscribe_form' %>
-      <% end %>
-
-    </div>
+    <%= render 'show_course' %>
   </div>
 
 </div>

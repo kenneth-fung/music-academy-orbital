@@ -1,3 +1,5 @@
+<% provide(:title, "Unsubscribe") %>
+
 <h1 class="center">Are you sure you want to unsubscribe from this course?</h2>
 <h2>You will not be refunded, and will have to re-purchase this course in the future!</h3>
 
@@ -6,11 +8,11 @@
     link_to "Yes, I want to unsubscribe.",
       unsubscribe_path(course_id: @course.id),
       method: :delete,
-      class: "btn btn-primary btn-lg btn-subscribe"
+      class: "btn btn-primary btn-lg btn-agree"
     %>
   <%=
     link_to "No, I've changed my mind.",
       @course,
-      class: "btn btn-primary btn-lg btn-unsubscribe"
+      class: "btn btn-primary btn-lg btn-disagree"
     %>
 </section>

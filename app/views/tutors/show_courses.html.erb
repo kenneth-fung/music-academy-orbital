@@ -1,4 +1,12 @@
-<% provide(:title, "Courses") %>
+<% if tutor? && current_user?(@tutor) %>
+  <% title_header = "My Courses" %>
+<% else %>
+  <% title_header = "#{@tutor.name}'s Courses" %>
+<% end %>
+
+<% provide(:title, "#{title_header}") %>
+<h1><%= title_header %></h1>
+
 <table class="table table-dark">
   <thead>
   <tr>

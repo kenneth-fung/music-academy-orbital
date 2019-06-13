@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # Sessions
   get    '/student_login', to: 'sessions#new_student'
   post   '/student_login', to: 'sessions#create_student'
@@ -32,6 +31,14 @@ Rails.application.routes.draw do
 
   # Courses
   resources :courses
+
+  # Lessons
+  get 'lessons/new'
+  get 'lessons/create'
+  get 'lessons/edit'
+  get 'lessons/update'
+  get 'lessons/delete', to: 'lessons#destroy'
+  resources :lessons, only: [:new, :create, :edit, :update, :destroy]
 
   # Subscriptions
   get    '/subscribe',   to: 'subscriptions#new'

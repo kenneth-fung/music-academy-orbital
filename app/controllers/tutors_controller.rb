@@ -29,9 +29,8 @@ class TutorsController < ApplicationController
   end
 
   def students
-    @title = "My Students"
-    # @courses = Tutor.find(params[:id]).courses
-    @students = Tutor.find(params[:id]).students_unique
+    @tutor = Tutor.find(params[:id])
+    @students = @tutor.students_unique
     render 'tutors/show_students'
   end
 
