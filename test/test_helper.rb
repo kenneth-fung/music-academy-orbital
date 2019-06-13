@@ -11,4 +11,12 @@ class ActiveSupport::TestCase
   def is_logged_in?
     !session[:student_id].nil? || !session[:tutor_id].nil?
   end
+
+  def log_in_as(user)
+    if user.class.name == Tutor.name
+      session[tutor_id] = user.id
+    elsif
+      session[student_id] = user.id
+    end
+  end
 end
