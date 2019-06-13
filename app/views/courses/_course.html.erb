@@ -1,0 +1,12 @@
+<tr>
+  <td><%= link_to "#{course.title}", course_path(course) %></td>
+  <td><%= link_to pluralize(course.lessons.count, "lesson"), course_path(course) %></td>
+  <td><%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %></td>
+
+  <% if course.image.attached? %>
+    <td><%= image_tag course.image.variant(resize: "100x100") %></td>
+  <% else %>
+    <td></td>
+  <% end %>
+
+</tr>

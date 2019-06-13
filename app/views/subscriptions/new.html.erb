@@ -1,0 +1,15 @@
+<h2 class="center">Are you sure you want to subscribe to this course?</h2>
+
+<section class="center">
+  <%=
+    link_to "Yes, I want to subscribe.",
+      subscribe_path(course_id: @course.id),
+      method: :post,
+      class: "btn btn-primary btn-lg btn-agree"
+    %>
+  <%=
+    link_to "No, I've changed my mind.",
+      @course,
+      class: "btn btn-primary btn-lg btn-disagree"
+    %>
+</section>

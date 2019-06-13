@@ -1,4 +1,12 @@
-<% provide(:title, "Courses") %>
+<% if tutor? && current_user?(@tutor) %>
+  <% title_header = "My Courses" %>
+<% else %>
+  <% title_header = "#{@tutor.name}'s Courses" %>
+<% end %>
+
+<% provide(:title, "#{title_header}") %>
+<h1><%= title_header %></h1>
+
 <table class="table table-dark">
   <thead>
   <tr>
@@ -6,15 +14,8 @@
   </tr>
   </thead>
   <tbody>
-  <% @courses.each do |course| %>
-    <tr>
-      <td><%= link_to "#{course.title}", course_path(course) %></td>
-      <% if course.image.attached? %>
-          <td><%= image_tag course.image.variant(resize: "100x100") %></td>
-      <% else %>
-          <td></td>
-      <% end %>
-    </tr>
-  <% end %>
+    <%= render @courses %>
   </tbody>
 </table>
+
+<%= will_paginate @courses, class: 'pagination' %>

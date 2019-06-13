@@ -1,0 +1,29 @@
+<% provide(:title, "Delete Lesson") %>
+
+<div class="container">
+  <div class="row center">
+
+      <h1><b>Are you sure you want to delete this lesson?</b></h1>
+      <h3><b>This action is irreversible.</b></h3>
+
+    <section>
+      <strong>Lesson: <%= @lesson.name %></strong>
+      <p><%= @lesson.description %></p>
+    </section>
+
+    <section class="center">
+      <%= 
+        link_to "Yes, delete this lesson.", 
+          lessons_delete_path(course_id: @course.id, lesson_id: @lesson.id), 
+          method: :delete, 
+          class: 'btn btn-primary btn-agree' 
+        %>
+      <%= 
+        link_to "No, I've changed my mind.", 
+          @course, 
+          class: 'btn btn-primary btn-disagree' 
+        %>
+  </section>
+
+  </div>
+</div>

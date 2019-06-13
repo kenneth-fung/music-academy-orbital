@@ -1,0 +1,19 @@
+<div class="container">
+
+  <section class="center">
+    <h1 class="title"><%= @course.title %></h1>
+    <h2 class="content"><%= @course.content %></h2>
+
+    <h2 class="course_tutor"><%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %></h2>
+
+    <% unless current_user.class == Tutor %>
+      <%= render 'subscribe_form' %>
+    <% end %>
+
+    <% if @course.image.attached? %>
+      <%= image_tag @course.image.variant(resize: "300x300") %>
+    <% end %>
+  </section>
+
+</div>
+

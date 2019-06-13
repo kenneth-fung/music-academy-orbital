@@ -4,3 +4,10 @@ piano:
   content: "Scale and advanced chords"
   created_at: <%= 10.minutes.ago %>
   tutor: runding
+
+<% 50.times do |n| %>
+example-<%= n + 2 %>:
+  title: <%= "Example Course #{n + 2}" %>
+  content: <%= "This is another example of a course. In fact, this is example number #{n + 2}." %>
+  tutor: runding
+<% end %>

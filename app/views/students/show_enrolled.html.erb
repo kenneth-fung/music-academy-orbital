@@ -7,11 +7,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @courses.each do |course| %>
-    <tr>
-      <td><%= link_to "#{course.title}", course_path(course) %></td>
-      <td><%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %></td>
-    </tr>
-  <% end %>
+    <%= render @courses %>
   </tbody>
 </table>
+<%= will_paginate @courses, class: "pagination" %>

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class StudentsLoginTest < ActionDispatch::IntegrationTest
+=begin
   def setup
     @user = students(:michael)
   end
@@ -24,4 +25,5 @@ class StudentsLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path,      count: 0
     assert_select "a[href=?]", student_path(@user), count: 0
   end
+=end
 end
