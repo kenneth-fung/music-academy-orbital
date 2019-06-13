@@ -30,7 +30,7 @@ class TutorsController < ApplicationController
 
   def students
     @tutor = Tutor.find(params[:id])
-    @students = @tutor.students_unique
+    @students = @tutor.students_unique.paginate(page: params[:page])
     render 'tutors/show_students'
   end
 

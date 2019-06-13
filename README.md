@@ -4,8 +4,8 @@
 
 - Methods added:
   - **sessions_helper**: current_user?, logged_out?
-  - **models/tutor.rb**: students_unique (returns Array of Tutor's unique
-    Students)
+  - **models/tutor.rb**: students (returns Tutor's NON-UNIQUE Students), students_unique
+    (returns Tutor's UNIQUE Students)
   - **application_controller.rb**: logged_in_user (for before_action filter in
     Subscriptions controller)
 

@@ -28,12 +28,18 @@ class Tutor < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-  # Gets an Array of all unique students across all courses
+  # Gets all students across all courses (NOT UNIQUE)
+  def students
+    Student
+    .joins(subscriptions: :course)
+    .where(courses: { tutor_id: self.id })
+  end
+
+  # Gets all unique students across all courses
   def students_unique
-    students = Array.new
-    self.courses.each do |course|
-      course.students.each { |student| students << student }
-    end
-    students.uniq { |p| p.id }
+    Student
+    .joins(subscriptions: :course)
+    .where(courses: { tutor_id: self.id })
+    .distinct
   end
 end
