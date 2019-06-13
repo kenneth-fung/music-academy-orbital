@@ -6,51 +6,58 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Student.create!(name:  "Runding",
-             email: "wangrunding@gmail.com",
-             password:              "wangrun123ding",
-             password_confirmation: "wangrun123ding")
-
-Tutor.create!(name:  "Runding",
                 email: "wangrunding@gmail.com",
                 password:              "wangrun123ding",
                 password_confirmation: "wangrun123ding")
 
+Tutor.create!(name:  "Runding",
+              email: "wangrunding@gmail.com",
+              password:              "wangrun123ding",
+              password_confirmation: "wangrun123ding")
 
+# Tutors
 (1..40).each do |n|
-  name  = Faker::Name.name + " " + n.to_s
-  email = "example-#{n}@gmail.org"
+  name = Faker::Name.name + ' ' + n.to_s
+  email = "#{name.gsub(/[^a-z0-9]/i, '')}@gmail.org"
   password = "password"
   Tutor.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password)
-end
-
-(41..80).each do |n|
-  name  = Faker::Name.name + " " + n.to_s
-  email = "example-#{n+41}@gmail.org"
-  password = "password"
-  Student.create!(name:  name,
                 email: email,
                 password:              password,
                 password_confirmation: password)
 end
 
-tutors = Tutor.order(:created_at).take(6)
-50.times do
-  title = Faker::Music.instrument + " grade " + Faker::Number.between(1, 10).to_s
-  content = Faker::Lorem.sentence(5)
-  tutors.each { |tutor|
-    tutor.courses.create!(title: title, content: content)
-  }
+# Students
+(41..80).each do |n|
+  name = Faker::Name.name + ' ' + n.to_s
+  email = "#{name.gsub(/[^a-z0-9]/i, '')}@gmail.org"
+  password = "password"
+  Student.create!(name:  name,
+                  email: email,
+                  password:              password,
+                  password_confirmation: password)
 end
 
-students = Student.all
-courses = Course.all
-student_ids = students[0..25]
-course_ids = courses[0..40]
-student_ids.each do |student|
-  course_ids.each do |course|
+# Courses
+rand(300..400).times do
+  title = Faker::Music.instrument + ": Grade " + rand(1..10).to_s
+  content = Faker::Lorem.paragraph(rand(1..5))
+  tutor = Tutor.find(Tutor.pluck(:id).sample)
+  course = tutor.courses.create!(title: title, content: content)
+
+  # Lessons
+  rand(1..12).times do
+    name = Faker::Food.dish
+    description = Faker::Food.description
+    course.lessons.create!(name: name, description: description)
+  end
+end
+
+# Subscriptions
+students = Student.order('RANDOM()')
+students.each do |student|
+  number_of_subscriptions = rand(15..30)
+  courses = Course.order('RANDOM()').limit(number_of_subscriptions)
+  courses.each do |course|
     student.subscribe(course)
   end
 end

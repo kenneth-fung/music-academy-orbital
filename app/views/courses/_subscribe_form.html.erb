@@ -1,9 +1,21 @@
-<% unless current_user.class == Tutor.first.class %>
-  <div id="follow_form">
-    <% if current_user.subscribing?(@course) %>
-      <%= render 'unsubscribe' %>
-    <% else %>
-      <%= render 'subscribe' %>
-    <% end %>
-  </div>
-<% end %>
+<div id="follow_form">
+  <% if logged_in? && current_user.subscribing?(@course) %>
+
+    <!-- Unsubscribe Button -->
+    <%= 
+      link_to "Quit", 
+        unsubscribe_path(course_id: @course.id), 
+        class: "btn btn-primary btn-disagree" 
+      %>
+
+  <% else %>
+
+    <!-- Subscribe Button -->
+    <%= 
+      link_to "Enroll", 
+        subscribe_path(course_id: @course.id), 
+        class: "btn btn-primary btn-lg btn-agree" 
+      %>
+
+  <% end %>
+</div>

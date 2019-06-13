@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_152038) do
+ActiveRecord::Schema.define(version: 2019_06_13_021810) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -35,13 +35,22 @@ ActiveRecord::Schema.define(version: 2019_06_11_152038) do
 
   create_table "courses", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.text "content"
     t.integer "tutor_id"
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tutor_id", "created_at"], name: "index_courses_on_tutor_id_and_created_at"
     t.index ["tutor_id"], name: "index_courses_on_tutor_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
   create_table "students", force: :cascade do |t|

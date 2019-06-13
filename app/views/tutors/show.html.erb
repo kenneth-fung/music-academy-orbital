@@ -1,5 +1,24 @@
-<%= @tutor.name %>
-<h1> I am a tutor</h1>
-<section class="stats">
-  <%= render 'shared/stats' %>
-</section>
+<% provide(:title, @tutor.name) %>
+<div class="tutor_profile">
+  <section class="stats">
+
+    <h1><%= @tutor.name %></h1>
+    <h2><%= @tutor.email %></h2>
+
+    <% if current_user?(@tutor) %>
+      You have
+    <% else %>
+      <%= @tutor.name %> has
+    <% end %>
+    published
+    <a href="<%= courses_tutor_path(@tutor) %>">
+      <strong>
+        <%= @tutor.courses.count %>
+      </strong>
+      courses</a>,
+    with a total of
+    <a href="<%= students_tutor_path(@tutor) %>">
+      <%= pluralize(@tutor.students_unique.count, "(unique) student") %></a>.
+
+  </section>
+</div>

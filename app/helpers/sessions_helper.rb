@@ -47,6 +47,10 @@ module SessionsHelper
     end
   end
 
+  def current_user?(user)
+    user == current_user
+  end
+
   def logged_in?
     !current_user.nil?
   end
@@ -60,6 +64,10 @@ module SessionsHelper
   end
 
   # Logs out the current user.
+  def logged_out?
+    current_user.nil?
+  end
+
   def log_out
     forget(current_user)
     session.delete(:student_id)
@@ -67,15 +75,12 @@ module SessionsHelper
     @current_user = nil
   end
 
-  #Checks if the current user is a tutor, if not logged in return nil
+  def student?
+    return !current_user.nil? && (current_user.class == Student)
+  end
+
   def tutor?
-    if current_user
-      if current_user.class.name == Tutor.name
-        return true
-      else
-        return false
-      end
-    end
+    return !current_user.nil? && (current_user.class == Tutor)
   end
 
 end
