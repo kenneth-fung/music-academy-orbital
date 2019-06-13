@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% 50.times do |n| %>
+example-<%= n %>:
+  name: <%= "Example Lesson #{n}" %>
+  description: <%= "This is another example of a lesson. In fact, this is example number #{n}." %>
+<% end %>
+
+<% 10.times do |n| %>
+example-<%= n  + 1 %>:
+  name: <%= "Example Lesson #{n + 1}" %>
+  description: <%= "This is an example of a lesson. In fact, this is example number #{n + 1}." %>
+  course: runding
+<% end %>
+
+<% 100.times do |n| %>
+example-<%= n  + 1 %>:
+  name: <%= "Example Lesson #{n + 1}" %>
+  description: <%= "This is an example of a lesson. In fact, this is example number #{n + 1}." %>
+  course: example-<%= rand(50) + 1 %>
+<% end %>

@@ -29,6 +29,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @lessons = @course.lessons.paginate(page: params[:page], per_page: 1)
   end
 
   def destroy

@@ -9,17 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @courses.each do |course| %>
-      <tr>
-        <td><%= link_to "#{course.title}", course_path(course) %></td>
-        <td><%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %></td>
-        <% if course.image %>
-
-        <% else %>
-
-        <% end %>
-      </tr>
-    <% end %>
+    <%= render @courses %>
   </tbody>
 </table>
 <%= will_paginate @courses, class: "pagination" %>

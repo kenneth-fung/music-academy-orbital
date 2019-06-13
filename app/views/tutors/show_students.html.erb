@@ -6,10 +6,6 @@
   </tr>
   </thead>
   <tbody>
-  <% @students.each do |student| %>
-    <tr>
-      <td><%= link_to "#{student.name}", student_path(student) %></td>
-    </tr>
-  <% end %>
+    <%= render @students %>
   </tbody>
 </table>
