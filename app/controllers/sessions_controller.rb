@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     @student = Student.find_by(email: params[:session][:email].downcase)
     if @student && @student.authenticate(params[:session][:password])
       log_in_student @student
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      params[:session][:remember_me] == '1' ? remember(@student) : forget(@student)
       redirect_to @student
     else
       flash.now[:danger] = 'Invalid email/password combination.'
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
     @tutor = Tutor.find_by(email: params[:session][:email].downcase)
     if @tutor && @tutor.authenticate(params[:session][:password])
       log_in_tutor @tutor
-      remember @tutor
+      params[:session][:remember_me] == '1' ? remember(@tutor) : forget(@tutor)
       redirect_to @tutor
     else
       flash.now[:danger] = 'Invalid email/password combination.'

@@ -14,8 +14,8 @@ module SessionsHelper
       cookies.permanent.signed[:student_id] = user.id
       cookies.permanent[:remember_token] = user.remember_token
     else
-      user.remember_token = Student.new_token
-      user.update_attribute(:remember_digest, Student.digest(user.remember_token))
+      user.remember_token = Tutor.new_token
+      user.update_attribute(:remember_digest, Tutor.digest(user.remember_token))
       cookies.permanent.signed[:tutor_id] = user.id
       cookies.permanent[:remember_token] = user.remember_token
     end
