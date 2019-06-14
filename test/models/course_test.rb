@@ -5,6 +5,7 @@ class CourseTest < ActiveSupport::TestCase
     @tutor = tutors(:michael)
     @course = Course.new(title: 'Example Course',
                          content: 'This is an example of a course.',
+                         price: 9.99,
                          tutor: @tutor)
   end
 
@@ -24,6 +25,26 @@ class CourseTest < ActiveSupport::TestCase
 
   test "content should be present" do
     @course.content = "    "
+    assert_not @course.valid?
+  end
+
+  test "price should be present" do
+    @course.price = "    "
+    assert_not @course.valid?
+  end
+
+  test "price should be a number" do
+    @course.price = "foobar"
+    assert_not @course.valid?
+  end
+
+  test "price should be at least 0.00" do
+    @course.price = -1
+    assert_not @course.valid?
+  end
+
+  test "tutor should be present" do
+    @course.tutor = nil
     assert_not @course.valid?
   end
 

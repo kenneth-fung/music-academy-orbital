@@ -17,8 +17,8 @@ Tutor.create!(name:  "Runding",
 
 # Tutors
 (1..40).each do |n|
-  name = Faker::Name.name + ' ' + n.to_s
-  email = "#{name.gsub(/[^a-z0-9]/i, '')}@gmail.org"
+  name = Faker::Name.name
+  email = "#{name.gsub(/[^a-z0-9]/i, '')}#{n}@gmail.org"
   password = "password"
   Tutor.create!(name:  name,
                 email: email,
@@ -28,8 +28,8 @@ end
 
 # Students
 (41..80).each do |n|
-  name = Faker::Name.name + ' ' + n.to_s
-  email = "#{name.gsub(/[^a-z0-9]/i, '')}@gmail.org"
+  name = Faker::Name.name
+  email = "#{name.gsub(/[^a-z0-9]/i, '')}#{n}@gmail.org"
   password = "password"
   Student.create!(name:  name,
                   email: email,
@@ -41,8 +41,11 @@ end
 rand(300..400).times do
   title = Faker::Music.instrument + ": Grade " + rand(1..10).to_s
   content = Faker::Lorem.paragraph(rand(1..5))
+  price = rand * 10
   tutor = Tutor.find(Tutor.pluck(:id).sample)
-  course = tutor.courses.create!(title: title, content: content)
+  course = tutor.courses.create!(title: title, 
+                                 content: content, 
+                                 price: price)
 
   # Lessons
   rand(1..12).times do

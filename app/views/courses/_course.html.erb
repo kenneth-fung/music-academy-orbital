@@ -1,12 +1,23 @@
 <tr>
-  <td><%= link_to "#{course.title}", course_path(course) %></td>
-  <td><%= link_to pluralize(course.lessons.count, "lesson"), course_path(course) %></td>
-  <td><%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %></td>
 
-  <% if course.image.attached? %>
-    <td><%= image_tag course.image.variant(resize: "100x100") %></td>
-  <% else %>
-    <td></td>
-  <% end %>
+  <td>
+    <!--Image-->
+    <% if course.image.attached? %>
+      <%= image_tag course.image.variant(resize: "100x100") %>
+    <% end %>
+    <!--Title-->
+    <%= link_to "#{course.title}", course_path(course) %>
+  </td>
+
+  <!--Lessons-->
+  <td><%= link_to pluralize(course.lessons.count, "lesson"), course_path(course) %></td>
+
+  <!--Tutor-->
+  <td>
+    <%= gravatar_for course.tutor, size: 40 %>
+    <%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %>
+  </td>
+
+  <td><%= render 'courses/subscribe_form', course: course %></td>
 
 </tr>
