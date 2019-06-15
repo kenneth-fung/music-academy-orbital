@@ -8,7 +8,7 @@ class StudentsLoginTest < ActionDispatch::IntegrationTest
   test "login with valid information" do
     get student_login_path
     post student_login_path, params: { session: { email:    @user.email,
-                                          password: 'password' } }
+                                                  password: 'password' } }
     assert is_logged_in?
     assert_redirected_to @user
     follow_redirect!

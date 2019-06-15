@@ -14,10 +14,26 @@ class ActiveSupport::TestCase
   end
 
   def log_in_as(user)
-    if user.class.name == Tutor.name
+    if user.class == Tutor
       session[tutor_id] = user.id
-    elsif
+    elsif user.class == Student
       session[student_id] = user.id
+    end
+  end
+
+  class ActionDispatch::IntegrationTest
+
+    # Log in as a particular user
+    def log_in_as(user, password: 'password', remember_me: '1')
+      if user.class == Student
+        post student_login_path, params: { session: { email: user.email,
+                                                      password: password,
+                                                      remember_me: remember_me } }
+      elsif user.class == Tutor
+        post tutor_login_path, params: { session: { email: user.email,
+                                                    password: password,
+                                                    remember_me: remember_me } }
+      end
     end
   end
 end

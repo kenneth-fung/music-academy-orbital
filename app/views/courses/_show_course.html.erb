@@ -6,7 +6,7 @@
 
     <h2 class="course_tutor"><%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %></h2>
 
-    <% unless current_user.class == Tutor %>
+    <% unless tutor? %>
       <%= render 'courses/subscribe_form', course: @course %>
     <% end %>
 

@@ -22,10 +22,17 @@ class TutorsController < ApplicationController
   end
 
   def edit
+    @tutor = Tutor.find(params[:id])
   end
 
   def update
-
+    @tutor = Tutor.find(params[:id])
+    if @tutor.update_attributes(tutor_params)
+      flash[:success] = "Changes saved."
+      redirect_to @tutor
+    else
+      render 'edit'
+    end
   end
 
   def destroy
