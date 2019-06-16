@@ -6,26 +6,30 @@ class SessionsController < ApplicationController
   end
 
   def create_student
-    @student = Student.find_by(email: params[:session][:email].downcase)
-    if @student && @student.authenticate(params[:session][:password])
-      log_in_student @student
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to @student
+    @user = Student.find_by(email: params[:session][:email].downcase)
+    if @user.activated?
+      log_in @user
+      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+      redirect_back_or @user
     else
-      flash.now[:danger] = 'Invalid email/password combination.'
-      render 'new_student'
+      message  = "Account not activated. "
+      message += "Check your email for the activation link."
+      flash[:warning] = message
+      redirect_to root_url
     end
   end
 
   def create_tutor
-    @tutor = Tutor.find_by(email: params[:session][:email].downcase)
-    if @tutor && @tutor.authenticate(params[:session][:password])
-      log_in_tutor @tutor
-      remember @tutor
-      redirect_to @tutor
+    @user = Tutor.find_by(email: params[:session][:email].downcase)
+    if @user.activated?
+      log_in @user
+      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+      redirect_back_or @user
     else
-      flash.now[:danger] = 'Invalid email/password combination.'
-      render 'new_tutor'
+      message  = "Account not activated. "
+      message += "Check your email for the activation link."
+      flash[:warning] = message
+      redirect_to root_url
     end
   end
 

@@ -8,12 +8,17 @@
 Student.create!(name:  "Runding",
                 email: "wangrunding@gmail.com",
                 password:              "wangrun123ding",
-                password_confirmation: "wangrun123ding")
+                password_confirmation: "wangrun123ding",
+                activated: true,
+                activated_at: Time.now)
 
 Tutor.create!(name:  "Runding",
               email: "wangrunding@gmail.com",
               password:              "wangrun123ding",
-              password_confirmation: "wangrun123ding")
+              password_confirmation: "wangrun123ding",
+              admin: true,
+              activated: true,
+              activated_at: Time.now)
 
 # Tutors
 (1..40).each do |n|
@@ -23,7 +28,9 @@ Tutor.create!(name:  "Runding",
   Tutor.create!(name:  name,
                 email: email,
                 password:              password,
-                password_confirmation: password)
+                password_confirmation: password,
+                activated: true,
+                activated_at: Time.now)
 end
 
 # Students
@@ -34,7 +41,9 @@ end
   Student.create!(name:  name,
                   email: email,
                   password:              password,
-                  password_confirmation: password)
+                  password_confirmation: password,
+                  activated: true,
+                  activated_at: Time.now)
 end
 
 # Courses

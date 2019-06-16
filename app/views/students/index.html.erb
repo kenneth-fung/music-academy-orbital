@@ -1,0 +1,14 @@
+<% provide(:title, 'All students') %>
+<h1>All students</h1>
+
+<ul class="users">
+  <% @students.each do |student| %>
+    <li>
+      <%= link_to student.name, student %>
+      <% if current_user.admin? && !current_user?(student) %>
+        | <%= link_to "delete", student, method: :delete,
+                      data: { confirm: "You sure?" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

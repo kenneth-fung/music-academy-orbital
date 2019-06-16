@@ -1,7 +1,8 @@
 class Tutor < ApplicationRecord
   has_many :courses, dependent: :destroy
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   before_save { email.downcase! }
+  before_create :create_activation_digest
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, 
     presence: true, 
@@ -44,5 +45,22 @@ class Tutor < ApplicationRecord
     .joins(subscriptions: :course)
     .where(courses: { tutor_id: self.id })
     .distinct
+  end
+
+  # Activates an account.
+  def activate
+    update_columns(activated: true, activated_at: Time.now)
+  end
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  private
+
+  def create_activation_digest
+    self.activation_token = Tutor.new_token
+    self.activation_digest = Tutor.digest(activation_token)
   end
 end
