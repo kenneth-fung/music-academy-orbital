@@ -22,12 +22,18 @@ class TutorsEditTest < ActionDispatch::IntegrationTest
     get edit_tutor_path(@tutor)
     log_in_as(@tutor)
     assert_redirected_to edit_tutor_url(@tutor)
+  end
+
+  test "successful edit" do
+    log_in_as @tutor
+    get edit_tutor_path(@tutor)
+    assert_template 'tutors/edit'
     name  = "Foo Bar"
     email = "foo@bar.com"
     patch tutor_path(@tutor), params: { tutor: { name:  name,
                                               email: email,
-                                              password:              "password",
-                                              password_confirmation: "password" } }
+                                              password:              "",
+                                              password_confirmation: "" } }
     assert_not flash.empty?
     assert_redirected_to @tutor
     @tutor.reload

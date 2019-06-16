@@ -43,5 +43,4 @@ class TutorsSignupTest < ActionDispatch::IntegrationTest
     assert_template 'tutors/show'
     assert is_logged_in?
   end
-
 end

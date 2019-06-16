@@ -2,6 +2,7 @@ class StudentsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user,     only: :destroy
+  before_action :is_logged_out?, only: [:new, :create]
 
   def index
     @students = Student.where(activated: true).paginate(page: params[:page])
@@ -48,8 +49,8 @@ class StudentsController < ApplicationController
   end
 
   def courses
-    @title = "Enrolled Courses"
-    @courses = Student.find(params[:id]).courses.paginate(page: params[:page])
+    @student = Student.find(params[:id])
+    @courses = @student.courses.paginate(page: params[:page])
     render 'students/show_enrolled'
   end
 
@@ -58,4 +59,21 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :email, :password, :password_confirmation)
   end
+
+  # Confirms that the user is logged in
+  def is_logged_in?
+    if logged_out?
+      flash[:danger] = "Please log in."
+      redirect_to student_login_path
+    end
+  end
+
+  # Confirms that the user is logged out
+  def is_logged_out?
+    if logged_in?
+      flash[:danger] = "Please log out first."
+      redirect_to root_path
+    end
+  end
+
 end

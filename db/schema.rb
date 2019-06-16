@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2019_06_16_141654) do
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "price"
     t.index ["tutor_id", "created_at"], name: "index_courses_on_tutor_id_and_created_at"
     t.index ["tutor_id"], name: "index_courses_on_tutor_id"
   end

@@ -28,6 +28,18 @@ class StudentsEditTest < ActionDispatch::IntegrationTest
                                               email: email,
                                               password:              "password",
                                               password_confirmation: "password" } }
+  end
+
+  test "successful edit" do
+    log_in_as @student
+    get edit_student_path(@student)
+    assert_template 'students/edit'
+    name  = "Foo Bar"
+    email = "foo@bar.com"
+    patch student_path(@student), params: { student: { name:  name,
+                                                       email: email,
+                                                       password:              "",
+                                                       password_confirmation: "" } }
     assert_not flash.empty?
     assert_redirected_to @student
     @student.reload

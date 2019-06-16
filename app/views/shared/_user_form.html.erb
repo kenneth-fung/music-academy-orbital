@@ -1,4 +1,4 @@
-<%= form_for(user, url: yield(:signup_path)) do |f| %>
+<%= form_for(user, url: yield(:url_path)) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :name %>
@@ -7,10 +7,10 @@
   <%= f.label :email %>
   <%= f.email_field :email, class: 'form-control' %>
 
-  <%= f.label :password %>
+  <%= f.label :password, yield(:label_prefix) + "Password" %>
   <%= f.password_field :password, class: 'form-control' %>
 
-  <%= f.label :password_confirmation, "Password Confirmation" %>
+  <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>

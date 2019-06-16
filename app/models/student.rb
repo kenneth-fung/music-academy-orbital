@@ -18,7 +18,8 @@ class Student < ApplicationRecord
   has_secure_password
   validates :password, 
     presence: true, 
-    length: { minimum: 6 }
+    length: { minimum: 6 },
+    allow_nil: true
 
   # Returns the hash digest of the given string.
   def Student.digest(string)

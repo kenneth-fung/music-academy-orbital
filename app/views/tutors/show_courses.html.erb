@@ -1,11 +1,11 @@
 <% if tutor? && current_user?(@tutor) %>
-  <% title_header = "My Courses" %>
+  <% header_prefix = "My" %>
 <% else %>
-  <% title_header = "#{@tutor.name}'s Courses" %>
+  <% header_prefix = "#{@tutor.name}'s" %>
 <% end %>
 
-<% provide(:title, "#{title_header}") %>
-<h1><%= title_header %></h1>
+<% provide(:title, "Courses") %>
+<h1><%= header_prefix %> Courses</h1>
 
 <table class="table table-dark">
   <thead>

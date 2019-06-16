@@ -1,8 +1,9 @@
 <% provide(:title, @tutor.name) %>
 <div class="tutor_profile">
-  <section class="stats">
+  <section class="stats center">
 
-    <h1><%= @tutor.name %></h1>
+    <span class="gravatar_profile"><%= gravatar_for @tutor %></span>
+    <h1> <%= @tutor.name %> </h1>
     <h2><%= @tutor.email %></h2>
 
     <% if current_user?(@tutor) %>

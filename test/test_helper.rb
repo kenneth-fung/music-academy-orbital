@@ -14,10 +14,10 @@ class ActiveSupport::TestCase
   end
 
   def log_in_as(user)
-    if user.class.name == Tutor.name
-      session[:tutor_id] = user.id
-    elsif
-      session[:student_id] = user.id
+    if user.class == Tutor
+      session[tutor_id] = user.id
+    elsif user.class == Student
+      session[student_id] = user.id
     end
   end
 end

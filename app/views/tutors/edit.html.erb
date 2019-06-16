@@ -1,9 +1,14 @@
-<% provide(:title, 'Edit user') %>
-<% provide(:button_text, 'Save changes') %>
-<% provide(:signup_path, tutor_path(@tutor)) %>
-<h1>Update your profile</h1>
+<% provide(:title, 'Settings') %>
+<% provide(:url_path, tutor_path(@tutor)) %>
+<% provide(:label_prefix, 'New ') %>
+<% provide(:button_text, 'Save Changes') %>
+<h1>Account Settings</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <div class="gravatar_edit">
+      <%= gravatar_for @tutor %>
+      <a href="http://gravatar.com/emails" target="_blank" rel="noopener">change</a>
+    </div>
     <%= render 'shared/user_form', user: @tutor %>
   </div>
 </div>
