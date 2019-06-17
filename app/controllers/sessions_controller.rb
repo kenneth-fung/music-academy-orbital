@@ -9,30 +9,40 @@ class SessionsController < ApplicationController
   end
 
   def create_student
-    @user = Student.find_by(email: params[:session][:email].downcase)
-    if @user.activated?
-      log_in @user
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_back_or @user
+    @student = Student.find_by(email: params[:session][:email].downcase)
+    if @student && @student.authenticate(params[:session][:password])
+      if @student.activated?
+        log_in @student
+        params[:session][:remember_me] == '1' ? remember(@student) : forget(@student)
+        redirect_back_or @student
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
-      message  = "Account not activated. "
-      message += "Check your email for the activation link."
-      flash[:warning] = message
-      redirect_to root_url
+      flash.now[:danger] = "Invalid email/password combination."
+      render 'new_student'
     end
   end
 
   def create_tutor
-    @user = Tutor.find_by(email: params[:session][:email].downcase)
-    if @user.activated?
-      log_in @user
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_back_or @user
+    @tutor = Tutor.find_by(email: params[:session][:email].downcase)
+    if @tutor && @tutor.authenticate(params[:session][:password])
+      if @tutor.activated?
+        log_in @tutor
+        params[:session][:remember_me] == '1' ? remember(@tutor) : forget(@tutor)
+        redirect_back_or @tutor
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
-      message  = "Account not activated. "
-      message += "Check your email for the activation link."
-      flash[:warning] = message
-      redirect_to root_url
+      flash.now[:danger] = "Invalid email/password combination."
+      render 'new_tutor'
     end
   end
 

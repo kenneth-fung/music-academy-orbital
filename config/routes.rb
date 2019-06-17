@@ -55,4 +55,7 @@ Rails.application.routes.draw do
 
   # Account-activation
   resources :account_activations, only: [:edit]
+
+  # Password-reset
+  resources :password_resets, only: [:new, :create, :edit, :update]
 end
