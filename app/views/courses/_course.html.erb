@@ -6,7 +6,11 @@
       <%= image_tag course.image.variant(resize: "100x100") %>
     <% end %>
     <!--Title-->
-    <%= link_to "#{course.title}", course_path(course) %>
+    <% if @student && left_off = find_left_off(@student, course).left_off %>
+      <%= link_to "#{course.title}", course_path(course, page: left_off, student_id: @student.id) %>
+    <% else %>
+      <%= link_to "#{course.title}", course_path(course) %>
+    <% end %>
   </td>
 
   <!--Lessons-->

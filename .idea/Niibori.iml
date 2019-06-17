@@ -41,8 +41,8 @@
     <orderEntry type="library" scope="PROVIDED" name="arel (v9.0.0, ruby-2.3.7-p456) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="autoprefixer-rails (v9.6.0, ruby-2.3.7-p456) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-eventstream (v1.0.3, ruby-2.3.7-p456) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-partitions (v1.174.0, ruby-2.3.7-p456) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-core (v3.54.2, ruby-2.3.7-p456) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-partitions (v1.175.0, ruby-2.3.7-p456) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-core (v3.55.0, ruby-2.3.7-p456) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-kms (v1.21.0, ruby-2.3.7-p456) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-s3 (v1.42.0, ruby-2.3.7-p456) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sigv4 (v1.1.0, ruby-2.3.7-p456) [gem]" level="application" />
