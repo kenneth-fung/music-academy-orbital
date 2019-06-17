@@ -2,5 +2,8 @@
   <td>
     <%= gravatar_for student, size: 40 %>
     <%= link_to "#{student.name}", student_path(student) %>
+    <% if logged_in? && current_user.admin? && !current_user?(student) %>
+      | <%= link_to "delete", student, method: :delete, data: { confirm: "Are you sure?" } %>
+  <% end %>
   </td>
 </tr>

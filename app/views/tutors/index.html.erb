@@ -1,12 +1,14 @@
-<% provide(:title, 'All tutors') %>
-<h1>All tutors</h1>
+<% provide(:title, 'Tutors') %>
 
-<%= will_paginate @tutors %>
-
-<ul class="users">
-  <%= render @tutors %>
-</ul>
-
-<div class="pagination">
-  <%= will_paginate @tutors %>
-</div>
+<h1><%= @title %></h1>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Tutor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @tutors %>
+  </tbody>
+</table>
+<%= will_paginate @tutors, class: "pagination" %>

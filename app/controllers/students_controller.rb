@@ -4,10 +4,6 @@ class StudentsController < ApplicationController
   before_action :admin_user,     only: :destroy
   before_action :is_logged_out?, only: [:new, :create]
 
-  def index
-    @students = Student.where(activated: true).paginate(page: params[:page])
-  end
-
   def new
     @student = Student.new
   end
@@ -26,6 +22,20 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     redirect_to root_url and return unless @student.activated?
+  end
+
+  def index
+    @students = Student.where(activated: true).paginate(page: params[:page])
+    @title = "All Students"
+  end
+
+  def courses
+    @student = Student.find(params[:id])
+    @courses = @student.courses.paginate(page: params[:page])
+    @title = (student? && current_user?(@student)) ?
+      "My Courses" :
+      "#{@student.name}'s Courses"
+    render 'courses/index'
   end
 
   def edit
@@ -48,24 +58,10 @@ class StudentsController < ApplicationController
     redirect_to students_url
   end
 
-  def courses
-    @student = Student.find(params[:id])
-    @courses = @student.courses.paginate(page: params[:page])
-    render 'students/show_enrolled'
-  end
-
   private
 
   def student_params
     params.require(:student).permit(:name, :email, :password, :password_confirmation)
-  end
-
-  # Confirms that the user is logged in
-  def is_logged_in?
-    if logged_out?
-      flash[:danger] = "Please log in."
-      redirect_to student_login_path
-    end
   end
 
   # Confirms that the user is logged out

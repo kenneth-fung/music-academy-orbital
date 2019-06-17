@@ -1,14 +1,14 @@
-<% provide(:title, 'All students') %>
-<h1>All students</h1>
+<% provide(:title, "Students") %>
+<h1><%= @title %></h1>
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th scope="col">Student</th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render @students %>
+  </tbody>
+</table>
 
-<ul class="users">
-  <% @students.each do |student| %>
-    <li>
-      <%= link_to student.name, student %>
-      <% if current_user.admin? && !current_user?(student) %>
-        | <%= link_to "delete", student, method: :delete,
-                      data: { confirm: "You sure?" } %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<%= will_paginate @students, class: 'pagination' %>

@@ -1,7 +1,9 @@
-<li>
-  <%= link_to tutor.name, tutor %>
-  <% if current_user.admin? && !current_user?(tutor) %>
-    | <%= link_to "delete", tutor, method: :delete,
-                  data: { confirm: "You sure?" } %>
+<tr>
+  <td>
+    <%= gravatar_for tutor, size: 40 %>
+    <%= link_to "#{tutor.name}", tutor_path(tutor) %>
+    <% if logged_in? && current_user.admin? && !current_user?(tutor) %>
+      | <%= link_to "delete", tutor, method: :delete, data: { confirm: "Are you sure?" } %>
   <% end %>
-</li>
+  </td>
+</tr>
