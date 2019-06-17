@@ -3,6 +3,7 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.paginate(page: params[:page])
+    @title = "All Courses"
   end
 
   def new
@@ -50,6 +51,6 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:title, :content, :image)
+    params.require(:course).permit(:title, :content, :price, :image)
   end
 end

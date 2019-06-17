@@ -9,15 +9,30 @@ Student.create!(name:  "Runding",
                 email: "wangrunding@gmail.com",
                 password:              "wangrun123ding",
                 password_confirmation: "wangrun123ding",
-                activated: true,
+                activated:    true,
                 activated_at: Time.now)
 
 Tutor.create!(name:  "Runding",
               email: "wangrunding@gmail.com",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",
-              admin: true,
-              activated: true,
+              activated:    true,
+              activated_at: Time.now)
+
+Student.create!(name:  "Admin Student",
+                email: "admin@student.com",
+                password:              "wangrun123ding",
+                password_confirmation: "wangrun123ding",
+                admin: true,
+                activated:    true,
+                activated_at: Time.now)
+
+Tutor.create!(name:  "Admin Tutor",
+              email: "admin@tutor.com",
+              password:              "wangrun123ding",
+              password_confirmation: "wangrun123ding",
+              admin:        true,
+              activated:    true,
               activated_at: Time.now)
 
 # Tutors
@@ -29,7 +44,7 @@ Tutor.create!(name:  "Runding",
                 email: email,
                 password:              password,
                 password_confirmation: password,
-                activated: true,
+                activated:    true,
                 activated_at: Time.now)
 end
 
@@ -42,7 +57,7 @@ end
                   email: email,
                   password:              password,
                   password_confirmation: password,
-                  activated: true,
+                  activated:    true,
                   activated_at: Time.now)
 end
 
@@ -52,9 +67,9 @@ rand(300..400).times do
   content = Faker::Lorem.paragraph(rand(1..5))
   price = rand * 10
   tutor = Tutor.find(Tutor.pluck(:id).sample)
-  course = tutor.courses.create!(title: title, 
+  course = tutor.courses.create!(title:   title, 
                                  content: content, 
-                                 price: price)
+                                 price:   price)
 
   # Lessons
   rand(1..12).times do
