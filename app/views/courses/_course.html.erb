@@ -8,6 +8,10 @@
     <!--Title-->
     <% if @student && left_off = find_left_off(@student, course).left_off %>
       <%= link_to "#{course.title}", course_path(course, page: left_off, student_id: @student.id) %>
+    <% elsif @student %>
+      <% subscription = find_left_off(@student, course) %>
+      <% subscription.update_attribute(:left_off, 1)%>
+      <%= link_to "#{course.title}", course_path(course, page: subscription.left_off, student_id: @student.id) %>
     <% else %>
       <%= link_to "#{course.title}", course_path(course) %>
     <% end %>

@@ -3,10 +3,6 @@
 <div class="col">
 
   <div class="row lesson_info">
-    <% if params[:student_id] %>
-    <% @student = Student.find(params[:student_id]) %>
-    <% find_left_off(@student, @course).update_attribute(:left_off, params[:page]) %>
-    <% end %>
     <%= render 'show_lesson' %>
   </div>
 
