@@ -2,10 +2,11 @@
 <% tutor_and_course_is_mine = tutor? && current_user?(@course.tutor) %>
 
 <% if @course.lessons.any? && (student_and_subscribed || tutor_and_course_is_mine) %>
-  <% if params[:student_id]%>
-    <% @student = Student.find(params[:student_id]) %>
-    <% find_left_off(@student, @course).update_attribute(:left_off, params[:page]) %>
+
+  <% if student_and_subscribed %>
+    <% find_subscription(current_user, @course).update_left_off(params[:page]) %>
   <% end %>
+
   <ol class="lessons">
     <%= render @lessons %>
   </ol>

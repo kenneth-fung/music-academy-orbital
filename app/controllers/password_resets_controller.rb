@@ -1,6 +1,6 @@
 class PasswordResetsController < ApplicationController
-  before_action :get_user,   only: [:edit, :update]
-  #before_action :valid_user, only: [:edit, :update]
+  before_action :get_user,         only: [:edit, :update]
+  before_action :valid_user,       only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
   def new
@@ -9,16 +9,16 @@ class PasswordResetsController < ApplicationController
   def create
     if params[:user_type] == Tutor.name
       @user = Tutor.find_by(email: params[:password_reset][:email].downcase)
-    else
+    elsif params[:user_type] == Student.name
       @user = Student.find_by(email: params[:password_reset][:email].downcase)
     end
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
-      flash[:info] = "Email sent with password reset instructions"
+      flash[:info] = "Please check your email to reset your password."
       redirect_to root_url
     else
-      flash.now[:danger] = "Email address not found"
+      flash.now[:danger] = "Email address not found."
       render 'new'
     end
   end
@@ -27,28 +27,19 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    if params[:user_type] == Tutor.name
-      if params[:tutor][:password].empty?                  # Case (3)
-        @user.errors.add(:password, "can't be empty")
-        render 'edit'
-      elsif @user.update_attributes(tutor_params)          # Case (4)
-        log_in @user
-        flash[:success] = "Password has been reset."
-        redirect_to @user
-      else
-        render 'edit'                                     # Case (2)
-      end
+    type = params[:user_type].downcase.to_sym
+    if params[type][:password].empty?
+      # Case: Failed update due to empty password and confirmation
+      @user.errors.add(:password, "can't be empty")
+      render 'edit'
+    elsif @user.update_attributes(send("#{type}_params"))
+      # Case: Successful update
+      log_in @user
+      flash[:success] = "Your password has been reset."
+      redirect_to @user
     else
-      if params[:student][:password].empty?                  # Case (3)
-        @user.errors.add(:password, "can't be empty")
-        render 'edit'
-      elsif @user.update_attributes(student_params)          # Case (4)
-        log_in @user
-        flash[:success] = "Password has been reset."
-        redirect_to @user
-      else
-        render 'edit'                                     # Case (2)
-      end
+      # Case: Failed update due to invalid password
+      render 'edit'
     end
   end
 
@@ -63,9 +54,9 @@ class PasswordResetsController < ApplicationController
   end
 
   def get_user
-    if params[:user_type] == "Student"
+    if params[:user_type] == Student.name
       @user = Student.find_by(email: params[:email])
-    else
+    elsif params[:user_type] == Tutor.name
       @user = Tutor.find_by(email: params[:email])
     end
   end
@@ -73,7 +64,7 @@ class PasswordResetsController < ApplicationController
   # Confirms a valid user.
   def valid_user
     unless (@user && @user.activated? &&
-        authenticated?(:reset, params[:id], @user))
+            authenticated?(:reset, params[:id], @user))
       redirect_to root_url
     end
   end

@@ -7,13 +7,4 @@ module ApplicationHelper
       "#{title} | #{base_title}"
     end
   end
-
-  def find_left_off(student, course)
-    subscription = Subscription.where("student_id = ? AND course_id = ?", student.id, course.id).first
-    if subscription
-      return subscription
-    else
-      return nil
-    end
-  end
 end

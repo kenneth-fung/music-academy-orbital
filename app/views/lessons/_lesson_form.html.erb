@@ -1,6 +1,9 @@
 <%= form_for(@lesson, url: yield(:url_path)) do |f| %>
   <%= render 'shared/error_messages', object: @lesson %>
 
+  <%= f.label :video %>
+  <%= f.file_field :video %>
+
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
 

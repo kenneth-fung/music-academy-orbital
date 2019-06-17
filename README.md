@@ -3,25 +3,26 @@
 ## Please Note:
 
 - To Fix:
-  - test/integration/**students_login_test**.rb: "**login without
-    remembering**" logs that **cookies[:remember_token]** is not empty
+  - "**password resets**" test in test/integration/**password_resets_test**.rb
+    causes a redirect to **root_path** instead of **edit_password_reset_path**,
+despite taking the correct token and email. However, the application itself
+(in development and production) **works as intended**. Likely to do with the
+test's use of **assigns**.
 
-- Refactoring:
-  - students/**show_enrolled**.html.erb & tutors/**show_courses**.html.erb =>
-    courses/**index**.html.erb
-  - tutors/**show_students**.html.erb => students/**index**.html.erb
+- Methods:
+  - helpers/application_helper.rb "**find_left_off(student, course)**" =>
+    helpers/subscriptions_helper.rb "**find_subscription(student, course)**"
+  - Add models/subscription.rb "**update_left_off(lesson_number)**, which
+    updates Subscription's left_off attribute to the given lesson_number.
 
 ## Features to Implement
 
 ### Runding
 
-- ~~Image Upload~~
-- Password Reset ~~+ Account Activation + Remember Me~~
 - Tagging
 - Chat Box
 
 ### Kenneth
 
-- ~~Lessons~~
 - Review System
-- Searching and Sorting
+- Course Searching and Sorting

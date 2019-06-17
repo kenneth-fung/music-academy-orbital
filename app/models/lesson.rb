@@ -1,6 +1,8 @@
 class Lesson < ApplicationRecord
   belongs_to :course
 
+  has_one_attached :video
+
   default_scope -> { order(:created_at) }
 
   validates :course_id,

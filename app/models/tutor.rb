@@ -61,8 +61,8 @@ class Tutor < ApplicationRecord
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = Tutor.new_token
-    update_attribute(:reset_digest,  Tutor.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_columns(reset_digest:  Tutor.digest(reset_token),
+                   reset_sent_at: Time.zone.now)
   end
 
   # Sends password reset email.

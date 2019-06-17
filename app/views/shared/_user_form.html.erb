@@ -1,5 +1,13 @@
 <%= form_for(user, url: yield(:url_path)) do |f| %>
+
   <%= render 'shared/error_messages', object: f.object %>
+
+  <% if logged_in? %>
+    <div class="gravatar_edit">
+      <%= gravatar_for user %>
+      <a href="http://gravatar.com/emails" target="_blank" rel="noopener">change</a>
+    </div>
+  <% end %>
 
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
@@ -13,5 +21,14 @@
   <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <%= f.submit "Create Account", class: "btn btn-primary" %>
+
+  <section class="under-submit-text">
+    <% if logged_out? %>
+      <span class="pull-left">
+        <%= link_to "Already have an account? Log in here.", yield(:login_path) %>
+      </span>
+    <% end %>
+  </section>
+
 <% end %>

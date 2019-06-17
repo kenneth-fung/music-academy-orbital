@@ -6,15 +6,11 @@
       <%= image_tag course.image.variant(resize: "100x100") %>
     <% end %>
     <!--Title-->
-    <% if @student && left_off = find_left_off(@student, course).left_off %>
-      <%= link_to "#{course.title}", course_path(course, page: left_off, student_id: @student.id) %>
-    <% elsif @student %>
-      <% subscription = find_left_off(@student, course) %>
-      <% subscription.update_attribute(:left_off, 1)%>
-      <%= link_to "#{course.title}", course_path(course, page: subscription.left_off, student_id: @student.id) %>
-    <% else %>
-      <%= link_to "#{course.title}", course_path(course) %>
-    <% end %>
+    <% left_off_page = 
+      @student && @student.subscribing?(course) ? 
+      find_subscription(@student, course).left_off : 
+      1 %>
+    <%= link_to "#{course.title}", course_path(course, page: left_off_page) %>
   </td>
 
   <!--Lessons-->

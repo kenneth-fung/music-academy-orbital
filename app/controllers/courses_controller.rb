@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
       flash[:success] = "Successfully created"
       redirect_to @course
     else
+      @image = params[:course][:image] if params[:course][:image].present?
       render 'courses/new'
     end
   end

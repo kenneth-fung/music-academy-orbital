@@ -1,4 +1,13 @@
 <li id="lesson-<%= lesson.id %>">
+
+  <% if lesson.video.attached? %>
+    <span class="video">
+      <%= video_tag url_for(lesson.video), 
+        size: "1024x576", 
+        controls: :controls %>
+    </span>
+  <% end %>
+
   <span class="name">Lesson: <%= lesson.name %></span>
   <span class="description"><%= lesson.description %></span>
   <% if tutor? && current_user?(@course.tutor) %>
