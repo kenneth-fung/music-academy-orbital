@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_06_17_122311) do
     t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "left_off", default: 1
+    t.integer "left_off"
     t.index ["course_id"], name: "index_subscriptions_on_course_id"
     t.index ["student_id", "course_id"], name: "index_subscriptions_on_student_id_and_course_id", unique: true
     t.index ["student_id"], name: "index_subscriptions_on_student_id"
