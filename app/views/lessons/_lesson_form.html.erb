@@ -2,7 +2,7 @@
   <%= render 'shared/error_messages', object: @lesson %>
 
   <%= f.label :video %>
-  <%= f.file_field :video %>
+  <%= f.file_field :video, accept: 'video/mp4 video/wmv' %>
 
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
