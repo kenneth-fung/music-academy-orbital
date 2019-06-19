@@ -15,20 +15,12 @@ The error:
 ```
 Expected nil to not be equal to nil.
 ```
-
-### Methods
-  - helpers/application_helper.rb "**find_left_off(student, course)**" =>
-    helpers/subscriptions_helper.rb "**find_subscription(student, course)**"
-  - Added models/subscription.rb "**update_left_off(lesson_number)**, which
-    updates Subscription's left_off attribute to the given lesson_number.
-
 ### File Uploading Restrictions:
-  - **Course Creation Image**: PNG, JPEG, GIF
-  - **Lesson Video**: MP4, WMV
-  - **Lesson Resources**: PDF, PNG, JPEG, MPEG, X-MPEG, MP3, X-MP3, MPEG3, X-MPEG3,
-MPG, X-MPG, X-MPEGAUDIO
+  - **Course Creation Image**: png, jpeg, gif
+  - **Lesson Video**: mp4, wmv
+  - **Lesson Resources**: pdf, png, jpeg, mpeg, x-mpeg, mp3, x-mp3, mpeg3, x-mpeg3, mpg, x-mpg, x-mpegaudio
 
-## Features to Implement
+## To Do
 
 ### Runding
 

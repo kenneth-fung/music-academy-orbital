@@ -43,7 +43,7 @@ class LessonsController < ApplicationController
   end
 
   def destroy
-    unless params[:_method].nil?
+    if params[:_method] == 'delete'
       @lesson.destroy
       flash[:success] = "Lesson deleted."
       redirect_to @course

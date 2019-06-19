@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   end
 
   # Courses
+  get 'courses/delete', to: 'courses#destroy'
   resources :courses do
     member do
       delete :delete_image

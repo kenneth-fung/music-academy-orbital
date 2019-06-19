@@ -1,5 +1,5 @@
 <% provide(:title, "Edit Course") %>
-<% provide(:url_path, course_path(@course)) %>
+<% provide(:url_path, course_path(@course, course_id: @course.id)) %>
 <% provide(:button_text, "Save Changes") %>
 
 <div class="row">

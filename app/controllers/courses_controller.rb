@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :is_tutor?, only: [:new, :create, :edit, :update, :destroy]
+  before_action :is_tutor?,        only: [:new, :create, :edit, :update, :destroy]
+  before_action :is_course_owner?, only: [:edit, :update, :destroy, :delete_image]
 
   def index
     @courses = Course.paginate(page: params[:page])
@@ -21,11 +22,9 @@ class CoursesController < ApplicationController
   end
 
   def edit
-    @course = Course.find(params[:id])
   end
 
   def update
-    @course = Course.find(params[:id])
     if @course.update_attributes(course_params)
       flash[:success] = "Changes saved!"
       redirect_to @course
@@ -40,16 +39,25 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+    @tutor = @course.tutor
+    if params[:_method] == 'delete'
+      @course.destroy
+      flash[:success] = "Course deleted."
+      redirect_to courses_tutor_path(@tutor)
+    end
   end
 
   def delete_image
-    @course = Course.find(params[:course_id])
     image = ActiveStorage::Attachment.find(params[:id])
     image.purge
-    redirect_to edit_course_path(@course)
+    redirect_to edit_course_path(@course, course_id: @course.id)
   end
 
   private
+
+  def course_params
+    params.require(:course).permit(:title, :content, :price, :image)
+  end
 
   def is_tutor?
     unless tutor?
@@ -62,7 +70,12 @@ class CoursesController < ApplicationController
     end
   end
 
-  def course_params
-    params.require(:course).permit(:title, :content, :price, :image)
+  def is_course_owner?
+    @course = Course.find(params[:course_id])
+    unless tutor? && current_user?(@course.tutor)
+      flash[:danger] = "You are not the owner of this course."
+      redirect_to root_path
+    end
   end
+
 end
