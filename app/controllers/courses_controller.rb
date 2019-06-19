@@ -21,11 +21,17 @@ class CoursesController < ApplicationController
   end
 
   def edit
-
+    @course = Course.find(params[:id])
   end
 
   def update
-
+    @course = Course.find(params[:id])
+    if @course.update_attributes(course_params)
+      flash[:success] = "Changes saved!"
+      redirect_to @course
+    else
+      render 'edit'
+    end
   end
 
   def show
@@ -34,7 +40,13 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+  end
 
+  def delete_image
+    @course = Course.find(params[:course_id])
+    image = ActiveStorage::Attachment.find(params[:id])
+    image.purge
+    redirect_to edit_course_path(@course)
   end
 
   private

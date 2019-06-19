@@ -210,29 +210,50 @@ input {
 
 .course_info {
   .container {
-    padding: 10px;
+    margin: 10px;
+  }
+  .title, .image, .content, .course_tutor {
+    text-align: left;
+    display: block;
+  }
+  .title, .btn-course-edit {
+    display: inline-block;
+  }
+  .btn-course-edit {
+    margin: 0px 0px 20px 10px;
   }
   .content {
-    padding-top: 10px;
+    margin-top: 5px;
+  }
+  .course_tutor_gravatar {
+    float: left;
+    margin-right: 10px;
+  }
+  .course_tutor {
+    padding-top: 20px;
+    color: $gray-dark;
   }
 }
 
+.edit_course {
+  .image {
+    margin: 10px 0px;
+  }
+}
+
+/* lesson info */
+
 .lessons {
   list-style: none;
+  .name, .description, .lesson-resources, .edit-buttons {
+    display: block;
+  }
   .name {
     font-size: 1.5em;
     font-weight: bold;
-    display: block;
-  }
-  .description {
-    display: block;
   }
   .lesson-resources {
-    display: block;
     margin: 10px;
-  }
-  .edit-buttons {
-    display: block;
   }
 }
 

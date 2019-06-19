@@ -61,8 +61,8 @@ class LessonsController < ApplicationController
   end
 
   def delete_resource
-    @resource = ActiveStorage::Attachment.find(params[:id])
-    @resource.purge
+    resource = ActiveStorage::Attachment.find(params[:id])
+    resource.purge
     redirect_to edit_lesson_path(
       @lesson, 
       lesson_id: @lesson.id, 

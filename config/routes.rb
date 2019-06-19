@@ -30,7 +30,11 @@ Rails.application.routes.draw do
   end
 
   # Courses
-  resources :courses
+  resources :courses do
+    member do
+      delete :delete_image
+    end
+  end
 
   # Lessons
   get 'lessons/new'

@@ -1,2 +1,11 @@
-<h1>Courses#edit</h1>
-<p>Find me in app/views/courses/edit.html.erb</p>
+<% provide(:title, "Edit Course") %>
+<% provide(:url_path, course_path(@course)) %>
+<% provide(:button_text, "Save Changes") %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3>Editing Course:</h3>
+    <h1><strong><%= @course.title %></strong></h1>
+    <%= render 'course_form' %>
+  </div>
+</div>
