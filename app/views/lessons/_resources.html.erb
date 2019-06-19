@@ -1,0 +1,21 @@
+<% if lesson && lesson.resources.attached? %>
+  <ul class="lesson-resources-list">
+    <% lesson.resources.attachments.each do |resource| %>
+      <li>
+        <%= 
+          link_to resource.filename, 
+            rails_blob_path(resource, disposition: :attachment) 
+          %>
+        <% if params[:action] == 'edit' %>
+          |
+          <%= 
+            link_to 'delete', 
+              delete_resource_lesson_path(resource.id, lesson_id: lesson.id), 
+              method: :delete, 
+              data: { confirm: 'Are you sure?' } 
+            %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

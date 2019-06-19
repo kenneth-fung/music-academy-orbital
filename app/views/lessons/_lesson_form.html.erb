@@ -1,14 +1,40 @@
 <%= form_for(@lesson, url: yield(:url_path)) do |f| %>
   <%= render 'shared/error_messages', object: @lesson %>
 
-  <%= f.label :video %>
-  <%= f.file_field :video, accept: 'video/mp4 video/wmv' %>
+  <!--Video-->
+  <section class="video">
+  <% if @lesson.video.attached? %>
+    <!--Video display-->
+    <div><%= video_tag url_for(@lesson.video),
+      size: "436x240",
+      controls: :controls %></div>
+    <!--Video deletion link-->
+    <div><i><%= link_to "(delete and upload another video)", 
+      delete_video_lesson_path(@lesson.video.id, lesson_id: @lesson.id), 
+      method: :delete, 
+      data: { confirm: "Are you sure? This action is irreversible." } 
+      %></i></div>
+  <% else %>
+    <!--Video upload button-->
+    <%= f.label :video %>
+    <%= f.file_field :video, accept: 'video/mp4 video/wmv', class: 'form-control' %>
+  <% end %>
+  </section>
 
-  <%= f.label :name %>
+  <%= f.label :name, "Lesson Name" %>
   <%= f.text_field :name, class: 'form-control' %>
 
-  <%= f.label :description %>
+  <%= f.label :description, "Lesson Description" %>
   <%= f.text_area :description, class: 'form-control' %>
+
+  <%= f.label :resources, "Lesson Resources" %>
+  <%= render 'lessons/resources', lesson: @lesson %>
+  <%= 
+    f.file_field :resources,
+      multiple: true, 
+      accept: 'attachment/pdf image/png image/jpeg audio/mp3 audio/wav',
+      class: 'form-control'
+    %>
 
   <%= hidden_field_tag :course_id, @course.id %>
 

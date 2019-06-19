@@ -5,7 +5,6 @@ class Course < ApplicationRecord
   has_many :students, through: :subscriptions, source: :student
 
   has_one_attached :image
-
   validate :image_file_type
 
   default_scope -> { order(created_at: :desc) }

@@ -2,18 +2,31 @@
 
 ## Please Note:
 
-- To Fix:
-  - "**password resets**" test in test/integration/**password_resets_test**.rb
-    causes a redirect to **root_path** instead of **edit_password_reset_path**,
-despite taking the correct token and email. However, the application itself
-(in development and production) **works as intended**. Likely to do with the
-test's use of **assigns**.
+### To Fix
+"**password resets**" test in test/integration/**password_resets_test**.rb
+throws an error on line 20.
 
-- Methods:
+Line 20:
+```
+assert_not_equal @user.reset_digest, @user.reload.reset_digest
+```
+
+The error:
+```
+Expected nil to not be equal to nil.
+```
+
+### Methods
   - helpers/application_helper.rb "**find_left_off(student, course)**" =>
     helpers/subscriptions_helper.rb "**find_subscription(student, course)**"
-  - Add models/subscription.rb "**update_left_off(lesson_number)**, which
+  - Added models/subscription.rb "**update_left_off(lesson_number)**, which
     updates Subscription's left_off attribute to the given lesson_number.
+
+### File Uploading Restrictions:
+  - **Course Creation Image**: PNG, JPEG, GIF
+  - **Lesson Video**: MP4, WMV
+  - **Lesson Resources**: PDF, PNG, JPEG, MPEG, X-MPEG, MP3, X-MP3, MPEG3, X-MPEG3,
+MPG, X-MPG, X-MPEGAUDIO
 
 ## Features to Implement
 

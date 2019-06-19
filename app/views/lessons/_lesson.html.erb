@@ -10,18 +10,25 @@
 
   <span class="name">Lesson: <%= lesson.name %></span>
   <span class="description"><%= lesson.description %></span>
+  <span class="lesson-resources">
+    <strong>Resources</strong><br>
+    <%= render 'lessons/resources', lesson: lesson %>
+  </span>
+
+  <span class="edit-buttons">
   <% if tutor? && current_user?(@course.tutor) %>
     <%= 
-      link_to "Edit", 
+      link_to "Edit Lesson", 
         edit_lesson_path(course_id: @course.id, 
                          lesson_id: lesson.id), 
         class: 'btn btn-default btn-lesson-edit' 
     %>
     <%=
-      link_to "Delete",
+      link_to "Delete Lesson",
         lessons_delete_path(course_id: @course.id, 
                             lesson_id: lesson.id),
         class: 'btn btn-default btn-lesson-delete'
     %>
-<% end %>
+  <% end %>
+  </span>
 </li>

@@ -8,10 +8,10 @@
     <%= form_for(@course) do |f| %>
       <%= render 'shared/error_messages' , object: @course %>
 
-      <%= f.label :title %>
+      <%= f.label :title, "Course Title" %>
       <%= f.text_field :title, class: 'form-control' %>
 
-      <%= f.label :content, "Description" %>
+      <%= f.label :content, "Course Description" %>
       <%= f.text_area :content, class: 'form-control' %>
 
       <%= f.label :image %>

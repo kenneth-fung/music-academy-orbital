@@ -51,6 +51,15 @@ h2 {
   color: $gray-light;
 }
 
+h3 {
+  font-size: 2em;
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -217,6 +226,19 @@ input {
   }
   .description {
     display: block;
+  }
+  .lesson-resources {
+    display: block;
+    margin: 10px;
+  }
+  .edit-buttons {
+    display: block;
+  }
+}
+
+.edit_lesson {
+  .video {
+    margin-bottom: 15px;
   }
 }
 

@@ -3,6 +3,8 @@
 
 <% if @course.lessons.any? && (student_and_subscribed || tutor_and_course_is_mine) %>
 
+  <!--Lessons exist, and either current user is a subscribed student, or is the owner of the course-->
+
   <% if student_and_subscribed %>
     <% find_subscription(current_user, @course).update_left_off(params[:page]) %>
   <% end %>
@@ -21,6 +23,8 @@
   <% end %>
 
 <% elsif !@course.lessons.any? %>
+
+  <!--No Lessons currently exist-->
 
   <section class="center">
   <h3><b>This course currently has no lessons.</b></h3>

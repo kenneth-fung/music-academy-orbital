@@ -38,7 +38,12 @@ Rails.application.routes.draw do
   get 'lessons/edit'
   get 'lessons/update'
   get 'lessons/delete', to: 'lessons#destroy'
-  resources :lessons, only: [:new, :create, :edit, :update, :destroy]
+  resources :lessons do
+    member do
+      delete :delete_video
+      delete :delete_resource
+    end
+  end
 
   # Subscriptions
   get    '/subscribe',   to: 'subscriptions#new'
