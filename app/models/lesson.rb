@@ -52,7 +52,7 @@ class Lesson < ApplicationRecord
       # check if a file with disallowed file type exists
       if reject_files
         resources.purge # delete the uploaded resources
-        errors.add(:resources, 'must be PDF, PNG or JPEG, or MP3 files.')
+        errors.add(:resources, 'must be PDFs, images (PNG, JPEG), or sound files (MP3, MPEG).')
       end
     end
   end

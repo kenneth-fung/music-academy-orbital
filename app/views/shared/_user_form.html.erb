@@ -21,7 +21,7 @@
   <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-  <%= f.submit "Create Account", class: "btn btn-primary" %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 
   <section class="under-submit-text">
     <% if logged_out? %>

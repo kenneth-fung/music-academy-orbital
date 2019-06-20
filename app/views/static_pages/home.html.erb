@@ -1,21 +1,16 @@
 <% provide(:title, 'Home') %>
 <div class="center jumbotron">
 
-  <h1>Welcome to the Music Academy</h1>
+  <h3><strong>Welcome to</strong></h3>
+  <h1><strong>The Music Academy</strong></h1>
 
   <h2>
     <%= link_to "Browse through all courses now!", courses_path %>
   </h2>
 
   <% if logged_out? %>
-    <%= link_to "Sign up now as student!", student_signup_path, class: "btn btn-lg btn-primary" %>
-    <%= link_to "Sign up now as tutor!", tutor_signup_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "Sign up now as a student!", student_signup_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "Sign up now as a tutor!", tutor_signup_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 
 </div>
-
-<!--
-<h3>VIDEO TESTS</h3>
-<%= link_to "new video", videos_new_path , class: "btn btn-lg btn-primary"%>
-<%= link_to "videos", videos_path , class: "btn btn-lg btn-primary"%>
--->
