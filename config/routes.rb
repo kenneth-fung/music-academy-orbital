@@ -48,6 +48,9 @@ Rails.application.routes.draw do
       delete :delete_video
       delete :delete_resource
     end
+    collection do
+      patch :sort
+    end
   end
 
   # Subscriptions

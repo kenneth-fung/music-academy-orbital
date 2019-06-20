@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   before_action :find_lesson_and_course, only: [:edit, :destroy, :delete_video, :delete_resource]
-  before_action :is_course_tutor?, only: [:new, :create, :edit, :update, :destroy, :delete_video, :delete_resource]
+  before_action :is_course_tutor?, except: [:show, :index, :sort]
 
   def new
     @course = Course.find(params[:course_id])
@@ -9,10 +9,11 @@ class LessonsController < ApplicationController
 
   def create
     @course = Course.find(params[:course_id])
+    lesson_number = @course.lessons.count + 1
     @lesson = @course.lessons.build(lesson_params)
     if @lesson.save
       flash[:success] = "Lesson: '#{@lesson.name}' for '#{@course.title}' has been published."
-      redirect_to @course
+      redirect_to course_path(@course, page: lesson_number)
     else
       render 'lessons/new'
     end
@@ -28,6 +29,14 @@ class LessonsController < ApplicationController
     redirect_to root_path
   end
 
+  def sort
+    params[:lesson].each_with_index do |id, index|
+      Lesson.where(id: id).update_all(position: index + 1)
+    end
+
+    head :ok
+  end
+
   def edit
   end
 
@@ -36,7 +45,10 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     if @lesson.update_attributes(lesson_params)
       flash[:success] = "Lesson: '#{@lesson.name}' edited."
-      redirect_to @course
+      redirect_to edit_lesson_path(@lesson, 
+                                   lesson_id: @lesson.id,
+                                   edit_from: params[:edit_from],
+                                   page: params[:page])
     else
       render 'edit'
     end
@@ -46,7 +58,7 @@ class LessonsController < ApplicationController
     if params[:_method] == 'delete'
       @lesson.destroy
       flash[:success] = "Lesson deleted."
-      redirect_to @course
+      redirect_to edit_course_path(@course, course_id: @course.id)
     end
   end
 
@@ -76,7 +88,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:lesson_id])
     @course = Course.find(@lesson.course_id)
   end
-  
+
   # Confirms the current user is the tutor of this course
   def is_course_tutor?
     course = @course || Course.find(params[:course_id])
@@ -86,7 +98,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:video, :name, :description, resources: [])
+    params.require(:lesson).permit(:video, :name, :description, :position, resources: [])
   end
 
 end

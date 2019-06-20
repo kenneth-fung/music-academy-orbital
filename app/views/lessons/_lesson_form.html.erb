@@ -3,22 +3,22 @@
 
   <!--Video-->
   <section class="video">
-  <% if @lesson.video.attached? %>
-    <!--Video display-->
-    <div><%= video_tag url_for(@lesson.video),
-      size: "436x240",
-      controls: :controls %></div>
-    <!--Video deletion link-->
-    <div><i><%= link_to "(delete and upload another video)", 
-      delete_video_lesson_path(@lesson.video.id, lesson_id: @lesson.id), 
-      method: :delete, 
-      data: { confirm: "Are you sure? This action is irreversible." } 
-      %></i></div>
-  <% else %>
-    <!--Video upload button-->
-    <%= f.label :video %>
-    <%= f.file_field :video, accept: 'video/mp4 video/wmv', class: 'form-control' %>
-  <% end %>
+    <% if @lesson.video.attached? %>
+      <!--Video display-->
+      <div><%= video_tag url_for(@lesson.video),
+        size: "436x240",
+        controls: :controls %></div>
+      <!--Video deletion link-->
+      <div><i><%= link_to "(delete and upload another video)", 
+        delete_video_lesson_path(@lesson.video.id, lesson_id: @lesson.id), 
+        method: :delete, 
+        data: { confirm: "Are you sure? This action is irreversible." } 
+        %></i></div>
+    <% else %>
+      <!--Video upload button-->
+      <%= f.label :video %>
+      <%= f.file_field :video, accept: 'video/mp4 video/wmv', class: 'form-control' %>
+    <% end %>
   </section>
 
   <%= f.label :name, "Lesson Name" %>
@@ -36,7 +36,53 @@
       class: 'form-control'
     %>
 
-  <%= hidden_field_tag :course_id, @course.id %>
+  <section class="">
+    <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary btn-submit' %>
+  </section>
 
-  <%= f.submit yield(:submit_text), class: 'btn btn-primary' %>
+  <!--Back Button-->
+  <% if params[:action] != 'new' %>
+    <section class="">
+      <!--Set back_path based on params-->
+      <% if params[:edit_from] == '_lesson' %>
+        <!--Go back to Lesson-->
+        <%= 
+          link_to "Back to Lesson", 
+            course_path(@course, page: params[:page]), 
+            class: 'btn btn-default btn-back' 
+          %>
+      <% elsif params[:edit_from] == '_list' %>
+        <!--Go back to Course Edit-->
+        <%= 
+          link_to "Back to Course Edit", 
+            edit_course_path(@course, course_id: @course.id), 
+            class: 'btn btn-default btn-back' 
+          %>
+      <% end %>
+    </section>
+  <% end %>
+
+  <!--Delete Lesson Button-->
+  <% if params[:action] == 'edit' %>
+    <div class="lesson-delete">
+      <h3><strong>Warning</strong></h3>
+      <h2>
+        Press the button below to
+        <strong>delete this lesson</strong>.
+      </h2>
+      <section class="btn-lesson-delete">
+        <%= 
+          link_to "Delete Lesson", 
+            lessons_delete_path(course_id: @course.id, 
+                                lesson_id: @lesson.id), 
+            class: 'btn btn-default btn-lesson-delete' 
+          %>
+      </section>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :course_id, @course.id %>
+  <%= hidden_field_tag :edit_from, params[:edit_from] %>
+  <%= hidden_field_tag :page, params[:page] %>
+
 <% end %>

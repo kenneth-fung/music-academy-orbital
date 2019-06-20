@@ -27,7 +27,7 @@ class CoursesController < ApplicationController
   def update
     if @course.update_attributes(course_params)
       flash[:success] = "Changes saved!"
-      redirect_to @course
+      redirect_to edit_course_path(@course, course_id: @course.id)
     else
       render 'edit'
     end

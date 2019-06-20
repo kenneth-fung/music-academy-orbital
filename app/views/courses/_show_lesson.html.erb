@@ -10,7 +10,7 @@
   <% end %>
 
   <ol class="lessons">
-    <%= render @lessons %>
+    <%= render @lessons.reorder(:position) %>
   </ol>
   <%= will_paginate @lessons %>
 

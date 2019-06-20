@@ -1,24 +1,30 @@
 <%= form_for(@course, url: yield(:url_path)) do |f| %>
   <%= render 'shared/error_messages' , object: @course %>
 
-  <%= f.label :title, "Course Title" %>
+  <!--Title-->
+  <%= f.label :title, "Title" %>
   <%= f.text_field :title, class: 'form-control' %>
 
-  <%= f.label :content, "Course Description" %>
+  <!--Content-->
+  <%= f.label :content, "Description" %>
   <%= f.text_area :content, class: 'form-control' %>
 
   <!--Image-->
   <section class="image">
     <% if @course.image.attached? %>
+
       <!--Image display-->
       <div><%= image_tag url_for(@course.image) %></div>
+
       <!--Image deletion link-->
       <div><i><%= link_to "(delete and upload another image)",
         delete_image_course_path(@course.image.id, course_id: @course.id),
         method: :delete,
         data: { confirm: "Are you sure?" }
         %></i></div>
+
     <% else %>
+
       <!--Image upload button-->
       <%= f.label :image %>
       <%= 
@@ -26,25 +32,59 @@
           accept: 'image/png, image/jpeg, image/gif', 
           class: 'form-control' 
         %>
+
     <% end %>
   </section>
 
+  <!--Price-->
   <%= f.label :price %>
   <%= f.number_field :price, step: 0.01, class: 'form-control' %>
 
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <!--Submit Button-->
+  <section class="btn-submit">
+    <%= f.button yield(:button_text), type: :submit, class: "btn btn-primary" %>
+  </section>
 
-  <!--Delete Course button-->
-  <% if tutor? && current_user?(@course.tutor) %>
-    <div class="course-delete">
-      Press the button below to <strong>delete this course.</strong><br>
-      <%= 
-        link_to "Delete Course", 
-          courses_delete_path(@course, course_id: @course.id), 
-          class: "btn btn-default btn-course-delete" 
-        %>
-  </div>
+  <!--Actions below only available for Course Edit-->
+  <% if params[:action] != 'new' %>
+
+    <!--Lessons-->
+    <section class="lessons-header">
+      <h3>
+        <strong>Lessons</strong>
+      </h3>
+      <h2>
+        <strong>Drag</strong> lessons to re-order them, 
+        or <strong>click</strong> to edit individual lessons.<br>
+        Re-ordering is saved automatically.
+      </h2>
+    </section>
+    <section class="lessons-list">
+      <%= render 'lessons/list' %>
+    </section>
+
+    <!--Back Button-->
+      <section class="">
+        <%= 
+          link_to "Back to Course", 
+            course_path(@course, page: params[:page]), 
+            class: "btn btn-default btn-back" 
+          %>
+      </section>
+
+    <!--Delete Course button-->
+    <% if tutor? && current_user?(@course.tutor) %>
+      <div class="course-delete">
+        <h3><strong>Warning</strong></h3>
+        <h2>
+          Press the button below to <strong>delete this course.</strong><br>
+          <%= 
+            link_to "Delete Course", 
+              courses_delete_path(@course, course_id: @course.id), 
+              class: "btn btn-default btn-course-delete" 
+            %>
+        </h2>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>
-<% end %>
-
-

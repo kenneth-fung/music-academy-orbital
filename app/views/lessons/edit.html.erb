@@ -1,14 +1,14 @@
 <% provide(:title, "Edit Lesson") %>
 <% provide(:url_path, lesson_path(@lesson)) %>
-<% provide(:submit_text, "Save Changes") %>
+<% provide(:submit_text, "Save Changes to Lesson") %>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <h3>
-      Editing Lesson for Course:<br>
+      <%= @course.title %><br>
     </h3>
     <h1>
-      <strong><%= @course.title %></strong>
+      <strong><%= @lesson.name %></strong>
     </h1>
     <%= render 'lesson_form' %>
   </div>

@@ -22,7 +22,7 @@
         %>
       <%= 
         link_to "No, I've changed my mind.", 
-          @course, 
+          edit_course_path(@course, course_id: @course.id), 
           class: 'btn btn-primary btn-disagree' 
         %>
   </section>

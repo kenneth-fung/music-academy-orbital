@@ -83,3 +83,7 @@ gem "mini_magick"
 gem "will_paginate", '3.1.7'
 
 gem 'bootstrap-will_paginate'
+
+# Lesson Sorting
+gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
+gem 'acts_as_list'
