@@ -15,6 +15,21 @@ The error:
 ```
 Expected nil to not be equal to nil.
 ```
+
+### New Methods
+**helpers/sessions_helper.rb**
+```
+def subscribing?(course)
+  student? && current_user.subscribing?(course)
+end
+
+def course_owner?(course)
+  tutor? && current_user?(course.tutor)
+end
+```
+**models/course.rb** now has **Course.search(query)**, where query is a string
+parameter.
+
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
   - **Lesson Video**: mp4, wmv

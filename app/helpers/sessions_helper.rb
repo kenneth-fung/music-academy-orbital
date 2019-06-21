@@ -80,12 +80,24 @@ module SessionsHelper
     @current_user = nil
   end
 
+  # Confirms the current user is logged in and is a student
   def student?
-    return !current_user.nil? && (current_user.class == Student)
+    return logged_in? && (current_user.class == Student)
   end
 
+  # Confirms the current user is subscribed to the given course
+  def subscribing?(course)
+    student? && current_user.subscribing?(course)
+  end
+
+  # Confirms the current user is the owner of the given course
+  def course_owner?(course)
+    tutor? && current_user?(@course.tutor)
+  end
+
+  # Confirms the current user is logged in and is a tutor
   def tutor?
-    return !current_user.nil? && (current_user.class == Tutor)
+    return logged_in? && (current_user.class == Tutor)
   end
 
   # Redirects to stored location (or to the default).

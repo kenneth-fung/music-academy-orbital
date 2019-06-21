@@ -64,7 +64,7 @@ end
 # Courses
 rand(300..400).times do
   title = Faker::Music.instrument + ": Grade " + rand(1..10).to_s
-  content = Faker::Lorem.paragraph(rand(1..5))
+  content = Faker::Lorem.paragraph(rand(15..50))
   price = rand(2000).to_f / 100.to_f
   tutor = Tutor.find(Tutor.pluck(:id).sample)
   course = tutor.courses.create!(title:   title, 
