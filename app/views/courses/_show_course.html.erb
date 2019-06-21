@@ -13,6 +13,10 @@
         %>
     <% end %>
 
+    <% unless tutor? %>
+      <%= render 'courses/subscribe_form', course: @course, class: 'btn-course-subscribe' %>
+    <% end %>
+
     <% if @course.image.attached? %>
       <%= image_tag @course.image.variant(resize: "300x300"), class: "image" %>
     <% end %>
@@ -29,9 +33,6 @@
       <%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %>
     </h2>
 
-    <% unless tutor? %>
-      <%= render 'courses/subscribe_form', course: @course %>
-    <% end %>
   </section>
 
 </div>

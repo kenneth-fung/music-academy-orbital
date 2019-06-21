@@ -3,8 +3,13 @@ class CoursesController < ApplicationController
   before_action :is_course_owner?, only: [:edit, :update, :destroy, :delete_image]
 
   def index
-    @courses = Course.paginate(page: params[:page])
-    @title = "All Courses"
+    if params[:search]
+      @title = "Search: \"#{params[:search]}\""
+      @courses = Course.search("#{params[:search]}").paginate(page: params[:page])
+    else
+      @title = "All Courses"
+      @courses = Course.paginate(page: params[:page])
+    end
   end
 
   def new
@@ -56,9 +61,12 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:title, :content, :price, :image)
+    params.require(:course).permit(:title, :content, :price, :image, :search)
   end
 
+  # Before filters
+
+  # Confirms that the current user is a tutor
   def is_tutor?
     unless tutor?
       if student?
@@ -70,6 +78,7 @@ class CoursesController < ApplicationController
     end
   end
 
+  # Confirms that the current user is the owner of this course
   def is_course_owner?
     @course = Course.find(params[:course_id])
     unless tutor? && current_user?(@course.tutor)

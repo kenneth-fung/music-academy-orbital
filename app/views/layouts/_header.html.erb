@@ -2,6 +2,21 @@
   <div class="container">
     <%= link_to "Music Academy", root_path, id: "logo" %>
     <nav>
+
+      <!--Search Bar-->
+      <div class="navbar-nav navbar-left">
+        <div id="search-bar" class="form-group">
+          <%= form_tag courses_path, method: :get, class: 'form-inline' do %>
+            <%= 
+              text_field_tag :search, 
+                params[:search], 
+                placeholder: 'Search for a course...', 
+                class: 'form-control' 
+              %>
+          <% end %>
+        </div>
+      </div>
+
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "All Courses",  courses_path %></li>

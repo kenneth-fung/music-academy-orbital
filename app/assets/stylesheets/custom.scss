@@ -68,6 +68,10 @@ p {
 
 /* header */
 
+.navbar {
+  height: 0.95em;
+}
+
 #logo {
   float: left;
   margin-right: 10px;
@@ -81,6 +85,11 @@ p {
     color: #fff;
     text-decoration: none;
   }
+}
+
+#search-bar {
+  margin-top: 8px;
+  margin-left: 10px;
 }
 
 /* footer */
@@ -219,6 +228,16 @@ input {
 
 /* course info */
 
+.course-index {
+  .course-index-title, .course-index-none {
+    text-align: left;
+  }
+  .search-term {
+    font-size: 0.8em;
+    color: $gray;
+  }
+}
+
 .course_info {
   .container {
     margin: 10px;
@@ -227,14 +246,16 @@ input {
     text-align: left;
     display: block;
   }
-  .title, .btn-course-edit {
+  .title {
     display: inline-block;
+    margin-bottom: 10px;
   }
   .btn-course-edit {
+    display: inline-block;
     margin: 0px 0px 20px 10px;
   }
   .content {
-    margin-top: 5px;
+    margin-top: 10px;
   }
   .course_tutor_gravatar {
     float: left;

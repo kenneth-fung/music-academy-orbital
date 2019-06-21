@@ -23,6 +23,26 @@ class Course < ApplicationRecord
   validates :tutor,
     presence: true
 
+  # Queries the Course, Tutor, and Lessons tables
+  def Course.search(query)
+    query_terms = query.split
+    # Create the SQL fragment for individual query terms
+    individual_query = ['(title LIKE ? 
+                        OR content LIKE ? 
+                        OR tutors.name LIKE ? 
+                        OR lessons.name LIKE ? 
+                        OR lessons.description LIKE ?)']
+    # Form complete SQL fragment based on number of query terms
+    complete_query = [(individual_query * query_terms.length).join(' AND ')]
+    # Construct complete array of query terms to feed to SQL fragment
+    complete_query_terms = []
+    query_terms.each { |query_term| 5.times { complete_query_terms << query_term } }
+    # Add % % to each query term so that it is searched for as a substring
+    complete_query_terms.map! { |query_term| "%#{query_term}%" }
+    # Execute the complete SQL query
+    joins(:tutor, :lessons).where(complete_query + complete_query_terms).distinct
+  end
+
   private
 
   # Validates that the image is of the correct file type

@@ -1,16 +1,38 @@
 <% provide(:title, "Courses") %>
 
-<h1><%= @title %></h1>
-<table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col"></th>
-      <th scope="col">Tutor</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @courses %>
-  </tbody>
-</table>
-<%= will_paginate @courses, class: "pagination" %>
+<div class="course-index">
+
+  <h1 class="course-index-title">
+    <% if params[:search] %>
+      <strong>Search:</strong> 
+      <span class="search-term">"<%= params[:search] %>"</span>
+    <% else %>
+      <strong>All Courses</strong>
+    <% end %>
+  </h1>
+
+  <% if @courses.any? %>
+
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col"></th>
+          <th scope="col">Tutor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @courses %>
+      </tbody>
+    </table>
+    <%= will_paginate @courses, class: "pagination" %>
+
+  <% else %>
+
+    <h3 class="course-index-none">
+      <strong>No courses found...</strong>
+    </h3>
+
+  <% end %>
+
+</div>
