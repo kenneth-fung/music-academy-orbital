@@ -1,6 +1,6 @@
 <% if @course.lessons.any? %>
 
-  <!--Lessons exist, and either current user is a subscribed student, or is the owner of the course-->
+  <!--Lessons exist-->
 
   <% if subscribing?(@course) %>
     <% find_subscription(current_user, @course).update_left_off(params[:page]) %>

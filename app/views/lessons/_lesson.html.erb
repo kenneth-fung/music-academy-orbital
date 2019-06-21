@@ -11,8 +11,10 @@
   <% elsif !subscribing?(@course) %>
     <div class="center jumbotron">
       <div class="container video-blocker">
-        <h3><strong>Interested in this course?</strong></h3>
-        <h2>Please purchase it to unlock its lessons.</h2>
+        <% if !tutor? %>
+          <h3><strong>Interested in this course?</strong></h3>
+          <h2>Please purchase it to unlock its lessons.</h2>
+        <% end %>
       </div>
     </div>
   <% end %>
