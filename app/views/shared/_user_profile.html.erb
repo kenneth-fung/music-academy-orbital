@@ -1,0 +1,47 @@
+<% provide(:title, @title) %>
+<div class="user_profile">
+  <section class="stats">
+
+    <% if params[:controller] == 'tutors' %>
+
+      <span class="gravatar_profile"><%= gravatar_for @tutor %></span>
+      <h2 class="email"><%= @tutor.email %></h2>
+
+      <!--User Info-->
+      <% if current_user?(@tutor) %>
+        You have
+      <% else %>
+        <%= @tutor.name %> has
+      <% end %>
+      published
+      <a href="<%= courses_tutor_path(@tutor) %>">
+        <strong>
+          <%= @tutor.courses.count %>
+        </strong>
+        courses</a>,
+      with a total of
+      <a href="<%= students_tutor_path(@tutor) %>">
+        <%= pluralize(@tutor.students_unique.count, "(unique) student") %></a>.
+
+    <% elsif params[:controller] == 'students' %>
+
+      <span class="gravatar_profile"><%= gravatar_for @student %></span>
+      <h2 class="email"><%= @student.email %></h2>
+
+      <!--User Info-->
+      <% if current_user?(@student) %>
+        You are
+      <% else %>
+        <%= @student.name %> is
+      <% end %>
+      taking
+      <a href="<%= courses_student_path(@student) %>">
+        <strong>
+          <%= @student.courses.count %>
+        </strong>
+        courses</a>.
+
+    <% end %>
+
+  </section>
+</div>

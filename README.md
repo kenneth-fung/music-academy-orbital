@@ -30,6 +30,11 @@ end
 **models/course.rb** now has **Course.search(query)**, where query is a string
 parameter.
 
+### UI Changes
+- Create Course button moved to tutor's profile
+- My Courses (Student/Tutor) moved to profile page
+- My Students moved to profile page
+
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
   - **Lesson Video**: mp4, wmv

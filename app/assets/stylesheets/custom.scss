@@ -40,6 +40,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  font-weight: bold;
 }
 
 h2 {
@@ -214,7 +215,23 @@ input {
   margin-left: 0;
 }
 
-/* Users index */
+/* user profile */
+
+.user_profile {
+  margin-bottom: 10px;
+  .name, .email {
+    text-align: left;
+  }
+  .name {
+    margin-top: 5px;
+    margin-bottom: -15px;
+  }
+  .email {
+    margin-bottom: 10px;
+  }
+}
+
+/* users index */
 
 .users {
   list-style: none;
@@ -228,9 +245,16 @@ input {
 
 /* course info */
 
+.btn-course-new {
+  margin-bottom: 15px;
+}
+
 .course-index {
   .course-index-title, .course-index-none {
     text-align: left;
+  }
+  .course-index-title {
+    font-size: 4em;
   }
   .search-term {
     font-size: 0.8em;

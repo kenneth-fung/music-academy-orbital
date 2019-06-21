@@ -21,7 +21,15 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    redirect_to root_url and return unless @student.activated?
+    @courses = @student.courses.paginate(page: params[:page])
+    @title = student? && current_user?(@student) ?
+      'My Profile' :
+      "#{@student.name}'s Profile"
+    if @student.activated?
+      render 'courses/index'
+    else
+      redirect_to root_url and return
+    end
   end
 
   def index

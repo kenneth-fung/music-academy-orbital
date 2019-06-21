@@ -21,7 +21,15 @@ class TutorsController < ApplicationController
 
   def show
     @tutor = Tutor.find(params[:id])
-    redirect_to root_url and return unless @tutor.activated?
+    @courses = @tutor.courses.paginate(page: params[:page])
+    @title = tutor? && current_user?(@tutor) ?
+      'My Profile' :
+      "#{@tutor.name}'s Profile"
+    if @tutor.activated?
+      render 'courses/index'
+    else
+      redirect_to root_url and return
+    end
   end
 
   def index

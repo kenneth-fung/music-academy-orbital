@@ -1,5 +1,5 @@
-<% if lesson && lesson.resources.attached? %>
-  <ul class="lesson-resources-list">
+<ul class="lesson-resources-list">
+  <% if lesson && lesson.resources.attached? %>
     <% lesson.resources.attachments.each do |resource| %>
       <li>
         <%= 
@@ -17,5 +17,9 @@
         <% end %>
       </li>
     <% end %>
-  </ul>
-<% end %>
+  <% else %>
+    <li>
+      <i>None</i>
+    </li>
+  <% end %>
+</ul>
