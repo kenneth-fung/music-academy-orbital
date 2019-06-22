@@ -2,14 +2,16 @@
   <%= render 'shared/error_messages', object: @lesson %>
 
   <!--Video-->
-  <section class="video">
+  <section class="">
     <% if @lesson.video.attached? %>
       <!--Video display-->
-      <div><%= video_tag url_for(@lesson.video),
-        size: "436x240",
-        controls: :controls %></div>
+      <div align="center" class="embed-responsive embed-responsive-16by9">
+        <video controls class="embed-responsive-item video">
+          <source src="<%=url_for(@lesson.video) %>">
+        </video>
+      </div>
       <!--Video deletion link-->
-      <div><i><%= link_to "(delete and upload another video)", 
+      <div class="video-delete"><i><%= link_to "(delete and upload another video)", 
         delete_video_lesson_path(@lesson.video.id, lesson_id: @lesson.id), 
         method: :delete, 
         data: { confirm: "Are you sure? This action is irreversible." } 
@@ -36,34 +38,19 @@
       class: 'form-control'
     %>
 
-  <section class="">
-    <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary btn-submit' %>
+  <%= hidden_field_tag :course_id, @course.id %>
+
+  <section class="btn-submit">
+    <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary' %>
   </section>
 
   <!--Back Button-->
   <section class="">
-    <!--Set back_path based on params-->
-    <% if params[:back_to] == '_lesson' %>
-      <!--Go back to Lesson-->
-      <%= 
-        link_to "Back to Lesson", 
-          course_path(@course, page: params[:page]),
-          class: "btn btn-default btn-back"
-        %>
-    <% elsif params[:back_to] == 'edit' %>
-      <!--Go back to Course Edit-->
-      <%= 
-        link_to "Back to Course Edit", 
-          edit_course_path(@course, course_id: @course.id),
-          class: "btn btn-default btn-back"
-        %>
-    <% elsif params[:back_to] == 'show' %>
-      <!-- Go back to Course-->
-      <%= 
-        link_to "Back to Course", 
-          course_path(@course, page: params[:page]), 
-          class: "btn btn-default btn-back" %>
-    <% end %>
+    <%= 
+      link_to "Back to Course Edit", 
+        edit_course_path(@course, course_id: @course.id),
+        class: "btn btn-default btn-back"
+      %>
   </section>
 
   <!--Delete Lesson Button-->
@@ -86,9 +73,5 @@
       </section>
     </div>
   <% end %>
-
-  <%= hidden_field_tag :course_id, @course.id %>
-  <%= hidden_field_tag :back_to, params[:back_to] %>
-  <%= hidden_field_tag :page, params[:page] %>
 
 <% end %>

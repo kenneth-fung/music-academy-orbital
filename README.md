@@ -38,8 +38,12 @@ parameter.
 
 ### UI Changes
 - Create Course button moved to tutor's profile
-- My Courses (Student/Tutor) moved to profile page
+- My Courses (Student/Tutor) moved to profile page and 'Account' dropdown in
+  navbar.
 - My Students moved to profile page
+- Tutors can now see the 'enroll' button, but upon clicking it they will be
+  asked to log out and log in as a student.
+- Edit Lesson and Add Lesson buttons moved to Course Edit page.
 
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif

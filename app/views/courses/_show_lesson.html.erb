@@ -2,38 +2,22 @@
 
   <!--Lessons exist-->
 
-  <% if subscribing?(@course) %>
-    <% find_subscription(current_user, @course).update_left_off(params[:page]) %>
-  <% end %>
+  <!--Scroll Index-->
+  <div class="scrollmenu pull-left">
+    <%= render 'lessons/list' %>
+  </div>
 
   <ol class="lessons">
     <%= render @lessons.reorder(:position) %>
   </ol>
   <%= will_paginate @lessons %>
 
-  <% if course_owner?(@course) %>
-    <%= 
-      link_to "Add a Lesson to this Course", 
-        new_lesson_path(course_id: @course.id,
-                        back_to: 'show',
-                        page: params[:page]), 
-        class: 'btn btn-primary btn-lesson-add pull-right' 
-      %>
-  <% end %>
-
 <% elsif !@course.lessons.any? %>
 
   <!--No Lessons currently exist-->
 
-  <section class="center">
-  <h3><b>This course currently has no lessons.</b></h3>
-  <% if course_owner?(@course) %>
-    <%= 
-      link_to "Begin by Adding a Lesson", 
-        new_lesson_path(course_id: @course.id, back_to: 'show'), 
-        class: 'btn btn-primary btn-lesson-add' 
-      %>
-  <% end %>
-  </section>
+  <div class="center jumbotron">
+    <h3><b>This course currently has no lessons.</b></h3>
+  </div>
 
 <% end %>

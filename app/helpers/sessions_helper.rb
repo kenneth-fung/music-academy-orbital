@@ -92,7 +92,7 @@ module SessionsHelper
 
   # Confirms the current user is the owner of the given course
   def course_owner?(course)
-    tutor? && current_user?(@course.tutor)
+    tutor? && current_user?(course.tutor)
   end
 
   # Confirms the current user is logged in and is a tutor

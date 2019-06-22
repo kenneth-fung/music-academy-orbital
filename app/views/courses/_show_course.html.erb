@@ -13,7 +13,7 @@
         %>
     <% end %>
 
-    <% unless tutor? %>
+    <% unless course_owner?(@course) %>
       <%= render 'courses/subscribe_form', course: @course, class: 'btn-course-subscribe' %>
     <% end %>
 

@@ -22,7 +22,7 @@
     <%= link_to "#{course.tutor.name}", tutor_path(course.tutor) %>
   </td>
 
-  <% unless tutor? %>
+  <% unless course_owner?(course) %>
     <td><%= render 'courses/subscribe_form', course: course %></td>
   <% end %>
 

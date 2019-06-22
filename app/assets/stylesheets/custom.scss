@@ -292,6 +292,9 @@ input {
 }
 
 .new_course {
+  .image {
+    margin-top: 15px;
+  }
   .btn-back {
     margin-top: 10px;
   }
@@ -339,25 +342,36 @@ input {
   margin: 20px;
 }
 
-.lessons {
-  list-style: none;
-  .name, .description, .lesson-resources, .edit-buttons {
-    display: block;
-  }
-  .jumbotron .video-blocker {
-    h3 {
-      font-size: 2.5em;
+.lesson_info {
+  .scrollmenu {
+    a {
+      display: block;
+      text-align: left;
     }
-    h2 {
+  }
+  .lessons {
+    list-style: none;
+    .name, .description, .lesson-resources, .edit-buttons {
+      display: block;
+    }
+    .video {
+      background-color: black;
+    }
+    .jumbotron .video-blocker {
+      h3 {
+        font-size: 2.5em;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+    .name {
       font-size: 1.5em;
+      font-weight: bold;
     }
-  }
-  .name {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  .lesson-resources {
-    margin: 10px;
+    .lesson-resources {
+      margin: 10px;
+    }
   }
 }
 
@@ -367,6 +381,15 @@ input {
   }
   .video {
     margin-bottom: 15px;
+    background-color: black;
+  }
+  .video-delete {
+    text-align: right;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    a {
+      color: $gray;
+    }
   }
   .lesson-delete {
     h3, h2 {

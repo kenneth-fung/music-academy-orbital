@@ -7,7 +7,10 @@ class Course < ApplicationRecord
   has_one_attached :image
   validate :image_file_type
 
-  default_scope -> { order(created_at: :desc) }
+  scope :newest,        -> { order(created_at: :desc) }
+  scope :oldest,        -> { order(created_at:  :asc) }
+  scope :lowest_price,  -> { order(price:       :asc) }
+  scope :highest_price, -> { order(price:      :desc) }
 
   validates :title,
     presence: true,
@@ -41,6 +44,22 @@ class Course < ApplicationRecord
     complete_query_terms.map! { |query_term| "%#{query_term}%" }
     # Execute the complete SQL query
     joins(:tutor, :lessons).where(complete_query + complete_query_terms).distinct
+  end
+
+  # Changes the scope (order of courses) based on sort param
+  def Course.sort(sort_by)
+    case sort_by
+    when 'newest'
+      newest
+    when 'oldest'
+      oldest
+    when 'lowest_price'
+      lowest_price
+    when 'highest_price'
+      highest_price
+    else
+      newest
+    end
   end
 
   private

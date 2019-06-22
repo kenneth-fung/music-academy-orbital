@@ -2,18 +2,32 @@
 
   <% exclusivity_check = subscribing?(@course) || course_owner?(@course) %>
 
-  <% if exclusivity_check %>
-    <% if lesson.video.attached? %>
-      <span class="video">
-        <%= video_tag url_for(lesson.video), size: "1024x576", controls: :controls %>
-      </span>
-    <% end %>
-  <% elsif !subscribing?(@course) %>
+  <% if subscribing?(@course) %>
+    <% find_subscription(current_user, @course).update_left_off(params[:page]) %>
+  <% end %>
+
+  <!--Lesson Video-->
+  <% if exclusivity_check && lesson.video.attached? %>
+    <!--Subscribed/Course Owner-->
+    <div align="center" class="embed-responsive embed-responsive-16by9">
+      <video controls class="embed-responsive-item video">
+        <source src="<%= url_for(lesson.video) %>">
+      </video>
+    </div>
+  <% else %>
     <div class="center jumbotron">
       <div class="container video-blocker">
-        <% if !tutor? %>
+        <% if exclusivity_check %>
+          <!--Video Not Present-->
+          <h3><strong>No video was prepared for this lesson.</strong></h3>
+        <% else %>
+          <!--Video Blocked-->
           <h3><strong>Interested in this course?</strong></h3>
-          <h2>Please purchase it to unlock its lessons.</h2>
+          <h2>
+            Please 
+            <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
+            it to unlock its lessons.
+          </h2>
         <% end %>
       </div>
     </div>
@@ -29,17 +43,6 @@
       <%= render 'lessons/resources', lesson: lesson %>
     </span>
 
-    <% if course_owner?(@course) %>
-      <span class="edit-buttons">
-        <%= 
-          link_to "Edit Lesson", 
-            edit_lesson_path(course_id: @course.id, 
-                             lesson_id: lesson.id, 
-                             back_to: "_lesson", 
-                             page: params[:page]), 
-            class: 'btn btn-default btn-lesson-edit' 
-          %>
-      </span>
-    <% end %>
   <% end %>
+
 </li>

@@ -1,0 +1,24 @@
+<div class="dropdown pull-right">
+  <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+    Sort by... <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <!--Newest-->
+    <li><%= link_to "Newest", 
+      courses_path(sort_by: :newest, 
+                   search: params[:search]) 
+      %></li>
+    <li><%= link_to "Oldest",
+      courses_path(sort_by: :oldest, 
+                   search: params[:search]) 
+      %></li>
+    <li><%= link_to "Lowest Price", 
+      courses_path(sort_by: :lowest_price, 
+                   search: params[:search]) 
+      %></li>
+    <li><%= link_to "Highest Price", 
+      courses_path(sort_by: :highest_price, 
+                   search: params[:search]) 
+      %></li>
+  </ul>
+</div>

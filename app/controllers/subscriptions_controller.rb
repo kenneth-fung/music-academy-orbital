@@ -28,7 +28,7 @@ class SubscriptionsController < ApplicationController
   def unsubscribed?
     @user = current_user
     @course = Course.find(params[:course_id])
-    if @user.subscribing?(@course)
+    if subscribing?(@course)
       flash[:danger] = "You have already subscribed to this course."
       redirect_to @course
     end

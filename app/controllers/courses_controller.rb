@@ -3,13 +3,14 @@ class CoursesController < ApplicationController
   before_action :is_course_owner?, only: [:edit, :update, :destroy, :delete_image]
 
   def index
+    courses = Course.sort(params[:sort_by])
     if params[:search]
       @title = "Search: \"#{params[:search]}\""
-      @courses = Course.search("#{params[:search]}").paginate(page: params[:page])
+      courses = courses.search("#{params[:search]}")
     else
       @title = "All Courses"
-      @courses = Course.paginate(page: params[:page])
     end
+    @courses = courses.paginate(page: params[:page])
   end
 
   def new

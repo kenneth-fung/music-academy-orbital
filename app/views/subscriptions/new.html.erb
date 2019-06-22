@@ -1,15 +1,28 @@
-<h2 class="center">Are you sure you want to subscribe to this course?</h2>
+<% unless tutor? %>
 
-<section class="center">
-  <%=
-    link_to "Yes, I want to subscribe.",
-      subscribe_path(course_id: @course.id),
-      method: :post,
-      class: "btn btn-primary btn-lg btn-agree"
-    %>
-  <%=
-    link_to "No, I've changed my mind.",
-      @course,
-      class: "btn btn-primary btn-lg btn-disagree"
-    %>
-</section>
+  <h2 class="center">Are you sure you want to subscribe to this course?</h2>
+
+  <section class="center">
+    <%=
+      link_to "Yes, I want to subscribe.",
+        subscribe_path(course_id: @course.id),
+        method: :post,
+        class: "btn btn-primary btn-lg btn-agree"
+      %>
+    <%=
+      link_to "No, I've changed my mind.",
+        @course,
+        class: "btn btn-primary btn-lg btn-disagree"
+      %>
+  </section>
+
+<% else %>
+
+  <h3>You are currently signed in as a <strong>tutor</strong>.</h3>
+  <h2>
+    To enroll for a course, please 
+    <%= link_to "log out", logout_path, method: :delete %> 
+    and log in as a student.
+  </h2>
+
+<% end %>

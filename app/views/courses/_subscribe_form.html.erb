@@ -1,5 +1,5 @@
 <div id="subscribe_form">
-  <% if logged_in? && current_user.subscribing?(course) %>
+  <% if subscribing?(course) %>
 
     <!-- Unsubscribe Button -->
     <%= 
