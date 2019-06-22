@@ -37,13 +37,22 @@
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+              <!--My Courses-->
+              <% if tutor? %>
+                <li><%= link_to "My Courses", courses_tutor_path(current_user) %></li>
+              <% elsif student? %>
+                <li><%= link_to "My Courses", courses_student_path(current_user) %></li>
+              <% end %>
+              <!--My Profile-->
               <li><%= link_to "Profile", current_user %></li>
+              <!--Settings-->
               <% if tutor? %>
                 <li><%= link_to "Settings", edit_tutor_path(current_user) %></li>
-              <% else %>
+              <% elsif student? %>
                 <li><%= link_to "Settings", edit_student_path(current_user) %></li>
               <% end %>
               <li class="divider"></li>
+              <!--Log Out-->
               <li>
                 <%= link_to "Log Out", logout_path, method: :delete %>
               </li>

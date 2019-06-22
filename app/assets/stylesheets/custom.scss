@@ -291,6 +291,12 @@ input {
   }
 }
 
+.new_course {
+  .btn-back {
+    margin-top: 10px;
+  }
+}
+
 .edit_course {
   h3, h2 {
     color: $gray-dark;
@@ -313,7 +319,7 @@ input {
       text-align: left;
       margin-top: 0px;
     }
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   .course-delete {
     margin: 30px 0px 15px 0px;
@@ -355,7 +361,7 @@ input {
   }
 }
 
-.edit_lesson {
+.new_lesson, .edit_lesson {
   .btn-back {
     margin: 10px 0px;
   }

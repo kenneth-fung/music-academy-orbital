@@ -27,26 +27,16 @@ class Course < ApplicationRecord
   def Course.search(query)
     query_terms = query.split
     # Create the SQL fragment for individual query terms
-    individual_query = ['(title LIKE ? 
-                        OR content LIKE ?
-                        OR tutors.name LIKE ?
-                        OR lessons.name LIKE ?
-                        OR lessons.description LIKE ?
-                        OR LOWER(title) LIKE ?
+    individual_query = ['(LOWER(title) LIKE ?
                         OR LOWER(content) LIKE ? 
                         OR LOWER(tutors.name) LIKE ? 
                         OR LOWER(lessons.name) LIKE ? 
-                        OR LOWER(lessons.description) LIKE ?
-                        OR UPPER(title) LIKE ?
-                        OR UPPER(content) LIKE ? 
-                        OR UPPER(tutors.name) LIKE ? 
-                        OR UPPER(lessons.name) LIKE ? 
-                        OR UPPER(lessons.description) LIKE ?)']
+                        OR LOWER(lessons.description) LIKE ?)']
     # Form complete SQL fragment based on number of query terms
     complete_query = [(individual_query * query_terms.length).join(' AND ')]
     # Construct complete array of query terms to feed to SQL fragment
     complete_query_terms = []
-    query_terms.each { |query_term| 15.times { complete_query_terms << query_term } }
+    query_terms.each { |query_term| 5.times { complete_query_terms << query_term.downcase } }
     # Add % % to each query term so that it is searched for as a substring
     complete_query_terms.map! { |query_term| "%#{query_term}%" }
     # Execute the complete SQL query

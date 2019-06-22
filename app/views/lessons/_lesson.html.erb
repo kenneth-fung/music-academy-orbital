@@ -35,7 +35,7 @@
           link_to "Edit Lesson", 
             edit_lesson_path(course_id: @course.id, 
                              lesson_id: lesson.id, 
-                             edit_from: "_lesson", 
+                             back_to: "_lesson", 
                              page: params[:page]), 
             class: 'btn btn-default btn-lesson-edit' 
           %>

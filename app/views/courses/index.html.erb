@@ -28,9 +28,10 @@
 
   <!--New Course Button-->
   <% if tutor? && @title.include?('My') %>
+    <% back_to = params[:action] %>
     <%= 
       link_to "Create a New Course", 
-        new_course_path, 
+        new_course_path(back_to: back_to),
         class: 'btn btn-primary btn-lg btn-course-new' 
       %>
   <% end %>

@@ -14,7 +14,9 @@
   <% if course_owner?(@course) %>
     <%= 
       link_to "Add a Lesson to this Course", 
-        new_lesson_path(course_id: @course.id), 
+        new_lesson_path(course_id: @course.id,
+                        back_to: 'show',
+                        page: params[:page]), 
         class: 'btn btn-primary btn-lesson-add pull-right' 
       %>
   <% end %>
@@ -28,7 +30,7 @@
   <% if course_owner?(@course) %>
     <%= 
       link_to "Begin by Adding a Lesson", 
-        new_lesson_path(course_id: @course.id), 
+        new_lesson_path(course_id: @course.id, back_to: 'show'), 
         class: 'btn btn-primary btn-lesson-add' 
       %>
   <% end %>

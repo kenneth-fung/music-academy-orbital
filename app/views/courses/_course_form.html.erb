@@ -45,6 +45,25 @@
     <%= f.button yield(:button_text), type: :submit, class: "btn btn-primary" %>
   </section>
 
+  <!--Back Button for Course Creation-->
+  <% if params[:back_to] %>
+    <section class="">
+      <% if params[:back_to] == 'show' %>
+        <%= 
+          link_to "Back to My Profile", 
+            @course.tutor, 
+            class: "btn btn-default btn-back" 
+          %>
+      <% elsif params[:back_to] == 'courses' %>
+        <%= 
+          link_to "Back to My Courses", 
+            courses_tutor_path(@course.tutor), 
+            class: "btn btn-default btn-back" 
+          %>
+      <% end %>
+    </section>
+  <% end %>
+
   <!--Actions below only available for Course Edit-->
   <% if params[:action] != 'new' %>
 

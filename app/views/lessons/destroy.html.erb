@@ -20,7 +20,10 @@
         %>
       <%= 
         link_to "No, I've changed my mind.", 
-          edit_lesson_path(@lesson, lesson_id: @lesson.id), 
+          edit_lesson_path(@lesson, 
+                           lesson_id: @lesson.id, 
+                           back_to: params[:back_to],
+                           page: params[:page]), 
           class: 'btn btn-primary btn-disagree' 
         %>
   </section>

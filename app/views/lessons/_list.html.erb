@@ -8,7 +8,7 @@
         link_to lesson.name,
           edit_lesson_path(lesson.name, 
                            lesson_id: lesson.id, 
-                           edit_from: "_list"),
+                           back_to: 'edit'),
           class: "list-group-item",
           id: dom_id(lesson)
           %>
@@ -17,7 +17,7 @@
 
   <%= 
     link_to "+ Add a Lesson", 
-      new_lesson_path(course_id: @course.id), 
+      new_lesson_path(course_id: @course.id, back_to: 'edit'), 
       class: 'btn btn-primary btn-lesson-add' 
     %>
 
