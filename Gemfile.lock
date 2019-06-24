@@ -71,9 +71,10 @@ GEM
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
-    bootstrap-sass (3.4.1)
-      autoprefixer-rails (>= 5.2.1)
-      sassc (>= 2.0.0)
+    bootstrap (4.3.1)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 1.14.3, < 2)
+      sassc-rails (>= 2.0.0)
     bootstrap-will_paginate (1.0.0)
       will_paginate
     builder (3.2.3)
@@ -150,6 +151,7 @@ GEM
       equatable (~> 0.6)
       tty-color (~> 0.5)
     pg (0.20.0)
+    popper_js (1.14.5)
     public_suffix (3.1.0)
     puma (3.12.1)
     rack (2.0.7)
@@ -204,6 +206,12 @@ GEM
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
@@ -269,7 +277,7 @@ DEPENDENCIES
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
-  bootstrap-sass
+  bootstrap (~> 4.3.1)
   bootstrap-will_paginate
   byebug
   capybara (>= 2.15)
