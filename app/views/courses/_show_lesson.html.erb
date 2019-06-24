@@ -1,18 +1,12 @@
-<% if @course.lessons.any? %>
+<% if @lessons.any? %>
 
   <!--Lessons exist-->
 
-  <!--Scroll Index-->
-  <div class="scrollmenu pull-left">
-    <%= render 'lessons/list' %>
-  </div>
-
-  <ol class="lessons">
-    <%= render @lessons.reorder(:position) %>
+  <ol class="lessons col-md-9">
+    <%= render 'lessons/show' %>
   </ol>
-  <%= will_paginate @lessons %>
 
-<% elsif !@course.lessons.any? %>
+<% else %>
 
   <!--No Lessons currently exist-->
 

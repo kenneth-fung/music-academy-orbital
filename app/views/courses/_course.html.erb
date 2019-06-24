@@ -6,11 +6,7 @@
       <%= image_tag course.image.variant(resize: "100x100") %>
     <% end %>
     <!--Title-->
-    <% left_off_page = 
-      @student && @student.subscribing?(course) ? 
-      find_subscription(@student, course).left_off : 
-      1 %>
-    <%= link_to "#{course.title}", course_path(course, page: left_off_page) %>
+    <%= link_to "#{course.title}", course_path(course) %>
   </td>
 
   <!--Lessons-->
