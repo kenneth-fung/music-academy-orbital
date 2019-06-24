@@ -2,20 +2,27 @@
   <% if subscribing?(course) %>
 
     <!-- Unsubscribe Button -->
-    <%= 
-      link_to "Quit", 
-        unsubscribe_path(course_id: course.id), 
-        class: "btn btn-default btn-disagree" 
-      %>
+    <%=
+      link_to "Quit",
+              unsubscribe_path(course_id: course.id),
+              class: "btn btn-default btn-disagree"
+    %>
 
   <% else %>
 
     <!-- Subscribe Button -->
-    <%= 
-      link_to "Enroll for #{number_to_currency(course.price)}!", 
-        subscribe_path(course_id: course.id), 
-        class: "btn btn-primary btn-lg btn-agree" 
+    <% if course.price.nil? %>
+      <%=
+        link_to "Enroll for free!",
+                subscribe_path(course_id: course.id),
+                class: "btn btn-primary btn-sm btn-agree"
       %>
-
+    <% else %>
+      <%=
+        link_to "Enroll for #{number_to_currency(course.price)}!",
+                subscribe_path(course_id: course.id),
+                class: "btn btn-primary btn-sm btn-agree"
+      %>
+    <% end %>
   <% end %>
 </div>

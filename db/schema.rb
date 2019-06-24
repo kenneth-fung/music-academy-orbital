@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_061400) do
+ActiveRecord::Schema.define(version: 2019_06_24_084101) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_061400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "price"
+    t.string "tag_list"
     t.index ["tutor_id", "created_at"], name: "index_courses_on_tutor_id_and_created_at"
     t.index ["tutor_id"], name: "index_courses_on_tutor_id"
   end
@@ -80,6 +81,22 @@ ActiveRecord::Schema.define(version: 2019_06_20_061400) do
     t.index ["course_id"], name: "index_subscriptions_on_course_id"
     t.index ["student_id", "course_id"], name: "index_subscriptions_on_student_id_and_course_id", unique: true
     t.index ["student_id"], name: "index_subscriptions_on_student_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "tag_id"], name: "index_taggings_on_course_id_and_tag_id", unique: true
+    t.index ["course_id"], name: "index_taggings_on_course_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tutors", force: :cascade do |t|

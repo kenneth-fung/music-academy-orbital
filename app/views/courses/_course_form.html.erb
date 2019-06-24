@@ -43,6 +43,10 @@
   <%= f.label :content, "Description" %>
   <%= f.text_area :content, rows: 15, class: 'form-control' %>
 
+  <!-- tags -->
+  <%= f.label :tag_list, "what the specialty of your course?" %>
+  <%= f.text_area :tag_list, class: 'form-control' %>
+
   <!--Submit Button-->
   <section class="btn-submit">
     <%= f.button yield(:button_text), type: :submit, class: "btn btn-primary" %>

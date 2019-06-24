@@ -3,28 +3,32 @@ class Course < ApplicationRecord
   has_many :lessons, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :students, through: :subscriptions, source: :student
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
+  after_save :parse_tag_list
 
   has_one_attached :image
   validate :image_file_type
 
-  scope :newest,        -> { order(created_at: :desc) }
-  scope :oldest,        -> { order(created_at:  :asc) }
-  scope :lowest_price,  -> { order(price:       :asc) }
-  scope :highest_price, -> { order(price:      :desc) }
+  scope :newest, -> {order(created_at: :desc)}
+  scope :oldest, -> {order(created_at: :asc)}
+  scope :lowest_price, -> {order(price: :asc)}
+  scope :highest_price, -> {order(price: :desc)}
 
   validates :title,
-    presence: true,
-    length: { maximum: 50 }
+            presence: true,
+            length: {maximum: 50}
 
   validates :content,
-    presence: true
+            presence: true
 
   validates :price,
-    presence: true,
-    numericality: { greater_than_or_equal_to: 0 }
+            presence: true,
+            numericality: {greater_than_or_equal_to: 0}
 
   validates :tutor,
-    presence: true
+            presence: true
 
   # Queries the Course, Tutor, and Lessons tables
   def Course.search(query)
@@ -39,9 +43,9 @@ class Course < ApplicationRecord
     complete_query = [(individual_query * query_terms.length).join(' AND ')]
     # Construct complete array of query terms to feed to SQL fragment
     complete_query_terms = []
-    query_terms.each { |query_term| 5.times { complete_query_terms << query_term.downcase } }
+    query_terms.each {|query_term| 5.times {complete_query_terms << query_term.downcase}}
     # Add % % to each query term so that it is searched for as a substring
-    complete_query_terms.map! { |query_term| "%#{query_term}%" }
+    complete_query_terms.map! {|query_term| "%#{query_term}%"}
     # Execute the complete SQL query
     joins(:tutor, :lessons).where(complete_query + complete_query_terms).distinct
   end
@@ -69,6 +73,22 @@ class Course < ApplicationRecord
     if image.attached? && !image.content_type.in?(%w[image/png image/jpeg image/gif])
       image.purge # delete the uploaded image
       errors.add(:image, 'must be a PNG, JPEG, or GIF file.')
+    end
+  end
+
+  # Parse tag list
+  def parse_tag_list
+    if !tag_list.blank?
+      arr = tag_list.split(",")
+      arr.each do |name|
+        tag = Tag.find_or_create_by(name: name)
+        if self.tags.include?(tag)
+        else
+          self.tags << tag
+        end
+      end
+    else
+      self.tags.clear
     end
   end
 end

@@ -3,14 +3,30 @@
   <section>
     <h1 class="title"><strong><%= @course.title %></strong></h1>
 
+    <h2>It's specialty:</h2>
+    <table class="table table-dark">
+      <thead>
+      <tr>
+        <th scope="col">name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @course.tags.each do |tag| %>
+        <tr>
+          <td><%= tag.name %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
     <% if tutor? && current_user?(@course.tutor) %>
-      <%= 
-        link_to "Edit Course", 
-          edit_course_path(@course, 
-                           course_id: @course.id,
-                           page: params[:page]),
-          class: 'btn btn-default btn-course-edit' 
-        %>
+      <%=
+        link_to "Edit Course",
+                edit_course_path(@course,
+                                 course_id: @course.id,
+                                 page: params[:page]),
+                class: 'btn btn-default btn-course-edit'
+      %>
     <% end %>
 
     <% unless course_owner?(@course) %>
@@ -23,11 +39,11 @@
 
     <h2 class="content"><%= @course.content %></h2>
 
-    <%= 
-      link_to gravatar_for(@course.tutor, size: 80), 
-        tutor_path(@course.tutor), 
-        class: 'course_tutor_gravatar' 
-      %>
+    <%=
+      link_to gravatar_for(@course.tutor, size: 80),
+              tutor_path(@course.tutor),
+              class: 'course_tutor_gravatar'
+    %>
     <h2 class="course_tutor">
       <strong>Tutor</strong><br>
       <%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %>
