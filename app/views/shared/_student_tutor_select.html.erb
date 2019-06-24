@@ -1,0 +1,11 @@
+<span class="radio-buttons">
+  <%= f.label :user_type, yield(:select_header), class: 'radio-header' %>
+  <%= f.label :user_type, class: 'radio inline' do %>
+    <%= f.radio_button :user_type, 'Student', checked: true, class: 'radio-button' %>
+    <span>Student</span>
+  <% end %>
+  <%= f.label :user_type, class: 'radio inline' do %>
+    <%= f.radio_button :user_type, 'Tutor', class: 'radio-button' %>
+    <span>Tutor</span>
+  <% end %>
+</span>

@@ -1,4 +1,4 @@
-<%= form_for(user, url: yield(:url_path)) do |f| %>
+<%= form_for(user, url: url_path) do |f| %>
 
   <%= render 'shared/error_messages', object: f.object %>
 
@@ -22,13 +22,5 @@
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
-
-  <section class="under-submit-text">
-    <% if logged_out? %>
-      <span class="pull-left">
-        <%= link_to "Already have an account? Log in here.", yield(:login_path) %>
-      </span>
-    <% end %>
-  </section>
 
 <% end %>

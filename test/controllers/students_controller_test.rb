@@ -28,11 +28,11 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   test "should redirect update when logged in as wrong student" do
     log_in_as(@other_student)
     patch student_path(@student), params: { student: { name: @student.name,
-                                                email: @student.email } }
+                                                       email: @student.email } }
     assert flash.empty?
     assert_redirected_to root_url
   end
-  
+
   test "should redirect destroy when not logged in" do
     assert_no_difference 'Student.count' do
       delete student_path(@student)

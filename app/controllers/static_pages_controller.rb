@@ -1,8 +1,13 @@
 class StaticPagesController < ApplicationController
   def home
-    @courses = Course.reorder("RANDOM()").limit(10)
+    @courses = Course.reorder(Arel.sql("RANDOM()")).limit(10)
     @title = 'Home'
     render 'courses/index'
+  end
+
+  def signup
+    @student = Student.new
+    @tutor = Tutor.new
   end
 
   def contact

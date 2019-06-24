@@ -1,12 +1,10 @@
 <% provide(:title, 'Sign up') %>
 <% provide(:label_prefix, '') %>
-<% provide(:button_text, 'Create Account' %>
-<% provide(:url_path, student_signup_path) %>
-<% provide(:login_path, student_login_path) %>
+<% provide(:button_text, 'Create Account') %>
 
-<h1>Student Sign Up</h1>
+<h1>Sign Up: Student</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= render 'shared/user_form', user: @student %>
+    <%= render 'shared/user_form', user: @student, url_path: student_signup_path %>
   </div>
 </div>

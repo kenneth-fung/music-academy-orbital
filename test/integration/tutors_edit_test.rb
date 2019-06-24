@@ -10,9 +10,9 @@ class TutorsEditTest < ActionDispatch::IntegrationTest
     get edit_tutor_path(@tutor)
     assert_template 'tutors/edit'
     patch tutor_path(@tutor), params: { tutor: { name:  "",
-                                              email: "foo@invalid",
-                                              password:              "foo",
-                                              password_confirmation: "bar" } }
+                                                 email: "foo@invalid",
+                                                 password:              "foo",
+                                                 password_confirmation: "bar" } }
 
     assert_template 'tutors/edit'
     assert_select "div.alert", "The form contains 4 errors."
@@ -31,11 +31,11 @@ class TutorsEditTest < ActionDispatch::IntegrationTest
     name  = "Foo Bar"
     email = "foo@bar.com"
     patch tutor_path(@tutor), params: { tutor: { name:  name,
-                                              email: email,
-                                              password:              "",
-                                              password_confirmation: "" } }
+                                                 email: email,
+                                                 password:              "",
+                                                 password_confirmation: "" } }
     assert_not flash.empty?
-    assert_redirected_to @tutor
+    assert_redirected_to edit_tutor_path(@tutor)
     @tutor.reload
     assert_equal name,  @tutor.name
     assert_equal email, @tutor.email

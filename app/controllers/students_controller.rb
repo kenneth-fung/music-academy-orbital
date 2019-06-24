@@ -60,7 +60,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     if @student.update_attributes(student_params)
       flash[:success] = "Changes saved!"
-      redirect_to @student
+      redirect_to edit_student_path(@student)
     else
       render 'edit'
     end
