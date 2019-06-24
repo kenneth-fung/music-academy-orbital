@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
   # Sessions
-  get    '/student_login', to: 'sessions#new_student'
-  post   '/student_login', to: 'sessions#create_student'
+  get    '/login',         to: 'sessions#new'
+  post   '/login',         to: 'sessions#create'
   delete '/logout',        to: 'sessions#destroy'
-  get    '/tutor_login',   to: 'sessions#new_tutor'
-  post   '/tutor_login',   to: 'sessions#create_tutor'
 
   # Static Pages
+  get '/signup',  to: 'static_pages#signup'
   get '/about',   to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
   root 'static_pages#home'

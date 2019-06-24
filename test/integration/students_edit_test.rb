@@ -10,9 +10,9 @@ class StudentsEditTest < ActionDispatch::IntegrationTest
     get edit_student_path(@student)
     assert_template 'students/edit'
     patch student_path(@student), params: { student: { name:  "",
-                                              email: "foo@invalid",
-                                              password:              "foo",
-                                              password_confirmation: "bar" } }
+                                                       email: "foo@invalid",
+                                                       password:              "foo",
+                                                       password_confirmation: "bar" } }
 
     assert_template 'students/edit'
     assert_select "div.alert", "The form contains 4 errors."
@@ -25,9 +25,9 @@ class StudentsEditTest < ActionDispatch::IntegrationTest
     name  = "Foo Bar"
     email = "foo@bar.com"
     patch student_path(@student), params: { student: { name:  name,
-                                              email: email,
-                                              password:              "password",
-                                              password_confirmation: "password" } }
+                                                       email: email,
+                                                       password:              "password",
+                                                       password_confirmation: "password" } }
   end
 
   test "successful edit" do
@@ -41,7 +41,7 @@ class StudentsEditTest < ActionDispatch::IntegrationTest
                                                        password:              "",
                                                        password_confirmation: "" } }
     assert_not flash.empty?
-    assert_redirected_to @student
+    assert_redirected_to edit_student_path(@student)
     @student.reload
     assert_equal name,  @student.name
     assert_equal email, @student.email

@@ -201,6 +201,21 @@ input {
   }
 }
 
+.radio-buttons {
+  .radio-header {
+    margin-bottom: 0px;
+  }
+  .radio {
+    .radio-button {
+      margin-left: -250px;
+    }
+    span {
+      margin-left: 40px;
+      font-weight: normal;
+    }
+  }
+}
+
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
@@ -214,6 +229,17 @@ input {
   width: auto;
   margin-left: 0;
 }
+
+.signup {
+ .vertical-divider {
+   text-align: center;
+   padding-bottom: 440px;
+   margin-bottom: -440px;
+   border-right: 1px solid #e6e6e6;
+   float: left;
+ }
+}
+
 
 /* user profile */
 

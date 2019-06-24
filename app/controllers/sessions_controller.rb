@@ -1,48 +1,27 @@
 class SessionsController < ApplicationController
-  before_action :is_logged_out?, only: [:new_student, :new_tutor, :create_student, :create_tutor]
-  before_action :is_logged_in?, only: [:destroy]
+  before_action :is_logged_out?, only: [:new, :create]
+  before_action :is_logged_in?,  only: [:destroy]
 
-  def new_student
+  def new
   end
 
-  def new_tutor
-  end
-
-  def create_student
-    @student = Student.find_by(email: params[:session][:email].downcase)
-    if @student && @student.authenticate(params[:session][:password])
-      if @student.activated?
-        log_in @student
-        params[:session][:remember_me] == '1' ? remember(@student) : forget(@student)
-        redirect_back_or @student
+  def create
+    user_type = params[:session][:user_type].constantize
+    @user = user_type.find_by(email: params[:session][:email].downcase)
+    if @user && @user.authenticate(params[:session][:password])
+      if @user.activated?
+        log_in @user
+        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        redirect_back_or @user
       else
-        message  = "Account not activated. "
-        message += "Check your email for the activation link."
+        message = "Account not activated."
+        message += "Please check your email for the activation link."
         flash[:warning] = message
-        redirect_to root_url
+        redirect_to root_path
       end
     else
       flash.now[:danger] = "Invalid email/password combination."
-      render 'new_student'
-    end
-  end
-
-  def create_tutor
-    @tutor = Tutor.find_by(email: params[:session][:email].downcase)
-    if @tutor && @tutor.authenticate(params[:session][:password])
-      if @tutor.activated?
-        log_in @tutor
-        params[:session][:remember_me] == '1' ? remember(@tutor) : forget(@tutor)
-        redirect_back_or @tutor
-      else
-        message  = "Account not activated. "
-        message += "Check your email for the activation link."
-        flash[:warning] = message
-        redirect_to root_url
-      end
-    else
-      flash.now[:danger] = "Invalid email/password combination."
-      render 'new_tutor'
+      render 'new'
     end
   end
 

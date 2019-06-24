@@ -7,11 +7,8 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    if params[:user_type] == Tutor.name
-      @user = Tutor.find_by(email: params[:password_reset][:email].downcase)
-    elsif params[:user_type] == Student.name
-      @user = Student.find_by(email: params[:password_reset][:email].downcase)
-    end
+    user_type = params[:password_reset][:user_type].constantize
+    @user = user_type.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
@@ -35,6 +32,7 @@ class PasswordResetsController < ApplicationController
     elsif @user.update_attributes(send("#{type}_params"))
       # Case: Successful update
       log_in @user
+      @user.update_attribute(:reset_digest, nil)
       flash[:success] = "Your password has been reset."
       redirect_to @user
     else

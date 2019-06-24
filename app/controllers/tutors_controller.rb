@@ -63,7 +63,7 @@ class TutorsController < ApplicationController
     @tutor = Tutor.find(params[:id])
     if @tutor.update_attributes(tutor_params)
       flash[:success] = "Changes saved!"
-      redirect_to @tutor
+      redirect_to edit_tutor_path(@tutor)
     else
       render 'edit'
     end

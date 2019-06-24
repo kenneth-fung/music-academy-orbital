@@ -26,14 +26,9 @@ class ActionDispatch::IntegrationTest
 
   # Log in as a particular user.
   def log_in_as(user, password: 'password', remember_me: '0')
-    if user.class == Tutor
-      post tutor_login_path, params: { session: { email: user.email,
-                                                  password: password,
-                                                  remember_me: remember_me } }
-    elsif user.class == Student
-      post student_login_path, params: { session: { email: user.email,
-                                                    password: password,
-                                                    remember_me: remember_me } }
-    end
+    post login_path, params: { session: { user_type: user.class.to_s,
+                                          email: user.email,
+                                          password: password,
+                                          remember_me: remember_me } }
   end
 end
