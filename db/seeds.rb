@@ -64,7 +64,7 @@ end
 # Courses
 rand(300..400).times do
   instrument = Faker::Music.instrument
-  grade = 'Grade + 'rand(1..10).to_s
+  grade = 'Grade ' + rand(1..10).to_s
   title = instrument + ': ' + grade
   content = Faker::Lorem.paragraph(rand(15..50))
   price = rand(2000).to_f / 100.to_f
