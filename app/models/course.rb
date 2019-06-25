@@ -38,16 +38,17 @@ class Course < ApplicationRecord
                         OR LOWER(content) LIKE ? 
                         OR LOWER(tutors.name) LIKE ? 
                         OR LOWER(lessons.name) LIKE ? 
-                        OR LOWER(lessons.description) LIKE ?)']
+                        OR LOWER(lessons.description) LIKE ?
+                        OR LOWER(tags.name) LIKE ?)']
     # Form complete SQL fragment based on number of query terms
     complete_query = [(individual_query * query_terms.length).join(' AND ')]
     # Construct complete array of query terms to feed to SQL fragment
     complete_query_terms = []
-    query_terms.each {|query_term| 5.times {complete_query_terms << query_term.downcase}}
+    query_terms.each {|query_term| 6.times {complete_query_terms << query_term.downcase}}
     # Add % % to each query term so that it is searched for as a substring
     complete_query_terms.map! {|query_term| "%#{query_term}%"}
     # Execute the complete SQL query
-    joins(:tutor, :lessons).where(complete_query + complete_query_terms).distinct
+    left_outer_joins(:tutor, :lessons, :tags).where(complete_query + complete_query_terms).distinct
   end
 
   # Changes the scope (order of courses) based on sort param
