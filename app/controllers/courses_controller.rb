@@ -42,7 +42,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     position = 1
-    if params[:lesson_page]
+    if !params[:lesson_page].nil?
       position = params[:lesson_page]
     elsif subscribing?(@course)
       subscription = current_user.subscriptions.find_by(course_id: @course.id)
