@@ -4,15 +4,11 @@
     <%= image_tag 'tutor.jpg', class: 'card-img-top' %>
     <div class="card-body p-3">
       <h5 class="card-title text-capitalize mb-1">
-        <%= tutor.name %>
+        <%= link_to tutor.name, tutor %>
       </h5>
-      <p class="card-text">
-        <%= tutor.name %>
-      </p>
-      <%= link_to "check out this tutor", tutor_path(tutor), class: 'btn btn-secondary btn-sm' %>
       <% if logged_in? && current_user.admin? && !current_user?(tutor) %>
         | <%= link_to "delete", tutor, method: :delete, data: { confirm: "Are you sure?" },
-                      class: 'btn btn-secondary btn-sm' %>
+          class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
     <div class="card-footer bg-light d-flex justify-content-start">
