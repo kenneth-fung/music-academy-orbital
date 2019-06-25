@@ -36,10 +36,6 @@
   <%= @course.content %>
 </h2>
 
-<p>Tags:
-  <%= @course.tags.map {|tag| tag.name}.join(", ") %>
-</p>
-
 <%=
   link_to gravatar_for(@course.tutor, size: 80),
           tutor_path(@course.tutor),
