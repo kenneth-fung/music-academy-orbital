@@ -19,6 +19,8 @@ class Lesson < ApplicationRecord
   validates :description,
     presence: true
 
+  after_create :initialize_position
+
   private
 
   # Validates that the video is of the correct file type
@@ -55,6 +57,11 @@ class Lesson < ApplicationRecord
         errors.add(:resources, 'must be PDFs, images (PNG, JPEG), or sound files (MP3, MPEG).')
       end
     end
+  end
+
+  # Initializes the position of the lesson in relation to the other lessons of its course
+  def initialize_position
+    self.update_attribute(:position, self.course.lessons.count)
   end
 
 end

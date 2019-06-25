@@ -1,48 +1,67 @@
-<li id="lesson-<%= lesson.id %>">
+<li class="lesson">
 
   <% exclusivity_check = subscribing?(@course) || course_owner?(@course) %>
 
   <% if subscribing?(@course) %>
-    <% find_subscription(current_user, @course).update_left_off(params[:page]) %>
+    <% find_subscription(current_user, @course).update_left_off(@lesson.position) %>
   <% end %>
 
-  <!--Lesson Video-->
-  <% if exclusivity_check && lesson.video.attached? %>
-    <!--Subscribed/Course Owner-->
-    <div align="center" class="embed-responsive embed-responsive-16by9">
-      <video controls class="embed-responsive-item video">
-        <source src="<%= url_for(lesson.video) %>">
-      </video>
-    </div>
-  <% else %>
-    <div class="center jumbotron">
-      <div class="container video-blocker">
-        <% if exclusivity_check %>
-          <!--Video Not Present-->
-          <h3><strong>No video was prepared for this lesson.</strong></h3>
-        <% else %>
-          <!--Video Blocked-->
-          <h3><strong>Interested in this course?</strong></h3>
-          <h2>
-            Please 
-            <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
-            it to unlock its lessons.
-          </h2>
+  <div class="container">
+
+    <!--Scroll Index-->
+    <div class="scrollmenu col-md-3">
+      <ol class="list-group">
+        <% @lessons.each do |lesson| %>
+          <%= 
+            link_to lesson.name, 
+              course_path(@course, lesson_page: lesson.position), 
+              class: 'list-group-item' 
+            %>
         <% end %>
-      </div>
+      </ol>
     </div>
-  <% end %>
 
-  <span class="name">Lesson: <%= lesson.name %></span>
+    <div class="video-section col-md-9">
 
-  <% if exclusivity_check %>
+      <!--Lesson Video-->
+      <% if exclusivity_check && @lesson.video.attached? %>
+        <!--Subscribed/Course Owner-->
+        <div align="center" class="embed-responsive embed-responsive-16by9">
+          <video controls class="embed-responsive-item video">
+            <source src="<%= url_for(@lesson.video) %>">
+          </video>
+        </div>
+      <% else %>
+        <div class="center jumbotron">
+          <div class="container video-blocker">
+            <% if exclusivity_check %>
+              <!--Video Not Present-->
+              <h3><strong>No video was prepared for this lesson.</strong></h3>
+            <% else %>
+              <!--Video Blocked-->
+              <h3><strong>Interested in this course?</strong></h3>
+              <h2>
+                Please 
+                <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
+                it to unlock its lessons.
+              </h2>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
 
-    <span class="description"><%= lesson.description %></span>
-    <span class="lesson-resources">
-      <strong>Resources</strong><br>
-      <%= render 'lessons/resources', lesson: lesson %>
-    </span>
+    </div>
 
-  <% end %>
+    <span class="name">Lesson: <%= @lesson.name %></span>
+
+    <% if exclusivity_check %>
+
+      <span class="description"><%= @lesson.description %></span>
+      <span class="lesson-resources">
+        <strong>Resources</strong><br>
+        <%= render 'lessons/resources', lesson: @lesson %>
+      </span>
+
+    <% end %>
 
 </li>

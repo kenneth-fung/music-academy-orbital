@@ -41,7 +41,15 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    @lessons = @course.lessons.paginate(page: params[:page], per_page: 1)
+    position = 1
+    if !params[:lesson_page].nil?
+      position = params[:lesson_page]
+    elsif subscribing?(@course)
+      subscription = current_user.subscriptions.find_by(course_id: @course.id)
+      position = subscription.left_off
+    end
+    @lessons = @course.lessons.reorder(:position)
+    @lesson = @lessons[position.to_i - 1]
   end
 
   def destroy
