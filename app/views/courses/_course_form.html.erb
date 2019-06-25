@@ -48,7 +48,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :tag_list, "Add some tags to your course to more easily help students find it." %>
+    <%= f.label :tag_list, "Give your course some tags!" %>
     <p><i>Example tags (please follow the format of commas between tags): piano, drums grade 3, clarinet</i></p>
     <%= f.text_area :tag_list, class: 'form-control' %>
   </div>
@@ -81,7 +81,7 @@
   <% end %>
 
   <!--Actions below only available for Course Edit-->
-  <% if params[:action] != 'new' %>
+  <% if params[:action] == 'edit' %>
 
     <!--Lessons-->
     <section class="lessons-header">
