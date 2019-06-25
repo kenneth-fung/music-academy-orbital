@@ -9,11 +9,11 @@ class LessonsController < ApplicationController
 
   def create
     @course = Course.find(params[:course_id])
-    lesson_number = @course.lessons.count + 1
     @lesson = @course.lessons.build(lesson_params)
     if @lesson.save
+      @lesson.update_attribute(:position, @course.lessons.count)
       flash[:success] = "Lesson: '#{@lesson.name}' for '#{@course.title}' has been published."
-      redirect_to course_path(@course, page: lesson_number)
+      redirect_to edit_course_path(@course, course_id: @course.id)
     else
       render 'lessons/new'
     end
@@ -46,9 +46,7 @@ class LessonsController < ApplicationController
     if @lesson.update_attributes(lesson_params)
       flash[:success] = "Lesson: '#{@lesson.name}' edited."
       redirect_to edit_lesson_path(@lesson, 
-                                   lesson_id: @lesson.id,
-                                   edit_from: params[:edit_from],
-                                   page: params[:page])
+                                   lesson_id: @lesson.id)
     else
       render 'edit'
     end

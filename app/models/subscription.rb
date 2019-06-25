@@ -5,7 +5,7 @@ class Subscription < ApplicationRecord
   validates :course_id, presence: true
 
   # Updates the lesson at which a student left off
-  def update_left_off(lesson_number)
-    update_attribute(:left_off, lesson_number)
+  def update_left_off(lesson_id)
+    update_attribute(:left_off, lesson_id)
   end
 end
