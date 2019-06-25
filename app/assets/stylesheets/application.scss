@@ -73,6 +73,12 @@ p {
 .text-small {
   font-size: 0.7em;
 }
+
+.height-80 {
+  height: 560px;
+  overflow: scroll;
+}
+
 /* header */
 
 #logo {
@@ -169,43 +175,6 @@ footer {
   }
 }
 
-/* forms */
-
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-}
-
-input {
-  height: auto !important;
-}
-
-#error_explanation {
-  color: red;
-  ul {
-    color: red;
-    margin: 0 0 30px 0;
-  }
-}
-
-.field_with_errors {
-  .form-control {
-    color: $state-danger-text;
-  }
-}
-
-.radio-buttons {
-  .radio-header {
-    margin-bottom: 0px;
-  }
-  .radio {
-    .radio-button {
-    }
-    span {
-      font-weight: normal;
-    }
-  }
-}
 
 .checkbox {
   margin-top: -10px;
@@ -260,7 +229,7 @@ input {
   }
 }
 
-/* course info */
+/* course info
 
 .btn-course-new {
   margin-bottom: 15px;
@@ -351,8 +320,8 @@ input {
     }
   }
 }
-
-/* lesson info */
+*/
+/* lesson info
 
 .lesson-new-header {
   padding-top: 20px;
@@ -423,7 +392,7 @@ input {
     }
   }
 }
-
+*/
 /* pagination */
 
 .pagination {
@@ -432,10 +401,6 @@ input {
   text-align: center;
   padding: 1em;
   cursor: default;
-
-  a, span {
-    padding: 0.2em 0.3em;
-  }
 
   .disabled {
     color: #aaaaaa;
@@ -500,3 +465,4 @@ input {
   width: 100%;
   text-align: center;
 }
+

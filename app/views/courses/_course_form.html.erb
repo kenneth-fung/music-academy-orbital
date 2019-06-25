@@ -1,14 +1,16 @@
 <%= form_for(@course, url: yield(:url_path)) do |f| %>
-  <%= render 'shared/error_messages' , object: @course %>
+  <%= render 'shared/error_messages', object: @course %>
 
-  <!--Title-->
-  <%= f.label :title, "Title" %>
-  <%= f.text_field :title, class: 'form-control' %>
+  <div class="form-group">
+    <%= f.label :title, "Title" %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
 
-  <!--Price-->
   <%= f.label :price %>
-  <div class="input-group">
-    <span class="input-group-addon">$</span>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">$</span>
+    </div>
     <%= f.number_field :price, step: 0.01, class: 'form-control' %>
   </div>
 
@@ -21,54 +23,66 @@
 
       <!--Image deletion link-->
       <div><i><%= link_to "(delete and upload another image)",
-        delete_image_course_path(@course.image.id, course_id: @course.id),
-        method: :delete,
-        data: { confirm: "Are you sure?" }
-        %></i></div>
+                          delete_image_course_path(@course.image.id, course_id: @course.id),
+                          method: :delete,
+                          data: {confirm: "Are you sure?"}
+      %></i></div>
 
     <% else %>
-
       <!--Image upload button-->
-      <%= f.label :image %>
-      <%= 
-        f.file_field :image, 
-          accept: 'image/png, image/jpeg, image/gif', 
-          class: 'form-control' 
+      <div class="form-group">
+        <%= f.label :image, for: 'exampleFormControlFile1' %>
+        <%=
+          f.file_field :image,
+                       accept: 'image/png, image/jpeg, image/gif',
+                       class: 'form-control-file',
+                       id: 'exampleFormControlFile1'
         %>
-
+      </div>
     <% end %>
   </section>
 
-  <!--Content-->
-  <%= f.label :content, "Description" %>
-  <%= f.text_area :content, rows: 15, class: 'form-control' %>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
 
-  <!-- tags -->
-  <%= f.label :tag_list, "what the specialty of your course?" %>
-  <%= f.text_area :tag_list, class: 'form-control' %>
+  <div class="form-group">
+    <%= f.label :content, "Description" %>
+    <%= f.text_area :content, rows: 15, class: 'form-control' %>
+  </div>
 
-  <!--Submit Button-->
-  <section class="btn-submit">
-    <%= f.button yield(:button_text), type: :submit, class: "btn btn-primary" %>
-  </section>
+  <div class="form-group">
+    <%= f.label :tag_list, "Give your course some tags!" %>
+    <%= f.text_area :tag_list, class: 'form-control' %>
+  </div>
+
+  <%= f.button yield(:button_text), type: :submit, class: "btn btn-primary" %>
 
   <!--Back Button for Course Creation-->
   <% if params[:back_to] %>
-    <section class="">
-      <% if params[:back_to] == 'show' %>
-        <%= 
-          link_to "Back to My Profile", 
-            @course.tutor, 
-            class: "btn btn-default btn-back" 
+    <% if params[:back_to] == 'show' %>
+      <div class="row">
+        <div class="col pt-3">
+          <%=
+            link_to "Back to My Profile",
+                    @course.tutor,
+                    class: "btn btn-secondary btn-sm"
           %>
-      <% elsif params[:back_to] == 'courses' %>
-        <%= 
-          link_to "Back to My Courses", 
-            courses_tutor_path(@course.tutor), 
-            class: "btn btn-default btn-back" 
+        </div>
+      </div>
+    <% elsif params[:back_to] == 'courses' %>
+      <div class="row">
+        <div class="col pt-3">
+          <%=
+            link_to "Back to My Courses",
+                    courses_tutor_path(@course.tutor),
+                    class: "btn btn-default btn-back"
           %>
-      <% end %>
-    </section>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 
   <!--Actions below only available for Course Edit-->
@@ -80,7 +94,7 @@
         <strong>Lessons</strong>
       </h3>
       <h2>
-        <strong>Drag</strong> lessons to re-order them, 
+        <strong>Drag</strong> lessons to re-order them,
         or <strong>click</strong> to edit individual lessons.<br>
         Re-ordering is saved automatically.
       </h2>
@@ -90,13 +104,13 @@
     </section>
 
     <!--Back Button-->
-      <section class="">
-        <%= 
-          link_to "Back to Course", 
-            course_path(@course, page: params[:page]), 
-            class: "btn btn-default btn-back" 
-          %>
-      </section>
+    <section class="">
+      <%=
+        link_to "Back to Course",
+                course_path(@course, page: params[:page]),
+                class: "btn btn-default btn-back"
+      %>
+    </section>
 
     <!--Delete Course button-->
     <% if tutor? && current_user?(@course.tutor) %>
@@ -104,13 +118,15 @@
         <h3><strong>Warning</strong></h3>
         <h2>
           Press the button below to <strong>delete this course.</strong><br>
-          <%= 
-            link_to "Delete Course", 
-              courses_delete_path(@course, course_id: @course.id), 
-              class: "btn btn-default btn-course-delete" 
-            %>
+          <%=
+            link_to "Delete Course",
+                    courses_delete_path(@course, course_id: @course.id),
+                    class: "btn btn-danger mt-3"
+          %>
         </h2>
       </div>
     <% end %>
   <% end %>
 <% end %>
+
+

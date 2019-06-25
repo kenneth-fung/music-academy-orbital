@@ -1,7 +1,5 @@
 <%= form_for(user, url: url_path) do |f| %>
-
   <%= render 'shared/error_messages', object: f.object %>
-
   <% if logged_in? %>
     <div class="gravatar_edit">
       <%= gravatar_for user %>
@@ -9,18 +7,83 @@
     </div>
   <% end %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
+  <div class="form-group">
+    <% if f.object.errors.any? && f.object.errors.include?(:name) %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:name].join(", ") %>
+      </div>
+    <% elsif f.object.errors.any? && !f.object.errors.include?(:name) %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control is-valid' %>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+    <% end %>
+  </div>
 
-  <%= f.label :email %>
-  <%= f.email_field :email, class: 'form-control' %>
+  <div class="form-group">
+    <% if f.object.errors.any? && f.object.errors.include?(:email) %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:email].join(", ") %>
+      </div>
+    <% elsif f.object.errors.any? && !f.object.errors.include?(:email) %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control is-valid' %>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    <% end %>
+  </div>
 
-  <%= f.label :password, yield(:label_prefix) + "Password" %>
-  <%= f.password_field :password, class: 'form-control' %>
+  <div class="form-group">
+    <% if f.object.errors.any? && f.object.errors.include?(:password) %>
+      <%= f.label :password, yield(:label_prefix) + "Password" %>
+      <%= f.password_field :password, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:password].join(", ") %>
+      </div>
+    <% elsif f.object.errors.any? && !f.object.errors.include?(:password) %>
+      <%= f.label :password, yield(:label_prefix) + "Password" %>
+      <%= f.password_field :password, class: 'form-control is-valid' %>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.label :password, yield(:label_prefix) + "Password" %>
+      <%= f.password_field :password, class: 'form-control' %>
+    <% end %>
+  </div>
 
-  <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
-  <%= f.password_field :password_confirmation, class: 'form-control' %>
+  <div class="form-group">
+    <% if f.object.errors.any? && f.object.errors.include?(:password_confirmation) %>
+      <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:password].join(", ") %>
+      </div>
+    <% elsif f.object.errors.any? && !f.object.errors.include?(:password_confirmation) %>
+      <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control is-valid' %>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    <% end %>
+  </div>
 
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary mt-3" %>
+
 
 <% end %>

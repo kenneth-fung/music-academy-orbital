@@ -6,6 +6,7 @@ class TutorsController < ApplicationController
 
   def new
     @tutor = Tutor.new
+    @student = Student.new
   end
 
   def create
@@ -15,6 +16,7 @@ class TutorsController < ApplicationController
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
+      @student = Student.new
       render 'new'
     end
   end

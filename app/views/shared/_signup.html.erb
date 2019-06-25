@@ -1,0 +1,84 @@
+<% provide(:title, 'Sign Up') %>
+<% provide(:label_prefix, '') %>
+<% provide(:button_text, 'Create Account') %>
+<% provide(:select_header, "Log in as a...") %>
+
+<% if params[:controller].eql?('tutors') %>
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Student</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tutor</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="row justify-content-center mt-3">
+            <h3>Student Signup</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <%= render 'shared/user_form', user: @student, url_path: student_signup_path %>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row justify-content-center mt-3">
+            <h3>Tutor Signup</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <%= render 'shared/user_form', user: @tutor, url_path: tutor_signup_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item ">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Student</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tutor</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="row justify-content-center mt-3">
+            <h3>Student Signup</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <%= render 'shared/user_form', user: @student, url_path: student_signup_path %>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row justify-content-center mt-3">
+            <h3>Tutor Signup</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <%= render 'shared/user_form', user: @tutor, url_path: tutor_signup_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

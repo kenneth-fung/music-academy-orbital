@@ -1,7 +1,1 @@
 <% provide(:title, 'Home') %>
-
-<% if logged_out? %>
-  <%= link_to "Sign up now as a student!", student_signup_path, class: "btn btn-lg btn-primary" %>
-  <%= link_to "Sign up now as a tutor!", tutor_signup_path, class: "btn btn-lg btn-primary" %>
-<% end %>
-

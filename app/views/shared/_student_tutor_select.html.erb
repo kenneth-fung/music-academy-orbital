@@ -1,11 +1,13 @@
-<span class="radio-buttons">
-  <%= f.label :user_type, yield(:select_header), class: 'radio-header' %>
+<%= f.label :user_type, yield(:select_header), class: 'form-check-label' %>
+<div class="form-check">
   <%= f.label :user_type, class: 'radio inline' do %>
-    <%= f.radio_button :user_type, 'Student', checked: true, class: 'radio-button' %>
-    <span>Student</span>
+    <%= f.radio_button :user_type, 'Student', checked: true, class: 'form-check-input' %>
+    <span class="form-check-label">Student</span>
   <% end %>
+</div>
+<div class="form-check">
   <%= f.label :user_type, class: 'radio inline' do %>
-    <%= f.radio_button :user_type, 'Tutor', class: 'radio-button' %>
-    <span>Tutor</span>
+    <%= f.radio_button :user_type, 'Tutor', class: 'form-check-input' %>
+    <span class="form-check-label">Tutor</span>
   <% end %>
-</span>
+</div>

@@ -1,10 +1,63 @@
 <% if @lessons.any? %>
 
-  <!--Lessons exist-->
+  <% exclusivity_check = subscribing?(@course) || course_owner?(@course) %>
 
-  <ol class="lessons col-md-9">
-    <%= render 'lessons/lesson' %>
-  </ol>
+  <% if subscribing?(@course) %>
+    <% find_subscription(current_user, @course).update_left_off(@lesson.position) %>
+  <% end %>
+
+  <!--Lessons exist-->
+  <div class="row no-gutter">
+    <div class="col-md-3 pr-0">
+      <ul class="list-group height-80 border border-secondary border-right-0 list-group-flush">
+        <% @lessons.each do |lesson| %>
+          <li class="list-group-item"><%=
+            link_to lesson.name,
+                    course_path(@course, lesson_page: lesson.position),
+                    class: 'nav-link text-dark'
+          %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-9 border border-secondary p-0 m-0">
+      <!--Lesson Video-->
+      <% if exclusivity_check && @lesson.video.attached? %>
+        <!--Subscribed/Course Owner-->
+        <div class="embed-responsive embed-responsive-16by9 height-80">
+          <video controls class="embed-responsive-item bg-dark">
+            <source src="<%= url_for(@lesson.video) %>">
+          </video>
+        </div>
+      <% else %>
+        <% if exclusivity_check %>
+          <!--Video Not Present-->
+          <h3><strong>No video was prepared for this lesson.</strong></h3>
+        <% else %>
+          <!--Video Blocked-->
+          <h3><strong>Interested in this course?</strong></h3>
+          <h2>
+            Please
+            <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
+            it to unlock its lessons.
+          </h2>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col">
+      <h3 class="name">Lesson: <%= @lesson.name %></h3>
+
+      <% if exclusivity_check %>
+
+        <span class="description"><%= @lesson.description %></span>
+        <span class="m-2">
+        <strong>Resources</strong><br>
+          <%= render 'lessons/resources', lesson: @lesson %>
+      </span>
+
+      <% end %>
 
 <% else %>
 
@@ -15,3 +68,6 @@
   </div>
 
 <% end %>
+
+</div>
+  </div>

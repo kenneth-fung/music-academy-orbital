@@ -1,13 +1,11 @@
 <% provide(:title, @course.title) %>
+<div class="row">
+  <div class="col">
 
-<div class="col">
+      <%= render 'show_lesson' %>
 
-  <div class="row lesson_info">
-    <%= render 'show_lesson' %>
+      <%= render 'show_course' %>
+
   </div>
-
-  <div class="row course_info">
-    <%= render 'show_course' %>
-  </div>
-
 </div>
+

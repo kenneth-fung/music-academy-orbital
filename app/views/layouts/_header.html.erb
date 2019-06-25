@@ -1,5 +1,5 @@
 <% if yield(:title) == "Home" %>
-  <div class="row my-bg p-0 m-0">
+  <div class="row my-bg">
     <div class="col pb-0">
       <nav class="navbar navbar-expand-lg navbar-light" id="my-nav">
         <%= link_to "Music Academy", root_url, id: 'logo' %>
@@ -31,9 +31,6 @@
               <% if tutor? %>
                 <li class="nav-item">
                   <%= link_to "All Tutors", tutors_path, class: 'nav-link text-light' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "All Students", students_path, class: 'nav-link text-light' %>
                 </li>
               <% elsif student? %>
                 <li class="nav-item">
@@ -98,7 +95,7 @@
 
 
 <% else %>
-  <div class="row">
+  <div class="row ">
     <div class="col pb-0">
       <nav class="navbar navbar-expand-lg navbar-light bg-dark" >
         <%= link_to "Music Academy", root_url, id: 'logo' %>
@@ -130,9 +127,6 @@
               <% if tutor? %>
                 <li class="nav-item">
                   <%= link_to "All Tutors", tutors_path, class: 'nav-link text-light' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "All Students", students_path, class: 'nav-link text-light' %>
                 </li>
               <% elsif student? %>
                 <li class="nav-item">
