@@ -47,7 +47,7 @@
   </div>
   <div class="row ">
     <div class="col">
-      <h3 class="name">Lesson: <%= @lesson.name %></h3>
+      <h3 class="pt-3"> <%= @lesson.name %></h3>
 
       <% if exclusivity_check %>
 
@@ -58,6 +58,45 @@
       </span>
 
       <% end %>
+    </div>
+  </div>
+
+  <!-- Forum -->
+  <div class="row pl-3">
+    <h4>Discussions</h4>
+  </div>
+
+  <% @lesson.messages.each do |message| %>
+    <div class="row pl-3">
+      <p><%= message.content %></p>
+    </div>
+  <% end %>
+  <div class="row pl-3">
+    <p id="message_content"></p>
+  </div>
+
+  <p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      comment
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <%= form_for(@message, url: messages_path, remote: true) do |f| %>
+
+        <div class="form-group">
+          <%= f.text_field :content, placeholder: 'Add a comment...', class: 'form-control' %>
+        </div>
+
+        <%= hidden_field_tag :lesson_id, @lesson.id %>
+        <%= hidden_field_tag :course_id, @course.id %>
+
+        <%= f.submit "Comment", class: 'btn btn-primary ' %>
+
+      <% end %>
+    </div>
+  </div>
+  <!-- end of forum -->
 
 <% else %>
 
@@ -68,6 +107,3 @@
   </div>
 
 <% end %>
-
-</div>
-  </div>

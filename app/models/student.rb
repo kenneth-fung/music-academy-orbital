@@ -1,6 +1,7 @@
 class Student < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :courses, through: :subscriptions, source: :course
+  has_many :messages, as: :chatroom
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save { email.downcase! }
   before_create :create_activation_digest

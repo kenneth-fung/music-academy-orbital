@@ -1,13 +1,12 @@
-<div id="subscribe_form">
-  <% if subscribing?(course) %>
-
-    <!-- Unsubscribe Button -->
-    <%=
-      link_to "Quit",
-              unsubscribe_path(course_id: course.id),
-              class: "btn btn-default btn-disagree"
-    %>
-
+<% if subscribing?(course) %>
+    <div class="col-md-6 d-flex justify-content-center">
+      <!-- Unsubscribe Button -->
+      <%=
+        link_to "Quit",
+                unsubscribe_path(course_id: course.id),
+                class: "btn btn-danger btn-block"
+      %>
+    </div>
   <% else %>
 
     <!-- Subscribe Button -->
@@ -25,4 +24,3 @@
       %>
     <% end %>
   <% end %>
-</div>

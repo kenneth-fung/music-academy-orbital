@@ -50,6 +50,7 @@ class CoursesController < ApplicationController
     end
     @lessons = @course.lessons.reorder(:position)
     @lesson = @lessons[position.to_i - 1]
+    @message = current_user.messages.new
   end
 
   def destroy
