@@ -11,16 +11,22 @@
     <div class="col-md-3 pr-0">
       <ul class="list-group height-80 border border-secondary border-right-0 list-group-flush">
         <% @lessons.each do |lesson| %>
-          <li class="list-group-item"><%=
-            link_to lesson.name,
-                    course_path(@course, lesson_page: lesson.position),
-                    class: 'nav-link text-dark'
-          %>
+          <li class="list-group-item">
+            <% if @course.tutor == current_user %>
+              <%= link_to course_path(@course, lesson_page: lesson.position, clear_unread: true), class: 'nav-link text-dark' do %>
+                <%= lesson.name %>
+                <span class="badge badge-primary"><%= find_unread_from_lesson(lesson) %> unread</span>
+              <% end %>
+            <% else %>
+              <%= link_to course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' do %>
+                <%= lesson.name %>
+              <% end %>
+            <% end %>
           </li>
         <% end %>
       </ul>
     </div>
-    <div class="col-md-9 border border-secondary p-0 m-0">
+    <div class="col-md-9 border border-secondary">
       <!--Lesson Video-->
       <% if exclusivity_check && @lesson.video.attached? %>
         <!--Subscribed/Course Owner-->
@@ -62,67 +68,36 @@
   </div>
 
   <!-- Forum -->
-  <div class="row" id="forum">
-    <h4 class="pl-3">Discussions</h4>
-  </div>
+  <div class="jumbotron">
+    <div class="row justify-content-center pb-5" id="forum">
+      <div class="display-4">Discussions</div>
+    </div>
 
-  <% @lesson.posts.each_with_index do |post, index| %>
-    <% unless index == @lesson.posts.count %>
-      <div class="row">
-        <p class="pl-3"><%= post.content %></p>
-      </div>
-        <% if post.messages %>
-          <% post.messages.each do |message| %>
-            <div class="row pl-5"><%= message.content %></div>
-          <% end %>
-        <% end %>
-        <div class="row">
-        <p class="pl-5">
-          <button class="btn btn-primary" type="button" data-toggle="collapse"
-                  data-target="#post<%= index.to_s %>" aria-expanded="false"
-                  aria-controls="post<%= index.to_s %>">
-            reply
-          </button>
-        </p>
-        <div class="collapse" id="post<%= index.to_s %>">
-          <div class="card card-body">
-            <%= form_for(:message, url: messages_path, method: :post) do |f| %>
+    <% count = @lesson.posts.count %>
 
-              <div class="form-group">
-                <%= f.text_field :content, placeholder: 'Add a comment...', class: 'form-control' %>
-              </div>
-
-              <%= hidden_field_tag :lesson_id, @lesson.id %>
-              <%= hidden_field_tag :course_id, @course.id %>
-              <%= hidden_field_tag :post_id, post.id %>
-
-              <%= f.submit "Comment", class: 'btn btn-primary ' %>
-
-            <% end %>
-          </div>
-        </div>
-      </div>
+    <% @lesson.posts.each_with_index do |post, index| %>
+      <%= render post, index: index, count: count, lesson: @lesson, course: @course %>
     <% end %>
-  <% end %>
-  <p>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      comment
-    </button>
-  </p>
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body">
-      <%= form_for(@post) do |f| %>
+    <p>
+      <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Ask a question!
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <%= form_for(:post, url: posts_path, method: :post) do |f| %>
 
-        <div class="form-group">
-          <%= f.text_field :content, placeholder: 'Add a comment...', class: 'form-control' %>
-        </div>
+          <div class="form-group">
+            <%= f.text_field :content, placeholder: 'Ask here...', class: 'form-control' %>
+          </div>
 
-        <%= hidden_field_tag :lesson_id, @lesson.id %>
-        <%= hidden_field_tag :course_id, @course.id %>
+          <%= hidden_field_tag :lesson_id, @lesson.id %>
+          <%= hidden_field_tag :course_id, @course.id %>
 
-        <%= f.submit "Comment", class: 'btn btn-primary ' %>
+          <%= f.submit "Comment", class: 'btn btn-primary ' %>
 
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
   <!-- end of forum -->

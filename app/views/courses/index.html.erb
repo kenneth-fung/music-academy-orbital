@@ -43,9 +43,15 @@
       <% if @title.include?('All Courses') || @title.include?('Search:') %>
         <%= render 'shared/sort_courses' %>
       <% end %>
-      <div class="row">
-        <%= render @courses %>
-      </div>
+      <% if tutor? && params[:controller].eql?('tutors') %>
+        <div class="row">
+          <%= render @courses, show_unread: true %>
+        </div>
+      <% else %>
+        <div class="row">
+          <%= render @courses %>
+        </div>
+      <% end %>
       <% if params[:action] != 'home' %>
         <%= will_paginate @courses, class: "pagination" %>
       <% end %>

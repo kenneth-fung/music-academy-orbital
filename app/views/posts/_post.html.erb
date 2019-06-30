@@ -1,0 +1,41 @@
+<% unless index == count %>
+  <div class="">
+    <div class="row pl-3 align-items-center pb-2">
+      <div><%= gravatar_for(current_user, size: 40) %></div>
+      <div class="row ml-3 my-0"><%= post.content %></div>
+    </div>
+    <% if post.messages %>
+      <% post.messages.each do |message| %>
+        <div class="row pl-4 ml-1 pb-2 align-items-center">
+          <div><%= gravatar_for(current_user, size: 40) %></div>
+          <div class="row ml-3 my-0"><%= message.content %></div>
+        </div>
+      <% end %>
+    <% end %>
+    <p class="">
+      <button class="btn btn-primary" type="button" data-toggle="collapse"
+              data-target="#post<%= index.to_s %>" aria-expanded="false"
+              aria-controls="post<%= index.to_s %>">
+        reply to this question
+      </button>
+    </p>
+    <div class="collapse" id="post<%= index.to_s %>">
+      <div class="card card-body">
+        <%= form_for(:message, url: messages_path, method: :post) do |f| %>
+
+          <div class="form-group">
+            <%= f.text_field :content, placeholder: 'Drop your thought', class: 'form-control' %>
+          </div>
+
+          <%= hidden_field_tag :lesson_id, lesson.id %>
+          <%= hidden_field_tag :course_id, course.id %>
+          <%= hidden_field_tag :post_id, post.id %>
+
+          <%= f.submit "Comment", class: 'btn btn-primary ' %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4">
+<% end %>

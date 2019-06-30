@@ -1,7 +1,7 @@
 <% if yield(:title) == "Home" %>
   <div class="container-fluid  my-bg">
     <div class="row mb-5">
-      <div class="col pb-0">
+      <div class="col">
         <nav class="navbar navbar-expand-lg navbar-light" id="my-nav">
           <%= link_to "Music Academy", root_url, id: 'logo' %>
           <%= form_tag courses_path, method: :get, class: 'form-inline my-2 my-lg-0' do %>
@@ -94,7 +94,8 @@
 
 
 <% else %>
-  <div class="row ">
+
+  <div class="row">
     <div class="col pb-0">
       <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <%= link_to "Music Academy", root_url, id: 'logo' %>

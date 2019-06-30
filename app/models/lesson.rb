@@ -1,6 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :course
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   has_one_attached :video
   validate :video_file_type

@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_action :logged_in_user, only: [:create]
+
   def create
     @post = Post.find(params[:post_id])
     @lesson = Lesson.find(params[:lesson_id])
