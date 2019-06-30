@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_153400) do
+ActiveRecord::Schema.define(version: 2019_06_30_033640) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,15 +46,6 @@ ActiveRecord::Schema.define(version: 2019_06_27_153400) do
     t.index ["tutor_id"], name: "index_courses_on_tutor_id"
   end
 
-  create_table "lessonmessages", force: :cascade do |t|
-    t.integer "message_id"
-    t.integer "lesson_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["lesson_id"], name: "index_lessonmessages_on_lesson_id"
-    t.index ["message_id"], name: "index_lessonmessages_on_message_id"
-  end
-
   create_table "lessons", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -70,9 +61,18 @@ ActiveRecord::Schema.define(version: 2019_06_27_153400) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "chatroom_id"
-    t.string "chatroom_type"
-    t.index ["chatroom_type", "chatroom_id"], name: "index_messages_on_chatroom_type_and_chatroom_id"
+    t.integer "post_id"
+    t.integer "user_id"
+    t.string "user_type"
+    t.index ["post_id"], name: "index_messages_on_post_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "content"
+    t.integer "lesson_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_posts_on_lesson_id"
   end
 
   create_table "students", force: :cascade do |t|

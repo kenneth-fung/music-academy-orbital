@@ -1,7 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :course
-  has_many :lessonmessages
-  has_many :messages, through: :lessonmessages
+  has_many :posts
 
   has_one_attached :video
   validate :video_file_type

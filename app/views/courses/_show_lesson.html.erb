@@ -7,7 +7,7 @@
   <% end %>
 
   <!--Lessons exist-->
-  <div class="row no-gutter">
+  <div class="row">
     <div class="col-md-3 pr-0">
       <ul class="list-group height-80 border border-secondary border-right-0 list-group-flush">
         <% @lessons.each do |lesson| %>
@@ -45,7 +45,7 @@
       <% end %>
     </div>
   </div>
-  <div class="row ">
+  <div class="row">
     <div class="col">
       <h3 class="pt-3"> <%= @lesson.name %></h3>
 
@@ -62,19 +62,48 @@
   </div>
 
   <!-- Forum -->
-  <div class="row pl-3">
-    <h4>Discussions</h4>
+  <div class="row" id="forum">
+    <h4 class="pl-3">Discussions</h4>
   </div>
 
-  <% @lesson.messages.each do |message| %>
-    <div class="row pl-3">
-      <p><%= message.content %></p>
-    </div>
+  <% @lesson.posts.each_with_index do |post, index| %>
+    <% unless index == @lesson.posts.count %>
+      <div class="row">
+        <p class="pl-3"><%= post.content %></p>
+      </div>
+        <% if post.messages %>
+          <% post.messages.each do |message| %>
+            <div class="row pl-5"><%= message.content %></div>
+          <% end %>
+        <% end %>
+        <div class="row">
+        <p class="pl-5">
+          <button class="btn btn-primary" type="button" data-toggle="collapse"
+                  data-target="#post<%= index.to_s %>" aria-expanded="false"
+                  aria-controls="post<%= index.to_s %>">
+            reply
+          </button>
+        </p>
+        <div class="collapse" id="post<%= index.to_s %>">
+          <div class="card card-body">
+            <%= form_for(:message, url: messages_path, method: :post) do |f| %>
+
+              <div class="form-group">
+                <%= f.text_field :content, placeholder: 'Add a comment...', class: 'form-control' %>
+              </div>
+
+              <%= hidden_field_tag :lesson_id, @lesson.id %>
+              <%= hidden_field_tag :course_id, @course.id %>
+              <%= hidden_field_tag :post_id, post.id %>
+
+              <%= f.submit "Comment", class: 'btn btn-primary ' %>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-  <div class="row pl-3">
-    <p id="message_content"></p>
-  </div>
-
   <p>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       comment
@@ -82,7 +111,7 @@
   </p>
   <div class="collapse" id="collapseExample">
     <div class="card card-body">
-      <%= form_for(@message, url: messages_path, remote: true) do |f| %>
+      <%= form_for(@post) do |f| %>
 
         <div class="form-group">
           <%= f.text_field :content, placeholder: 'Add a comment...', class: 'form-control' %>

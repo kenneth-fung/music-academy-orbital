@@ -59,8 +59,9 @@ Rails.application.routes.draw do
   delete '/unsubscribe', to: 'subscriptions#destroy'
   resources :subscriptions, only: [:create, :destroy]
 
-  # Messages
+  # Forum
   resources :messages, only: [:create, :destroy]
+  resources :posts, only: [:create, :destroy]
 
   # Videos
   get 'videos/index'
