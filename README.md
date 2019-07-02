@@ -37,10 +37,19 @@ parameter.
   - **Lesson Resources**: pdf, png, jpeg, mpeg, x-mpeg, mp3, x-mp3, mpeg3, x-mpeg3, mpg, x-mpg, x-mpegaudio
 
 ## To Do
+- fix home page flash message
+- direct upload
+- prevent downloading
+- lesson video uploading
+- testing 
+- UI
+- Ajax, json
+- SSO services
 
 ### Runding
 
 - Q&A System
+
 
 ### Kenneth
 
