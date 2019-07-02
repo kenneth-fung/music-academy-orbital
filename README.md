@@ -3,11 +3,6 @@
 ## Please Note:
 
 ### To Fix
-Pagination no longer working entirely as expected for lessons in production
-(Heroku). The first lesson of each course is displayed repeatedly for the first 1 to
-4 pages when paginated. Without pagination (i.e. all lessons are displayed on
-the course page), the lessons are displayed correctly. Will need to change
-method of lesson display.
     
 "**password resets**" test in test/integration/**password_resets_test**.rb
 throws an error on line 20.
@@ -36,15 +31,6 @@ end
 **models/course.rb** now has **Course.search(query)**, where query is a string
 parameter.
 
-### UI Changes
-- Create Course button moved to tutor's profile
-- My Courses (Student/Tutor) moved to profile page and 'Account' dropdown in
-  navbar.
-- My Students moved to profile page
-- Tutors can now see the 'enroll' button, but upon clicking it they will be
-  asked to log out and log in as a student.
-- Edit Lesson and Add Lesson buttons moved to Course Edit page.
-
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
   - **Lesson Video**: mp4, wmv
@@ -54,10 +40,8 @@ parameter.
 
 ### Runding
 
-- Tagging
-- Chat Box
+- Q&A System
 
 ### Kenneth
 
 - Review System
-- Course Searching and Sorting
