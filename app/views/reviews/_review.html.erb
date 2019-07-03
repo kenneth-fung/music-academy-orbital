@@ -1,0 +1,27 @@
+<li id="review-<%= review.id %>">
+
+  <div class="row">
+
+    <div class="col-sm-3 student">
+      <span class="gravatar">
+        <%= link_to gravatar_for(review.student, size: 60), review.student %>
+      </span>
+      <span class="name">
+        <%= link_to review.student.name, review.student %>
+      </span>
+    </div>
+
+    <div class="col-md-9 review">
+      <span class="rating">Rating: <%= review.rating %></span>
+      <span class="content"><%= review.content %></span>
+      <span class="timestamp">
+        <%= time_ago_in_words(review.created_at) %> ago
+        <% if current_user?(review.student) %>
+          | <%= link_to "delete", review_path(course_id: @course.id), method: :delete, data: { confirm: "Are you sure?" } %>
+        <% end %>
+      </span>
+    </div>
+
+  </div>
+
+</li>

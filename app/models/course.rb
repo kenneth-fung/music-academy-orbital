@@ -5,6 +5,7 @@ class Course < ApplicationRecord
   has_many :students, through: :subscriptions, source: :student
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+  has_many :reviews, dependent: :destroy
 
   after_save :parse_tag_list
 

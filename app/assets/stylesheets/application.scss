@@ -231,7 +231,7 @@ footer {
   }
 }
 
-/* course info
+/* course info */
 
 .btn-course-new {
   margin-bottom: 15px;
@@ -322,8 +322,8 @@ footer {
     }
   }
 }
-*/
-/* lesson info
+
+/* lesson info */
 
 .lesson-new-header {
   padding-top: 20px;
@@ -394,7 +394,7 @@ footer {
     }
   }
 }
-*/
+
 /* pagination */
 
 .pagination {
@@ -467,3 +467,52 @@ footer {
   text-align: center;
 }
 
+/* reviews */
+
+.reviews-section {
+
+  display: block;
+
+  .review-form {
+    margin: 10px 0px;
+    .student, .content {
+      display: inline;
+    }
+    .content {
+      .field {
+        margin: 10px 0px;
+      }
+      textarea {
+        height: 180px;
+        width: 700px;
+      }
+    }
+  }
+
+  .reviews {
+    .sort {
+      margin: 10px 0px;
+    }
+    list-style: none;
+    li {
+      padding: 10px 0px;
+      border-top: 1px solid $gray-lighter;
+    }
+    .student {
+      margin-top: 5px;
+      .gravatar, .name {
+        display: block;
+      }
+    }
+    .review {
+      margin-top: 5px;
+      .rating, .content, .timestamp {
+        display: block;
+      }
+      .timestamp {
+        color: $gray-light;
+      }
+    }
+  }
+
+}

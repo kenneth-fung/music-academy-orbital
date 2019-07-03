@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_30_160551) do
+ActiveRecord::Schema.define(version: 2019_07_03_042930) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,17 @@ ActiveRecord::Schema.define(version: 2019_06_30_160551) do
     t.string "user_type"
     t.boolean "read", default: false
     t.index ["lesson_id"], name: "index_posts_on_lesson_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "content"
+    t.integer "student_id"
+    t.integer "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_reviews_on_course_id"
+    t.index ["student_id"], name: "index_reviews_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|

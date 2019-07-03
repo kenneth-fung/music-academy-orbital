@@ -41,8 +41,10 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+
+    # Lessons
     position = 1
-    if !params[:lesson_page].nil?
+    if params[:lesson_page]
       position = params[:lesson_page]
     elsif subscribing?(@course)
       subscription = current_user.subscriptions.find_by(course_id: @course.id)
@@ -53,6 +55,15 @@ class CoursesController < ApplicationController
     if params[:clear_unread]
       clear_unread(@lesson)
     end
+
+    # Reviews
+    if subscribing?(@course) && current_user.review_for(@course).nil?
+      @review = current_user.reviews.build
+    end
+    @reviews = Review
+    .sort(params[:sort_by])
+    .where(course_id: @course.id)
+    .paginate(page: params[:page], per_page: 10)
   end
 
   def destroy

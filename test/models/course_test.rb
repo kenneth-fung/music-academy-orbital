@@ -56,4 +56,15 @@ class CourseTest < ActiveSupport::TestCase
       @course.destroy
     end
   end
+
+  test "associated reviews should be destroyed" do
+    @course.save
+    @course.reviews.create!(rating: 3, 
+                            content: 'Lorem', 
+                            student_id: students(:michael).id)
+    assert_difference 'Review.count', -1 do
+      @course.destroy
+    end
+  end
+
 end

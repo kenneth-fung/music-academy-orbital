@@ -90,5 +90,9 @@ students.each do |student|
   courses = Course.order('RANDOM()').limit(number_of_subscriptions)
   courses.each do |course|
     student.subscribe(course)
+    # Reviews
+    student.reviews.create!(rating: rand(0..5), 
+                            content: Faker::Lorem.paragraph(rand(1..8)), 
+                            course_id: course.id)
   end
 end

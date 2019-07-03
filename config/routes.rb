@@ -74,4 +74,7 @@ Rails.application.routes.draw do
 
   # Password-reset
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  # Reviews
+  resources :reviews, only: [:create, :destroy]
 end

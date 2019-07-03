@@ -31,4 +31,14 @@ class StudentTest < ActiveSupport::TestCase
     student.unsubscribe(course)
     assert_not student.subscribing?(course)
   end
+
+  test "associated reviews should be destroyed" do
+    @user.save
+    @user.reviews.create!(rating: 3, 
+                          content: 'Lorem', 
+                          course_id: courses(:piano).id)
+    assert_difference 'Review.count', -1 do
+      @user.destroy
+    end
+  end
 end

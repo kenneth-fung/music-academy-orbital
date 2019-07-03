@@ -2,6 +2,7 @@ class Student < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :courses, through: :subscriptions, source: :course
   has_many :messages, as: :chatroom
+  has_many :reviews, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save { email.downcase! }
   before_create :create_activation_digest
@@ -75,6 +76,11 @@ class Student < ApplicationRecord
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  # Returns the student's review for a given course
+  def review_for(course)
+    self.reviews.where(course_id: course.id).first
   end
 
   private
