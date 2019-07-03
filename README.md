@@ -37,12 +37,18 @@ parameter.
   - **Lesson Resources**: pdf, png, jpeg, mpeg, x-mpeg, mp3, x-mp3, mpeg3, x-mpeg3, mpg, x-mpg, x-mpegaudio
 
 ## To Do
+
 - fix home page flash message
+- add error messages for: course new/edit, lesson new/edit, review new (on course show page)
+- prevent tutor's posts/messages on their own course from counting towards their 'unread' count
+- prevent students/tutors from posting empty posts/messages on lessons
+
 - direct upload
 - prevent downloading
-- lesson video uploading
-- testing 
-- UI
+- check lesson video uploading issue on heroku
+- add automated testing (rails test)
+- improve UI
+
 - Ajax, json
 - SSO services
 
