@@ -34,12 +34,10 @@ module LessonsHelper
 
   def clear_unread(lesson)
     if lesson.posts.any?
-      lesson.posts.where(read: false).each do |post|
+      lesson.posts.each do |post|
         post.update_attribute(:read, true)
         if post.messages.any?
-          post.messages.where(read: false).each do |message|
-            message.update_attribute(:read, true)
-          end
+          post.messages.each {|message| message.update_attribute(:read, true)}
         end
       end
     end
