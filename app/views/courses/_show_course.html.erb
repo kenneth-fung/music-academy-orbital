@@ -77,8 +77,8 @@
   </div>
 </div>
 
-<!--Course Reviews-->
-<div class="container reviews-section">
+<!--Reviews-->
+<div class="container reviews-section" id="reviews">
 
   <div class="row reviews-header">
     <h3><strong>Reviews (<%= @course.reviews.count %>)</strong></h3>
@@ -86,17 +86,32 @@
 
   <ol class="reviews">
 
-    <% if subscribing?(@course) && current_user.review_for(@course).nil? %>
-      <li>
-        <div class="row review-form">
-          <div class="col-sm-3 student">
-            <%= gravatar_for(current_user, size: 70) %>
-          </div>
-          <div class="col-md-9 content">
-            <%= render 'reviews/review_form' %>
-          </div>
-        </div>
-      </li>
+    <% if @review %>
+      <h3>Write a Review</h3>
+      <%= render 'reviews/review_form', review: @review %>
+    <% elsif @curr_review %>
+      <h3>Your Review</h3>
+      <span id="current_user_review">
+        <% if params[:review_edit] %>
+          <%= render 'reviews/review_form', review: @curr_review %>
+        <% else %>
+          <li>
+            <div class="row">
+              <div class="col review">
+                <span class="rating">
+                  <%= render 'reviews/rating', rating: @curr_review.rating %>
+                </span>
+                <span class="content"><%= @curr_review.content %></span>
+                <section>
+                  <span class="timestamp"><%= time_ago_in_words(@curr_review.created_at) %> ago</span>
+                  <span class="edit">
+                    <%= link_to "click here to edit review", course_path(@course, anchor: "reviews", review_edit: 'edit') %>
+                </span>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </span>
     <% end %>
 
     <% if @course.reviews.any? %>
@@ -111,3 +126,4 @@
   <% end %>
 
 </div>
+<!--end of reviews-->

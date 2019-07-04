@@ -1,15 +1,15 @@
 class ReviewsController < ApplicationController
-  before_action :logged_in_user,  only: [:create, :destroy]
-  before_action :subscribed_user, only: [:create, :destroy]
+  before_action :logged_in_user,  only: [:create, :destroy, :update]
+  before_action :subscribed_user, only: [:create, :destroy, :update]
   before_action :no_review_yet,   only: :create
-  before_action :review_poster,   only: :destroy
+  before_action :review_poster,   only: [:destroy, :update]
 
   def create
     @review = current_user.reviews.build(review_params)
     if @review.update_attributes(course_id: params[:course_id])
       @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
       flash[:success] = "Review posted!"
-      redirect_to @course
+      redirect_to course_path(@course, anchor: "reviews")
     else
       @lessons = @course.lessons.reorder(:position)
       @lesson = @lessons[0]
@@ -20,6 +20,19 @@ class ReviewsController < ApplicationController
 
   def index
     redirect_to current_user
+  end
+
+  def update
+    if @review.update_attributes(review_params)
+      @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
+      flash[:success] = "Changes saved!"
+      redirect_to course_path(@course, anchor: "reviews")
+    else
+      @lessons = @course.lessons.reorder(:position)
+      @lesson = @lessons[0]
+      @reviews = @course.reviews.paginate(page: params[:page])
+      render 'courses/show'
+    end
   end
 
   def destroy

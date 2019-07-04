@@ -57,8 +57,10 @@ class CoursesController < ApplicationController
     end
 
     # Reviews
-    if subscribing?(@course) && current_user.review_for(@course).nil?
-      @review = current_user.reviews.build
+    if subscribing?(@course)
+      current_user.review_for(@course).nil? ?
+        @review = current_user.reviews.build :
+        @curr_review = current_user.review_for(@course)
     end
     @reviews = Review
     .sort(params[:sort_by])

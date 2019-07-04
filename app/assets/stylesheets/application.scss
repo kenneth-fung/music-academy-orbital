@@ -476,6 +476,7 @@ footer {
   .reviews {
 
     .review-form {
+      border-top-style: none;
       textarea, button {
         margin: 10px 0px;
       }
@@ -486,6 +487,16 @@ footer {
     }
 
     list-style: none;
+
+    #current_user_review li {
+      border-top: 1px solid $gray-lighter;
+      border-top-style: solid;
+      border-bottom: 1px solid $gray-lighter;
+      border-bottom-style: solid;
+      div {
+        margin: 5px;
+      }
+    }
 
     li {
       padding: 10px 0px;
@@ -504,6 +515,15 @@ footer {
       }
       .timestamp {
         color: $gray-light;
+      }
+      .edit a {
+        text-decoration: none;
+        color: $gray;
+        font-style: italic;
+        &:hover {
+          color: black;
+          text-decoration: underline;
+        }
       }
     }
   }

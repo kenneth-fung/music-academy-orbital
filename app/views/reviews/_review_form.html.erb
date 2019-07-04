@@ -1,16 +1,30 @@
-<%= form_for(@review) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<li class="review-form">
+  <div class="row">
+    <div class="col content">
+      <%= form_for(review) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
 
-  <div class="rating">
-    <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", class: 'form-control' %>
+        <div class="rating">
+          <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <% placeholder = "Describe what you liked or didn't like about the course here." %>
+          <%= f.text_area :content, placeholder: placeholder, rows: 7, class: 'form-control' %>
+        </div>
+
+        <%= hidden_field_tag :course_id, @course.id %>
+
+        <% if params[:review_edit] %>
+          <span class="edit-delete float-right">
+            <%= f.button "Save Changes", type: :submit, class: 'btn btn-primary' %>
+            <%= link_to "Delete Review", review_path(course_id: @course.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+          </span>
+        <% else %>
+          <%= f.button "Post Review", type: :submit, class: 'btn btn-primary float-right' %>
+        <% end %>
+
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Write your review here...", rows: 7, class: 'form-control' %>
-  </div>
-
-  <%= hidden_field_tag :course_id, @course.id %>
-
-  <%= f.button "Post Review", type: :submit, class: 'btn btn-primary' %>
-
-<% end %>
+</li>
