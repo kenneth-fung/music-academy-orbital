@@ -37,8 +37,8 @@ class ReviewTest < ActiveSupport::TestCase
     assert_not @review.valid?
   end
 
-  test "rating should be at least 0" do
-    @review.rating = -1
+  test "rating should be at least 1" do
+    @review.rating = 0
     assert_not @review.valid?
   end
 

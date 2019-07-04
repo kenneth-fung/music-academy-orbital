@@ -13,12 +13,7 @@
 
     <div class="col-md-9 review">
       <span class="rating">
-        <% review.rating.times do %>
-          <%= image_tag "star-on" %>
-        <% end %>
-        <% (5 - review.rating).times do %>
-          <%= image_tag "star-off" %>
-        <% end %>
+        <%= render 'reviews/rating', rating: review.rating %>
       </span>
       <span class="content"><%= review.content %></span>
       <span class="timestamp">

@@ -16,6 +16,7 @@ class Course < ApplicationRecord
   scope :oldest, -> {order(created_at: :asc)}
   scope :lowest_price, -> {order(price: :asc)}
   scope :highest_price, -> {order(price: :desc)}
+  scope :top_rated, -> {order(rating: :desc)}
 
   validates :title,
             presence: true,
@@ -63,6 +64,8 @@ class Course < ApplicationRecord
       lowest_price
     when 'highest_price'
       highest_price
+    when 'top_rated'
+      top_rated
     else
       newest
     end

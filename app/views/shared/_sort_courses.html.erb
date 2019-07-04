@@ -3,25 +3,35 @@
     Sort By
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <li><%= link_to "Newest",
-                    courses_path(sort_by: :newest,
-                                 search: params[:search]),
-                    class: 'dropdown-item'
-    %></li>
-    <li><%= link_to "Oldest",
-                    courses_path(sort_by: :oldest,
-                                 search: params[:search]),
-                    class: 'dropdown-item'
-    %></li>
-    <li><%= link_to "Lowest Price",
-                    courses_path(sort_by: :lowest_price,
-                                 search: params[:search]),
-                    class: 'dropdown-item'
-    %></li>
-    <li><%= link_to "Highest Price",
-                    courses_path(sort_by: :highest_price,
-                                 search: params[:search]),
-                    class: 'dropdown-item'
-    %></li>
+    <li><%= 
+    link_to "Newest",
+      courses_path(sort_by: :newest,
+                   search: params[:search]),
+      class: 'dropdown-item' 
+      %></li>
+    <li><%= 
+    link_to "Oldest",
+      courses_path(sort_by: :oldest,
+                   search: params[:search]),
+      class: 'dropdown-item'
+      %></li>
+    <li><%= 
+    link_to "Lowest Price",
+      courses_path(sort_by: :lowest_price,
+                   search: params[:search]),
+      class: 'dropdown-item'
+      %></li>
+    <li><%= 
+    link_to "Highest Price",
+      courses_path(sort_by: :highest_price,
+                   search: params[:search]),
+      class: 'dropdown-item'
+      %></li>
+    <li><%= 
+    link_to "Top Rated",
+      courses_path(sort_by: :top_rated,
+                   search: params[:search]), 
+      class: 'dropdown-item' 
+      %></li>
   </div>
 </div>

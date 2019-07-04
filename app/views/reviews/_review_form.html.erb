@@ -2,7 +2,7 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="rating">
-    <%= f.number_field :rating, min: 0, max: 5, placeholder: "Rating (1 to 5 stars)", class: 'form-control' %>
+    <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", class: 'form-control' %>
   </div>
 
   <div class="field">

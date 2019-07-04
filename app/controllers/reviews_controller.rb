@@ -7,6 +7,7 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     if @review.update_attributes(course_id: params[:course_id])
+      @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
       flash[:success] = "Review posted!"
       redirect_to @course
     else
