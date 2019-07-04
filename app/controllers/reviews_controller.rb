@@ -17,6 +17,10 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def index
+    redirect_to current_user
+  end
+
   def destroy
     @review.destroy
     flash[:success] = "Review deleted."

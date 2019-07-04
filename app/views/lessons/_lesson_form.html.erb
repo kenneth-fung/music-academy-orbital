@@ -41,7 +41,7 @@
   <%= hidden_field_tag :course_id, @course.id %>
 
   <section class="btn-submit">
-    <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary' %>
+    <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary mt-3' %>
   </section>
 
   <!--Back Button-->
@@ -54,7 +54,7 @@
   </section>
 
   <!--Delete Lesson Button-->
-  <% if params[:action] == 'edit' %>
+  <% if params[:action] == 'edit' || params[:action] == 'update' %>
     <div class="lesson-delete">
       <h3><strong>Warning</strong></h3>
       <h2>
@@ -68,7 +68,7 @@
                                 lesson_id: @lesson.id,
                                 back_to: params[:back_to],
                                 page: params[:page]), 
-            class: 'btn btn-default btn-lesson-delete' 
+            class: 'btn btn-danger btn-lesson-delete' 
           %>
       </section>
     </div>
