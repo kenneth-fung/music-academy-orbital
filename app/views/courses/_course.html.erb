@@ -21,9 +21,9 @@
         <% end %>
       </span>
 
-      <p class="card-text ">
-      <%= "#{course.content[0..50]}..." %>
-      </p>
+      <section class="card-subtitle ">
+      <i><%= pluralize(course.students.count, 'student') %></i><br>
+      </section>
 
       <% if local_assigns[:show_unread] %>
         <span class="badge badge-primary"><%= find_unread_from_course(course) %> unread</span>
@@ -42,7 +42,7 @@
           <!-- Subscribe Button -->
           <%=
             link_to "Join now for #{number_to_currency(course.price)}!",
-              subscribe_path(course_id: course.id), class: 'btn btn-secondary btn-info'
+              subscribe_path(course_id: course.id), class: 'btn btn-secondary btn-sm'
             %>
 
         <% end %>

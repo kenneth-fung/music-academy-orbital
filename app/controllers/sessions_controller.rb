@@ -13,11 +13,10 @@ class SessionsController < ApplicationController
         log_in @user
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
         if @user.instance_of?(Tutor)
-          flash[:success] = "You have #{find_total_unread(@user).to_s} unread messages!"
-          redirect_back_or @user
-        else
-          redirect_back_or @user
+          message = find_total_unread(@user) == 1 ? 'message' : 'messages'
+          flash[:success] = "You have #{find_total_unread(@user)} #{message}!"
         end
+        redirect_back_or @user
       else
         message = "Account not activated."
         message += "Please check your email for the activation link."

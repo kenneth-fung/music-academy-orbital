@@ -39,9 +39,12 @@ parameter.
 ## To Do
 
 - fix home page flash message
-- add error messages for: course new/edit, lesson new/edit, review new (on course show page)
+- add error messages for: 
+  - course new/edit
+  - lesson new/edit
+  - review new/edit (on course page)
+  - empty posts & messages (on lesson page)
 - prevent tutor's posts/messages on their own course from counting towards their 'unread' count
-- prevent students/tutors from posting empty posts/messages on lessons
 
 - direct upload
 - prevent downloading

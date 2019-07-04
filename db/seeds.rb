@@ -86,7 +86,7 @@ end
 # Subscriptions
 students = Student.order('RANDOM()')
 students.each do |student|
-  number_of_subscriptions = rand(15..30)
+  number_of_subscriptions = rand(35..50)
   courses = Course.order('RANDOM()').limit(number_of_subscriptions)
   courses.each do |course|
     student.subscribe(course)
@@ -94,6 +94,9 @@ students.each do |student|
     student.reviews.create!(rating: rand(1..5),
                             content: Faker::Lorem.paragraph(rand(1..8)),
                             course: course)
-    course.update_attributes(rating: course.reviews.average(:rating).ceil)
+    # Ratings & Popularity
+    rating = course.reviews.average(:rating).ceil
+    popularity = course.reviews.count + course.rating + course.students.count
+    course.update_columns(rating: rating, popularity: popularity)
   end
 end

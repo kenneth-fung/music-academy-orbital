@@ -1,43 +1,24 @@
 module LessonsHelper
+
   def find_unread_from_course(course)
     result = 0
-    if course.lessons
-      course.lessons.each do |lesson|
-        if lesson.posts
-          lesson.posts.each do |post|
-            if !post.read?
-              result += 1
-            end
-
-            if post.messages
-              post.messages.each do |message|
-                unless message.read
-                  result += 1
-                end
-              end
-            end
-          end
-        end
-      end
+    if course.lessons.any?
+      course.lessons.each {|lesson| result += find_unread_from_lesson(lesson) }
     end
     return result
   end
 
   def find_unread_from_lesson(lesson)
     result = 0
-    if lesson.posts
+    if lesson.posts.any?
       lesson.posts.each do |post|
-        if !post.read?
-          result += 1
+
+        result += 1 unless post.read
+
+        if post.messages.any?
+          post.messages.each {|message| result += 1 unless message.read }
         end
 
-        if post.messages
-          post.messages.each do |message|
-            unless message.read
-              result += 1
-            end
-          end
-        end
       end
     end
     return result
@@ -45,19 +26,17 @@ module LessonsHelper
 
   def find_total_unread(tutor)
     result = 0
-    if tutor.courses
-      tutor.courses.each do |course|
-        result += find_unread_from_course(course)
-      end
+    if tutor.courses.any?
+      tutor.courses.each {|course| result += find_unread_from_course(course) }
     end
     return result
   end
 
   def clear_unread(lesson)
-    if lesson.posts
+    if lesson.posts.any?
       lesson.posts.where(read: false).each do |post|
         post.update_attribute(:read, true)
-        if post.messages
+        if post.messages.any?
           post.messages.where(read: false).each do |message|
             message.update_attribute(:read, true)
           end
@@ -65,4 +44,5 @@ module LessonsHelper
       end
     end
   end
+
 end

@@ -4,10 +4,12 @@ class ReviewsController < ApplicationController
   before_action :no_review_yet,   only: :create
   before_action :review_poster,   only: [:destroy, :update]
 
+  after_action :update_course_rating,     only: [:create, :destroy, :update]
+  after_action :update_course_popularity, only: [:create, :destroy, :update]
+
   def create
     @review = current_user.reviews.build(review_params)
     if @review.update_attributes(course_id: params[:course_id])
-      @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
       flash[:success] = "Review posted!"
       redirect_to course_path(@course, anchor: "reviews")
     else
@@ -24,7 +26,6 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update_attributes(review_params)
-      @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
       flash[:success] = "Changes saved!"
       redirect_to course_path(@course, anchor: "reviews")
     else
@@ -70,6 +71,19 @@ class ReviewsController < ApplicationController
   def review_poster
     @review = current_user.reviews.find_by(course_id: @course.id)
     redirect_to @course if @review.nil?
+  end
+
+  # After filters
+
+  # Updates the average rating of the course the review belongs to
+  def update_course_rating
+    @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
+  end
+
+  # Updates the popularity of the course the review belongs to
+  def update_course_popularity
+    popularity = @course.reviews.count + @course.rating + @course.students.count
+    @course.update_attributes(popularity: popularity)
   end
 
 end

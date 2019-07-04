@@ -7,8 +7,8 @@ class PostsController < ApplicationController
     @post = @lesson.posts.new(post_params)
     if @post.save
       @post.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
-      redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
     end
+    redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
   end
 
   private

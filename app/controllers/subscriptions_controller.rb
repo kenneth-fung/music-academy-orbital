@@ -2,6 +2,8 @@ class SubscriptionsController < ApplicationController
   before_action :logged_in_user
   before_action :unsubscribed?, only: [:new, :create]
 
+  after_action :update_course_popularity, only: [:create, :destroy]
+
   def new
     @course = Course.find(params[:course_id])
   end
@@ -33,4 +35,13 @@ class SubscriptionsController < ApplicationController
       redirect_to @course
     end
   end
+
+  # After filters
+
+  # Updates the popularity of the course
+  def update_course_popularity
+    popularity = @course.reviews.count + @course.rating + @course.students.count
+    @course.update_attributes(popularity: popularity)
+  end
+
 end

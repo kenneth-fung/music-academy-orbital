@@ -33,5 +33,11 @@
                    search: params[:search]), 
       class: 'dropdown-item' 
       %></li>
+    <li><%=
+    link_to "Most Popular",
+      courses_path(sort_by: :most_popular,
+                   search: params[:search]),
+      class: 'dropdown-item'
+      %></li>
   </div>
 </div>
