@@ -51,6 +51,15 @@ class Student < ApplicationRecord
     courses.include?(course)
   end
 
+  # Returns the student's courses ordered by subscription date (newest first)
+  def newest_courses
+    Course
+    .joins(:subscriptions)
+    .merge(Subscription
+           .where(student_id: self.id)
+           .reorder(created_at: :desc))
+  end
+
   # Activates an account.
   def activate
     update_columns(activated: true, activated_at: Time.now)

@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @courses = @student.courses.paginate(page: params[:page])
+    @courses = @student.newest_courses.paginate(page: params[:page])
     @title = student? && current_user?(@student) ?
       'My Profile' :
       "#{@student.name}'s Profile"
@@ -42,12 +42,7 @@ class StudentsController < ApplicationController
   def courses
     @student = Student.find(params[:id])
     # Order courses by date of Subscription (newest Subscription first)
-    @courses = Course
-    .joins(:subscriptions)
-    .merge(Subscription
-           .where(student_id: @student.id)
-           .reorder(created_at: :desc))
-    .paginate(page: params[:page])
+    @courses = @student.newest_courses.paginate(page: params[:page])
     @title = (student? && current_user?(@student)) ?
       "My Courses" :
       "#{@student.name}'s Courses"
