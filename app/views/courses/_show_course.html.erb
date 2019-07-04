@@ -78,28 +78,35 @@
 </div>
 
 <!--Course Reviews-->
-<div class="row reviews-section">
+<div class="container reviews-section">
 
   <div class="row reviews-header">
     <h3><strong>Reviews (<%= @course.reviews.count %>)</strong></h3>
   </div>
 
-  <% if subscribing?(@course) && current_user.review_for(@course).nil? %>
-    <div class="row review-form">
-      <div class="col-md-1 student">
-        <%= gravatar_for(current_user, size: 70) %>
-      </div>
-      <div class="col-md-9 content">
-        <%= render 'reviews/review_form' %>
-      </div>
-    </div>
-  <% end %>
+  <ol class="reviews">
+
+    <% if subscribing?(@course) && current_user.review_for(@course).nil? %>
+      <li>
+        <div class="row review-form">
+          <div class="col-sm-3 student">
+            <%= gravatar_for(current_user, size: 70) %>
+          </div>
+          <div class="col-md-9 content">
+            <%= render 'reviews/review_form' %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+
+    <% if @course.reviews.any? %>
+      <li><%= render 'reviews/sort' %></li>
+      <%= render @reviews %>
+    <% end %>
+
+  </ol>
 
   <% if @course.reviews.any? %>
-    <ol class="reviews">
-      <%= render 'reviews/sort' %>
-      <%= render @reviews %>
-    </ol>
     <%= will_paginate @reviews %>
   <% end %>
 

@@ -12,7 +12,14 @@
     </div>
 
     <div class="col-md-9 review">
-      <span class="rating">Rating: <%= review.rating %></span>
+      <span class="rating">
+        <% review.rating.times do %>
+          <%= image_tag "star-on" %>
+        <% end %>
+        <% (5 - review.rating).times do %>
+          <%= image_tag "star-off" %>
+        <% end %>
+      </span>
       <span class="content"><%= review.content %></span>
       <span class="timestamp">
         <%= time_ago_in_words(review.created_at) %> ago
