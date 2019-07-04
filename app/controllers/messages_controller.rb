@@ -8,6 +8,7 @@ class MessagesController < ApplicationController
     @course = Course.find(params[:course_id])
     if @message.save
       @message.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
+      clear_unread(@lesson) if current_user?(@course.tutor)
     end
     redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
   end

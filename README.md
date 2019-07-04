@@ -38,13 +38,15 @@ parameter.
 
 ## To Do
 
+- delete posts/messages
 - fix home page flash message
+- add user names to posts/messages (?)
 - add error messages for: 
   - course new/edit
   - lesson new/edit
   - review new/edit (on course page)
   - empty posts & messages (on lesson page)
-- prevent tutor's posts/messages on their own course from counting towards their 'unread' count
+- ~~prevent tutor's posts/messages on their own course from counting towards their 'unread' count~~
 
 - direct upload
 - prevent downloading
@@ -54,12 +56,3 @@ parameter.
 
 - Ajax, json
 - SSO services
-
-### Runding
-
-- Q&A System
-
-
-### Kenneth
-
-- Review System
