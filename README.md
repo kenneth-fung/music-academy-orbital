@@ -46,20 +46,20 @@ moved out of course index view and into their own pages.
   - lesson new/edit
   - review new/edit (on course page)
   - empty posts & messages (on lesson page)
-  
-- direct upload
+\
+- ~~direct upload~~
 - prevent downloading (vimeo?)
-- check lesson video uploading issue on heroku
-  
+- ~~check lesson video uploading issue on heroku~~
+\
 - SSO services
 - notification system for posts/messages
 - clickable tags
 - public/private accounts for students
 - recommend courses to students based on tags
 - payment system
-  
+\
 - add automated testing (rails test)
 - improve UI
 - seed posts/messages
-  
+\
 - Ajax, json

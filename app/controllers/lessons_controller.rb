@@ -14,6 +14,8 @@ class LessonsController < ApplicationController
       flash[:success] = "Lesson: '#{@lesson.name}' for '#{@course.title}' has been published."
       redirect_to edit_course_path(@course, course_id: @course.id)
     else
+      @lesson.video.purge
+      @lesson.resources.purge
       render 'lessons/new'
     end
   end
@@ -47,6 +49,8 @@ class LessonsController < ApplicationController
       redirect_to edit_lesson_path(@lesson, 
                                    lesson_id: @lesson.id)
     else
+      @lesson.video.purge
+      @lesson.resources.purge
       render 'edit'
     end
   end

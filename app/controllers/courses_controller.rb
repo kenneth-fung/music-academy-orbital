@@ -23,6 +23,7 @@ class CoursesController < ApplicationController
       flash[:success] = "Successfully created"
       redirect_to @course
     else
+      @course.image.purge
       render 'courses/new'
     end
   end
@@ -35,6 +36,7 @@ class CoursesController < ApplicationController
       flash[:success] = "Changes saved!"
       redirect_to edit_course_path(@course, course_id: @course.id)
     else
+      @course.image.purge
       render 'edit'
     end
   end

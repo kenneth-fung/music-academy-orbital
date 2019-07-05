@@ -19,15 +19,15 @@
     <% else %>
       <!--Video upload button-->
       <%= f.label :video %>
-      <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control' %>
+      <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control-file' %>
     <% end %>
   </section>
 
   <%= f.label :name, "Lesson Name" %>
-  <%= f.text_field :name, class: 'form-control' %>
+  <%= f.text_field :name, required: "required", class: 'form-control' %>
 
   <%= f.label :description, "Lesson Description" %>
-  <%= f.text_area :description, class: 'form-control' %>
+  <%= f.text_area :description, required: "required", class: 'form-control' %>
 
   <%= f.label :resources, "Lesson Resources" %>
   <%= render 'lessons/resources', lesson: @lesson %>
@@ -36,7 +36,7 @@
       multiple: true, 
       accept: 'attachment/pdf image/png image/jpeg audio/mp3 audio/wav',
       direct_upload: true,
-      class: 'form-control'
+      class: 'form-control-file'
     %>
 
   <%= hidden_field_tag :course_id, @course.id %>
