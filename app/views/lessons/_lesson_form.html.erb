@@ -6,7 +6,7 @@
     <% if @lesson.video.attached? %>
       <!--Video display-->
       <div align="center" class="embed-responsive embed-responsive-16by9">
-        <video controls controlslist="nodownload" class="embed-responsive-item video">
+        <video controls controlslist="nodownload" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" class="embed-responsive-item video">
           <source src="<%=url_for(@lesson.video) %>">
         </video>
       </div>

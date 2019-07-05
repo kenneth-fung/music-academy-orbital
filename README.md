@@ -46,20 +46,26 @@ moved out of course index view and into their own pages.
   - lesson new/edit
   - review new/edit (on course page)
   - empty posts & messages (on lesson page)
-\
+ 
 - ~~direct upload~~
-- prevent downloading (vimeo?)
+- ~~prevent downloading~~ **_(temp solution, see below)_**
 - ~~check lesson video uploading issue on heroku~~
-\
+ 
 - SSO services
 - notification system for posts/messages
 - clickable tags
 - public/private accounts for students
 - recommend courses to students based on tags
 - payment system
-\
+ 
 - add automated testing (rails test)
 - improve UI
 - seed posts/messages
-\
+ 
 - Ajax, json
+
+Solution to prevent video downloads could be improved.
+- Currently, 'download button' and 'right click & save as' methods disabled,
+  but **not** on Internet Explorer.
+- If time permits, change it to a system where the video gets uploaded to
+  youtube/vimeo and then embedded, both automatically.
