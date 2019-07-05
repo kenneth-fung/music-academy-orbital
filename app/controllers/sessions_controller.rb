@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
         if @user.instance_of?(Tutor)
           message = find_total_unread(@user) == 1 ? 'message' : 'messages'
-          flash[:success] = "You have #{find_total_unread(@user)} #{message}!"
+          flash[:success] = "You have #{find_total_unread(@user)} unread #{message}!"
         end
         redirect_back_or @user
       else

@@ -1,8 +1,6 @@
-<% provide(:title, @title) %>
+<% provide(:title, "Courses") %>
 
 <h1><strong><%= @title %></strong></h1>
-
-<%= render 'shared/user_profile' %>
 
 <%= link_to "Create a New Course", new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
 

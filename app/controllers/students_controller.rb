@@ -27,11 +27,7 @@ class StudentsController < ApplicationController
     @title = student? && current_user?(@student) ?
       'My Profile' :
       "#{@student.name}'s Profile"
-    if @student.activated?
-      render 'courses/index'
-    else
-      redirect_to root_url and return
-    end
+    redirect_to root_path and return unless @student.activated?
   end
 
   def index
@@ -46,7 +42,6 @@ class StudentsController < ApplicationController
     @title = (student? && current_user?(@student)) ?
       "My Courses" :
       "#{@student.name}'s Courses"
-    render 'courses/index'
   end
 
   def edit

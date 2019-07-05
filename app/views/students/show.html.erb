@@ -1,22 +1,16 @@
-<% provide(:title, @student.name) %>
-<div class="student_profile">
-  <section class="stats center">
+<% provide(:title, @title) %>
 
-    <span class="gravatar_profile"><%= gravatar_for @student %></span>
-    <h1> <%= @student.name %> </h1>
-    <h2><%= @student.email %></h2>
+<h1><strong><%= @title %></strong></h1>
 
-    <% if current_user?(@student) %>
-      You are
-    <% else %>
-      <%= @student.name %> is
-    <% end %>
-    taking
-    <a href="<%= courses_student_path(@student) %>">
-      <strong>
-        <%= @student.courses.count %>
-      </strong>
-      courses</a>.
+<%= render 'shared/user_profile' %>
 
-  </section>
-</div>
+<% if @courses.any? %>
+  <div class="row">
+    <%= render @courses %>
+  </div>
+  <%= will_paginate @courses, class: 'pagination' %>
+<% else %>
+  <h3 class="course-index-none">
+    <strong>No courses found...</strong>
+  </h3>
+<% end %>

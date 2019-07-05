@@ -27,11 +27,7 @@ class TutorsController < ApplicationController
     @title = tutor? && current_user?(@tutor) ?
       'My Profile' :
       "#{@tutor.name}'s Profile"
-    if @tutor.activated?
-      render 'courses/index'
-    else
-      redirect_to root_url and return
-    end
+    redirect_to root_path and return unless @tutor.activated?
   end
 
   def index
@@ -54,7 +50,6 @@ class TutorsController < ApplicationController
     @title = (tutor? && current_user?(@tutor)) ?
       "My Courses" :
       "#{@tutor.name}'s Courses"
-    render 'courses/index'
   end
 
   def edit

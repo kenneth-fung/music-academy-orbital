@@ -22,11 +22,16 @@
       </span>
 
       <section class="card-subtitle ">
-      <i><%= pluralize(course.students.count, 'student') %></i><br>
+        <i><%= pluralize(course.students.count, 'student') %></i><br>
       </section>
 
       <% if local_assigns[:show_unread] %>
-        <span class="badge badge-primary"><%= find_unread_from_course(course) %> unread</span>
+        <% unread_number = find_unread_from_course(course) %>
+        <% if unread_number > 0 %>
+          <span class="badge badge-primary"><%= unread_number %> unread</span>
+        <% else %>
+          <span class="badge badge-secondary"><%= unread_number %> unread</span>
+        <% end %>
       <% end %>
       <% unless course_owner?(course) %>
 
@@ -38,7 +43,7 @@
           <% end %>
 
         <% else %>
-        
+
           <!-- Subscribe Button -->
           <%=
             link_to "Join now for #{number_to_currency(course.price)}!",

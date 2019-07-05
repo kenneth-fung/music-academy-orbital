@@ -2,17 +2,13 @@
 
 <h1><strong><%= @title %></strong></h1>
 
-<%= render 'shared/user_profile' %>
-
-<%= link_to "Create a New Course", new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
-
 <% if @courses.any? %>
   <div class="row">
-    <%= render @courses, show_unread: true %>
+    <%= render @courses %>
   </div>
   <%= will_paginate @courses, class: 'pagination' %>
 <% else %>
-  <h3 class="course-index-none">
+  <h3 class="courses-index-none">
     <strong>No courses found...</strong>
   </h3>
 <% end %>

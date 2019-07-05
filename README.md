@@ -18,18 +18,13 @@ Expected nil to not be equal to nil.
 ```
 
 ### New Methods
-**helpers/sessions_helper.rb**
+**models/post.rb** & **models/message.rb**
 ```
-def subscribing?(course)
-  student? && current_user.subscribing?(course)
-end
-
-def course_owner?(course)
-  tutor? && current_user?(course.tutor)
+# Returns the user who sent the post/message
+def sender
+  self.user_type.constantize.find(self.user_id)
 end
 ```
-**models/course.rb** now has **Course.search(query)**, where query is a string
-parameter.
 
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
@@ -38,7 +33,9 @@ parameter.
 
 ## To Do
 
-- delete posts/messages
+- ~~delete posts/messages~~
+- ~~prevent tutor's posts/messages on their own course from counting towards their 'unread' count~~
+- sort tutor's courses by unread
 - fix home page flash message
 - add user names to posts/messages (?)
 - add error messages for: 
@@ -46,13 +43,20 @@ parameter.
   - lesson new/edit
   - review new/edit (on course page)
   - empty posts & messages (on lesson page)
-- ~~prevent tutor's posts/messages on their own course from counting towards their 'unread' count~~
 
 - direct upload
-- prevent downloading
+- prevent downloading (vimeo?)
 - check lesson video uploading issue on heroku
+
+- SSO services
+- notification system for posts/messages
+- clickable tags
+- public/private accounts for students
+- recommend courses to students based on tags
+- payment system
+
 - add automated testing (rails test)
 - improve UI
+- seed posts/messages
 
 - Ajax, json
-- SSO services

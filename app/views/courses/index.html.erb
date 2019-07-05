@@ -5,58 +5,25 @@
     <strong>Search:</strong>
     <span class="search-term">"<%= params[:search] %>"</span>
   </h1>
-<% elsif !@title.include?('Home') %>
+<% else %>
   <h1>
     <strong><%= @title %></strong>
   </h1>
 <% end %>
 
-<% if @title == 'Home' %>
-  <!--Home Page-->
-  <%= render 'static_pages/home' %>
-  <h3 class="pull-left">
-    <strong>A Random Selection of Eight Courses...</strong>
-  </h3>
-
-<% elsif @title.include?('Profile') %>
-  <!--Student/Tutor Profile-->
-  <%= render 'shared/user_profile' %>
-
-<% else %>
-  <!--All Courses Page-->
-  <% provide(:title, "Courses") %>
-<% end %>
-
-<!--New Course Button-->
-<% if tutor? && @title.include?('My') %>
-  <% back_to = params[:action] %>
-  <%=
-    link_to "Create a New Course",
-      new_course_path(back_to: back_to),
-      class: 'btn btn-primary btn-lg btn-course-new'
-    %>
-<% end %>
+<!--All Courses Page-->
+<% provide(:title, "Courses") %>
 
 <!--Courses-->
 <% if @courses.any? %>
 
-  <% if @title.include?('All Courses') || @title.include?('Search:') %>
-    <%= render 'shared/sort_courses' %>
-  <% end %>
+  <%= render 'shared/sort_courses' %>
 
-  <% if tutor? && params[:controller].eql?('tutors') %>
-    <div class="row">
-      <%= render @courses, show_unread: true %>
-    </div>
-  <% else %>
-    <div class="row">
-      <%= render @courses %>
-    </div>
-  <% end %>
-  
-  <% if params[:action] != 'home' %>
-    <%= will_paginate @courses, class: "pagination" %>
-  <% end %>
+  <div class="row">
+    <%= render @courses %>
+  </div>
+
+  <%= will_paginate @courses, class: "pagination" %>
 
 <% else %>
 

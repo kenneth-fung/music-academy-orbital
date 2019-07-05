@@ -1,1 +1,15 @@
 <% provide(:title, 'Home') %>
+
+<h3 class="">
+  <strong>Eight Random Courses</strong>
+</h3>
+
+<% if @courses.any? %>
+  <div class="row">
+    <%= render @courses %>
+  </div>
+<% else %>
+  <h2 class="course-index-none">
+    <strong>No courses found...</strong>
+  </h2>
+<% end %>
