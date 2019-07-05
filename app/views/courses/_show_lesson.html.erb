@@ -58,7 +58,7 @@
           <% if exclusivity_check && @lesson.video.attached? %>
             <!--Subscribed/Course Owner-->
             <div class="embed-responsive embed-responsive-16by9 height-80">
-              <video controls class="embed-responsive-item bg-dark">
+              <video controls controlslist="nodownload" class="embed-responsive-item bg-dark">
                 <source src="<%= url_for(@lesson.video) %>">
               </video>
             </div>
