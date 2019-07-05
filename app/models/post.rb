@@ -4,4 +4,10 @@ class Post < ApplicationRecord
 
   validates :content,
     presence: true
+
+  # Returns the user who sent the post
+  def sender
+    self.user_type.constantize.find(self.user_id)
+  end
+
 end

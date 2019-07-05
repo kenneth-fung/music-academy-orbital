@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :logged_in_user, only: [:create]
+  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :post_sender,    only: :destroy
 
   def create
     @lesson = Lesson.find(params[:lesson_id])
@@ -9,7 +10,12 @@ class PostsController < ApplicationController
       @post.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
       clear_unread(@lesson) if current_user?(@course.tutor)
     end
-    redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
+    back_to_course
+  end
+
+  def destroy
+    @post.destroy
+    back_to_course
   end
 
   private
@@ -17,4 +23,18 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:content)
   end
+
+  def back_to_course
+    redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
+  end
+
+  # Before filters
+  
+  def post_sender
+    @post = Post.find(params[:id])
+    @lesson = @post.lesson
+    @course = @lesson.course
+    back_to_course unless current_user?(@post.sender)
+  end
+
 end

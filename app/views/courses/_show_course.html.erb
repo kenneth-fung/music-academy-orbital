@@ -81,7 +81,15 @@
 <div class="container reviews-section" id="reviews">
 
   <div class="row reviews-header">
-    <h3><strong>Reviews (<%= @course.reviews.count %>)</strong></h3>
+    <h3>
+      <strong>Reviews (<%= @course.reviews.count %>)</strong>
+    </h3>
+  </div>
+
+  <div class="row">
+    <h2>
+      <strong>Course Rating: <%= render 'reviews/rating', rating: @course.rating %></strong>
+    </h2>
   </div>
 
   <ol class="reviews">
