@@ -19,3 +19,4 @@
 //= require jquery-ui/sortable
 //= require popper
 //= require bootstrap
+//= require direct_uploads.js

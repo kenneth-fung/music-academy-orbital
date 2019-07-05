@@ -19,7 +19,7 @@
     <% else %>
       <!--Video upload button-->
       <%= f.label :video %>
-      <%= f.file_field :video, accept: 'video/mp4 video/wmv', class: 'form-control' %>
+      <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control' %>
     <% end %>
   </section>
 
@@ -35,6 +35,7 @@
     f.file_field :resources,
       multiple: true, 
       accept: 'attachment/pdf image/png image/jpeg audio/mp3 audio/wav',
+      direct_upload: true,
       class: 'form-control'
     %>
 
