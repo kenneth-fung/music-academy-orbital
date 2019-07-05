@@ -23,7 +23,7 @@ class TutorsController < ApplicationController
 
   def show
     @tutor = Tutor.find(params[:id])
-    @courses = @tutor.courses.paginate(page: params[:page])
+    @courses = @tutor.courses.reorder(created_at: :desc).paginate(page: params[:page])
     @title = tutor? && current_user?(@tutor) ?
       'My Profile' :
       "#{@tutor.name}'s Profile"
@@ -46,7 +46,7 @@ class TutorsController < ApplicationController
 
   def courses
     @tutor = Tutor.find(params[:id])
-    @courses = @tutor.courses.paginate(page: params[:page])
+    @courses = @tutor.courses.reorder(created_at: :desc).paginate(page: params[:page])
     @title = (tutor? && current_user?(@tutor)) ?
       "My Courses" :
       "#{@tutor.name}'s Courses"

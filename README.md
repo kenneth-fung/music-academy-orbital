@@ -26,6 +26,9 @@ def sender
 end
 ```
 
+Display of courses on student/tutor show/courses pages, as well as home page,
+moved out of course index view and into their own pages.
+
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
   - **Lesson Video**: mp4, wmv
@@ -43,20 +46,20 @@ end
   - lesson new/edit
   - review new/edit (on course page)
   - empty posts & messages (on lesson page)
-
+  
 - direct upload
 - prevent downloading (vimeo?)
 - check lesson video uploading issue on heroku
-
+  
 - SSO services
 - notification system for posts/messages
 - clickable tags
 - public/private accounts for students
 - recommend courses to students based on tags
 - payment system
-
+  
 - add automated testing (rails test)
 - improve UI
 - seed posts/messages
-
+  
 - Ajax, json

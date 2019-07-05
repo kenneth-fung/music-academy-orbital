@@ -1,5 +1,5 @@
 <div class="row justify-content-center mt-3">
-  <h1><%= @lesson.name %></h1>
+  <h1>Lessons</h1>
 </div>
 
 <div class="row justify-content-center">
@@ -17,27 +17,39 @@
       <div class="row">
 
         <!--Scroll Menu-->
-        <div class="col-md-3 pr-0">
+        <div class="scrollmenu col-md-3 pr-0">
           <ul class="list-group height-80 border border-secondary border-right-0 list-group-flush">
             <% @lessons.each do |lesson| %>
-              <li class="list-group-item">
-                <% if @course.tutor == current_user %>
-                  <%= link_to course_path(@course, lesson_page: lesson.position, clear_unread: true), class: 'nav-link text-dark' do %>
-                    <%= lesson.name %><br>
-                    <% unread_number = find_unread_from_lesson(lesson) %>
-                    <% if unread_number > 0 %>
-                      <span class="badge badge-primary"><%= unread_number %> unread</span>
-                    <% else %>
-                      <span class="badge badge-secondary"><%= unread_number %> unread</span>
-                    <% end %>
-                  <% end %>
+
+              <% if params[:lesson_page] && params[:lesson_page].to_i.eql?(lesson.position) %>
+                <li class="list-group-item list-group-item-secondary" id="lesson-selected">
                 <% else %>
-                  <%= link_to course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' do %>
-                    <%= lesson.name %>
+                  <li class="list-group-item">
                   <% end %>
+
+                  <% if @course.tutor == current_user %>
+
+                    <%= link_to course_path(@course, lesson_page: lesson.position, clear_unread: true), class: 'nav-link text-dark' do %>
+                      <%= lesson.name %><br>
+
+                      <% unread_number = find_unread_from_lesson(lesson) %>
+                      <% if unread_number > 0 %>
+                        <span class="badge badge-primary"><%= unread_number %> unread</span>
+                      <% else %>
+                        <span class="badge badge-secondary"><%= unread_number %> unread</span>
+                      <% end %>
+
+                    <% end %>
+
+                  <% else %>
+
+                    <%= link_to course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' do %>
+                      <%= lesson.name %>
+                    <% end %>
+
+                  <% end %>
+                  </li>
                 <% end %>
-              </li>
-            <% end %>
           </ul>
         </div>
 
@@ -56,6 +68,7 @@
               <h3><strong>No video was prepared for <%= @lesson.name %>.</strong></h3>
             <% else %>
               <!--Video Blocked-->
+              <h1><%= @lesson.name %></h1>
               <h3><strong>Interested in this course?</strong></h3>
               <h2>
                 Please
@@ -73,6 +86,7 @@
 
           <% if exclusivity_check %>
 
+            <h3><%= @lesson.name %></h3>
             <section class="description"><%= @lesson.description %></section>
             <span class="m-2">
               <strong>Resources</strong><br>
@@ -85,7 +99,7 @@
       </div>
 
       <!-- Forum -->
-      <div class="jumbotron">
+      <div class="">
         <div class="row justify-content-center pb-5" id="forum">
           <div class="display-4">Discussions</div>
         </div>
