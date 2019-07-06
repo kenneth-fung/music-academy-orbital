@@ -2,7 +2,7 @@
   <div class="">
 
     <!--Post-->
-    <div class="row pl-3 align-items-center pb-2">
+    <div id="post-<%= post.id %>" class="row pl-3 align-items-center pb-2">
       <div><%= gravatar_for(post.sender, size: 40) %></div>
       <div class="row ml-3 my-0">
         <%= post.content %>
@@ -15,7 +15,7 @@
     <!--Messages-->
     <% if post.messages %>
       <% post.messages.each do |message| %>
-        <div class="row pl-4 ml-1 pb-2 align-items-center">
+        <div id="message-<%= message.id %>" class="row pl-4 ml-1 pb-2 align-items-center">
           <div><%= gravatar_for(message.sender, size: 40) %></div>
           <div class="row ml-3 my-0">
             <%= message.content %>

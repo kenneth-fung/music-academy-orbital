@@ -76,6 +76,11 @@ class Tutor < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  # Returns the tutor's notifications
+  def notifications
+    Notification.where(user_type: 'Tutor', user_id: self.id)
+  end
+
   private
 
   def create_activation_digest

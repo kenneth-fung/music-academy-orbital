@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
     @course = Course.find(params[:course_id])
     if @message.save
       @message.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
+      generate_notification
       clear_unread(@lesson) if current_user?(@course.tutor)
     end
     back_to_course
@@ -27,6 +28,26 @@ class MessagesController < ApplicationController
 
   def back_to_course
     redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
+  end
+
+  def generate_notification
+    notification = "New Reply to '#{@post.content[0..20]}...'"
+    Notification.create(content: notification, 
+                        user_id: @post.sender.id, 
+                        user_type: @post.sender.class.name,
+                        origin_type: 'Message',
+                        origin_id: @message.id) unless @post.sender == @message.sender
+    users = []
+    @post.messages.each do |message|
+      users << message.sender unless users.include? message.sender
+    end
+    users.each do |user|
+      Notification.create(content: notification,
+                          user_id: user.id,
+                          user_type: user.class.name,
+                          origin_type: 'Message',
+                          origin_id: @message.id) unless user == @message.sender
+    end
   end
 
   # Before filters

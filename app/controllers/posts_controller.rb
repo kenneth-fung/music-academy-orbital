@@ -8,6 +8,7 @@ class PostsController < ApplicationController
     @post = @lesson.posts.new(post_params)
     if @post.save
       @post.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
+      generate_notification unless @post.sender == @course.tutor
       clear_unread(@lesson) if current_user?(@course.tutor)
     end
     back_to_course
@@ -26,6 +27,15 @@ class PostsController < ApplicationController
 
   def back_to_course
     redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
+  end
+
+  def generate_notification
+    notification = "New Question about '#{@lesson.name}' for '#{@course.title}'"
+    Notification.create(content: notification, 
+                        user_id: @course.tutor.id, 
+                        user_type: 'Tutor', 
+                        origin_type: 'Post', 
+                        origin_id: @post.id)
   end
 
   # Before filters

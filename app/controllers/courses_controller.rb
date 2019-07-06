@@ -68,6 +68,11 @@ class CoursesController < ApplicationController
     .sort(params[:sort_by])
     .where(course_id: @course.id)
     .paginate(page: params[:page], per_page: 10)
+
+    # Notification marking
+    if params[:notified_id]
+      Notification.find(params[:notified_id]).update_attribute(:read, true)
+    end
   end
 
   def destroy

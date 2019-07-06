@@ -92,6 +92,11 @@ class Student < ApplicationRecord
     self.reviews.where(course_id: course.id).first
   end
 
+  # Returns the student's notifications
+  def notifications
+    Notification.where(user_type: 'Student', user_id: self.id)
+  end
+
   private
 
   def create_activation_digest
