@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :post_sender,    only: :destroy
 
+  before_action :delete_notifications, only: :destroy
+
   def create
     @lesson = Lesson.find(params[:lesson_id])
     @course = Course.find(params[:course_id])
@@ -45,6 +47,15 @@ class PostsController < ApplicationController
     @lesson = @post.lesson
     @course = @lesson.course
     back_to_course unless current_user?(@post.sender)
+  end
+
+  # Deletes all the notifications created by this post, as well as
+  # notifications created by its messages
+  def delete_notifications
+    Notification.where(origin_type: 'Post', origin_id: @post.id).destroy_all
+    @post.messages.each do |message|
+      Notification.where(origin_type: 'Message', origin_id: message.id).destroy_all
+    end
   end
 
 end

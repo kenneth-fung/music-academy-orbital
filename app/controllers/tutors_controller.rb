@@ -3,6 +3,7 @@ class TutorsController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
   before_action :is_logged_out?, only: [:new, :create]
+  before_action :delete_notifications, only: :destroy
 
   def new
     @tutor = Tutor.new
@@ -67,7 +68,7 @@ class TutorsController < ApplicationController
   end
 
   def destroy
-    Tutor.find(params[:id]).destroy
+    @tutor.destroy
     flash[:success] = "User deleted"
     redirect_to tutors_url
   end
@@ -84,6 +85,12 @@ class TutorsController < ApplicationController
       flash[:danger] = "Please log out first."
       redirect_to root_path
     end
+  end
+
+  # Deletes the notifications created for this tutor
+  def delete_notifications
+    @tutor = Tutor.find(params[:id])
+    Notification.where(user_type: 'Tutor', user_id: @tutor.id).destroy_all
   end
 
 end

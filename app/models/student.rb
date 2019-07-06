@@ -97,6 +97,16 @@ class Student < ApplicationRecord
     Notification.where(user_type: 'Student', user_id: self.id)
   end
 
+  # Returns the student's unread notifications
+  def notifications_unread
+    notifications.where(read: false)
+  end
+
+  # Returns the student's read notifications
+  def notifications_read
+    notifications.where(read: true)
+  end
+
   private
 
   def create_activation_digest

@@ -2,6 +2,8 @@ class MessagesController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :message_sender, only: :destroy
 
+  before_action :delete_notifications, only: :destroy
+
   def create
     @post = Post.find(params[:post_id])
     @lesson = Lesson.find(params[:lesson_id])
@@ -9,7 +11,7 @@ class MessagesController < ApplicationController
     @course = Course.find(params[:course_id])
     if @message.save
       @message.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
-      generate_notification
+      generate_notifications
       clear_unread(@lesson) if current_user?(@course.tutor)
     end
     back_to_course
@@ -30,7 +32,7 @@ class MessagesController < ApplicationController
     redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
   end
 
-  def generate_notification
+  def generate_notifications
     notification = "New Reply to '#{@post.content[0..20]}...'"
     Notification.create(content: notification, 
                         user_id: @post.sender.id, 
@@ -59,6 +61,11 @@ class MessagesController < ApplicationController
     @lesson = @post.lesson
     @course = @lesson.course
     back_to_course unless current_user?(@message.sender)
+  end
+
+  # Deletes all the notifications created by this message
+  def delete_notifications
+    Notification.where(origin_type: 'Message', origin_id: @message.id).destroy_all
   end
 
 end

@@ -34,28 +34,44 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= image_tag "notification.png" %>
-        </a>
-        <% if current_user.notifications.any? %>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <% current_user.notifications.limit(5).each do |notification| %>
-            <div class="dropdown-item">
-              <% if notification.read %>
-                <%= image_tag "read.png" %>
-              <% else %>
-                <%= image_tag "unread.png" %>
-              <% end %>
-              <small>
-                <%= 
-                  link_to notification.content, 
-                    course_path(notification.lesson.course, 
-                                lesson_page: notification.lesson.position, 
-                                notified_id: notification.id,
-                                anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
-                    class: 'btn btn-sm'
-                              %>
-            </small>
-            </div>
+          <% if current_user.notifications_unread.any? %>
+            <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
+          <% else %>
+            <span class="badge badge-pill badge-secondary">0</span>
           <% end %>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <% if current_user.notifications.any? %>
+            
+            <% current_user.notifications.limit(5).each do |notification| %>
+              <div class="dropdown-item">
+
+                <% if notification.read %>
+                  <%= image_tag "read.png" %>
+                <% else %>
+                  <%= image_tag "unread.png" %>
+                <% end %>
+
+                <small>
+                  <%= 
+                    link_to notification.content, 
+                      course_path(notification.lesson.course, 
+                                  lesson_page: notification.lesson.position, 
+                                  notified_id: notification.id,
+                                  anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
+                      class: 'btn btn-sm'
+                    %>
+              </small>
+
+              </div>
+            <% end %>
+
+          <% else %>
+
+            <div class="dropdown-item">
+              <i>none for now</i>
+            </div>
+
           <% end %>
         </div>
       </li>

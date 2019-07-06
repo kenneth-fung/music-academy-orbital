@@ -81,6 +81,16 @@ class Tutor < ApplicationRecord
     Notification.where(user_type: 'Tutor', user_id: self.id)
   end
 
+  # Returns the tutor's unread notifications
+  def notifications_unread
+    notifications.where(read: false)
+  end
+
+  # Returns the tutor's read notifications
+  def notifications_read
+    notifications.where(read: true)
+  end
+
   private
 
   def create_activation_digest

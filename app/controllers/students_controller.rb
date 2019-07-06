@@ -3,6 +3,7 @@ class StudentsController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
   before_action :is_logged_out?, only: [:new, :create]
+  before_action :destroy_notifications, only: :destroy
 
   def new
     @student = Student.new
@@ -59,7 +60,7 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    Student.find(params[:id]).destroy
+    @student.destroy
     flash[:success] = "User deleted"
     redirect_to students_url
   end
@@ -76,6 +77,12 @@ class StudentsController < ApplicationController
       flash[:danger] = "Please log out first."
       redirect_to root_path
     end
+  end
+
+  # Deletes all notifications created for this student
+  def delete_notifications
+    @student = Student.find(params[:id])
+    Notification.where(user_type: 'Student', user_id: @student.id).destroy_all
   end
 
 end
