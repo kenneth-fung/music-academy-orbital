@@ -79,5 +79,6 @@ Rails.application.routes.draw do
   resources :reviews, only: [:create, :destroy, :index, :update]
 
   # Notifications
+  delete 'notifications/clear'
   resources :notifications, only: :destroy
 end

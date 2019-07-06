@@ -1,0 +1,26 @@
+<div class="dropdown-item">
+
+  <% if notification.read %>
+    <%= image_tag "read.png" %>
+  <% else %>
+    <%= image_tag "unread.png" %>
+  <% end %>
+
+  <small>
+    (<%= notification.id %>)
+    <%= 
+      link_to notification.content, 
+        course_path(notification.lesson.course, 
+                    lesson_page: notification.lesson.position, 
+                    notified_id: notification.id,
+                    anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
+        class: 'btn btn-sm' %>
+</small>
+
+<%= 
+  link_to image_tag("x.png"), 
+    notification_path(notification, 
+                      notification_id: notification.id),
+                      method: :delete %>
+
+</div>

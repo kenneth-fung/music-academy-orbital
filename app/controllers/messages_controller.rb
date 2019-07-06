@@ -41,7 +41,7 @@ class MessagesController < ApplicationController
                         origin_id: @message.id) unless @post.sender == @message.sender
     users = []
     @post.messages.each do |message|
-      users << message.sender unless users.include? message.sender
+      users << message.sender unless users.include?(message.sender) || @post.sender == message.sender
     end
     users.each do |user|
       Notification.create(content: notification,

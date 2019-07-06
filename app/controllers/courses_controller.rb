@@ -69,9 +69,10 @@ class CoursesController < ApplicationController
     .where(course_id: @course.id)
     .paginate(page: params[:page], per_page: 10)
 
-    # Notification marking
+    # Notification updating
     if params[:notified_id]
-      Notification.find(params[:notified_id]).update_attribute(:read, true)
+      notification = Notification.find_by(id: params[:notified_id])
+      notification.update_attribute(:read, true) unless notification.nil?
     end
   end
 
