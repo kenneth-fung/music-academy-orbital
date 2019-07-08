@@ -74,7 +74,7 @@
           <%=
             link_to "Back to My Courses",
                     courses_tutor_path(@course.tutor),
-                    class: "btn btn-default btn-back"
+                    class: "btn btn-secondary btn-back"
           %>
         </div>
       </div>
@@ -109,7 +109,7 @@
     </section>
 
     <!--Delete Course button-->
-    <% if tutor? && current_user?(@course.tutor) %>
+    <% if current_user.admin? %>
       <div class="course-delete">
         <h3><strong>Warning</strong></h3>
         <h2>

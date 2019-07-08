@@ -50,11 +50,12 @@
     <%= 
       link_to "Back to Course Edit", 
         edit_course_path(@course, course_id: @course.id),
-        class: "btn btn-default btn-back"
+        class: "btn btn-secondary btn-back"
       %>
-  </section>
+</section>
 
-  <!--Delete Lesson Button-->
+<!--Delete Lesson Button-->
+<% if current_user.admin? %>
   <% if params[:action] == 'edit' || params[:action] == 'update' %>
     <div class="lesson-delete">
       <h3><strong>Warning</strong></h3>
@@ -71,8 +72,9 @@
                                 page: params[:page]), 
             class: 'btn btn-danger btn-lesson-delete' 
           %>
-      </section>
+    </section>
     </div>
   <% end %>
+<% end %>
 
 <% end %>

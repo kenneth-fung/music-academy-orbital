@@ -15,7 +15,7 @@
 <% end %>
 
 <!--Edit Course Button-->
-<% if tutor? && current_user?(@course.tutor) %>
+<% if tutor? && (current_user?(@course.tutor) || current_user.admin?) %>
   <div class="row">
     <div class="col">
       <%=
@@ -26,15 +26,6 @@
           class: 'btn btn-secondary'
         %>
   </div>
-  </div>
-<% end %>
-
-<!--Course Image-->
-<% if @course.image.attached? %>
-  <div class="row">
-    <div class="col">
-      <%= image_tag @course.image.variant(resize: "300x300"), class: "image" %>
-    </div>
   </div>
 <% end %>
 

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
-  before_action :post_sender,    only: :destroy
+  before_action :post_sender_or_admin,    only: :destroy
 
   before_action :delete_notifications, only: :destroy
 
@@ -42,11 +42,11 @@ class PostsController < ApplicationController
 
   # Before filters
   
-  def post_sender
+  def post_sender_or_admin
     @post = Post.find(params[:id])
     @lesson = @post.lesson
     @course = @lesson.course
-    back_to_course unless current_user?(@post.sender)
+    back_to_course unless current_user?(@post.sender) or current_user.admin?
   end
 
   # Deletes all the notifications created by this post, as well as

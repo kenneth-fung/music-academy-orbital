@@ -19,7 +19,7 @@ Tutor.create!(name:  "Runding",
               activated:    true,
               activated_at: Time.now)
 
-Student.create!(name:  "Admin Student",
+Student.create!(name:  "Mr. Doctor (admin)",
                 email: "admin@student.com",
                 password:              "wangrun123ding",
                 password_confirmation: "wangrun123ding",
@@ -27,7 +27,7 @@ Student.create!(name:  "Admin Student",
                 activated:    true,
                 activated_at: Time.now)
 
-Tutor.create!(name:  "Admin Tutor",
+Tutor.create!(name:  "Master Doctor (admin)",
               email: "admin@tutor.com",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",

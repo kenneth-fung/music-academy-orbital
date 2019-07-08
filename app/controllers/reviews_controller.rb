@@ -1,10 +1,10 @@
 class ReviewsController < ApplicationController
   before_action :logged_in_user,  only: [:create, :destroy, :update]
-  before_action :subscribed_user, only: [:create, :destroy, :update]
+  before_action :subscribed_user, only: [:create, :update]
   before_action :no_review_yet,   only: :create
-  before_action :review_poster,   only: [:destroy, :update]
+  before_action :review_poster_or_admin,   only: [:destroy, :update]
 
-  before_action :delete_notificaion, only: :destroy
+  before_action :delete_notification, only: :destroy
 
   after_action :update_course_rating,     only: [:create, :destroy, :update]
   after_action :update_course_popularity, only: [:create, :destroy, :update]
@@ -80,9 +80,14 @@ class ReviewsController < ApplicationController
   end
 
   # Confirms that the current user is the poster of a review
-  def review_poster
-    @review = current_user.reviews.find_by(course_id: @course.id)
-    redirect_to @course if @review.nil?
+  def review_poster_or_admin
+    if current_user.admin?
+      @course = Course.find(params[:id])
+      @review = Review.find(params[:review_id])
+    else
+      @review = current_user.reviews.find_by(course_id: @course.id)
+      redirect_to @course if @review.nil?
+    end
   end
 
   # After filters

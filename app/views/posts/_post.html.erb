@@ -4,7 +4,7 @@
     <!--Post-->
     <div id="post-<%= post.id %>" class="post row pl-3 align-items-center pb-2">
 
-      <% if current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Post', post.id).any? %>
+      <% if logged_in? && current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Post', post.id).any? %>
         <div class="post-new col-auto"><%= image_tag 'unread.png' %></div>
       <% end %>
 
@@ -21,7 +21,7 @@
             </div>
           </div>
 
-          <% if current_user?(post.sender) %>
+          <% if logged_in? && (current_user?(post.sender) || current_user.admin?) %>
             <div class="row post-delete">
               <div class="col-auto">
                 <small><i><%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %></i></small>
@@ -39,7 +39,7 @@
       <% post.messages.each do |message| %>
         <div id="message-<%= message.id %>" class="message row pl-4 ml-1 pb-2 align-items-center">
 
-          <% if current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Message', message.id).any? %>
+          <% if logged_in? && current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Message', message.id).any? %>
             <div class="message-new col-auto"><%= image_tag 'unread.png' %></div>
           <% end %>
 
@@ -56,7 +56,7 @@
                 </div>
               </div>
 
-              <% if current_user?(message.sender) %>
+              <% if logged_in? && (current_user?(message.sender) || current_user.admin?) %>
                 <div class="row message-delete">
                   <div class="col-auto">
                     <small><i><%= link_to "delete", message_path(message), method: :delete %></i></small>

@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :is_tutor?,        only: [:new, :create, :edit, :update, :destroy]
-  before_action :is_course_owner?, only: [:edit, :update, :destroy, :delete_image]
+  before_action :is_tutor?,                 only: [:new, :create, :edit, :update, :destroy]
+  before_action :is_course_tutor_or_admin?, only: [:edit, :update, :destroy, :delete_image]
+  before_action :admin_user, only: :destroy
 
   def index
     courses = Course.sort(params[:sort_by])
@@ -109,9 +110,9 @@ class CoursesController < ApplicationController
   end
 
   # Confirms that the current user is the owner of this course
-  def is_course_owner?
+  def is_course_tutor_or_admin?
     @course = Course.find(params[:course_id])
-    unless tutor? && current_user?(@course.tutor)
+    unless (tutor? && current_user?(@course.tutor)) || current_user.admin?
       flash[:danger] = "You are not the owner of this course."
       redirect_to root_path
     end

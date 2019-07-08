@@ -19,6 +19,11 @@
       <span class="timestamp">
         <%= time_ago_in_words(review.created_at) %> ago
       </span>
+      <% if logged_in? && current_user.admin? %>
+        <span class="delete float-right">
+          <%= link_to 'Delete Review', review_path(course_id: @course.id, review_id: review.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+      </span>
+    <% end %>
     </div>
 
   </div>

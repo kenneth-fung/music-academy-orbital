@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
-  before_action :message_sender, only: :destroy
+  before_action :message_sender_or_admin, only: :destroy
 
   before_action :delete_notifications, only: :destroy
 
@@ -55,12 +55,12 @@ class MessagesController < ApplicationController
   # Before filters
 
   # Checks that the current user is the sender of the message
-  def message_sender
+  def message_sender_or_admin
     @message = Message.find(params[:id])
     @post = @message.post
     @lesson = @post.lesson
     @course = @lesson.course
-    back_to_course unless current_user?(@message.sender)
+    back_to_course unless current_user?(@message.sender) or current_user.admin?
   end
 
   # Deletes all the notifications created by this message

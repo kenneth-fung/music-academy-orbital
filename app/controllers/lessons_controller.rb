@@ -1,6 +1,7 @@
 class LessonsController < ApplicationController
   before_action :find_lesson_and_course, only: [:edit, :destroy, :delete_video, :delete_resource]
-  before_action :is_course_tutor?, except: [:show, :index, :sort]
+  before_action :is_course_tutor_or_admin?, except: [:show, :index, :sort]
+  before_action :admin_user, only: :destroy
 
   def new
     @course = Course.find(params[:course_id])
@@ -91,9 +92,9 @@ class LessonsController < ApplicationController
   end
 
   # Confirms the current user is the tutor of this course
-  def is_course_tutor?
+  def is_course_tutor_or_admin?
     course = @course || Course.find(params[:course_id])
-    unless tutor? && current_user.email == course.tutor.email
+    unless (tutor? && current_user?(@course.tutor)) || current_user.admin?
       redirect_to course_path(course)
     end
   end
