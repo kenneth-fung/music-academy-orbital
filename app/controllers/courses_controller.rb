@@ -54,9 +54,6 @@ class CoursesController < ApplicationController
     end
     @lessons = @course.lessons.reorder(:position)
     @lesson = @lessons[position.to_i - 1]
-    if params[:clear_unread]
-      clear_unread(@lesson)
-    end
 
     # Reviews
     if subscribing?(@course)

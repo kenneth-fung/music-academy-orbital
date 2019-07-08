@@ -1,16 +1,1 @@
-<% provide(:title, @title) %>
-
-<h1><strong><%= @title %></strong></h1>
-
-<%= render 'shared/user_profile' %>
-
-<% if @courses.any? %>
-  <div class="row">
-    <%= render @courses %>
-  </div>
-  <%= will_paginate @courses, class: 'pagination' %>
-<% else %>
-  <h3 class="course-index-none">
-    <strong>No courses found...</strong>
-  </h3>
-<% end %>
+<%= render 'shared/user_show' %>

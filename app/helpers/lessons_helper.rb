@@ -10,13 +10,18 @@ module LessonsHelper
 
   def find_unread_from_lesson(lesson)
     result = 0
+    notification_query = "user_type = ? AND user_id = ? AND origin_type = ? AND origin_id = ? AND read = ?"
+
     if lesson.posts.any?
+
       lesson.posts.each do |post|
 
-        result += 1 unless post.read
+        result += Notification.where(notification_query, 'Tutor', current_user.id, 'Post', post.id, false).count
 
         if post.messages.any?
-          post.messages.each {|message| result += 1 unless message.read }
+          post.messages.each do |message|
+            result += Notification.where(notification_query, 'Tutor', current_user.id, 'Message', message.id, false).count
+          end
         end
 
       end
@@ -30,17 +35,6 @@ module LessonsHelper
       tutor.courses.each {|course| result += find_unread_from_course(course) }
     end
     return result
-  end
-
-  def clear_unread(lesson)
-    if lesson.posts.any?
-      lesson.posts.each do |post|
-        post.update_attribute(:read, true)
-        if post.messages.any?
-          post.messages.each {|message| message.update_attribute(:read, true)}
-        end
-      end
-    end
   end
 
 end

@@ -25,15 +25,18 @@
         <i><%= pluralize(course.students.count, 'student') %></i><br>
       </section>
 
-      <% if local_assigns[:show_unread] %>
+      <% if course_owner?(course) %>
+
         <% unread_number = find_unread_from_course(course) %>
         <% if unread_number > 0 %>
-          <span class="badge badge-primary"><%= unread_number %> unread</span>
-        <% else %>
-          <span class="badge badge-secondary"><%= unread_number %> unread</span>
+          <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
         <% end %>
-      <% end %>
-      <% unless course_owner?(course) %>
+
+        <% if params[:action] == 'index' %>
+          <p class="badge badge-success">published by you</p>
+        <% end %>
+
+      <% else %>
 
         <% if subscribing?(course) %>
 
@@ -45,10 +48,12 @@
         <% else %>
 
           <!-- Subscribe Button -->
-          <%=
-            link_to "Join now for #{number_to_currency(course.price)}!",
-              subscribe_path(course_id: course.id), class: 'btn btn-secondary btn-sm'
-            %>
+          <% if student? %>
+            <%=
+              link_to "Join now for #{number_to_currency(course.price)}!",
+                subscribe_path(course_id: course.id), class: 'btn btn-secondary btn-sm'
+              %>
+          <% end %>
 
         <% end %>
 

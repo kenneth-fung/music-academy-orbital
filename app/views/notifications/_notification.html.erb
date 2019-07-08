@@ -1,0 +1,27 @@
+<% if notification.read %>
+
+  <li class="">
+    <%= image_tag 'read.png' %>
+    <%= 
+      link_to notification.content, 
+        course_path(notification.lesson.course, 
+                    lesson_page: notification.lesson.position, 
+                    notified_id: notification.id, 
+                    anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
+        class: 'read' %>
+</li>
+
+<% else %>
+
+  <li class="">
+    <%= image_tag 'unread.png' %>
+    <%= 
+      link_to notification.content, 
+        course_path(notification.lesson.course, 
+                    lesson_page: notification.lesson.position, 
+                    notified_id: notification.id, 
+                    anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
+        class: 'unread' %>
+</li>
+
+<% end %>

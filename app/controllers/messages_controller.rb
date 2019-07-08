@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
   end
 
   def generate_notifications
-    notification = "New Reply to '#{@post.content[0..20]}...'"
+    notification = "New Reply to '#{@post.content}'"
     Notification.create(content: notification, 
                         user_id: @post.sender.id, 
                         user_type: @post.sender.class.name,

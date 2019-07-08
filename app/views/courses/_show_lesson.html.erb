@@ -29,15 +29,15 @@
 
                   <% if @course.tutor == current_user %>
 
-                    <%= link_to course_path(@course, lesson_page: lesson.position, clear_unread: true), class: 'nav-link text-dark' do %>
-                      <%= lesson.name %><br>
-
-                      <% unread_number = find_unread_from_lesson(lesson) %>
-                      <% if unread_number > 0 %>
-                        <span class="badge badge-primary"><%= unread_number %> unread</span>
-                      <% else %>
-                        <span class="badge badge-secondary"><%= unread_number %> unread</span>
+                    <% unread_number = find_unread_from_lesson(lesson) %>
+                    <% if unread_number > 0 %>
+                      <%= link_to course_path(@course, lesson_page: lesson.position, anchor: 'forum'), class: 'nav-link text-dark' do %>
+                        <%= lesson.name %><br>
+                        <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
                       <% end %>
+                    <% else %>
+
+                      <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' %>
 
                     <% end %>
 
@@ -86,7 +86,7 @@
 
           <% if exclusivity_check %>
 
-            <h3><%= @lesson.name %></h3>
+            <h3 class="text-left"><%= @lesson.name %></h3>
             <section class="description"><%= @lesson.description %></section>
             <span class="m-2">
               <strong>Resources</strong><br>
@@ -101,7 +101,7 @@
       <!-- Forum -->
       <div class="">
         <div class="row justify-content-center pb-5" id="forum">
-          <div class="display-4">Discussions</div>
+          <div class="display-4">Discussions for <%= @lesson.name %></div>
         </div>
 
         <% count = @lesson.posts.count %>

@@ -1,0 +1,108 @@
+<% provide(:title, @title) %>
+
+<h1><strong><%= @title %></strong></h1>
+
+<%= render 'shared/user_profile' %>
+
+<div class="row">
+  <div class="col">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+
+        <% courses_header = @title.include?('My') ? 'My Courses' : "#{@tutor.name}'s Courses" %>
+
+        <% if params[:tab] == 'notifications' %>
+          <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= courses_header %></a>
+        <% else %>
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= courses_header %></a>
+        <% end %>
+
+      </li>
+
+      <% if @title.include? 'My' %>
+        <li class="nav-item">
+
+          <% if params[:tab] == 'notifications' %>
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Notifications</a>
+          <% else %>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Notifications</a>
+          <% end %>
+
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="tab-content" id="myTabContent">
+
+      <% if params[:tab] == 'notifications' %>
+        <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <% else %>
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <% end %>
+
+          <div class="row justify-content-center pt-3">
+            <div class="col-md-12">
+
+              <% if tutor? %>
+                <%= link_to 'Create a New Course', new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
+              <% end %>
+
+              <% if @courses.any? %>
+
+                <h3 class="text-left"><strong>Your Most Recent Courses</strong></h3>
+                <div class="row"><%= render @courses %></div>
+                <% if tutor? %>
+                  <h2 class="text-left">View all your courses <%= link_to 'here', courses_tutor_path(current_user) %>.</h2>
+                <% else %>
+                  <h2 class="text-left">View all your courses <%= link_to 'here', courses_student_path(current_user) %>.</h2>
+                <% end %>
+
+              <% else %>
+                <h3 class="course-index-none">
+                  <strong>No courses found...</strong>
+                </h3>
+              <% end %>
+
+            </div>
+          </div>
+
+          </div>
+
+          <% if @title.include? 'My' %>
+
+            <% if params[:tab] == 'notifications' %>
+              <div class="tab-pane fade show  active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <% else %>
+                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <% end %>
+
+                <div class="notifications">
+                  <% if @notifications.any? %>
+                    <h2 class="clear text-left">
+                      <%= link_to 'Clear All Notifications', notifications_clear_path, method: :delete, class: 'btn btn-link' %>
+                    </h2>
+                    <ol class="">
+                      <%= render @notifications %>
+                    </ol>
+                  <% else %>
+                    <h2 class="clear text-left">
+                      <a href="#", class="btn btn-link disabled", role="button" aria-disabled="true">Clear All Notifications</a>
+                    </h2>
+                    <ol>
+                      <li>No Notifications</li>
+                    </ol>
+                  <% end %>
+                </div>
+
+                </div>
+
+              </div>
+            <% end %>
+
+        </div>
+    </div>

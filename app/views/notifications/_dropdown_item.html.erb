@@ -7,9 +7,9 @@
   <% end %>
 
   <small>
-    (<%= notification.id %>)
+    <% content = notification.content.length > 40 ? notification.content[0..40]... : notification.content %>
     <%= 
-      link_to notification.content, 
+      link_to content,
         course_path(notification.lesson.course, 
                     lesson_page: notification.lesson.position, 
                     notified_id: notification.id,

@@ -24,10 +24,15 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @courses = @student.newest_courses.paginate(page: params[:page])
+    @courses = @student.newest_courses.limit(8)
     @title = student? && current_user?(@student) ?
       'My Profile' :
       "#{@student.name}'s Profile"
+
+    @notifications = @student
+    .notifications
+    .reorder(created_at: :desc) if current_user? @student
+
     redirect_to root_path and return unless @student.activated?
   end
 

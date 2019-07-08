@@ -25,8 +25,12 @@ class Notification < ApplicationRecord
 
   # Returns the lesson where the notification was created
   def lesson
-    origin.lesson if self.origin_type == 'Post'
-    origin.post.lesson if self.origin_type == 'Message'
+    origin = self.origin
+    if self.origin.class == Post
+      origin.lesson
+    elsif self.origin.class == Message
+      origin.post.lesson
+    end
   end
 
 end

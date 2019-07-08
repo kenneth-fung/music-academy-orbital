@@ -24,10 +24,15 @@ class TutorsController < ApplicationController
 
   def show
     @tutor = Tutor.find(params[:id])
-    @courses = @tutor.courses.reorder(created_at: :desc).paginate(page: params[:page])
+    @courses = @tutor.courses.reorder(created_at: :desc).limit(8)
     @title = tutor? && current_user?(@tutor) ?
       'My Profile' :
       "#{@tutor.name}'s Profile"
+
+    @notifications = @tutor
+    .notifications
+    .reorder(created_at: :desc) if current_user? @tutor
+
     redirect_to root_path and return unless @tutor.activated?
   end
 

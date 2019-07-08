@@ -1,4 +1,4 @@
-<li class="notifications nav-item dropdown">
+<li class="notifications-dropdown nav-item dropdown">
 
   <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -26,14 +26,23 @@
         <%= render 'notifications/dropdown_item', notification: notification %>
       <% end %>
 
-    <% else %>
-
-      <div class="dropdown-item">
-        <i>none for now</i>
+      <div class="dropdown-item text-center">
+        <small class="">
+          <% if student? %>
+            <%= link_to "See All #{current_user.notifications.count} Notifications", student_path(current_user, tab: 'notifications') %>
+          <% elsif tutor? %>
+            <%= link_to "See All #{current_user.notifications.count} Notifications", tutor_path(current_user, tab: 'notifications') %>
+          <% end %>
+        </small>
       </div>
-
-    <% end %>
-
   </div>
+
+<% else %>
+
+  <div class="dropdown-item text-center disabled">
+    <i>none for now</i>
+  </div>
+
+<% end %>
 
 </li>

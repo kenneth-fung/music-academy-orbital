@@ -1,18 +1,1 @@
-<% provide(:title, @title) %>
-
-<h1><strong><%= @title %></strong></h1>
-
-<%= render 'shared/user_profile' %>
-
-<%= link_to "Create a New Course", new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
-
-<% if @courses.any? %>
-  <div class="row">
-    <%= render @courses, show_unread: true %>
-  </div>
-  <%= will_paginate @courses, class: 'pagination' %>
-<% else %>
-  <h3 class="course-index-none">
-    <strong>No courses found...</strong>
-  </h3>
-<% end %>
+<%= render 'shared/user_show' %>
