@@ -2,27 +2,71 @@
   <div class="">
 
     <!--Post-->
-    <div id="post-<%= post.id %>" class="row pl-3 align-items-center pb-2">
-      <div><%= gravatar_for(post.sender, size: 40) %></div>
-      <div class="row ml-3 my-0">
-        <%= post.content %>
-        <% if current_user?(post.sender) %>
-          <i><%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %></i>
-        <% end %>
+    <div id="post-<%= post.id %>" class="post row pl-3 align-items-center pb-2">
+
+      <% if current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Post', post.id).any? %>
+        <div class="post-new col-auto"><%= image_tag 'unread.png' %></div>
+      <% end %>
+
+      <div class="col-auto post-gravatar">
+        <%= gravatar_for(post.sender, size: 40) %>
       </div>
+
+      <div class="row ml-3 my-0">
+        <div class="col-auto">
+
+          <div class="row post-content">
+            <div class="col-auto">
+              <%= post.content %>
+            </div>
+          </div>
+
+          <% if current_user?(post.sender) %>
+            <div class="row post-delete">
+              <div class="col-auto">
+                <i><%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %></i>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+
     </div>
 
     <!--Messages-->
     <% if post.messages %>
       <% post.messages.each do |message| %>
-        <div id="message-<%= message.id %>" class="row pl-4 ml-1 pb-2 align-items-center">
-          <div><%= gravatar_for(message.sender, size: 40) %></div>
-          <div class="row ml-3 my-0">
-            <%= message.content %>
-            <% if current_user?(message.sender) %>
-              <i><%= link_to "delete", message_path(message), method: :delete %></i>
-            <% end %>
+        <div id="message-<%= message.id %>" class="message row pl-4 ml-1 pb-2 align-items-center">
+
+          <% if current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Message', message.id).any? %>
+            <div class="message-new col-auto"><%= image_tag 'unread.png' %></div>
+          <% end %>
+
+          <div class="col-auto message-gravatar">
+            <%= gravatar_for(message.sender, size: 40) %>
           </div>
+
+          <div class="row ml-3 my-0">
+            <div class="col-auto">
+
+              <div class="row message-content">
+                <div class="col-auto">
+                  <%= message.content %>
+                </div>
+              </div>
+
+              <% if current_user?(message.sender) %>
+                <div class="row message-delete">
+                  <div class="col-auto">
+                    <small><i><%= link_to "delete", message_path(message), method: :delete %></i></small>
+                  </div>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+
         </div>
       <% end %>
     <% end %>

@@ -17,8 +17,15 @@ html,body
   width: 100% !important;
   height: 100% !important;
   margin: 0px !important;
-  padding: 30px 0px 0px 0px !important;
   overflow-x: hidden;
+}
+
+.home {
+  padding: 0 !important;
+}
+
+.not-home {
+  padding: 50px 0px 0px 0px !important;
 }
 
 textarea {
@@ -601,5 +608,25 @@ input[type=file][data-direct-upload-url][disabled]
       }
     }
 
+  }
+}
+
+/* posts & messages */
+
+.post, .message {
+  .post-gravatar, .message-gravatar {
+    margin-right: -20px;
+    padding: 0;
+  }
+  .post-content, .message-content {
+    padding: 0;
+  }
+  .post-delete, .message-delete {
+    padding: 0;
+    margin-top: -5px;
+  }
+  .post-new, .message-new {
+    margin-right: 5px;
+    padding: 0;
   }
 }

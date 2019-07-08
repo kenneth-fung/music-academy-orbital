@@ -33,6 +33,10 @@ class TutorsController < ApplicationController
     .notifications
     .reorder(created_at: :desc) if current_user? @tutor
 
+    if params[:mark_read]
+      Notification.find(params[:mark_read]).update_attribute(:read, true)
+    end
+
     redirect_to root_path and return unless @tutor.activated?
   end
 

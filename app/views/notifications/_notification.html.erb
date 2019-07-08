@@ -1,27 +1,44 @@
-<% if notification.read %>
 
-  <li class="">
-    <%= image_tag 'read.png' %>
-    <%= 
-      link_to notification.content, 
-        course_path(notification.lesson.course, 
-                    lesson_page: notification.lesson.position, 
-                    notified_id: notification.id, 
-                    anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
-        class: 'read' %>
+<li class="row">
+
+  <div class="col-9">
+    <% if notification.read %>
+
+      <%= image_tag 'read.png' %>
+      <%= 
+        link_to notification.content, 
+          course_path(notification.lesson.course, 
+                      lesson_page: notification.lesson.position, 
+                      notified_id: notification.id, 
+                      anchor: "forum"),
+          class: 'read' %>
+
+      <% else %>
+
+        <%= image_tag 'unread.png' %>
+        <%= 
+          link_to notification.content, 
+            course_path(notification.lesson.course, 
+                        lesson_page: notification.lesson.position, 
+                        notified_id: notification.id, 
+                        anchor: "forum"),
+            class: 'unread' %>
+
+        <% end %>
+  </div>
+
+  <div class="col-2">
+    <% unless notification.read %>
+      <% if tutor? %>
+        <%= link_to 'mark as read', tutor_path(current_user, tab: 'notifications', mark_read: notification.id) %>
+      <% else %>
+        <%= link_to 'mark as read', student_path(current_user, tab: 'notifications', mark_read: notification.id) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-1">
+    <%= link_to 'clear', notification_path(notification, notification_id: notification.id), method: :delete %>
+  </div>
+
 </li>
-
-<% else %>
-
-  <li class="">
-    <%= image_tag 'unread.png' %>
-    <%= 
-      link_to notification.content, 
-        course_path(notification.lesson.course, 
-                    lesson_page: notification.lesson.position, 
-                    notified_id: notification.id, 
-                    anchor: "#{notification.origin_type.downcase}-#{notification.origin_id}"),
-        class: 'unread' %>
-</li>
-
-<% end %>

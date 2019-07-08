@@ -26,15 +26,18 @@
         <%= render 'notifications/dropdown_item', notification: notification %>
       <% end %>
 
+      <% if current_user.notifications.count > 5 %>
       <div class="dropdown-item text-center">
         <small class="">
+          <% notifications_count = pluralize(current_user.notifications.count, 'Notification') %>
           <% if student? %>
-            <%= link_to "See All #{current_user.notifications.count} Notifications", student_path(current_user, tab: 'notifications') %>
+            <%= link_to "See All #{notifications_count}", student_path(current_user, tab: 'notifications') %>
           <% elsif tutor? %>
-            <%= link_to "See All #{current_user.notifications.count} Notifications", tutor_path(current_user, tab: 'notifications') %>
+            <%= link_to "See All #{notifications_count}", tutor_path(current_user, tab: 'notifications') %>
           <% end %>
         </small>
       </div>
+    <% end %>
   </div>
 
 <% else %>
