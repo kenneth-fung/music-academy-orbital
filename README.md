@@ -48,7 +48,7 @@ Student/tutor show pages moved to shared/_user_show.
   - review new/edit (on course page)
   - empty posts & messages (on lesson page)
  
-- ~~direct upload~~
+- ~~direct upload~~ **_(modification to S3 bucket needed, see below)_**
 - ~~prevent downloading~~ **_(temp solution, see below)_**
 - ~~check lesson video uploading issue on heroku~~
  
@@ -65,6 +65,24 @@ Student/tutor show pages moved to shared/_user_show.
 - seed posts/messages
  
 - Ajax, json
+
+To enable direct upload to Amazon S3, go to: Your Bucket -> Permissions -> CORS configuration. Paste the following snippet in the editor and save the change.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
+    <AllowedHeader>Authorization</AllowedHeader>
+</CORSRule>
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedHeader>*</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>
+```
 
 Solution to prevent video downloads could be improved.
 - Currently, 'download button' and 'right click & save as' methods disabled,
