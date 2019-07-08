@@ -107,21 +107,22 @@ class Student < ApplicationRecord
     notifications.where(read: true)
   end
 
-  def Student.find_or_create_from_auth_hash(auth)
-    @student = Student.where(provider: auth.provider, uid: auth.uid).first
-    unless @student
-      password = Student.new_token
-      @student = Student.new(provider: auth.provider,
-                               uid: auth.uid,
-                               name: auth.info.name,
-                               email: auth.info.email,
-                               password: password,
-                               password_confirmation: password,
-                               activated: true,
-                               activated_at: Time.zone.now)
-      @student.save
-    end
-    return @student
+  def Student.find_from_auth_hash(auth)
+    Student.where(provider: auth.provider, uid: auth.uid).first
+  end
+
+  def Student.create_from_auth_hash(auth)
+    password = Student.new_token
+    student = Student.new(provider: auth.provider,
+                          uid: auth.uid,
+                          name: auth.info.name,
+                          email: auth.info.email,
+                          password: password,
+                          password_confirmation: password,
+                          activated: true,
+                          activated_at: Time.zone.now)
+    student.save
+    return student
   end
 
   private

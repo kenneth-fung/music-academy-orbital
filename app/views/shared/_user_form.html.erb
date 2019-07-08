@@ -85,5 +85,9 @@
 
   <%= f.submit yield(:button_text), class: "btn btn-primary mt-3" %>
 
+  <section class="signup-options">
+  or sign up through
+  <%= link_to "Google", "auth/google_oauth2?user_type=#{user_type}" %>
+  </section>
 
 <% end %>

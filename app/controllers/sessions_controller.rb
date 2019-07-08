@@ -27,14 +27,30 @@ class SessionsController < ApplicationController
 
   def create_with_auth
     params = request.env["omniauth.params"]
+
     if params["user_type"] == 'Student'
-      @user = Student.find_or_create_from_auth_hash(request.env["omniauth.auth"])
-    else
-      @user = Tutor.find_or_create_from_auth_hash(request.env["omniauth.auth"])
+
+      @user = Student.find_from_auth_hash(request.env["omniauth.auth"])
+      method = 'logged in'
+      if @user.nil?
+        @user = Student.create_from_auth_hash(request.env["omniauth.auth"])
+        method = 'signed up'
+      end
+
+    elsif params["user_type"] == 'Tutor'
+
+      @user = Tutor.find_from_auth_hash(request.env["omniauth.auth"])
+      method = 'logged in'
+      if @user.nil?
+        @user = Tutor.create_from_auth_hash(request.env["omniauth.auth"])
+        method = 'signed up'
+      end
+
     end
-    log_in @user
+
     provider = @user.provider == 'google_oauth2' ? 'Google' : 'Facebook'
-    flash[:success] = "Successfully signed in with #{provider}!"
+    flash[:success] = "Successfully #{method} through #{provider}!"
+    log_in @user
     redirect_back_or @user
   end
 
