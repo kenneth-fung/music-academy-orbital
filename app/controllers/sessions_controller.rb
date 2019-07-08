@@ -25,6 +25,19 @@ class SessionsController < ApplicationController
     end
   end
 
+  def create_with_auth
+    params = request.env["omniauth.params"]
+    if params["user_type"] == 'Student'
+      @user = Student.find_or_create_from_auth_hash(request.env["omniauth.auth"])
+    else
+      @user = Tutor.find_or_create_from_auth_hash(request.env["omniauth.auth"])
+    end
+    log_in @user
+    provider = @user.provider == 'google_oauth2' ? 'Google' : 'Facebook'
+    flash[:success] = "Successfully signed in with #{provider}!"
+    redirect_back_or @user
+  end
+
   def destroy
     log_out if logged_in?
     redirect_to root_url

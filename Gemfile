@@ -87,3 +87,6 @@ gem 'will_paginate-bootstrap4'
 # Lesson Sorting
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'acts_as_list'
+
+# Google Authentication
+gem 'omniauth-google-oauth2'

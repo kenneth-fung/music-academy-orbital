@@ -91,6 +91,23 @@ class Tutor < ApplicationRecord
     notifications.where(read: true)
   end
 
+  def Tutor.find_or_create_from_auth_hash(auth)
+    @tutor = Tutor.where(provider: auth.provider, uid: auth.uid).first
+    unless @tutor
+      password = Tutor.new_token
+      @tutor = Tutor.new(provider: auth.provider,
+                         uid: auth.uid,
+                         name: auth.info.name,
+                         email: auth.info.email,
+                         password: password,
+                         password_confirmation: password,
+                         activated: true,
+                         activated_at: Time.zone.now)
+      @tutor.save
+    end
+    return @tutor
+  end
+
   private
 
   def create_activation_digest
