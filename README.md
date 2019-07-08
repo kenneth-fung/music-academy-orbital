@@ -17,19 +17,6 @@ The error:
 Expected nil to not be equal to nil.
 ```
 
-### New Methods
-**models/post.rb** & **models/message.rb**
-```
-# Returns the user who sent the post/message
-def sender
-  self.user_type.constantize.find(self.user_id)
-end
-```
-### Refactoring
-Display of courses on student/tutor courses page, as well as home page, moved
-out of course index page and into their own pages.
-Student/tutor show pages moved to shared/_user_show.
-
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
   - **Lesson Video**: mp4, wmv
@@ -52,7 +39,7 @@ Student/tutor show pages moved to shared/_user_show.
 - ~~prevent downloading~~ **_(temp solution, see below)_**
 - ~~check lesson video uploading issue on heroku~~
  
-- SSO services
+- ~~SSO services~~ **_(some notes, see below)_**
 - ~~notification system for posts/messages~~
 - clickable tags
 - report function for tutors, to report other accounts that have re-uploaded their materials at a cheaper price
@@ -93,3 +80,10 @@ Solution to prevent video downloads could be improved.
   but **not** on Internet Explorer.
 - If time permits, change it to a system where the video gets uploaded to
   youtube/vimeo and then embedded, both automatically.
+
+#### SSO Services
+
+- Google available as option during sign up and log in. Tested on heroku.
+  For niibori heroku, most likely just need to add RAILS_MASTER_KEY to Heroku
+config, since app on Google is already set up. Ask me for key.
+- Facebook not added as it requires a privacy policy.
