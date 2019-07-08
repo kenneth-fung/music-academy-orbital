@@ -55,6 +55,7 @@ Student/tutor show pages moved to shared/_user_show.
 - SSO services
 - ~~notification system for posts/messages~~
 - clickable tags
+- report function for tutors, to report other accounts that have re-uploaded their materials at a cheaper price
 - public/private accounts for students
 - recommend courses to students based on tags
 - payment system
