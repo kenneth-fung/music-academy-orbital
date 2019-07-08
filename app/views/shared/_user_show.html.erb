@@ -23,9 +23,23 @@
         <li class="nav-item">
 
           <% if params[:tab] == 'notifications' %>
-            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Notifications</a>
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+              Notifications
+              <% if current_user.notifications_unread.any? %>
+                <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
+              <% else %>
+                <span class="badge badge-pill badge-secondary">0</span>
+              <% end %>
+            </a>
           <% else %>
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Notifications</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+              Notifications
+              <% if current_user.notifications_unread.any? %>
+                <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
+              <% else %>
+                <span class="badge badge-pill badge-secondary">0</span>
+              <% end %>
+            </a>
           <% end %>
 
         </li>
@@ -53,15 +67,7 @@
               <% end %>
 
               <% if @courses.any? %>
-
-                <h3 class="text-left"><strong>Your Most Recent Courses</strong></h3>
                 <div class="row"><%= render @courses %></div>
-                <% if tutor? %>
-                  <h2 class="text-left">View all your courses <%= link_to 'here', courses_tutor_path(current_user) %>.</h2>
-                <% else %>
-                  <h2 class="text-left">View all your courses <%= link_to 'here', courses_student_path(current_user) %>.</h2>
-                <% end %>
-
               <% else %>
                 <h3 class="course-index-none">
                   <strong>No courses found...</strong>

@@ -66,6 +66,8 @@ Student/tutor show pages moved to shared/_user_show.
  
 - Ajax, json
 
+#### Direct Upload
+
 To enable direct upload to Amazon S3, go to: Your Bucket -> Permissions -> CORS configuration. Paste the following snippet in the editor and save the change.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -83,6 +85,8 @@ To enable direct upload to Amazon S3, go to: Your Bucket -> Permissions -> CORS 
 </CORSRule>
 </CORSConfiguration>
 ```
+
+#### Download Prevention
 
 Solution to prevent video downloads could be improved.
 - Currently, 'download button' and 'right click & save as' methods disabled,

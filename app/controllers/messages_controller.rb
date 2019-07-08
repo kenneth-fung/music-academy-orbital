@@ -12,7 +12,6 @@ class MessagesController < ApplicationController
     if @message.save
       @message.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
       generate_notifications
-      clear_unread(@lesson) if current_user?(@course.tutor)
     end
     back_to_course
   end

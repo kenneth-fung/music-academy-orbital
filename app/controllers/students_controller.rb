@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @courses = @student.newest_courses.limit(8)
+    @courses = @student.newest_courses
     @title = student? && current_user?(@student) ?
       'My Profile' :
       "#{@student.name}'s Profile"

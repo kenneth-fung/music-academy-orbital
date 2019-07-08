@@ -6,7 +6,7 @@
 
       <%= image_tag 'read.png' %>
       <% if notification.origin_type == 'Review' %>
-        <%= link_to notification.content, course_path(notification.origin.course, anchor: 'reviews'), class: 'read' %>
+        <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'read' %>
       <% else %>
         <%= link_to notification.content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, anchor: "forum"), class: 'read' %>
       <% end %>
@@ -15,7 +15,7 @@
 
       <%= image_tag 'unread.png' %>
       <% if notification.origin_type == 'Review' %>
-        <%= link_to notification.content, course_path(notification.origin.course, anchor: 'reviews'), class: 'unread' %>
+        <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'unread' %>
       <% else %>
         <%= link_to notification.content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, notified_id: notification.id, anchor: "forum"), class: 'unread' %> 
       <% end %>

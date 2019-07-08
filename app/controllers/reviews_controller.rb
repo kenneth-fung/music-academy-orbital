@@ -85,6 +85,7 @@ class ReviewsController < ApplicationController
       @course = Course.find(params[:id])
       @review = Review.find(params[:review_id])
     else
+      @course = Course.find(params[:id])
       @review = current_user.reviews.find_by(course_id: @course.id)
       redirect_to @course if @review.nil?
     end
