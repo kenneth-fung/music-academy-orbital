@@ -94,9 +94,12 @@
 
   <ol class="reviews">
 
+    <!--Current User's Review-->
     <% if @review %>
+      <!--no review written yet-->
       <h3>Write a Review</h3>
       <%= render 'reviews/review_form', review: @review %>
+      <!--review already written-->
     <% elsif @curr_review %>
       <h3>Your Review</h3>
       <span id="current_user_review">
@@ -122,6 +125,7 @@
       </span>
     <% end %>
 
+    <!--All Reviews-->
     <% if @course.reviews.any? %>
       <li><%= render 'reviews/sort' %></li>
       <%= render @reviews %>

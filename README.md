@@ -25,9 +25,10 @@ def sender
   self.user_type.constantize.find(self.user_id)
 end
 ```
-
-Display of courses on student/tutor show/courses pages, as well as home page,
-moved out of course index view and into their own pages.
+### Refactoring
+Display of courses on student/tutor courses page, as well as home page, moved
+out of course index page and into their own pages.
+Student/tutor show pages moved to shared/_user_show.
 
 ### File Uploading Restrictions:
   - **Course Creation Image**: png, jpeg, gif
@@ -52,7 +53,7 @@ moved out of course index view and into their own pages.
 - ~~check lesson video uploading issue on heroku~~
  
 - SSO services
-- notification system for posts/messages
+- ~~notification system for posts/messages~~
 - clickable tags
 - public/private accounts for students
 - recommend courses to students based on tags

@@ -1,4 +1,4 @@
-<div class="dropdown-item">
+<div class="row dropdown-item">
 
   <% if notification.read %>
     <%= image_tag "read.png" %>
@@ -7,20 +7,14 @@
   <% end %>
 
   <small>
-    <% content = notification.content.length > 40 ? notification.content[0..40]... : notification.content %>
-    <%= 
-      link_to content,
-        course_path(notification.lesson.course, 
-                    lesson_page: notification.lesson.position, 
-                    notified_id: notification.id,
-                    anchor: "forum"),
-        class: 'btn btn-sm' %>
-</small>
+    <% if notification.origin_type == 'Review' %>
+      <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'btn btn-sm' %>
+    <% else %>
+      <% content = notification.content.length > 40 ? notification.content[0..40]... : notification.content %>
+      <%= link_to content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, notified_id: notification.id, anchor: "forum"), class: 'btn btn-sm' %>
+    <% end %>
+  </small>
 
-<%= 
-  link_to image_tag("x.png"), 
-    notification_path(notification, 
-                      notification_id: notification.id),
-                      method: :delete %>
+  <%= link_to image_tag("x.png"), notification_path(notification, notification_id: notification.id), method: :delete %>
 
 </div>

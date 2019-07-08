@@ -4,12 +4,15 @@ class ReviewsController < ApplicationController
   before_action :no_review_yet,   only: :create
   before_action :review_poster,   only: [:destroy, :update]
 
+  before_action :delete_notificaion, only: :destroy
+
   after_action :update_course_rating,     only: [:create, :destroy, :update]
   after_action :update_course_popularity, only: [:create, :destroy, :update]
 
   def create
     @review = current_user.reviews.build(review_params)
     if @review.update_attributes(course_id: params[:course_id])
+      generate_notification
       flash[:success] = "Review posted!"
       redirect_to course_path(@course, anchor: "reviews")
     else
@@ -48,6 +51,15 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:rating, :content)
   end
 
+  def generate_notification
+    notification = "New Review for #{@course.title}"
+    Notification.create(content: notification,
+                        user_id: @course.tutor.id,
+                        user_type: 'Tutor',
+                        origin_type: 'Review',
+                        origin_id: @review.id)
+  end
+
   # Before filters
 
   # Confirms that the current user is subscribed to the course
@@ -84,6 +96,11 @@ class ReviewsController < ApplicationController
   def update_course_popularity
     popularity = @course.reviews.count + @course.rating + @course.students.count
     @course.update_attributes(popularity: popularity)
+  end
+
+  # Deletes the notification created by this review
+  def delete_notification
+    Notification.where(origin_type: 'Review', origin_id: @review.id).destroy_all
   end
 
 end

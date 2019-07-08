@@ -593,7 +593,7 @@ input[type=file][data-direct-upload-url][disabled]
 
     li {
       border-bottom: 1px solid $gray-lighter;
-        padding: 10px 20px;
+      padding: 10px 20px;
       .read {
         color: $gray-light;
         &:hover, &:focus {
@@ -624,6 +624,9 @@ input[type=file][data-direct-upload-url][disabled]
   .post-delete, .message-delete {
     padding: 0;
     margin-top: -5px;
+    a {
+      color: $gray;
+    }
   }
   .post-new, .message-new {
     margin-right: 5px;

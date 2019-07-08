@@ -24,7 +24,7 @@
           <% if current_user?(post.sender) %>
             <div class="row post-delete">
               <div class="col-auto">
-                <i><%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %></i>
+                <small><i><%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %></i></small>
               </div>
             </div>
           <% end %>
