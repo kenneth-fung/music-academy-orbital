@@ -84,7 +84,7 @@ rand(300..400).times do
   price      = rand(2000).to_f / 100.to_f
 
   # Tags
-  tag_list = [instrument, grade]
+  tag_list = [instrument.downcase, grade.downcase]
   case grade[-1].to_i
   when 1..4
     tag_list << 'beginner'
@@ -94,7 +94,11 @@ rand(300..400).times do
     tag_list << 'advanced'
   else
   end
-  3.times { tag_list << tags[rand[0...tags.length]] }
+  3.times do
+    tag = tags[rand(0...tags.length)]
+    tag_list << tag unless tag_list.include?(tag)
+  end
+  tag_list = tag_list.join(", ")
 
   tutor      = Tutor.find(Tutor.pluck(:id).sample)
   course     = tutor.courses.create!(title:   title, 

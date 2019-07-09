@@ -50,7 +50,10 @@
 
   <div class="form-group">
     <%= f.label :tag_list, "Give your course some tags!" %>
-    <p><i>Example tags (please follow the format of commas between tags): piano, drums grade 3, clarinet</i></p>
+    <section>
+      Please insert 1 comma between each tag. Example:<br>
+      <i>piano, drums grade 3, clarinet</i>
+    </section>
     <%= f.text_area :tag_list, class: 'form-control' %>
   </div>
 

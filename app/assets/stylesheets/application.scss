@@ -214,11 +214,11 @@ footer {
 
 .user_profile {
   margin-bottom: 10px;
-  .tutor-profile {
+  .tutor-profile, .student-profile {
     h2 {
       color: $gray;
     }
-    .tutor-gravatar {
+    .tutor-gravatar, .student-gravatar {
       img {
         margin-bottom: 5px;
       }
@@ -645,5 +645,6 @@ input[type=file][data-direct-upload-url][disabled]
   }
   .tag {
     margin-right: 10px;
+    margin-bottom: 5px;
   }
 }

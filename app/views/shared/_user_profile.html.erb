@@ -25,7 +25,7 @@
         <h2 class="tutor-stats text-left">
           <%= @tutor.name %> has published
           <strong><%= @tutor.courses.count %></strong> 
-          courses, with a total of 
+          courses, and has a total of
           <%= pluralize(@tutor.students_unique.count, "(unique) student") %>.
         </h2>
 
