@@ -3,9 +3,9 @@
     Sort By
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <%= link_to "Newest", course_path(@course, sort_by: :newest, course_id: @course.id), class: 'dropdown-item' %>
-    <%= link_to "Oldest", course_path(@course, sort_by: :oldest, course_id: @course.id), class: 'dropdown-item' %>
-    <%= link_to "Rating (Highest)", course_path(@course, sort_by: :rating_high, course_id: @course.id), class: 'dropdown-item' %>
-    <%= link_to "Rating (Lowest)", course_path(@course, sort_by: :rating_low, course_id: @course.id), class: 'dropdown-item' %>
+    <%= link_to "Newest", course_path(@course, sort_by: :newest, course_id: @course.id, anchor: 'reviews'), class: 'dropdown-item' %>
+    <%= link_to "Oldest", course_path(@course, sort_by: :oldest, course_id: @course.id, anchor: 'reviews'), class: 'dropdown-item' %>
+    <%= link_to "Rating (Highest)", course_path(@course, sort_by: :rating_high, course_id: @course.id, anchor: 'reviews'), class: 'dropdown-item' %>
+    <%= link_to "Rating (Lowest)", course_path(@course, sort_by: :rating_low, course_id: @course.id, anchor: 'reviews'), class: 'dropdown-item' %>
   </div>
 </div>

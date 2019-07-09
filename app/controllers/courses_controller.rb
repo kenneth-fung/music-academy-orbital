@@ -9,7 +9,7 @@ class CoursesController < ApplicationController
       @title = "Search: \"#{params[:search]}\""
       courses = courses.search("#{params[:search]}")
     else
-      @title = "All Courses"
+      @title = "Courses"
     end
     @courses = courses.paginate(page: params[:page])
   end
@@ -44,6 +44,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @tutor = @course.tutor
 
     # Lessons
     position = 1
@@ -56,6 +57,8 @@ class CoursesController < ApplicationController
     @lessons = @course.lessons.reorder(:position)
     @lesson = @lessons[position.to_i - 1]
 
+    @tags = @course.tags
+
     # Reviews
     if subscribing?(@course)
       current_user.review_for(@course).nil? ?
@@ -65,7 +68,6 @@ class CoursesController < ApplicationController
     @reviews = Review
     .sort(params[:sort_by])
     .where(course_id: @course.id)
-    .paginate(page: params[:page], per_page: 10)
 
     # Notification updating
     if params[:notified_id]

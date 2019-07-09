@@ -83,11 +83,35 @@
     <% end %>
   </div>
 
+  <% if params[:controller] == 'tutors' %>
+    <div class="form-group">
+      <% placeholder = 'Let your students know who you are!' %>
+      <% if f.object.errors.any? && f.object.errors.include?(:bio) %>
+        <%= f.label :bio %>
+        <%= f.text_area :bio, rows: 15, placeholder: placeholder, class: 'form-control is-invalid' %>
+        <div class="invalid-feedback d-block">
+          <%= f.object.errors.messages[:bio].join(", ") %>
+        </div>
+      <% elsif f.object.errors.any? && !f.object.errors.include?(:bio) %>
+        <%= f.label :bio %>
+        <%= f.text_area :bio, rows: 15, placeholder: placeholder, class: 'form-control is-valid' %>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      <% else %>
+        <%= f.label :bio %>
+        <%= f.text_area :bio, rows: 15, placeholder: placeholder, class: 'form-control' %>
+      <% end %>
+    </div>
+  <% end %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary mt-3" %>
 
-  <section class="signup-options">
-  or sign up through
-  <%= link_to "Google", "auth/google_oauth2?user_type=#{user_type}" %>
-  </section>
+  <% if params[:action] != 'edit' && params[:action] != 'update' %>
+    <section class="signup-options">
+    or sign up through
+    <%= link_to "Google", "auth/google_oauth2?user_type=#{user_type}" %>
+    </section>
+  <% end %>
 
 <% end %>

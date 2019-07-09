@@ -27,7 +27,7 @@ class TutorsController < ApplicationController
     @courses = @tutor.courses.reorder(created_at: :desc)
     @title = tutor? && current_user?(@tutor) ?
       'My Profile' :
-      "#{@tutor.name}'s Profile"
+      "#{@tutor.name}"
 
     @notifications = @tutor
     .notifications
@@ -85,7 +85,7 @@ class TutorsController < ApplicationController
   private
 
   def tutor_params
-    params.require(:tutor).permit(:name, :email, :password, :password_confirmation)
+    params.require(:tutor).permit(:name, :email, :password, :password_confirmation, :bio)
   end
 
   # Confirms that the user is logged out

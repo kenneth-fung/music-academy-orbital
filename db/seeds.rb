@@ -16,6 +16,14 @@ Tutor.create!(name:  "Runding",
               email: "wangrunding@gmail.com",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",
+
+              bio: "Runding graduated from the University of Music with a Degree in Music. 
+              From there, he went on to complete his Masters in Experimental Funk, 
+              before finally completing his PhD in Post-Orbital Rock. 
+              Now, he has come to the Music Academy to spread his love and passion for the musical arts. 
+              He is proficient in many instruments, most notably the Piano, Guitar, Oboe, Electric Guitar, 
+              Xylophone, Drums, Violin, Harp, Bagpipes, and most importantly the Saxophone.",
+
               activated:    true,
               activated_at: Time.now)
 
@@ -31,6 +39,7 @@ Tutor.create!(name:  "Master Doctor (admin)",
               email: "admin@tutor.com",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",
+              bio: "Y'all better keep the peace or I'll delete you off the internet!",
               admin:        true,
               activated:    true,
               activated_at: Time.now)
@@ -40,10 +49,12 @@ Tutor.create!(name:  "Master Doctor (admin)",
   name = Faker::Name.name
   email = "#{name.gsub(/[^a-z0-9]/i, '')}#{n}@gmail.org"
   password = "password"
+  bio = Faker::Lorem.paragraph(rand(15..30))
   Tutor.create!(name:  name,
                 email: email,
                 password:              password,
                 password_confirmation: password,
+                bio: bio,
                 activated:    true,
                 activated_at: Time.now)
 end
@@ -61,6 +72,9 @@ end
                   activated_at: Time.now)
 end
 
+# Tags Data
+tags = %w[fun music instrument learn best great musician bootcamp course]
+
 # Courses
 rand(300..400).times do
   instrument = Faker::Music.instrument
@@ -68,7 +82,20 @@ rand(300..400).times do
   title      = instrument + ': ' + grade
   content    = Faker::Lorem.paragraph(rand(15..50))
   price      = rand(2000).to_f / 100.to_f
-  tag_list   = "#{instrument}, #{grade}"
+
+  # Tags
+  tag_list = [instrument, grade]
+  case grade[-1].to_i
+  when 1..4
+    tag_list << 'beginner'
+  when 5..7
+    tag_list << 'intermediate'
+  when 8..10
+    tag_list << 'advanced'
+  else
+  end
+  3.times { tag_list << tags[rand[0...tags.length]] }
+
   tutor      = Tutor.find(Tutor.pluck(:id).sample)
   course     = tutor.courses.create!(title:   title, 
                                      content: content, 

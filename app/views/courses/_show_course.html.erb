@@ -15,7 +15,7 @@
 <% end %>
 
 <!--Edit Course Button-->
-<% if tutor? && (current_user?(@course.tutor) || current_user.admin?) %>
+<% if tutor? && (current_user?(@tutor) || current_user.admin?) %>
   <div class="row">
     <div class="col">
       <%=
@@ -39,32 +39,48 @@
 </div>
 
 <!--Tags-->
-<div class="row justify-content-start">
+<div class="tags row justify-content-start">
   <div class="col-6">
-    <h2 class="text-left">Tags:</h2>
-    <% @course.tags.each do |tag| %>
-      <p class="btn btn-secondary btn-sm"><%= tag.name %></p>
-    <% end %>
+    <h6 class="tags-header text-left">Tags for this Course</h6>
+    <%= render @tags %>
   </div>
 </div>
 
-<!--Course Tutor Gravatar-->
-<div class="row">
+<!--Tutor-->
+<div class="row tutor">
   <div class="col">
-    <%=
-      link_to gravatar_for(@course.tutor, size: 80),
-        tutor_path(@course.tutor),
-        class: 'course_tutor_gravatar'
-      %>
-</div>
-</div>
+    <h2 class="tutor-header text-left">About the Tutor</h2>
+    <div class="row">
+      <div class="tutor-stats col-2">
+        <%= link_to gravatar_for(@tutor, size: 80), @tutor, class: 'tutor-gravatar' %>
+        
+        <span class="tutor-rating text-left">
+          <%= image_tag "tutor-rating.png" %>
+          <strong><%= @tutor.rating %></strong> tutor rating
+        </span>
+        
+        <span class="tutor-students text-left">
+          <%= image_tag "tutor-students.png" %>
+          <strong><%= @tutor.students_unique.count %></strong> students
+        </span>
 
-<!--Course Tutor Name-->
-<div class="row">
-  <div class="col">
-    <h2 class="course_tutor text-left">
-      Tutor: <%= link_to "#{@course.tutor.name}", tutor_path(@course.tutor) %>
-  </h2>
+        <span class="tutor-courses text-left">
+          <%= image_tag "tutor-courses.png" %>
+          <strong><%= @tutor.courses.count %></strong> courses
+        </span>
+
+      </div>
+      <div class="col-7">
+        <h2 class="tutor-name text-left">
+          <strong><%= link_to @tutor.name, @tutor %></strong>
+        </h2>
+        <% if @tutor.bio.blank? %>
+          <h2 class="tutor-bio text-left"><i>no information provided</i></h2>
+        <% else %>
+          <h2 class="tutor-bio text-left"><%= @tutor.bio %></h2>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -123,10 +139,6 @@
     <% end %>
 
   </ol>
-
-  <% if @course.reviews.any? %>
-    <%= will_paginate @reviews %>
-  <% end %>
 
 </div>
 <!--end of reviews-->

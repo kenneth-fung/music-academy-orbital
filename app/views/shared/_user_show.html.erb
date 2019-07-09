@@ -9,7 +9,12 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
 
-        <% courses_header = @title.include?('My') ? 'My Courses' : "#{@tutor.name}'s Courses" %>
+        <% if @title.include?('My') %>
+          <% courses_header = 'My Courses' %>
+        <% else %>
+          <% courses_header = "#{@student.name}'s Courses" if @student %>
+          <% courses_header = "#{@tutor.name}'s Courses" if @tutor %>
+        <% end %>
 
         <% if params[:tab] == 'notifications' %>
           <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= courses_header %></a>

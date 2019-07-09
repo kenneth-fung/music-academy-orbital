@@ -1,46 +1,62 @@
-<div class="user_profile">
-  <section class="stats">
+<div class="row user_profile">
+  <div class="col">
 
     <% if params[:controller] == 'tutors' %>
 
-      <span class="gravatar_profile"><%= gravatar_for @tutor %></span>
-      <h2 class="email"><%= @tutor.email %></h2>
+      <span class="tutor-profile">
 
-      <!--User Info-->
-      <% if current_user?(@tutor) %>
-        You have
-      <% else %>
-        <%= @tutor.name %> has
-      <% end %>
-      published
-      <a href="<%= courses_tutor_path(@tutor) %>">
-        <strong>
-          <%= @tutor.courses.count %>
-        </strong>
-        courses</a>,
-      with a total of
-      <a href="<%= students_tutor_path(@tutor) %>">
-        <%= pluralize(@tutor.students_unique.count, "(unique) student") %></a>.
+        <div class="tutor-gravatar-email row">
+          <div class="col">
+            <span class="tutor-gravatar"><%= gravatar_for @tutor %></span>
+            <h2 class="tutor-email text-left"><%= @tutor.email %></h2>
+          </div>
+        </div>
+
+        <!--User Info-->
+
+        <% unless @tutor.bio.blank? %>
+          <div class="tutor-bio row">
+            <div class="col-9">
+              <h2 class="text-left"><%= @tutor.bio %></h2>
+            </div>
+          </div>
+        <% end %>
+
+        <h2 class="tutor-stats text-left">
+          <%= @tutor.name %> has published
+          <strong><%= @tutor.courses.count %></strong> 
+          courses, with a total of 
+          <%= pluralize(@tutor.students_unique.count, "(unique) student") %>.
+        </h2>
+
+      </span>
 
     <% elsif params[:controller] == 'students' %>
 
-      <span class="gravatar_profile"><%= gravatar_for @student %></span>
-      <h2 class="email"><%= @student.email %></h2>
+      <span class="student-profile">
 
-      <!--User Info-->
-      <% if current_user?(@student) %>
-        You are
-      <% else %>
-        <%= @student.name %> is
-      <% end %>
-      taking
-      <a href="<%= courses_student_path(@student) %>">
-        <strong>
-          <%= @student.courses.count %>
-        </strong>
-        courses</a>.
+        <div class="student-gravatar-email row">
+          <div class="col">
+            <span class="student-gravatar"><%= gravatar_for @student %></span>
+            <h2 class="student-email text-left"><%= @student.email %></h2>
+          </div>
+        </div>
+
+        <!--User Info-->
+
+        <h2 class="student-stats text-left">
+          <% if current_user?(@student) %>
+            You are
+          <% else %>
+            <%= @student.name %> is
+          <% end %>
+          taking 
+          <%= pluralize(@student.courses.count, "course") %>.
+        </h2>
+
+      </span>
 
     <% end %>
 
-  </section>
+  </div>
 </div>

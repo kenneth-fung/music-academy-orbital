@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
     @courses = @student.newest_courses
     @title = student? && current_user?(@student) ?
       'My Profile' :
-      "#{@student.name}'s Profile"
+      "#{@student.name}"
 
     @notifications = @student
     .notifications

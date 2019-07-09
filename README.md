@@ -17,11 +17,6 @@ The error:
 Expected nil to not be equal to nil.
 ```
 
-### File Uploading Restrictions:
-  - **Course Creation Image**: png, jpeg, gif
-  - **Lesson Video**: mp4, wmv
-  - **Lesson Resources**: pdf, png, jpeg, mpeg, x-mpeg, mp3, x-mp3, mpeg3, x-mpeg3, mpg, x-mpg, x-mpegaudio
-
 ## To Do
 
 - ~~delete posts/messages~~
@@ -41,7 +36,7 @@ Expected nil to not be equal to nil.
  
 - ~~SSO services~~ **_(some notes, see below)_**
 - ~~notification system for posts/messages~~
-- clickable tags
+- ~~clickable tags~~
 - report function for tutors, to report other accounts that have re-uploaded their materials at a cheaper price
 - public/private accounts for students
 - recommend courses to students based on tags
@@ -87,3 +82,9 @@ Solution to prevent video downloads could be improved.
   For niibori heroku, most likely just need to add RAILS_MASTER_KEY to Heroku
 config, since app on Google is already set up. Ask me for key.
 - Facebook not added as it requires a privacy policy.
+
+### File Uploading Restrictions
+  - **Course Creation Image**: png, jpeg, gif
+  - **Lesson Video**: mp4, wmv
+  - **Lesson Resources**: pdf, png, jpeg, mpeg, x-mpeg, mp3, x-mp3, mpeg3, x-mpeg3, mpg, x-mpg, x-mpegaudio
+

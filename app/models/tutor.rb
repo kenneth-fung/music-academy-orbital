@@ -21,6 +21,9 @@ class Tutor < ApplicationRecord
     length: { minimum: 6 },
     allow_nil: true
 
+  validates :bio,
+    length: { maximum: 1000 }
+
   # Returns the hash digest of the given string.
   def Tutor.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? 
@@ -47,6 +50,12 @@ class Tutor < ApplicationRecord
     .joins(subscriptions: :course)
     .where(courses: { tutor_id: self.id })
     .distinct
+  end
+
+  # Gets the average rating across all of this tutor's courses, except those
+  # that have not received any ratings
+  def rating
+    self.courses.where.not(rating: 0).average(:rating).ceil
   end
 
   # Activates an account.

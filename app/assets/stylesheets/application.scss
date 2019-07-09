@@ -214,15 +214,15 @@ footer {
 
 .user_profile {
   margin-bottom: 10px;
-  .name, .email {
-    text-align: left;
-  }
-  .name {
-    margin-top: 5px;
-    margin-bottom: -15px;
-  }
-  .email {
-    margin-bottom: 10px;
+  .tutor-profile {
+    h2 {
+      color: $gray;
+    }
+    .tutor-gravatar {
+      img {
+        margin-bottom: 5px;
+      }
+    }
   }
 }
 
@@ -257,32 +257,33 @@ footer {
   }
 }
 
-.course_info {
-  .container {
-    margin: 10px;
-  }
-  .title, .image, .content, .course_tutor {
-    text-align: left;
-    display: block;
-  }
-  .title {
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-  .btn-course-edit {
-    display: inline-block;
-    margin: 0px 0px 20px 10px;
-  }
-  .content {
-    margin-top: 10px;
-  }
-  .course_tutor_gravatar {
-    float: left;
-    margin-right: 10px;
-  }
-  .course_tutor {
-    padding-top: 20px;
-    color: $gray-dark;
+.show_course {
+  .tutor {
+    margin-bottom: 30px;
+    .tutor-header {
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+    .tutor-stats {
+      .tutor-gravatar {
+        img {
+          padding-bottom: 5px;
+        }
+      }
+      .tutor-rating, .tutor-students, .tutor-courses {
+        display: block;
+        margin-top: 5px;
+        img {
+          margin-top: -5px;
+        }
+      }
+    }
+    .tutor-name {
+      a {
+        text-decoration: none;
+        color: $gray;
+      }
+    }
   }
 }
 
@@ -631,5 +632,18 @@ input[type=file][data-direct-upload-url][disabled]
   .post-new, .message-new {
     margin-right: 5px;
     padding: 0;
+  }
+}
+
+/* tags */
+
+.tags {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  .tags-header {
+    color: $gray;
+  }
+  .tag {
+    margin-right: 10px;
   }
 }
