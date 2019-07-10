@@ -86,4 +86,7 @@ Rails.application.routes.draw do
   # Notifications
   delete 'notifications/clear'
   resources :notifications, only: :destroy
+
+  # Reports
+  resources :reports, only: :create
 end

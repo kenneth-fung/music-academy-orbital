@@ -2,25 +2,18 @@
     <div class="col-md-6 d-flex justify-content-center">
       <!-- Unsubscribe Button -->
       <%=
-        link_to "Quit",
+        link_to "You are currently enrolled for this course. Click here to quit.",
                 unsubscribe_path(course_id: course.id),
-                class: "btn btn-danger btn-block"
+                class: "btn btn-light btn-block btn-sm"
       %>
     </div>
+
   <% else %>
 
-    <!-- Subscribe Button -->
-    <% if course.price.nil? %>
-      <%=
-        link_to "Enroll for free!",
-                subscribe_path(course_id: course.id),
-                class: "btn btn-primary btn-sm btn-agree"
-      %>
-    <% else %>
-      <%=
-        link_to "Enroll for #{number_to_currency(course.price)}!",
-                subscribe_path(course_id: course.id),
-                class: "btn btn-primary btn-sm btn-agree"
-      %>
-    <% end %>
+    <div class="col-md-6 d-flex justify-content-center">
+      <!-- Subscribe Button -->
+      <% text = course.price.nil? ? "Enroll now for free!" : "Enroll now for #{number_to_currency(course.price)}!" %>
+      <%= link_to text, subscribe_path(course_id: course.id), class: "btn btn-primary btn-lg btn-agree" %>
+    </div>
+
   <% end %>

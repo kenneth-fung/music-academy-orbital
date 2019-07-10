@@ -2,24 +2,36 @@
 <li class="row">
 
   <div class="col-9">
+
     <% if notification.read %>
-
-      <%= image_tag 'read.png' %>
-      <% if notification.origin_type == 'Review' %>
-        <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'read' %>
-      <% else %>
-        <%= link_to notification.content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, anchor: "forum"), class: 'read' %>
-      <% end %>
-
+      <div class="row read">
+        <div class="col-auto">
+          <%= image_tag 'read.png' %>
+        </div>
     <% else %>
-
-      <%= image_tag 'unread.png' %>
-      <% if notification.origin_type == 'Review' %>
-        <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'unread' %>
-      <% else %>
-        <%= link_to notification.content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, notified_id: notification.id, anchor: "forum"), class: 'unread' %> 
-      <% end %>
+      <div class="row unread">
+        <div class="col-auto">
+          <%= image_tag 'unread.png' %>
+        </div>
     <% end %>
+
+      <div class="col">
+
+        <% if notification.origin_type == 'Review' %>
+          <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews') %>
+
+        <% elsif notification.origin_type == 'Course' %>
+          <%= link_to notification.content, course_path(notification.origin, notified_id: notification.id) %>
+
+        <% elsif notification.origin_type == 'Post' || notification.origin_type == 'Message' %>
+          <%= link_to notification.content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, anchor: "forum") %>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
   </div>
 
   <div class="col-2">

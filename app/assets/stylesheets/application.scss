@@ -596,9 +596,19 @@ input[type=file][data-direct-upload-url][disabled]
       border-bottom: 1px solid $gray-lighter;
       padding: 10px 20px;
       .read {
-        color: $gray-light;
-        &:hover, &:focus {
+        a {
+          color: $gray-light;
+          &:hover, &:focus {
+            color: $gray-dark;
+          }
+        }
+      }
+      .unread {
+        a {
           color: $gray-dark;
+          &:hover, &:focus {
+            color: black;
+          }
         }
       }
       a {

@@ -19,11 +19,6 @@ class NotificationTest < ActiveSupport::TestCase
     assert_not @notification.valid?
   end
 
-  test "content should be at most 200 in length" do
-    @notification.content = 'a' * 201
-    assert_not @notification.valid?
-  end
-
   test "user_id should be present" do
     @notification.user_id = nil
     assert_not @notification.valid?

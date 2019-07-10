@@ -37,7 +37,7 @@ Expected nil to not be equal to nil.
 - ~~SSO services~~ **_(some notes, see below)_**
 - ~~notification system for posts/messages~~
 - ~~clickable tags~~
-- report function for tutors, to report other accounts that have re-uploaded their materials at a cheaper price
+- ~~report function for tutors, to report other accounts that have re-uploaded their materials at a cheaper price~~
 - public/private accounts for students
 - recommend courses to students based on tags
 - payment system

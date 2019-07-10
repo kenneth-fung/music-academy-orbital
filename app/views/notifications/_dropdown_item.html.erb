@@ -7,12 +7,20 @@
   <% end %>
 
   <small>
+
+    <% content = notification.content.length > 40 ? truncate(notification.content, length: 40, separator: ' ') : notification.content %>
+
     <% if notification.origin_type == 'Review' %>
-      <%= link_to notification.content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'btn btn-sm' %>
-    <% else %>
-      <% content = notification.content.length > 40 ? truncate(notification.content, length: 40, separator: ' ') : notification.content %>
+      <%= link_to content, course_path(notification.origin.course, notified_id: notification.id, anchor: 'reviews'), class: 'btn btn-sm' %>
+
+    <% elsif notification.origin_type == 'Course' %>
+      <%= link_to content, course_path(notification.origin, notified_id: notification.id), class: 'btn btn-sm' %>
+
+    <% elsif notification.origin_type == 'Post' || notification.origin_type == 'Message' %>
       <%= link_to content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, notified_id: notification.id, anchor: "forum"), class: 'btn btn-sm' %>
+
     <% end %>
+
   </small>
 
   <%= link_to image_tag("x.png"), notification_path(notification, notification_id: notification.id), method: :delete %>

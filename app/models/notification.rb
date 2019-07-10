@@ -1,8 +1,7 @@
 class Notification < ApplicationRecord
 
   validates :content,
-    presence: true,
-    length: { maximum: 200 }
+    presence: true
 
   validates :user_id,
     presence: true,
