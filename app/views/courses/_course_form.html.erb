@@ -31,7 +31,8 @@
     <% else %>
       <!--Image upload button-->
       <div class="form-group">
-        <%= f.label :image, for: 'exampleFormControlFile1' %>
+        <%= f.label :image, "Banner Image", for: 'exampleFormControlFile1' %>
+        <i>(please choose a landscape image)</i>
         <%=
           f.file_field :image,
                        accept: 'image/png, image/jpeg, image/gif',
@@ -49,11 +50,11 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :tag_list, "Give your course some tags!" %>
-    <section>
-      Please insert 1 comma between each tag. Example:<br>
+    <%= f.label :tag_list, "Tags" %>
+    <h2 class="text-left tags-explanation">
+      Please insert 1 comma between each tag:
       <i>piano, drums grade 3, clarinet</i>
-    </section>
+    </h2>
     <%= f.text_area :tag_list, class: 'form-control' %>
   </div>
 
@@ -103,11 +104,11 @@
     </section>
 
     <!--Back Button-->
-    <section class="">
+    <section>
       <%=
         link_to "Back to Course",
                 course_path(@course, page: params[:page]),
-                class: "btn btn-default btn-back"
+                class: "btn btn-secondary btn-back"
       %>
     </section>
 

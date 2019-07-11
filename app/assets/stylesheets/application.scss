@@ -32,12 +32,22 @@ textarea {
   resize: vertical;
 }
 
+label {
+  font-weight: bold;
+}
+
 .center {
   text-align: center;
 }
 
 .center h1 {
   margin-bottom: 10px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 10vw;
+  object-fit: cover;
 }
 
 /* typography */
@@ -244,6 +254,34 @@ footer {
   margin-bottom: 15px;
 }
 
+.course-card {
+  .badges {
+    margin: 5px 0px -15px 15px;
+    .badge {
+      margin-bottom: 5px;
+    }
+  }
+  .title, .tutor, .price, .rating, .students {
+    display: block;
+  }
+  .title {
+    margin-top: 5px;
+    a {
+      color: $gray-dark;
+      &:hover, &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+  .price {
+    margin: 10px 0px 0px 0px;
+  }
+  .rating {
+    margin-top: -2px;
+    margin-bottom: 5px;
+  }
+}
+
 .course-index {
   .course-index-title, .course-index-none {
     text-align: left;
@@ -309,6 +347,11 @@ footer {
   }
   .image {
     margin: 10px 0px;
+  }
+  .tags-explanation {
+    font-size: 1.05em;
+    color: $gray-light;
+    margin-bottom: 10px;
   }
   .btn-submit {
     padding-top: 10px;

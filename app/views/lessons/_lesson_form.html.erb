@@ -2,7 +2,7 @@
   <%= render 'shared/error_messages', object: @lesson %>
 
   <!--Video-->
-  <section class="">
+  <section>
     <% if @lesson.video.attached? %>
       <!--Video display-->
       <div align="center" class="embed-responsive embed-responsive-16by9">
@@ -18,40 +18,48 @@
         %></i></div>
     <% else %>
       <!--Video upload button-->
-      <%= f.label :video %>
-      <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control-file' %>
+      <div class="form-group">
+        <%= f.label :video %>
+        <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control-file' %>
+      </div>
     <% end %>
   </section>
 
-  <%= f.label :name, "Lesson Name" %>
-  <%= f.text_field :name, required: "required", class: 'form-control' %>
+  <div class="form-group">
+    <%= f.label :name, "Lesson Name" %>
+    <%= f.text_field :name, required: "required", class: 'form-control' %>
+  </div>
 
-  <%= f.label :description, "Lesson Description" %>
-  <%= f.text_area :description, required: "required", class: 'form-control' %>
+  <div class="form-group">
+    <%= f.label :description, "Lesson Description" %>
+    <%= f.text_area :description, required: "required", class: 'form-control' %>
+  </div>
 
-  <%= f.label :resources, "Lesson Resources" %>
-  <%= render 'lessons/resources', lesson: @lesson %>
-  <%= 
-    f.file_field :resources,
-      multiple: true, 
-      accept: 'attachment/pdf image/png image/jpeg audio/mp3 audio/wav',
-      direct_upload: true,
-      class: 'form-control-file'
-    %>
-
-  <%= hidden_field_tag :course_id, @course.id %>
-
-  <section class="btn-submit">
-    <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary mt-3' %>
-  </section>
-
-  <!--Back Button-->
-  <section class="">
+  <div class="form-group">
+    <%= f.label :resources, "Lesson Resources" %>
+    <%= render 'lessons/resources', lesson: @lesson %>
     <%= 
-      link_to "Back to Course Edit", 
-        edit_course_path(@course, course_id: @course.id),
-        class: "btn btn-secondary btn-back"
+      f.file_field :resources,
+        multiple: true, 
+        accept: 'attachment/pdf image/png image/jpeg audio/mp3 audio/wav',
+        direct_upload: true,
+        class: 'form-control-file'
       %>
+</div>
+
+<%= hidden_field_tag :course_id, @course.id %>
+
+<section class="btn-submit">
+  <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary mt-3' %>
+</section>
+
+<!--Back Button-->
+<section class="">
+  <%= 
+    link_to "Back to Course Edit", 
+      edit_course_path(@course, course_id: @course.id),
+      class: "btn btn-secondary btn-back"
+    %>
 </section>
 
 <!--Delete Lesson Button-->
