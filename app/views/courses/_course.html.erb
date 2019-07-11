@@ -38,7 +38,7 @@
 
       <% else %>
 
-        <% if subscribing?(course) %>
+        <% if subscribing?(course) && course.id != current_user.pending_course %>
 
           <p class="badge badge-success">joined</p>
           <% if current_user.review_for(course) %>

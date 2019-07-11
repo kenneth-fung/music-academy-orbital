@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @courses = @student.newest_courses
+    @courses = @student.newest_courses.where.not(id: @student.pending_course)
     @title = student? && current_user?(@student) ?
       'My Profile' :
       "#{@student.name}"
@@ -44,7 +44,7 @@ class StudentsController < ApplicationController
   def courses
     @student = Student.find(params[:id])
     # Order courses by date of Subscription (newest Subscription first)
-    @courses = @student.newest_courses.paginate(page: params[:page])
+    @courses = @student.newest_courses.where.not(id: @student.pending_course).paginate(page: params[:page])
     @title = (student? && current_user?(@student)) ?
       "My Courses" :
       "#{@student.name}'s Courses"

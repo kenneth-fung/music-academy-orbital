@@ -40,7 +40,7 @@ Expected nil to not be equal to nil.
 - ~~report function for tutors, to report other accounts that have re-uploaded their materials at a cheaper price~~
 - public/private accounts for students
 - recommend courses to students based on tags
-- payment system
+- ~~payment system~~ **_(some notes, see below)_**
  
 - add automated testing (rails test)
 - improve UI
@@ -83,8 +83,16 @@ Solution to prevent video downloads could be improved.
 config, since app on Google is already set up. Ask me for key.
 - Facebook not added as it requires a privacy policy.
 
+#### Payment System
+Enrolling for a course now redirects to Paypal, where the student logs in and
+makes their payment to the tutor. Ideally, they should be able to pay without
+having to leave Music Academy, but this requires a Paypal Pro account (costs
+money). The system was not tested on heroku in full (right up until needing to
+actually put money in), but it works perfectly using Paypal's provided sandbox
+test accounts in development, so there is currently no reason to think it would
+not work in production.
+
 ### File Uploading Restrictions
   - **Course Creation Image**: png, jpeg, gif
   - **Lesson Video**: mp4, wmv
   - **Lesson Resources**: pdf, png, jpeg, mpeg, x-mpeg, mp3, x-mp3, mpeg3, x-mpeg3, mpg, x-mpg, x-mpegaudio
-

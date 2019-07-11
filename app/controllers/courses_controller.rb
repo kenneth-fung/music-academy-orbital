@@ -43,6 +43,14 @@ class CoursesController < ApplicationController
   end
 
   def show
+
+    # Check if the current user student has a pending course, which means their
+    # payment for this course failed
+    if student? && current_user.pending_course != -1
+      current_user.unsubscribe(Course.find_by(id: current_user.pending_course))
+      current_user.update_attributes(pending_course: -1)
+    end
+
     @course = Course.find(params[:id])
     @tutor = @course.tutor
 

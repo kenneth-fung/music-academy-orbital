@@ -58,9 +58,8 @@ Rails.application.routes.draw do
   end
 
   # Subscriptions
-  get    '/subscribe',   to: 'subscriptions#new'
   post   '/subscribe',   to: 'subscriptions#create'
-  get    '/unsubscribe', to: 'subscriptions#destroy'
+  get    '/hook',        to: 'subscriptions#hook'
   delete '/unsubscribe', to: 'subscriptions#destroy'
   resources :subscriptions, only: [:create, :destroy]
 
