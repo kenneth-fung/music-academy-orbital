@@ -1,0 +1,33 @@
+<ul class="list-group height-80 border border-secondary border-right-0 list-group-flush">
+  <% @lessons.each do |lesson| %>
+
+    <% if params[:lesson_page] && params[:lesson_page].to_i.eql?(lesson.position) %>
+      <li class="list-group-item list-group-item-secondary" id="lesson-selected">
+      <% else %>
+        <li class="list-group-item">
+        <% end %>
+
+        <% if @course.tutor == current_user %>
+
+          <% unread_number = find_unread_from_lesson(lesson) %>
+          <% if unread_number > 0 %>
+            <%= link_to course_path(@course, lesson_page: lesson.position, anchor: 'forum'), class: 'nav-link text-dark' do %>
+              <%= lesson.name %><br>
+              <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
+            <% end %>
+          <% else %>
+
+            <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' %>
+
+          <% end %>
+
+        <% else %>
+
+          <%= link_to course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' do %>
+            <%= lesson.name %>
+          <% end %>
+
+        <% end %>
+        </li>
+      <% end %>
+</ul>

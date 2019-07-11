@@ -258,6 +258,12 @@ footer {
 }
 
 .show_course {
+  .enroll-quit {
+    margin-bottom: 30px;
+  }
+  .report-button {
+    margin-bottom: 20px;
+  }
   .tutor {
     margin-bottom: 30px;
     .tutor-header {
@@ -279,6 +285,7 @@ footer {
       }
     }
     .tutor-name {
+      margin-bottom: 10px;
       a {
         text-decoration: none;
         color: $gray;
@@ -338,34 +345,16 @@ footer {
   margin: 20px;
 }
 
-.lesson_info {
+.lesson {
   .lessons {
-    list-style: none;
-    .name, .description, .lesson-resources, .edit-buttons {
-      display: block;
+    margin-bottom: 20px;
+    .video-none, .video-block {
+      margin-top: 30%;
     }
-    .scrollmenu {
-      overflow: scroll;
-    }
-    .video-section {
-      .video {
-        background-color: black;
-      }
-      .jumbotron .video-blocker {
-        h3 {
-          font-size: 2.5em;
-        }
-        h2 {
-          font-size: 1.5em;
-        }
-      }
-    }
+  }
+  .info {
     .name {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .lesson-resources {
-      margin: 10px;
+      font-size: 2em;
     }
   }
 }
@@ -515,7 +504,7 @@ footer {
       .rating, .content, .timestamp {
         display: block;
       }
-      .timestamp {
+      .timestamp, .report {
         color: $gray-light;
       }
       .edit a {
@@ -632,7 +621,7 @@ input[type=file][data-direct-upload-url][disabled]
   .post-content, .message-content {
     padding: 0;
   }
-  .post-delete, .message-delete {
+  .post-options, .message-options {
     padding: 0;
     margin-top: -5px;
     a {

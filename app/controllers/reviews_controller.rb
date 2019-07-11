@@ -16,8 +16,10 @@ class ReviewsController < ApplicationController
       flash[:success] = "Review posted!"
       redirect_to course_path(@course, anchor: "reviews")
     else
+      @tutor = @course.tutor
       @lessons = @course.lessons.reorder(:position)
       @lesson = @lessons[0]
+      @tags = @course.tags
       @reviews = @course.reviews.paginate(page: params[:page])
       render 'courses/show'
     end

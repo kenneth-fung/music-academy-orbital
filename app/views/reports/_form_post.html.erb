@@ -1,0 +1,36 @@
+<div class="report-form modal fade" id="reportPost" tabindex="-1" role="dialog" aria-labelledby="reportForm" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="form">
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="reportLabel"><%= title %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <%= form_for(:report, url: reports_path) do |f| %>
+
+          <% placeholder = 'Please describe your concerns in detail.' %>
+          <%= f.text_area :details, placeholder: placeholder, rows: 20, required: "required", class: 'details form-control' %>
+
+          <%= f.hidden_field :title, value: title %>
+          <%= f.hidden_field :origin_type, value: origin.class.name %>
+          <%= f.hidden_field :origin_id, value: origin.id %>
+
+          <span class="buttons float-right">
+            <%= f.submit 'Send Report', class: 'btn btn-danger' %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </span>
+
+        <% end %>
+
+      </div>
+
+    </div>
+  </div>
+</div>

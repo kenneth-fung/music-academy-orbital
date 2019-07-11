@@ -2,7 +2,7 @@
   <h1>Lessons</h1>
 </div>
 
-<div class="row justify-content-center">
+<div class="lesson row justify-content-center">
   <div class="col">
 
     <% if @lessons.any? %>
@@ -14,80 +14,54 @@
       <% end %>
 
       <!--Lessons exist-->
-      <div class="row">
+      <div class="lessons row">
 
         <!--Scroll Menu-->
         <div class="scrollmenu col-md-3 pr-0">
-          <ul class="list-group height-80 border border-secondary border-right-0 list-group-flush">
-            <% @lessons.each do |lesson| %>
-
-              <% if params[:lesson_page] && params[:lesson_page].to_i.eql?(lesson.position) %>
-                <li class="list-group-item list-group-item-secondary" id="lesson-selected">
-                <% else %>
-                  <li class="list-group-item">
-                  <% end %>
-
-                  <% if @course.tutor == current_user %>
-
-                    <% unread_number = find_unread_from_lesson(lesson) %>
-                    <% if unread_number > 0 %>
-                      <%= link_to course_path(@course, lesson_page: lesson.position, anchor: 'forum'), class: 'nav-link text-dark' do %>
-                        <%= lesson.name %><br>
-                        <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
-                      <% end %>
-                    <% else %>
-
-                      <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' %>
-
-                    <% end %>
-
-                  <% else %>
-
-                    <%= link_to course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' do %>
-                      <%= lesson.name %>
-                    <% end %>
-
-                  <% end %>
-                  </li>
-                <% end %>
-          </ul>
+          <%= render 'lessons/scrollmenu' %>
         </div>
 
         <!--Lesson Video-->
         <div class="col-md-9 border border-secondary">
           <% if exclusivity_check && @lesson.video.attached? %>
+
             <!--Subscribed/Course Owner-->
             <div class="embed-responsive embed-responsive-16by9 height-80">
               <video controls controlslist="nodownload" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" class="embed-responsive-item bg-dark">
                 <source src="<%= url_for(@lesson.video) %>">
               </video>
             </div>
+
           <% else %>
+
             <% if exclusivity_check %>
               <!--Video Not Present-->
-              <h3><strong>No video was prepared for <%= @lesson.name %>.</strong></h3>
+              <h3 class="video-none"><strong>No video was prepared for <%= @lesson.name %>.</strong></h3>
             <% else %>
               <!--Video Blocked-->
-              <h3><strong>Interested in this course?</strong></h3>
-              <h2>
-                Please
-                <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
-                it to unlock its lessons.
-              </h2>
+              <section class="video-block">
+                <h3><strong>Interested in this course?</strong></h3>
+                <h2>
+                  Please
+                  <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
+                  it to unlock its lessons.
+                </h2>
+              </section>
             <% end %>
           <% end %>
+
         </div>
 
       </div>
 
-      <div class="row">
+      <div class="info row">
         <div class="col">
 
           <% if exclusivity_check %>
 
-            <h3 class="text-left"><%= @lesson.name %></h3>
+            <h3 class="name text-left"><%= @lesson.name %></h3>
             <section class="description"><%= @lesson.description %></section>
-            <span class="m-2">
+            <span class="resources m-2">
               <strong>Resources</strong><br>
               <%= render 'lessons/resources', lesson: @lesson %>
             </span>
@@ -98,36 +72,34 @@
       </div>
 
       <!-- Forum -->
-      <div class="">
-        <div class="row justify-content-center pb-5" id="forum">
-          <div class="display-4">Discussions for <%= @lesson.name %></div>
-        </div>
+      <h3 id="forum" class="text-left">
+        Discussions
+      </h3>
 
-        <% count = @lesson.posts.count %>
+      <% count = @lesson.posts.count %>
 
-        <% @lesson.posts.each_with_index do |post, index| %>
-          <%= render post, index: index, count: count, lesson: @lesson, course: @course %>
-        <% end %>
-        <p>
-        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Ask a question!
-        </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            <%= form_for(:post, url: posts_path, method: :post) do |f| %>
+      <% @lesson.posts.each_with_index do |post, index| %>
+        <%= render post, index: index, count: count, lesson: @lesson, course: @course %>
+      <% end %>
+      <p>
+      <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Ask a question!
+      </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <%= form_for(:post, url: posts_path, method: :post) do |f| %>
 
-              <div class="form-group">
-                <%= f.text_field :content, placeholder: 'Ask here...', class: 'form-control' %>
-              </div>
+            <div class="form-group">
+              <%= f.text_field :content, placeholder: 'Ask here...', class: 'form-control' %>
+            </div>
 
-              <%= hidden_field_tag :lesson_id, @lesson.id %>
-              <%= hidden_field_tag :course_id, @course.id %>
+            <%= hidden_field_tag :lesson_id, @lesson.id %>
+            <%= hidden_field_tag :course_id, @course.id %>
 
-              <%= f.submit "Post Question", class: 'btn btn-primary ' %>
+            <%= f.submit "Post Question", class: 'btn btn-primary ' %>
 
-            <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
       <!-- end of forum -->

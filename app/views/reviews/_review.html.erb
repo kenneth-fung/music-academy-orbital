@@ -1,3 +1,5 @@
+<%= render 'reports/form_review', title: "Report Review by #{review.student.name}", origin: review %>
+
 <li id="review-<%= review.id %>">
 
   <div class="row">
@@ -19,6 +21,19 @@
       <span class="timestamp">
         <%= time_ago_in_words(review.created_at) %> ago
       </span>
+
+      <% if logged_in? && !current_user?(review.student) && !current_user.admin? %>
+        <div class="row">
+          <div class="col-auto">
+            <small>
+              <i>
+                <a href="#reportReview" class="report" data-toggle="modal" data-target="#reportReview">report</a>
+              </i>
+            </small>
+          </div>
+        </div>
+      <% end %>
+
       <% if logged_in? && current_user.admin? %>
         <span class="delete float-right">
           <%= link_to 'Delete Review', review_path(course_id: @course.id, review_id: review.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>

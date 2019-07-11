@@ -1,3 +1,5 @@
+<%= render 'reports/form_post', title: "Report Post by #{post.sender.name}", origin: post %>
+
 <% unless index == count %>
   <div class="">
 
@@ -21,13 +23,21 @@
             </div>
           </div>
 
-          <% if logged_in? && (current_user?(post.sender) || current_user.admin?) %>
-            <div class="row post-delete">
-              <div class="col-auto">
-                <small><i><%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %></i></small>
-              </div>
+          <!--Post Options-->
+          <div class="row post-options">
+            <div class="col-auto">
+              <small>
+                <i>
+                  <% if logged_in? && (current_user?(post.sender) || current_user.admin?) %>
+                    <%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %>
+                  <% end %>
+                  <% if logged_in? && !current_user?(post.sender) && !current_user.admin? %>
+                    <a href="#reportPost" data-toggle="modal" data-target="#reportPost">report</a>
+                  <% end %>
+                </i>
+              </small>
             </div>
-          <% end %>
+          </div>
 
         </div>
       </div>
@@ -37,44 +47,14 @@
     <!--Messages-->
     <% if post.messages %>
       <% post.messages.each do |message| %>
-        <div id="message-<%= message.id %>" class="message row pl-4 ml-1 pb-2 align-items-center">
-
-          <% if logged_in? && current_user.notifications.where("origin_type = ? AND origin_id = ?", 'Message', message.id).any? %>
-            <div class="message-new col-auto"><%= image_tag 'unread.png' %></div>
-          <% end %>
-
-          <div class="col-auto message-gravatar">
-            <%= gravatar_for(message.sender, size: 40) %>
-          </div>
-
-          <div class="row ml-3 my-0">
-            <div class="col-auto">
-
-              <div class="row message-content">
-                <div class="col-auto">
-                  <%= message.content %>
-                </div>
-              </div>
-
-              <% if logged_in? && (current_user?(message.sender) || current_user.admin?) %>
-                <div class="row message-delete">
-                  <div class="col-auto">
-                    <small><i><%= link_to "delete", message_path(message), method: :delete %></i></small>
-                  </div>
-                </div>
-              <% end %>
-
-            </div>
-          </div>
-
-        </div>
+        <%= render 'messages/message', message: message %>
       <% end %>
     <% end %>
 
     <!--Reply Button & Field-->
 
     <p class="">
-    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#post<%= index.to_s %>" aria-expanded="false" aria-controls="post<%= index.to_s %>">
+    <button class="btn btn-sm btn-secondary" type="button" data-toggle="collapse" data-target="#post<%= index.to_s %>" aria-expanded="false" aria-controls="post<%= index.to_s %>">
       Reply to this question
     </button>
     </p>
