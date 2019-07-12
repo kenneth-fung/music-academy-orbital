@@ -73,7 +73,7 @@ class Tutor < ApplicationRecord
       0 : 
       self.courses.where.not(rating: 0).average(:rating).ceil
 
-    return average_course_rating + self.students_unique
+    return average_course_rating + self.students_unique.count
   end
 
   # Activates an account.
