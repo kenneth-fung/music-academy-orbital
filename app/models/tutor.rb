@@ -65,10 +65,15 @@ class Tutor < ApplicationRecord
     end
   end
 
-  # Gets the average rating across all of this tutor's courses, except those
-  # that have not received any ratings
+  # Calculates a rating for the tutor by taking the average rating of their
+  # courses (except those without ratings) and the number of unique students
   def rating
-    self.courses.where.not(rating: 0).average(:rating).ceil
+    # if the tutor has no courses yet, they get an average course rating of 0
+    average_course_rating = self.courses.count == 0 ?
+      0 : 
+      self.courses.where.not(rating: 0).average(:rating).ceil
+
+    return average_course_rating + self.students_unique
   end
 
   # Activates an account.
