@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
     courses = Course.sort(params[:sort_by])
     if params[:search]
       @title = "Search: \"#{params[:search]}\""
-      courses = courses.search("#{params[:search]}")
+      courses = courses.search(params[:search])
     else
       @title = "Courses"
     end

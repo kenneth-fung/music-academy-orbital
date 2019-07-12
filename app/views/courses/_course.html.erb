@@ -27,7 +27,7 @@
           <% end %>
 
           <!--Published by Current User-->
-          <% if params[:action] == 'index' %>
+          <% unless params[:action] == 'show' && @tutor && current_user?(@tutor) %>
             <p class="badge badge-success">published by you</p>
           <% end %>
 

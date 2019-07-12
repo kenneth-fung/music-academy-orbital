@@ -73,17 +73,42 @@
 
               <% if @courses.any? %>
 
-                <% if @student %>
-                  <%= render 'students/courses_sort' %>
-                <% elsif @tutor %>
-                  <%= render 'tutors/courses_sort' %>
-                <% end %>
+                <div class="row">
+
+                  <% if @student %>
+
+                    <div class="col">
+                      <%= render 'students/courses_sort' %>
+                    </div>
+                    <div class="col">
+                      <%= form_tag student_path(@student, anchor: 'courses-tab'), method: :get, class: 'search-bar, float-right' do %>
+                        <%= text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control' %>
+                      <% end %>
+                    </div>
+
+                  <% elsif @tutor %>
+
+                    <div class="col">
+                      <%= render 'tutors/courses_sort' %>
+                    </div>
+                    <div class="col">
+                      <%= form_tag tutor_path(@tutor, anchor: 'courses-tab'), method: :get, class: 'search-bar float-right' do %>
+                        <%= text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control' %>
+                      <% end %>
+                    </div>
+
+                  <% end %>
+
+                </div>
 
                 <div class="row"><%= render @courses %></div>
+
               <% else %>
+
                 <h3 class="course-index-none">
                   <strong>No courses found...</strong>
                 </h3>
+
               <% end %>
 
             </div>

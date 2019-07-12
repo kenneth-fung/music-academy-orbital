@@ -28,6 +28,7 @@ class StudentsController < ApplicationController
     @courses = @student
     .sort_courses_by(params[:sort_by])
     .where.not(id: @student.pending_course)
+    @courses = @courses.search(params[:search]) if params[:search] && !params[:search].empty?
 
     @title = student? && current_user?(@student) ?
       'My Profile' :

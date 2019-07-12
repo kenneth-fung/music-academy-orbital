@@ -35,7 +35,7 @@ class Course < ApplicationRecord
 
   # Queries the Course, Tutor, and Lessons tables
   def Course.search(query)
-    return Course.all if query.empty?
+    return self if query.empty?
     query_terms = query.split
     # Create the SQL fragment for individual query terms
     individual_query = ['(LOWER(title) LIKE ?
