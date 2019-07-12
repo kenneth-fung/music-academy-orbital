@@ -4,13 +4,21 @@ class CoursesController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    courses = Course.sort(params[:sort_by])
-    courses = courses.search(params[:search]) if params[:search] && !params[:search].blank?
-    @courses = courses.paginate(page: params[:page])
+    @courses = Course.sort(params[:sort_by])
 
-    params[:search] ?
-      @title = "Search: \"#{params[:search]}\"" :
-      @title = "Courses"
+    respond_to do |format|
+      format.html {
+        @courses = @courses.search(params[:search]) if params[:search]
+        @courses = @courses.paginate(page: params[:page])
+        params[:search] ?
+          @title = "Search: \"#{params[:search]}\"" :
+          @title = "Courses"
+      }
+      format.json {
+        @courses = @courses.search_title(params[:search]) if params[:search]
+        @courses = @courses.limit(5)
+      }
+    end
   end
 
   def new

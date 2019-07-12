@@ -33,10 +33,28 @@ class Course < ApplicationRecord
   validates :tutor,
             presence: true
 
+  # Queries the Course table only, and only its title column
+  def Course.search_title(query)
+    return self if query.nil? or query.empty?
+    query_terms = query.split
+    
+    title_query = [(['(LOWER(title) LIKE ?)'] * query_terms.length).join(' AND ')]
+
+    # Construct complete array of query terms to feed to SQL fragment
+    complete_query_terms = []
+    query_terms.each {|query_term| complete_query_terms << query_term.downcase}
+    # Add % % to each query term so that it is searched for as a substring
+    complete_query_terms.map! {|query_term| "%#{query_term}%"}
+
+    # Execute the complete SQL query
+    where(title_query + complete_query_terms).distinct
+  end
+
   # Queries the Course, Tutor, and Lessons tables
   def Course.search(query)
-    return self if query.empty?
+    return self if query.nil? or query.empty?
     query_terms = query.split
+
     # Create the SQL fragment for individual query terms
     individual_query = ['(LOWER(title) LIKE ?
                         OR LOWER(content) LIKE ? 
@@ -46,11 +64,13 @@ class Course < ApplicationRecord
                         OR LOWER(tags.name) LIKE ?)']
     # Form complete SQL fragment based on number of query terms
     complete_query = [(individual_query * query_terms.length).join(' AND ')]
+
     # Construct complete array of query terms to feed to SQL fragment
     complete_query_terms = []
     query_terms.each {|query_term| 6.times {complete_query_terms << query_term.downcase}}
     # Add % % to each query term so that it is searched for as a substring
     complete_query_terms.map! {|query_term| "%#{query_term}%"}
+
     # Execute the complete SQL query
     left_outer_joins(:tutor, :lessons, :tags).where(complete_query + complete_query_terms).distinct
   end

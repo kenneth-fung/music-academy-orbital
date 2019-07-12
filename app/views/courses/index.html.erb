@@ -7,8 +7,8 @@
 </h1>
 
 <!--Search Bar-->
-<%= form_tag courses_path, method: :get, class: 'search-bar my-2 my-lg-0 w-100' do %>
-  <%= text_field_tag :search, params[:search], placeholder: 'Search for a course...', class: 'form-control w-50 mx-auto' %>
+<%= form_with url: courses_path, local: true, method: :get, html: { class: "search-bar my-2 my-lg-0 w-100" } do |f| %>
+  <%= f.text_field :search, value: params[:search], placeholder: "Search for a course...", class: "form-control w-50 mx-auto" %>
 <% end %>
 
 <% if params[:search] %>
