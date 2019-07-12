@@ -23,7 +23,7 @@ Expected nil to not be equal to nil.
 - ~~prevent tutor's posts/messages on their own course from counting towards their 'unread' count~~
 - ~~sort student's and tutor's courses on their profile page~~
 - fix home page flash message
-- add user names to posts/messages (?)
+- ~~add user names to posts/messages~~
 - add error messages for: 
   - course new/edit
   - lesson new/edit
