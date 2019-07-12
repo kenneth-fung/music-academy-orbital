@@ -1,17 +1,10 @@
 <!--All Courses Page-->
-<% provide(:title, "Courses") %>
+<% provide(:title, @title) %>
 
 <!--Page Header Title-->
-<% if params[:search] %>
-  <h1 class="course-index-title">
-    <strong>Search:</strong>
-    <span class="search-term">"<%= params[:search] %>"</span>
-  </h1>
-<% else %>
-  <h1>
-    <strong><%= @title %></strong>
-  </h1>
-<% end %>
+<h1 class="course-index-title">
+  <strong><%= @title %></strong>
+</h1>
 
 <!--Search Bar-->
 <%= form_tag courses_path, method: :get, class: 'search-bar my-2 my-lg-0 w-100' do %>

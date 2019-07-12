@@ -25,10 +25,12 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
 
-    @courses = @student
+    courses = @student
     .sort_courses_by(params[:sort_by])
     .where.not(id: @student.pending_course)
-    @courses = @courses.search(params[:search]) if params[:search] && !params[:search].empty?
+    params[:search_profile] && !params[:search_profile].empty? ?
+      @courses = courses.search(params[:search_profile]) :
+      @courses = courses
 
     @title = student? && current_user?(@student) ?
       'My Profile' :

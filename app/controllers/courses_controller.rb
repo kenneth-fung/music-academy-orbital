@@ -5,13 +5,12 @@ class CoursesController < ApplicationController
 
   def index
     courses = Course.sort(params[:sort_by])
-    if params[:search]
-      @title = "Search: \"#{params[:search]}\""
-      courses = courses.search(params[:search])
-    else
-      @title = "Courses"
-    end
+    courses = courses.search(params[:search]) if params[:search] && !params[:search].blank?
     @courses = courses.paginate(page: params[:page])
+
+    params[:search] ?
+      @title = "Search: \"#{params[:search]}\"" :
+      @title = "Courses"
   end
 
   def new

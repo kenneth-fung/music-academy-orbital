@@ -25,8 +25,10 @@ class TutorsController < ApplicationController
   def show
     @tutor = Tutor.find(params[:id])
 
-    @courses = @tutor.sort_courses_by(params[:sort_by])
-    @courses = @courses.search(params[:search]) if params[:search] && !params[:search].empty?
+    courses = @tutor.sort_courses_by(params[:sort_by])
+    params[:search_profile] && !params[:search_profile].empty? ?
+      @courses = courses.search(params[:search_profile]) :
+      @courses = courses
 
     @title = tutor? && current_user?(@tutor) ?
       'My Profile' :

@@ -54,7 +54,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row user_courses">
   <div class="col">
     <div class="tab-content" id="myTabContent">
 
@@ -77,24 +77,26 @@
 
                   <% if @student %>
 
-                    <div class="col">
-                      <%= render 'students/courses_sort' %>
-                    </div>
-                    <div class="col">
-                      <%= form_tag student_path(@student, anchor: 'courses-tab'), method: :get, class: 'search-bar, float-right' do %>
-                        <%= text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control' %>
+                    <div class="col search">
+                      <%= form_tag student_path(@student, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
+                        <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control w-50' %>
                       <% end %>
+                      <small><%= link_to 'clear search', student_path(@student, anchor: 'courses-tab'), class: 'search-clear ml-2' %></small>
+                    </div>
+                    <div class="col sort">
+                      <%= render 'students/courses_sort' %>
                     </div>
 
                   <% elsif @tutor %>
 
-                    <div class="col">
-                      <%= render 'tutors/courses_sort' %>
-                    </div>
-                    <div class="col">
-                      <%= form_tag tutor_path(@tutor, anchor: 'courses-tab'), method: :get, class: 'search-bar float-right' do %>
-                        <%= text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control' %>
+                    <div class="col search">
+                      <%= form_tag tutor_path(@tutor, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
+                        <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control w-50' %>
                       <% end %>
+                      <small><%= link_to 'clear search', tutor_path(@tutor, anchor: 'courses-tab'), class: 'search-clear ml-2' %></small>
+                    </div>
+                    <div class="col sort">
+                      <%= render 'tutors/courses_sort' %>
                     </div>
 
                   <% end %>
