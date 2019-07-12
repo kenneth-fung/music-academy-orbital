@@ -21,7 +21,7 @@ Expected nil to not be equal to nil.
 
 - ~~delete posts/messages~~
 - ~~prevent tutor's posts/messages on their own course from counting towards their 'unread' count~~
-- sort tutor's courses by unread
+- ~~sort student's and tutor's courses on their profile page~~
 - fix home page flash message
 - add user names to posts/messages (?)
 - add error messages for: 
@@ -47,6 +47,7 @@ Expected nil to not be equal to nil.
 - seed posts/messages
  
 - Ajax, json
+- ~~add autocomplete function to search bar in navbar~~
 
 #### Direct Upload
 
