@@ -17,8 +17,8 @@ class CoursesController < ApplicationController
       format.json {
         if params[:search] && !params[:search].blank?
           params[:search].split.size > 1 ?
-            @courses = @courses.search(params[:search]) :
-            @courses = @courses.search_title(params[:search]) 
+            @courses = @courses.search(params[:search]).limit(6) :
+            @courses = @courses.search_title(params[:search]).limit(6) 
         end
       }
     end

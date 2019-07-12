@@ -12,16 +12,6 @@ document.addEventListener("turbolinks:load", function() {
         $input.val("");
         Turbolinks.visit(url);
       },
-      showAnimation: {
-        type: "fade",
-        time: 100,
-        callback: function() {}
-      },
-      hideAnimation: {
-        type: "fade",
-        time: 100,
-        callback: function() {}
-      }
     }
   };
 
