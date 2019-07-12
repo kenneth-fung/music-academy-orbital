@@ -4,6 +4,8 @@ class PostsController < ApplicationController
 
   before_action :delete_notifications, only: :destroy
 
+  after_action :update_course_unread, only: [:create, :destroy]
+
   def create
     @lesson = Lesson.find(params[:lesson_id])
     @course = Course.find(params[:course_id])
@@ -11,7 +13,6 @@ class PostsController < ApplicationController
     if @post.save
       @post.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
       generate_notification unless @post.sender == @course.tutor
-      clear_unread(@lesson) if current_user?(@course.tutor)
     end
     back_to_course
   end
@@ -56,6 +57,13 @@ class PostsController < ApplicationController
     @post.messages.each do |message|
       Notification.where(origin_type: 'Message', origin_id: message.id).destroy_all
     end
+  end
+
+  # After filters
+
+  # Updates the number of unread messages from the post's course
+  def update_course_unread
+    @course.update_attributes(unread: find_unread_from_course(@course))
   end
 
 end

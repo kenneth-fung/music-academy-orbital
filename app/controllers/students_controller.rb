@@ -24,7 +24,11 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @courses = @student.newest_courses.where.not(id: @student.pending_course)
+
+    @courses = @student
+    .sort_courses_by(params[:sort_by])
+    .where.not(id: @student.pending_course)
+
     @title = student? && current_user?(@student) ?
       'My Profile' :
       "#{@student.name}"

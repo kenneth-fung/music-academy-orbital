@@ -24,7 +24,9 @@ class TutorsController < ApplicationController
 
   def show
     @tutor = Tutor.find(params[:id])
-    @courses = @tutor.courses.reorder(created_at: :desc)
+
+    @courses = @tutor.sort_courses_by(params[:sort_by])
+
     @title = tutor? && current_user?(@tutor) ?
       'My Profile' :
       "#{@tutor.name}"

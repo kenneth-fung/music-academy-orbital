@@ -52,6 +52,19 @@ class Tutor < ApplicationRecord
     .distinct
   end
 
+  def sort_courses_by(sort_by)
+    case sort_by
+    when 'newest'
+      courses.reorder(created_at: :desc)
+    when 'oldest'
+      courses.reorder(created_at: :asc)
+    when 'messages'
+      courses.reorder(unread: :desc)
+    else
+      courses.reorder(created_at: :desc)
+    end
+  end
+
   # Gets the average rating across all of this tutor's courses, except those
   # that have not received any ratings
   def rating

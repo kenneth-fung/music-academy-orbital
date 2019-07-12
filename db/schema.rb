@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_122640) do
+ActiveRecord::Schema.define(version: 2019_07_12_060054) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_07_11_122640) do
     t.float "price"
     t.string "tag_list"
     t.integer "popularity", default: 0
+    t.integer "unread", default: 0
     t.index ["tutor_id", "created_at"], name: "index_courses_on_tutor_id_and_created_at"
     t.index ["tutor_id"], name: "index_courses_on_tutor_id"
   end

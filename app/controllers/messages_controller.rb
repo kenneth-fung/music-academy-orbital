@@ -4,6 +4,8 @@ class MessagesController < ApplicationController
 
   before_action :delete_notifications, only: :destroy
 
+  after_action :update_course_unread, only: [:create, :destroy]
+
   def create
     @post = Post.find(params[:post_id])
     @lesson = Lesson.find(params[:lesson_id])
@@ -11,6 +13,7 @@ class MessagesController < ApplicationController
     @course = Course.find(params[:course_id])
     if @message.save
       @message.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
+      read_notifications
       generate_notifications
     end
     back_to_course
@@ -31,6 +34,27 @@ class MessagesController < ApplicationController
     redirect_to course_path(@course, lesson_page: @lesson.position, anchor: 'forum')
   end
 
+  # Marks all notifications from other messages in this message's post as read
+  def read_notifications
+    # Update post notification
+    post_notification = @message.sender
+    .notifications_unread
+    .where("origin_type = ? AND origin_id = ?", 'Post', @post.id)
+    .first
+    post_notification.update_attributes(read: true) unless post_notification.nil?
+
+    # Update post's messages notifications
+    @post.messages.each do |message|
+      message_notification = @message.sender
+      .notifications_unread
+      .where("origin_type = ? AND origin_id = ?", 'Message', message.id)
+      .first
+      message_notification.update_attributes(read: true) unless message_notification.nil?
+    end
+  end
+
+  # Generates notifications for the post sender and senders of all other
+  # messages in the post
   def generate_notifications
     notification = "New Reply to '#{@post.content}'"
     Notification.create(content: notification, 
@@ -65,6 +89,11 @@ class MessagesController < ApplicationController
   # Deletes all the notifications created by this message
   def delete_notifications
     Notification.where(origin_type: 'Message', origin_id: @message.id).destroy_all
+  end
+
+  # Updates the number of unread messages from the post's course
+  def update_course_unread
+    @course.update_attributes(unread: find_unread_from_course(@course))
   end
 
 end

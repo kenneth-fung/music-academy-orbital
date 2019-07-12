@@ -18,6 +18,12 @@
   <%= text_field_tag :search, params[:search], placeholder: 'Search for a course...', class: 'form-control w-50 mx-auto' %>
 <% end %>
 
+<% if params[:search] %>
+  <h3 class="text-left">
+    <strong>Results:</strong>
+  </h3>
+<% end %>
+
 <!--Courses-->
 <% if @courses.any? %>
 
@@ -31,7 +37,7 @@
 
 <% else %>
 
-  <h3 class="course-index-none">
+  <h3 class="mt-4 course-index-none">
     <strong>No courses found...</strong>
   </h3>
 

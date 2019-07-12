@@ -16,7 +16,7 @@ class Subscription < ApplicationRecord
       "#{Rails.application.credentials.paypal[:app_host]}"
 
     business = Rails.env.development? ?
-      "merchant@musicacademy.com" :
+      "main@musicacademy.com" :
       course.tutor.email
 
     values = {

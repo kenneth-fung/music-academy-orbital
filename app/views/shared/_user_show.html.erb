@@ -17,9 +17,9 @@
         <% end %>
 
         <% if params[:tab] == 'notifications' %>
-          <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= courses_header %></a>
+          <a class="nav-link" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true"><%= courses_header %></a>
         <% else %>
-          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= courses_header %></a>
+          <a class="nav-link active" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true"><%= courses_header %></a>
         <% end %>
 
       </li>
@@ -28,7 +28,7 @@
         <li class="nav-item">
 
           <% if params[:tab] == 'notifications' %>
-            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+            <a class="nav-link active" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
               Notifications
               <% if current_user.notifications_unread.any? %>
                 <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
@@ -37,7 +37,7 @@
               <% end %>
             </a>
           <% else %>
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+            <a class="nav-link" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
               Notifications
               <% if current_user.notifications_unread.any? %>
                 <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
@@ -59,9 +59,9 @@
     <div class="tab-content" id="myTabContent">
 
       <% if params[:tab] == 'notifications' %>
-        <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane fade show" id="courses" role="tabpanel" aria-labelledby="courses-tab">
         <% else %>
-          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
           <% end %>
 
           <div class="row justify-content-center pt-3">
@@ -72,6 +72,13 @@
               <% end %>
 
               <% if @courses.any? %>
+
+                <% if @student %>
+                  <%= render 'students/courses_sort' %>
+                <% elsif @tutor %>
+                  <%= render 'tutors/courses_sort' %>
+                <% end %>
+
                 <div class="row"><%= render @courses %></div>
               <% else %>
                 <h3 class="course-index-none">
@@ -87,9 +94,9 @@
           <% if @title.include? 'My' %>
 
             <% if params[:tab] == 'notifications' %>
-              <div class="tab-pane fade show  active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="tab-pane fade show  active" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
               <% else %>
-                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade show" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
                 <% end %>
 
                 <div class="notifications">

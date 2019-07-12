@@ -1,0 +1,10 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort By
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><%= link_to "Newest", tutor_path(@tutor, sort_by: :newest, anchor: 'courses-tab'), class: 'dropdown-item' %></li>
+    <li><%= link_to "Oldest", tutor_path(@tutor, sort_by: :oldest, anchor: 'courses-tab'), class: 'dropdown-item' %></li>
+    <li><%= link_to "Messages", tutor_path(@tutor, sort_by: :messages, anchor: 'courses-tab'), class: 'dropdown-item' %></li>
+  </div>
+</div>

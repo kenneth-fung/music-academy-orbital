@@ -10,36 +10,46 @@
         <div class="post-new col-auto"><%= image_tag 'unread.png' %></div>
       <% end %>
 
-      <div class="col-auto post-gravatar">
-        <%= gravatar_for(post.sender, size: 40) %>
-      </div>
+      <div class="col-11">
 
-      <div class="row ml-3 my-0">
-        <div class="col-auto">
+        <span class="float-left post-gravatar">
+          <%= gravatar_for(post.sender, size: 45) %>
+        </span>
 
-          <div class="row post-content">
-            <div class="col-auto">
-              <%= post.content %>
+        <div class="row ml-3 my-0">
+          <div class="col-auto">
+
+            <div class="row post-sender">
+              <div class="col-auto">
+                <%= post.sender.name %>
+              </div>
             </div>
-          </div>
 
-          <!--Post Options-->
-          <div class="row post-options">
-            <div class="col-auto">
-              <small>
-                <i>
-                  <% if logged_in? && (current_user?(post.sender) || current_user.admin?) %>
-                    <%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %>
-                  <% end %>
-                  <% if logged_in? && !current_user?(post.sender) && !current_user.admin? %>
-                    <a href="#reportPost" data-toggle="modal" data-target="#reportPost">report</a>
-                  <% end %>
-                </i>
-              </small>
+            <div class="row post-content">
+              <div class="col-auto">
+                <%= post.content %>
+              </div>
             </div>
-          </div>
 
+            <!--Post Options-->
+            <div class="row post-options">
+              <div class="col-auto">
+                <small>
+                  <i>
+                    <% if logged_in? && (current_user?(post.sender) || current_user.admin?) %>
+                      <%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %>
+                    <% end %>
+                    <% if logged_in? && !current_user?(post.sender) && !current_user.admin? %>
+                      <a href="#reportPost" data-toggle="modal" data-target="#reportPost">report</a>
+                    <% end %>
+                  </i>
+                </small>
+              </div>
+            </div>
+
+          </div>
         </div>
+
       </div>
 
     </div>

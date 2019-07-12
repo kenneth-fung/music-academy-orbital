@@ -6,35 +6,45 @@
     <div class="message-new col-auto"><%= image_tag 'unread.png' %></div>
   <% end %>
 
-  <div class="col-auto message-gravatar">
-    <%= gravatar_for(message.sender, size: 40) %>
-  </div>
+  <div class="col-10">
 
-  <div class="row ml-3 my-0">
-    <div class="col-auto">
+    <span class="float-left message-gravatar">
+      <%= gravatar_for(message.sender, size: 45) %>
+    </span>
 
-      <div class="row message-content">
-        <div class="col-auto">
-          <%= message.content %>
+    <div class="row ml-3 my-0">
+      <div class="col-auto">
+
+        <div class="row message-sender">
+          <div class="col-auto">
+            <%= message.sender.name %>
+          </div>
         </div>
-      </div>
 
-      <div class="row message-options">
-        <div class="col-auto">
-          <small>
-            <i>
-              <% if logged_in? && (current_user?(message.sender) || current_user.admin?) %>
-                <%= link_to "delete", message_path(message), method: :delete %>
-              <% end %>
-              <% if logged_in? && !current_user?(message.sender) && !current_user.admin? %>
-                <a href="#reportMessage" data-toggle="modal" data-target="#reportMessage">report</a>
-              <% end %>
-            </i>
-          </small>
+        <div class="row message-content">
+          <div class="col-auto">
+            <%= message.content %>
+          </div>
         </div>
-      </div>
 
+        <div class="row message-options">
+          <div class="col-auto">
+            <small>
+              <i>
+                <% if logged_in? && (current_user?(message.sender) || current_user.admin?) %>
+                  <%= link_to "delete", message_path(message), method: :delete %>
+                <% end %>
+                <% if logged_in? && !current_user?(message.sender) && !current_user.admin? %>
+                  <a href="#reportMessage" data-toggle="modal" data-target="#reportMessage">report</a>
+                <% end %>
+              </i>
+            </small>
+          </div>
+        </div>
+
+      </div>
     </div>
+
   </div>
 
 </div>

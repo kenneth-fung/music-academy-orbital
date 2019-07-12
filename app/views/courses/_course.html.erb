@@ -13,24 +13,33 @@
 
     <!--Badges-->
 
-    <span class="badges">
+    <% if course_owner?(course) %>
 
-      <% if course_owner?(course) %>
+      <% unread_number = find_unread_from_course(course) %>
 
-        <!--Unread Messages for Tutors-->
-        <% unread_number = find_unread_from_course(course) %>
-        <% if unread_number > 0 %>
-          <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
-        <% end %>
+      <% if unread_number > 0 || params[:action] == 'index' %>
 
-        <!--Published by Current User-->
-        <% if params[:action] == 'index' %>
-          <p class="badge badge-success">published by you</p>
-        <% end %>
+        <span class="badges">
 
-      <% else %>
+          <!--Unread Messages for Tutors-->
+          <% if unread_number > 0 %>
+            <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
+          <% end %>
 
-        <% if subscribing?(course) && course.id != current_user.pending_course %>
+          <!--Published by Current User-->
+          <% if params[:action] == 'index' %>
+            <p class="badge badge-success">published by you</p>
+          <% end %>
+
+        </span>
+
+      <% end %>
+
+    <% else %>
+
+      <% if subscribing?(course) && course.id != current_user.pending_course %>
+
+        <span class="badges">
 
           <!--Joined and Reviewed-->
           <p class="badge badge-success">joined</p>
@@ -38,11 +47,11 @@
             <span class="badge badge-success">reviewed</span>
           <% end %>
 
-        <% end %>
+        </span>
 
       <% end %>
 
-    </span>
+    <% end %>
 
     <div class="card-body p-3">
 
@@ -74,6 +83,24 @@
       </span>
 
     </div>
+
+    <% if params[:action] == 'show' %>
+
+        <% if params[:controller] == 'tutors' && current_user?(@tutor) %>
+
+          <div class="card-footer">
+            <small>published on <%= course.created_at.strftime("%d/%m/%y") %></small>
+          </div>
+
+        <% elsif params[:controller] == 'students' && current_user?(@student) %>
+
+          <div class="card-footer">
+            <small>enrolled on <%= find_subscription(@student, course).created_at.strftime("%d/%m/%Y") %></small>
+          </div>
+
+        <% end %>
+
+    <% end %>
 
   </div>
 </div>
