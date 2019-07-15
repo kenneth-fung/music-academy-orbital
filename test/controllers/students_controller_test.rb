@@ -21,7 +21,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   test "should redirect edit when logged in as wrong student" do
     log_in_as(@other_student)
     get edit_student_path(@student)
-    assert flash.empty?
+    assert_not flash.empty?
     assert_redirected_to root_url
   end
 
@@ -29,7 +29,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@other_student)
     patch student_path(@student), params: { student: { name: @student.name,
                                                        email: @student.email } }
-    assert flash.empty?
+    assert_not flash.empty?
     assert_redirected_to root_url
   end
 

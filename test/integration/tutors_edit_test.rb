@@ -15,7 +15,6 @@ class TutorsEditTest < ActionDispatch::IntegrationTest
                                                  password_confirmation: "bar" } }
 
     assert_template 'tutors/edit'
-    assert_select "div.alert", "The form contains 4 errors."
   end
 
   test "successful edit with friendly forwarding" do

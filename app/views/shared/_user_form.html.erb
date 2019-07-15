@@ -83,7 +83,7 @@
     <% end %>
   </div>
 
-  <% if params[:controller] == 'tutors' %>
+  <% if (params[:action] == 'edit' || params[:action] == 'update') && params[:controller] == 'tutors' %>
     <div class="form-group">
       <% placeholder = 'Let your students know who you are!' %>
       <% if f.object.errors.any? && f.object.errors.include?(:bio) %>

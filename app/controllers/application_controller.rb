@@ -18,10 +18,12 @@ class ApplicationController < ActionController::Base
   def correct_user
     if session[:student_id]
       @user = Student.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
     else
       @user = Tutor.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+    end
+    unless current_user?(@user)
+      flash[:danger] = "Logged in as wrong user."
+      redirect_to root_path
     end
   end
 
