@@ -1,6 +1,6 @@
 <% if object.errors.any? %>
   <% if object.errors.include?(:password_confirmation) %>
-    <% object.errors.add(:password, :does_not_match_password, message: "doesn't match Password") %>
+    <% object.errors.add(:password, :does_not_match_password, message: "password doesn't match password confirmation") %>
   <% end %>
   <% if object.errors.include?(:password) && object.errors.messages[:password].include?("can't be blank") %>
     <% object.errors.add(:password_confirmation, :can_not_be_blank, message: "can't be blank") %>

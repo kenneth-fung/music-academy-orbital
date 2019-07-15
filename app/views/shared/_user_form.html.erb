@@ -14,7 +14,7 @@
       <div class="invalid-feedback d-block">
         <%= f.object.errors.messages[:name].join(", ") %>
       </div>
-    <% elsif f.object.errors.any? && !f.object.errors.include?(:name) %>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:name) %>
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control is-valid' %>
       <div class="valid-feedback">
@@ -33,7 +33,7 @@
       <div class="invalid-feedback d-block">
         <%= f.object.errors.messages[:email].join(", ") %>
       </div>
-    <% elsif f.object.errors.any? && !f.object.errors.include?(:email) %>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:email) %>
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control is-valid' %>
       <div class="valid-feedback">
@@ -48,13 +48,13 @@
   <div class="form-group">
     <% if f.object.errors.any? && f.object.errors.include?(:password) %>
       <%= f.label :password, yield(:label_prefix) + "Password" %>
-      <%= f.password_field :password, class: 'form-control is-invalid' %>
+      <%= f.password_field :password, value: user.password, class: 'form-control is-invalid' %>
       <div class="invalid-feedback d-block">
         <%= f.object.errors.messages[:password].join(", ") %>
       </div>
-    <% elsif f.object.errors.any? && !f.object.errors.include?(:password) %>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:password) %>
       <%= f.label :password, yield(:label_prefix) + "Password" %>
-      <%= f.password_field :password, class: 'form-control is-valid' %>
+      <%= f.password_field :password, value: user.password, class: 'form-control is-valid' %>
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -67,13 +67,13 @@
   <div class="form-group">
     <% if f.object.errors.any? && f.object.errors.include?(:password_confirmation) %>
       <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control is-invalid' %>
+      <%= f.password_field :password_confirmation, value: user.password_confirmation, class: 'form-control is-invalid' %>
       <div class="invalid-feedback d-block">
         <%= f.object.errors.messages[:password].join(", ") %>
       </div>
-    <% elsif f.object.errors.any? && !f.object.errors.include?(:password_confirmation) %>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:password_confirmation) %>
       <%= f.label :password_confirmation, yield(:label_prefix) + "Password Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control is-valid' %>
+      <%= f.password_field :password_confirmation, value: user.password_confirmation, class: 'form-control is-valid' %>
       <div class="valid-feedback">
         Looks good!
       </div>

@@ -1,7 +1,7 @@
 <% provide(:title, "Log In") %>
 <% provide(:select_header, "Log in as a...") %>
 
-<% if params[:controller].eql?('tutors') %>
+<% if params[:user_type] && params[:user_type].eql?('Tutor') %>
   <div class="row">
     <div class="col">
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
@@ -23,7 +23,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-6">
-              <%= render 'form', user_type: 'Student' %>
+              <%= render 'form_student' %>
             </div>
           </div>
         </div>
@@ -33,14 +33,14 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-6">
-              <%= render 'form', user_type: 'Tutor' %>
+              <%= render 'form_tutor' %>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-<% else %>
+<% elsif params[:user_type] && params[:user_type].eql?('Student') %>
   <div class="row">
     <div class="col">
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
@@ -62,7 +62,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-6">
-              <%= render 'form', user_type: 'Student' %>
+              <%= render 'form_student' %>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-6">
-              <%= render 'form', user_type: 'Tutor' %>
+              <%= render 'form_tutor' %>
             </div>
           </div>
         </div>

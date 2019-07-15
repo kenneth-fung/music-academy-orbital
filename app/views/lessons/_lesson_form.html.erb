@@ -3,7 +3,7 @@
 
   <!--Video-->
   <section>
-    <% if @lesson.video.attached? %>
+    <% if @lesson.video.attached? && !@lesson.video.id.nil? %>
       <!--Video display-->
       <div align="center" class="embed-responsive embed-responsive-16by9">
         <video controls controlslist="nodownload" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" class="embed-responsive-item video">
@@ -17,22 +17,57 @@
         data: { confirm: "Are you sure? This action is irreversible." } 
         %></i></div>
     <% else %>
+
       <!--Video upload button-->
       <div class="form-group">
-        <%= f.label :video %>
-        <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control-file' %>
+        <%= f.label :video, for: 'videoFile' %>
+        <%= f.file_field :video, accept: 'video/mp4 video/wmv', direct_upload: true, class: 'form-control-file', id: 'videoFile' %>
+        <% if f.object.errors.any? && f.object.errors.include?(:video) %>
+          <div class="invalid-feedback d-block">
+            <%= f.object.errors.messages[:video].join(", ") %>
+          </div>
+        <% elsif @lesson.video.attached? && f.object.errors.any? && !f.object.errors.include?(:video) %>
+          <div class="invalid-feedback d-block">
+            upload cancelled due to other errors in this form, please re-upload video
+          </div>
+        <% end %>
       </div>
+
     <% end %>
   </section>
 
   <div class="form-group">
     <%= f.label :name, "Lesson Name" %>
-    <%= f.text_field :name, required: "required", class: 'form-control' %>
+    <% if f.object.errors.any? && f.object.errors.include?(:name) %>
+      <%= f.text_field :name, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:name].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && f.object.errors.include?(:name) %>
+      <%= f.text_field :name, class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_field :name, class: 'form-control' %>
+    <% end %>
   </div>
 
   <div class="form-group">
     <%= f.label :description, "Lesson Description" %>
-    <%= f.text_area :description, required: "required", class: 'form-control' %>
+    <% if f.object.errors.any? && f.object.errors.include?(:description) %>
+      <%= f.text_field :description, required: "required", class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:description].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && f.object.errors.include?(:description) %>
+      <%= f.text_field :description, required: "required", class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_field :description, required: "required", class: 'form-control' %>
+    <% end %>
   </div>
 
   <div class="form-group">
@@ -45,6 +80,19 @@
         direct_upload: true,
         class: 'form-control-file'
       %>
+    <% if f.object.errors.any? && f.object.errors.include?(:resources) %>
+      <div class="invalid-feedback d-block">
+        <ul>
+          <% f.object.errors.messages[:resources].each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% elsif @lesson.resources.attached? && f.object.errors.any? && !f.object.errors.include?(:resources) %>
+      <div class="invalid-feedback d-block">
+        upload cancelled due to other errors in this form, please re-upload resources
+      </div>
+    <% end %>
 </div>
 
 <%= hidden_field_tag :course_id, @course.id %>

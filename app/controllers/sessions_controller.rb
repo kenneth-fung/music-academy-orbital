@@ -14,13 +14,16 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
         redirect_back_or @user
       else
-        message = "Account not activated."
-        message += "Please check your email for the activation link."
-        flash[:warning] = message
+        # message = "Account not activated."
+        # message += "Please check your email for the activation link."
+        # flash[:warning] = message
+        params[:error] = 'unactivated'
         redirect_to root_path
       end
     else
-      flash.now[:danger] = "Invalid email/password combination."
+      # flash.now[:danger] = "Invalid email/password combination."
+      params[:user_type] = params[:session][:user_type]
+      params[:error] = 'email/password'
       render 'new'
     end
   end
@@ -48,8 +51,7 @@ class SessionsController < ApplicationController
 
     end
 
-    provider = @user.provider == 'google_oauth2' ? 'Google' : 'Facebook'
-    flash[:success] = "Successfully #{method} through #{provider}!"
+    flash[:success] = "Successfully #{method} through Google!"
     log_in @user
     redirect_back_or @user
   end

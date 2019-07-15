@@ -5,12 +5,36 @@
         <%= render 'shared/error_messages', object: f.object %>
 
         <div class="rating">
-          <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", class: 'form-control' %>
+          <% if f.object.errors.any? && f.object.errors.include?(:rating) %>
+            <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", required: "required", class: 'form-control is-invalid' %>
+            <div class="invalid-feedback d-block">
+              <%= f.object.errors.messages[:rating].join(", ") %>
+            </div>
+          <% elsif params[:review_edit].nil? && f.object.errors.any? && !f.object.errors.include?(:rating) %>
+            <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", required: "required", class: 'form-control is-valid' %>
+            <div class="valid-feedback d-block">
+              Looks good!
+            </div>
+          <% else %>
+            <%= f.number_field :rating, min: 1, max: 5, placeholder: "Rating (1 to 5 stars)", required: "required", class: 'form-control' %>
+          <% end %>
         </div>
 
         <div class="field">
           <% placeholder = "Describe what you liked or didn't like about this course." %>
-          <%= f.text_area :content, placeholder: placeholder, rows: 7, class: 'form-control' %>
+          <% if f.object.errors.any? && f.object.errors.include?(:content) %>
+            <%= f.text_area :content, placeholder: placeholder, rows: 7, class: 'form-control is-invalid' %>
+            <div class="invalid-feedback d-block">
+              <%= f.object.errors.messages[:content].join(", ") %>
+            </div>
+          <% elsif params[:review_edit].nil? && f.object.errors.any? && !f.object.errors.include?(:content) %>
+            <%= f.text_area :content, placeholder: placeholder, rows: 7, class: 'form-control is-valid' %>
+            <div class="valid-feedback d-block">
+              Looks good!
+            </div>
+          <% else %>
+            <%= f.text_area :content, placeholder: placeholder, rows: 7, class: 'form-control' %>
+          <% end %>
         </div>
 
         <%= hidden_field_tag :course_id, @course.id %>

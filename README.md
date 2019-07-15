@@ -24,11 +24,10 @@ Expected nil to not be equal to nil.
 - ~~sort student's and tutor's courses on their profile page~~
 - fix home page flash message
 - ~~add user names to posts/messages~~
-- add error messages for: 
-  - course new/edit
-  - lesson new/edit
-  - review new/edit (on course page)
-  - empty posts & messages (on lesson page)
+- ~~add error messages for:~~ 
+  - ~~course new/edit~~
+  - ~~lesson new/edit~~
+  - ~~review new/edit (on course page)~~
  
 - ~~direct upload~~ **_(modification to S3 bucket needed, see below)_**
 - ~~prevent downloading~~ **_(temp solution, see below)_**

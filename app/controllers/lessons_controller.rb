@@ -15,8 +15,10 @@ class LessonsController < ApplicationController
       flash[:success] = "Lesson: '#{@lesson.name}' for '#{@course.title}' has been published."
       redirect_to edit_course_path(@course, course_id: @course.id)
     else
-      @lesson.video.purge
-      @lesson.resources.purge
+      if @lesson.errors.any?
+        @lesson.video.purge if @lesson.errors.include?(:video)
+        @lesson.resources.purge if @lesson.errors.include?(:resources)
+      end
       render 'lessons/new'
     end
   end
@@ -46,12 +48,14 @@ class LessonsController < ApplicationController
     @course = Course.find(params[:course_id])
     @lesson = Lesson.find(params[:id])
     if @lesson.update_attributes(lesson_params)
-      flash[:success] = "Lesson: '#{@lesson.name}' edited."
+      flash[:success] = "Changes saved!"
       redirect_to edit_lesson_path(@lesson, 
                                    lesson_id: @lesson.id)
     else
-      @lesson.video.purge
-      @lesson.resources.purge
+      if @lesson.errors.any?
+        @lesson.video.purge if @lesson.errors.include?(:video)
+        @lesson.resources.purge if @lesson.errors.include?(:resources)
+      end
       render 'edit'
     end
   end
@@ -93,9 +97,9 @@ class LessonsController < ApplicationController
 
   # Confirms the current user is the tutor of this course
   def is_course_tutor_or_admin?
-    course = @course || Course.find(params[:course_id])
+    @course = @course || Course.find(params[:course_id])
     unless (tutor? && current_user?(@course.tutor)) || current_user.admin?
-      redirect_to course_path(course)
+      redirect_to course_path(@course)
     end
   end
 

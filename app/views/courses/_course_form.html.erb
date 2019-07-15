@@ -2,59 +2,109 @@
   <%= render 'shared/error_messages', object: @course %>
 
   <div class="form-group">
-    <%= f.label :title, "Title" %>
-    <%= f.text_field :title, required: "required", class: 'form-control' %>
+    <%= f.label :title %>
+    <% if f.object.errors.any? && f.object.errors.include?(:title) %>
+      <%= f.text_field :title, required: "required", class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:title].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:title) %>
+      <%= f.text_field :title, required: "required", class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_field :title, required: "required", class: 'form-control' %>
+    <% end %>
   </div>
 
-  <%= f.label :price %>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">$</span>
+  <div class="form-group">
+    <%= f.label :price %>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+      </div>
+      <% if f.object.errors.any? && f.object.errors.include?(:price) %>
+        <%= f.number_field :price, step: 0.01, required: "required", class: 'form-control is-invalid' %>
+        <div class="invalid-feedback d-block">
+          <%= f.object.errors.messages[:price].join(", ") %>
+        </div>
+      <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:price) %>
+        <%= f.number_field :price, step: 0.01, required: "required", class: 'form-control is-valid' %>
+        <div class="valid-feedback d-block">
+          Looks good!
+        </div>
+      <% else %>
+        <%= f.number_field :price, step: 0.01, required: "required", class: 'form-control' %>
+      <% end %>
     </div>
-    <%= f.number_field :price, step: 0.01, required: "required", class: 'form-control' %>
   </div>
 
   <!--Image-->
   <section class="image">
-    <% if @course.image.attached? %>
+    <% if @course.image.attached? && !@course.image.id.nil? %>
+
+      <%= f.label :image do %>
+        Banner Image <i>(please choose a landscape image)</i>
+      <% end %>
 
       <!--Image display-->
       <div><%= image_tag url_for(@course.image) %></div>
 
       <!--Image deletion link-->
       <div><i><%= link_to "(delete and upload another image)",
-                          delete_image_course_path(@course.image.id, course_id: @course.id),
-                          method: :delete,
-                          data: {confirm: "Are you sure?"}
-      %></i></div>
+        delete_image_course_path(@course.image.id, course_id: @course.id),
+        method: :delete,
+        data: {confirm: "Are you sure?"}
+        %></i></div>
 
     <% else %>
+
       <!--Image upload button-->
       <div class="form-group">
-        <%= f.label :image, "Banner Image", for: 'exampleFormControlFile1' %>
-        <i>(please choose a landscape image)</i>
-        <%=
-          f.file_field :image,
-                       accept: 'image/png, image/jpeg, image/gif',
-                       direct_upload: true,
-                       class: 'form-control-file',
-                       id: 'exampleFormControlFile1'
-        %>
+        <%= f.label :image, for: 'imageFile' do %>
+          Banner Image <i>(please choose a landscape image)</i>
+        <% end %>
+        <%= f.file_field :image, accept: 'image/png, image/jpeg, image/gif', direct_upload: true, class: 'form-control-file', id: "imageFile" %>
+        <% if f.object.errors.any? && f.object.errors.include?(:image) %>
+          <div class="invalid-feedback d-block">
+            <%= f.object.errors.messages[:image].join(", ") %>
+          </div>
+        <% elsif @course.image.attached? && f.object.errors.any? && !f.object.errors.include?(:image) %>
+          <div class="invalid-feedback d-block">
+            upload cancelled due to other errors in this form, please re-upload image
+          </div>
+        <% end %>
       </div>
+
     <% end %>
   </section>
 
   <div class="form-group">
     <%= f.label :content, "Description" %>
-    <%= f.text_area :content, rows: 15, required: "required", class: 'form-control' %>
+    <% if f.object.errors.any? && f.object.errors.include?(:content) %>
+      <%= f.text_area :content, rows: 15, required: "required", class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:content].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:content) %>
+      <%= f.text_area :content, rows: 15, required: "required", class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_area :content, rows: 15, required: "required", class: 'form-control' %>
+    <% end %>
   </div>
 
   <div class="form-group">
-    <%= f.label :tag_list, "Tags" %>
-    <h2 class="text-left tags-explanation">
-      Please insert 1 comma between each tag:
-      <i>piano, drums grade 3, clarinet</i>
-    </h2>
+    <%= f.label :tag_list do %>
+      Tags<br>
+      <span class="text-left tags-explanation">
+        Please insert 1 comma between each tag:
+        <i>piano, drums grade 3, clarinet</i>
+      </span>
+    <% end %>
     <%= f.text_area :tag_list, class: 'form-control' %>
   </div>
 
@@ -67,20 +117,20 @@
         <div class="col pt-3">
           <%=
             link_to "Back to My Profile",
-                    @course.tutor,
-                    class: "btn btn-secondary btn-sm"
-          %>
-        </div>
+              @course.tutor,
+              class: "btn btn-secondary btn-sm"
+            %>
+      </div>
       </div>
     <% elsif params[:back_to] == 'courses' %>
       <div class="row">
         <div class="col pt-3">
           <%=
             link_to "Back to My Courses",
-                    courses_tutor_path(@course.tutor),
-                    class: "btn btn-secondary btn-back"
-          %>
-        </div>
+              courses_tutor_path(@course.tutor),
+              class: "btn btn-secondary btn-back"
+            %>
+      </div>
       </div>
     <% end %>
   <% end %>
@@ -107,26 +157,26 @@
     <section>
       <%=
         link_to "Back to Course",
-                course_path(@course, page: params[:page]),
-                class: "btn btn-secondary btn-back"
-      %>
-    </section>
+          course_path(@course, page: params[:page]),
+          class: "btn btn-secondary btn-back"
+        %>
+  </section>
 
-    <!--Delete Course button-->
-    <% if current_user.admin? %>
-      <div class="course-delete">
-        <h3><strong>Warning</strong></h3>
-        <h2>
-          Press the button below to <strong>delete this course.</strong><br>
-          <%=
-            link_to "Delete Course",
-                    courses_delete_path(@course, course_id: @course.id),
-                    class: "btn btn-danger mt-3"
+  <!--Delete Course button-->
+  <% if current_user.admin? %>
+    <div class="course-delete">
+      <h3><strong>Warning</strong></h3>
+      <h2>
+        Press the button below to <strong>delete this course.</strong><br>
+        <%=
+          link_to "Delete Course",
+            courses_delete_path(@course, course_id: @course.id),
+            class: "btn btn-danger mt-3"
           %>
-        </h2>
-      </div>
-    <% end %>
+    </h2>
+    </div>
   <% end %>
+<% end %>
 <% end %>
 
 

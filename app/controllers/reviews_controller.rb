@@ -34,9 +34,12 @@ class ReviewsController < ApplicationController
       flash[:success] = "Changes saved!"
       redirect_to course_path(@course, anchor: "reviews")
     else
+      @tutor = @course.tutor
       @lessons = @course.lessons.reorder(:position)
       @lesson = @lessons[0]
+      @tags = @course.tags
       @reviews = @course.reviews.paginate(page: params[:page])
+      params[:review_edit] = true
       render 'courses/show'
     end
   end
@@ -84,10 +87,10 @@ class ReviewsController < ApplicationController
   # Confirms that the current user is the poster of a review
   def review_poster_or_admin
     if current_user.admin?
-      @course = Course.find(params[:id])
+      @course = Course.find(params[:course_id])
       @review = Review.find(params[:review_id])
     else
-      @course = Course.find(params[:id])
+      @course = Course.find(params[:course_id])
       @review = current_user.reviews.find_by(course_id: @course.id)
       redirect_to @course if @review.nil?
     end

@@ -57,7 +57,7 @@
     <% else %>
 
       <li><%= link_to "Sign Up", signup_path, class: 'nav-link text-light' %></li>
-      <li><%= link_to "Log In", login_path, class: 'nav-link text-light' %></li>
+      <li><%= link_to "Log In", login_path(user_type: 'Student'), class: 'nav-link text-light' %></li>
 
     <% end %>
   </ul>

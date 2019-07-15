@@ -122,9 +122,11 @@ students.each do |student|
   courses.each do |course|
     student.subscribe(course)
     # Reviews
-    student.reviews.create!(rating: rand(1..5),
-                            content: Faker::Lorem.paragraph(rand(1..8)),
-                            course: course)
+    if rand > 0.50
+      student.reviews.create!(rating: rand(1..5),
+                              content: Faker::Lorem.paragraph(rand(1..8)),
+                              course: course)
+    end
     # Ratings & Popularity
     rating = course.reviews.average(:rating).ceil
     popularity = course.reviews.count + course.rating + course.students.count
