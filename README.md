@@ -5,16 +5,16 @@
 ### To Fix
     
 "**password resets**" test in test/integration/**password_resets_test**.rb
-throws an error on line 20.
+throws an error on line 44.
 
-Line 20:
+Line 44:
 ```
-assert_not_equal @user.reset_digest, @user.reload.reset_digest
+assert_template 'password_resets/edit'
 ```
 
 The error:
 ```
-Expected nil to not be equal to nil.
+expecting <"password_resets/edit"> but rendering with <[]>
 ```
 
 ## To Do
@@ -28,6 +28,7 @@ Expected nil to not be equal to nil.
   - ~~course new/edit~~
   - ~~lesson new/edit~~
   - ~~review new/edit (on course page)~~
+  - ~~password reset~~
  
 - ~~direct upload~~ **_(modification to S3 bucket needed, see below)_**
 - ~~prevent downloading~~ **_(temp solution, see below)_**
