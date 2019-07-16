@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_12_060054) do
+ActiveRecord::Schema.define(version: 2019_07_16_030125) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_060054) do
     t.string "provider"
     t.string "uid"
     t.integer "pending_course", default: -1
+    t.boolean "private", default: false
     t.index ["email"], name: "index_students_on_email", unique: true
   end
 

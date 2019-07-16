@@ -66,14 +66,16 @@
 
       <!--Price-->
       <h3 class="price float-right">
-        <%= number_to_currency(course.price) %>
+        <% unless subscribing?(course) %>
+          <%= number_to_currency(course.price) %>
+        <% end %>
       </h3>
 
       <!--Rating-->
       <span class="rating">
         <%= render 'reviews/rating', rating: course.rating %>
         <% unless course.reviews.any? %>
-          <small><i>(no reviews yet)</i></small>
+          <br><small><i>(no reviews yet)</i></small>
         <% end %>
       </span>
 

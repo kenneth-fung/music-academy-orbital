@@ -240,6 +240,12 @@ footer {
   }
 }
 
+.edit_student {
+  .form-check .form-check-input {
+    margin-top: 7px;
+  }
+}
+
 /* course info */
 
 .btn-course-new {
@@ -532,6 +538,10 @@ footer {
       margin-top: 5px;
       .gravatar, .name {
         display: block;
+        a {
+          color: $gray-darker;
+          text-decoration: none;
+        }
       }
     }
     .review {

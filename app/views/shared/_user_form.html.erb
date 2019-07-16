@@ -105,6 +105,32 @@
     </div>
   <% end %>
 
+  <% if (params[:action] == 'edit' || params[:action] == 'update') && params[:controller] == 'students' %>
+    <div class="form-group">
+      <span class="private-radios">Your account is</span>
+
+      <div class="form-check">
+        <%= f.label :private, value: false do %>
+          <%= f.radio_button :private, false, checked: !@student.private, value: false, class: 'form-check-input' %>
+          <span class="form-check-label">Public</span>
+          <section>
+            Any student or tutor will be able to see the courses you take.
+          </section>
+        <% end %>
+      </div>
+
+      <div class="form-check">
+        <%= f.label :private, value: true do %>
+          <%= f.radio_button :private, true, checked: @student.private, value: true, class: 'form-check-input' %>
+          <span class="form-check-label">Private</span>
+          <section>
+            Only you will be able to see the courses you take.
+          </section>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary mt-3" %>
 
   <% if params[:action] != 'edit' && params[:action] != 'update' %>

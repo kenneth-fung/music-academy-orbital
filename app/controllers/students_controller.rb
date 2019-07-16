@@ -1,8 +1,9 @@
 class StudentsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:index, :destroy]
   before_action :is_logged_out?, only: [:new, :create]
+  before_action :activated_and_public, only: :show
   before_action :destroy_notifications, only: :destroy
 
   def new
@@ -23,8 +24,6 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = Student.find(params[:id])
-
     courses = @student
     .sort_courses_by(params[:sort_by])
     .where.not(id: @student.pending_course)
@@ -39,8 +38,6 @@ class StudentsController < ApplicationController
     @notifications = @student
     .notifications
     .reorder(created_at: :desc) if current_user? @student
-
-    redirect_to root_path and return unless @student.activated?
   end
 
   def index
@@ -80,14 +77,29 @@ class StudentsController < ApplicationController
   private
 
   def student_params
-    params.require(:student).permit(:name, :email, :password, :password_confirmation)
+    params.require(:student).permit(:name, :email, :password, :password_confirmation, :private)
   end
+
+  # Before filters
 
   # Confirms that the user is logged out
   def is_logged_out?
     if logged_in?
       flash[:danger] = "Please log out first."
       redirect_to root_path
+    end
+  end
+
+  # Confirms that the student's account is activated and public
+  def activated_and_public
+    @student = Student.find(params[:id])
+    redirect_back fallback_location: root_path unless @student.activated
+    if @student.private
+      # Allow only the student himself to see his page
+      unless current_user?(@student)
+        flash[:danger] = "That student's account is private."
+        redirect_back fallback_loaction: root_path
+      end
     end
   end
 
