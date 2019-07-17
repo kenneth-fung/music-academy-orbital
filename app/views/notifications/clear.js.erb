@@ -1,0 +1,12 @@
+$("#notifications-dropdown").html("<%= escape_javascript(render('notifications/dropdown')) %>");
+
+$("#notifications-tab").html(function() {
+  var unread = <%= current_user.notifications_unread.count %>;
+  if (unread > 0) {
+    return "Notifications <span class='badge badge-pill badge-primary'>" + unread + "</span>";
+  } else {
+    return "Notifications <span class='badge badge-pill badge-secondary'>" + unread + "</span>";
+  }
+});
+
+$(".notifications").html("<%= escape_javascript(render partial: 'notifications/notifications', locals: {notifications: current_user.notifications.reorder(created_at: :desc)}) %>");

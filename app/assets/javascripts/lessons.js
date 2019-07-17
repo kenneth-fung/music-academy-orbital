@@ -1,5 +1,5 @@
 document.addEventListener("turbolinks:load", function() {
-  $("#lessons").sortable({
+  $("#lessons-list-edit").sortable({
     update: function(e, ui) {
       Rails.ajax({
         url: $(this).data("url"),

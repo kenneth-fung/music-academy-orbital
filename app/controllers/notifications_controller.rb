@@ -4,12 +4,18 @@ class NotificationsController < ApplicationController
 
   def destroy
     @notification.destroy
-    redirect_back fallback_location: current_user
+    respond_to do |format|
+      format.html { redirect_back fallback_location: current_user }
+      format.js
+    end
   end
 
   def clear
     Notification.where(user_type: current_user.class.name, user_id: current_user.id).destroy_all
-    redirect_back fallback_location: current_user
+    respond_to do |format|
+      format.html { redirect_back fallback_location: current_user }
+      format.js
+    end
   end
 
   private

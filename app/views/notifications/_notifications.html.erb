@@ -1,0 +1,15 @@
+<% if notifications.any? %>
+  <h2 class="clear text-left">
+    <%= link_to 'Clear All Notifications', notifications_clear_path, method: :delete, remote: true, class: 'btn btn-link' %>
+  </h2>
+  <ol class="">
+    <%= render notifications %>
+  </ol>
+<% else %>
+  <h2 class="clear text-left">
+    <a href="#", class="btn btn-link disabled", role="button" aria-disabled="true">Clear All Notifications</a>
+  </h2>
+  <ol>
+    <li>No Notifications</li>
+  </ol>
+<% end %>

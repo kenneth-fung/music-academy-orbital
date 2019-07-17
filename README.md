@@ -47,7 +47,8 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - seed posts/messages
  
 - Ajax, json
-- ~~add autocomplete function to search bar in navbar~~
+  - ~~add autocomplete function to search bar in navbar~~
+  - ~~update page without reload when clearing notifications~~
 
 #### Direct Upload
 

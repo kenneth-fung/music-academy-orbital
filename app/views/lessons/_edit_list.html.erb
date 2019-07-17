@@ -2,7 +2,7 @@
 
   <!--Display a sortable (by drag and drop) list of links to the lessons-->
 
-  <div id="lessons" class="list-group lessons-list" data-url="<%= sort_lessons_path %>">
+  <div id="lessons-list-edit" class="list-group lessons-list" data-url="<%= sort_lessons_path %>">
     <% @course.lessons.reorder(:position).each do |lesson| %>
       <%=
         link_to lesson.name,

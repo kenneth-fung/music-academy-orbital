@@ -42,7 +42,10 @@ class TutorsController < ApplicationController
       Notification.find(params[:mark_read]).update_attribute(:read, true)
     end
 
-    redirect_to root_path and return unless @tutor.activated?
+    respond_to do |format|
+      format.html { redirect_to root_path and return unless @tutor.activated? }
+      format.js
+    end
   end
 
   def index

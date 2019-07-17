@@ -38,6 +38,11 @@ class StudentsController < ApplicationController
     @notifications = @student
     .notifications
     .reorder(created_at: :desc) if current_user? @student
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def index

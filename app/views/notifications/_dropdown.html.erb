@@ -1,6 +1,6 @@
-<li class="notifications-dropdown nav-item dropdown">
+<li id="notifications-dropdown" class="nav-item dropdown">
 
-  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarNotificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
     <%= image_tag "notification.png" %>
 
@@ -16,33 +16,27 @@
 
     <% if current_user.notifications.any? %>
 
-      <div class="dropdown-item text-right">
-        <small class="">
-          <%= link_to 'clear all', notifications_clear_path, method: :delete %>
-        </small>
-      </div>
-
       <% current_user.notifications.reorder(created_at: :desc).limit(5).each do |notification| %>
         <%= render 'notifications/dropdown_item', notification: notification %>
       <% end %>
 
-      <div class="dropdown-item text-center">
-        <small>
-          <% if student? %>
-            <%= link_to "See All Notifications", student_path(current_user, tab: 'notifications') %>
-          <% elsif tutor? %>
-            <%= link_to "See All Notifications", tutor_path(current_user, tab: 'notifications') %>
-          <% end %>
-        </small>
+    <% else %>
+
+      <div class="dropdown-item text-center disabled">
+        <i>none for now</i>
       </div>
+
+    <% end %>
+
+    <div class="dropdown-item text-center">
+      <small>
+        <% if student? %>
+          <%= link_to "See All Notifications (#{current_user.notifications_unread.count})", student_path(current_user, tab: 'notifications') %>
+        <% elsif tutor? %>
+          <%= link_to "See All Notifications (#{current_user.notifications_unread.count})", tutor_path(current_user, tab: 'notifications') %>
+        <% end %>
+      </small>
+    </div>
   </div>
-
-<% else %>
-
-  <div class="dropdown-item text-center disabled">
-    <i>none for now</i>
-  </div>
-
-<% end %>
 
 </li>

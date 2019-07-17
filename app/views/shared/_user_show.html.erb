@@ -31,7 +31,7 @@
             <a class="nav-link active" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
               Notifications
               <% if current_user.notifications_unread.any? %>
-                <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
+                <span id="" class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
               <% else %>
                 <span class="badge badge-pill badge-secondary">0</span>
               <% end %>
@@ -127,21 +127,7 @@
                 <% end %>
 
                 <div class="notifications">
-                  <% if @notifications.any? %>
-                    <h2 class="clear text-left">
-                      <%= link_to 'Clear All Notifications', notifications_clear_path, method: :delete, class: 'btn btn-link' %>
-                    </h2>
-                    <ol class="">
-                      <%= render @notifications %>
-                    </ol>
-                  <% else %>
-                    <h2 class="clear text-left">
-                      <a href="#", class="btn btn-link disabled", role="button" aria-disabled="true">Clear All Notifications</a>
-                    </h2>
-                    <ol>
-                      <li>No Notifications</li>
-                    </ol>
-                  <% end %>
+                  <%= render 'notifications/notifications', notifications: @notifications %>
                 </div>
 
                 </div>

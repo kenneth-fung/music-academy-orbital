@@ -9,17 +9,7 @@
 
         <% if @course.tutor == current_user %>
 
-          <% unread_number = find_unread_from_lesson(lesson) %>
-          <% if unread_number > 0 %>
-            <%= link_to course_path(@course, lesson_page: lesson.position, anchor: 'forum'), class: 'nav-link text-dark' do %>
-              <%= lesson.name %><br>
-              <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
-            <% end %>
-          <% else %>
-
-            <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' %>
-
-          <% end %>
+          <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' %>
 
         <% else %>
 

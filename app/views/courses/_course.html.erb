@@ -15,16 +15,9 @@
 
     <% if course_owner?(course) %>
 
-      <% unread_number = find_unread_from_course(course) %>
-
-      <% if unread_number > 0 || params[:action] == 'index' %>
+      <% if params[:action] == 'index' %>
 
         <span class="badges">
-
-          <!--Unread Messages for Tutors-->
-          <% if unread_number > 0 %>
-            <span class="badge badge-primary"><%= pluralize(unread_number, 'message') %></span>
-          <% end %>
 
           <!--Published by Current User-->
           <% unless params[:action] == 'show' && @tutor && current_user?(@tutor) %>
