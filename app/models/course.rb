@@ -20,24 +20,24 @@ class Course < ApplicationRecord
   scope :most_popular, -> {order(popularity: :desc)}
 
   validates :title,
-            presence: true,
-            length: {maximum: 50}
+    presence: true,
+    length: {maximum: 50}
 
   validates :content,
-            presence: true
+    presence: true
 
   validates :price,
-            presence: true,
-            numericality: {greater_than_or_equal_to: 0}
+    presence: true,
+    numericality: {greater_than_or_equal_to: 0}
 
   validates :tutor,
-            presence: true
+    presence: true
 
   # Queries the Course table only, and only its title column
   def Course.search_title(query)
     return self if query.nil? or query.empty?
     query_terms = query.split
-    
+
     title_query = [(['(LOWER(title) LIKE ?)'] * query_terms.length).join(' AND ')]
 
     # Construct complete array of query terms to feed to SQL fragment
@@ -47,7 +47,7 @@ class Course < ApplicationRecord
     complete_query_terms.map! {|query_term| "%#{query_term}%"}
 
     # Execute the complete SQL query
-    where(title_query + complete_query_terms).distinct
+    where(title_query + complete_query_terms)
   end
 
   # Queries the Course, Tutor, and Lessons tables
@@ -92,6 +92,35 @@ class Course < ApplicationRecord
       most_popular
     else
       newest
+    end
+  end
+
+  # Returns a given student's courses sorted in a given order
+  def Course.sort_student_courses(student, sort_by)
+    case sort_by
+    when 'oldest'
+      self.merge(Subscription
+                 .where(student_id: student.id)
+                 .reorder(created_at: :asc))
+    else
+      # sort by newest subscriptions first by default
+      self.merge(Subscription
+                 .where(student_id: student.id)
+                 .reorder(created_at: :desc))
+    end
+  end
+
+  # Returns a tutor's courses sorted in a given order
+  def Course.sort_tutor_courses(sort_by)
+    case sort_by
+    when 'newest'
+      self.reorder(created_at: :desc)
+    when 'oldest'
+      self.reorder(created_at: :asc)
+    when 'messages'
+      self.reorder(unread: :desc)
+    else
+      self.reorder(created_at: :desc)
     end
   end
 

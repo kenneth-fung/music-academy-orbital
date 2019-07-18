@@ -24,12 +24,11 @@ class StudentsController < ApplicationController
   end
 
   def show
-    courses = @student
-    .sort_courses_by(params[:sort_by])
-    .where.not(id: @student.pending_course)
-    params[:search_profile] && !params[:search_profile].empty? ?
-      @courses = courses.search(params[:search_profile]) :
-      @courses = courses
+    courses = @student.courses.where.not(id: @student.pending_course)
+    if params[:search_profile] && !params[:search_profile].empty?
+      courses = courses.search_title(params[:search_profile])
+    end
+    @courses = courses.sort_student_courses(@student, params[:sort_by])
 
     @title = student? && current_user?(@student) ?
       'My Profile' :
@@ -52,8 +51,14 @@ class StudentsController < ApplicationController
 
   def courses
     @student = Student.find(params[:id])
+
     # Order courses by date of Subscription (newest Subscription first)
-    @courses = @student.newest_courses.where.not(id: @student.pending_course).paginate(page: params[:page])
+    @courses = @student
+    .courses
+    .where.not(id: @student.pending_course)
+    .sort_student_courses(@student, 'newest')
+    .paginate(page: params[:page])
+
     @title = (student? && current_user?(@student)) ?
       "My Courses" :
       "#{@student.name}'s Courses"
@@ -103,7 +108,7 @@ class StudentsController < ApplicationController
       # Allow only the student himself to see his page
       unless current_user?(@student)
         flash[:danger] = "That student's account is private."
-        redirect_back fallback_loaction: root_path
+        redirect_back fallback_location: root_path
       end
     end
   end

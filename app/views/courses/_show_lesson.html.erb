@@ -40,12 +40,13 @@
             <% else %>
               <!--Video Blocked-->
               <section class="video-block">
-                <h3><strong>Interested in this course?</strong></h3>
-                <h2>
-                  Please
-                  <%= link_to "purchase", subscribe_path(course_id: @course.id) %>
-                  it to unlock its lessons.
-                </h2>
+                <% if tutor? %>
+                  <h3><strong>You are currently logged in as a tutor.</strong></h3>
+                  <h2>Please log in as a student to purchase this course and unlock its lessons.</h2>
+                <% else %>
+                  <h3><strong>Interested in this course?</strong></h3>
+                  <h2>Please purchase it to unlock its lessons.</h2>
+                <% end %>
               </section>
             <% end %>
           <% end %>

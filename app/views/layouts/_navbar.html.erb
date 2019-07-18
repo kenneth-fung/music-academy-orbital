@@ -34,13 +34,8 @@
           Account
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <% if tutor? %>
-            <%= link_to "My Courses", courses_tutor_path(current_user), class: 'dropdown-item' %>
-          <% elsif student? %>
-            <%= link_to "My Courses", courses_student_path(current_user), class: 'dropdown-item' %>
-          <% end %>
           <!--My Profile-->
-          <%= link_to "Profile", current_user, class: 'dropdown-item' %>
+          <%= link_to "My Profile", current_user, class: 'dropdown-item' %>
           <!--Settings-->
           <% if tutor? %>
             <%= link_to "Settings", edit_tutor_path(current_user), class: 'dropdown-item' %>

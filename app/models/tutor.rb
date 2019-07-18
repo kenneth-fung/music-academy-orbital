@@ -52,19 +52,6 @@ class Tutor < ApplicationRecord
     .distinct
   end
 
-  def sort_courses_by(sort_by)
-    case sort_by
-    when 'newest'
-      courses.reorder(created_at: :desc)
-    when 'oldest'
-      courses.reorder(created_at: :asc)
-    when 'messages'
-      courses.reorder(unread: :desc)
-    else
-      courses.reorder(created_at: :desc)
-    end
-  end
-
   # Calculates a rating for the tutor by taking the average rating of their
   # courses (except those without ratings) and the number of unique students
   def rating

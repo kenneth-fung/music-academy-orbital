@@ -22,18 +22,24 @@ expecting <"password_resets/edit"> but rendering with <[]>
 ### UI Improvements
 
 **Based on feedback after user test:**
+
 - Course/Lessons tabs not immediately obvious
-  - try greyjng out inactive tab
+  - try greying out inactive tab
   - try fixing tabs to top of page while scrolling
+
 - Add ‘+ New Course’ button to navbar for tutors
+
 - Course content description should have a few sections (improve template for tutors)
   - Language the course is in
   - Features: 9 lessons, 24 downloadable resources, 78 students
   - What will you learn from this course?
   - Prerequisites to taking this course
+
 - Course image banner should also be present on course page, probably behind the course title
   - in course edit page, add an example card to show off what the course’s card looks like during editing
+
 - Centralize pagination buttons on ‘courses’ page
+
 - Home Page
   - New User (no account)
     - should see the “Welcome” and search bar that are currently there
@@ -49,11 +55,18 @@ expecting <"password_resets/edit"> but rendering with <[]>
       - one more row of recommendations: “Courses Similar to What You’re Taking”
   - Tutor (logged in)
     - same as new user
+
 - Upon logging in, Student should be redirected to Home page, Tutor to their Profile page  
+
+- Tutors Page
+  - each tutor's card should have the information that is currently on their
+    course's page (tutor rating, number of students, etc)
+
 - Search field in Navbar
   - blend in a bit more to differentiate from search bars on Home and Courses page
     - maybe change background color of search field (more translucent?)
     - or just remove it, since Home and Courses Page already have search bars
+
 - File Uploads
   - grey out the “save changes” and “back” buttons
   - check why adobe acrobat documents can’t be uploaded (type: ‘application/pdf’)
@@ -67,6 +80,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - switch between lessons in scrollmenu without reloading page
 - post/update/delete reviews without reloading page
 - sort courses on courses/profile page without reloading page
+- clear search field on profile page without reloading page
 - save changes to courses/lessons without reloading page
 
 ### Features / Other Improvements
