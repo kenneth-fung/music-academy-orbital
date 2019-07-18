@@ -1,7 +1,7 @@
 <%= render 'reports/form_course', title: "Report Course \"#{@course.title}\"", origin: @course %>
 
 <!--Title-->
-<div class="row">
+<div class="title row">
   <div class="col">
     <h1>
       <%= @course.title %>
@@ -19,7 +19,7 @@
 
 <!--Edit Course Button-->
 <% if tutor? && (current_user?(@tutor) || current_user.admin?) %>
-  <div class="row justify-content-center">
+  <div class="edit-button row justify-content-center">
     <div class="col-md-6 d-flex justify-content-center">
       <%=
         link_to "Edit Course",
@@ -35,9 +35,20 @@
 <!--Course Content-->
 <div class="row">
   <div class="col">
+
+    <h2 class="features-list text-left">
+      <strong>Features</strong>
+      <ul class="list-inline">
+        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@lessons.count, "lesson") %></li>
+        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@course.resources_count, "downloadable resource") %></li>
+        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@course.students.count, "student") %></li>
+      </ul>
+    </h2>
+
     <h2 class="content mt-2">
       <%= @course.content %>
     </h2>
+
   </div>
 </div>
 

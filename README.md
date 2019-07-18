@@ -31,12 +31,12 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - Course content description should have a few sections (improve template for tutors)
   - Language the course is in
-  - Features: 9 lessons, 24 downloadable resources, 78 students
+  - ~~Features: 9 lessons, 24 downloadable resources, 78 students~~
   - What will you learn from this course?
   - Prerequisites to taking this course
 
 - Course image banner should also be present on course page, probably behind the course title
-  - in course edit page, add an example card to show off what the course’s card looks like during editing
+  - ~~in course edit page, add an example card to show off what the course’s card looks like during editing~~
 
 - ~~Centralize pagination buttons on 'courses' and 'tutors' pages~~
 

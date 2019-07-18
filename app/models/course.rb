@@ -124,6 +124,17 @@ class Course < ApplicationRecord
     end
   end
 
+  # Returns the total number of downloadable resources for the course's lessons
+  def resources_count
+    total = 0
+    if lessons.any?
+      lessons.each do |lesson|
+        total += lesson.resources.attachments.count if lesson.resources.attached?
+      end
+    end
+    return total
+  end
+
   private
 
   # Validates that the image is of the correct file type

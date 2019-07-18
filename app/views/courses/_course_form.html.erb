@@ -1,6 +1,12 @@
 <%= form_for(@course, url: yield(:url_path)) do |f| %>
   <%= render 'shared/error_messages', object: @course %>
 
+  <% if params[:action] == 'edit' || params[:action] == 'update' %>
+    <div class="course-card-preview row">
+      <%= render 'courses/course', course: @course %>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= f.label :title %>
     <% if f.object.errors.any? && f.object.errors.include?(:title) %>
@@ -49,7 +55,7 @@
       <% end %>
 
       <!--Image display-->
-      <div><%= image_tag url_for(@course.image) %></div>
+      <div><%= image_tag url_for(@course.image), height: "100%", width: "100%" %></div>
 
       <!--Image deletion link-->
       <div><i><%= link_to "(delete and upload another image)",

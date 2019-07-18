@@ -67,9 +67,6 @@
       <!--Rating-->
       <span class="rating">
         <%= render 'reviews/rating', rating: course.rating %>
-        <% unless course.reviews.any? %>
-          <br><small><i>(no reviews yet)</i></small>
-        <% end %>
       </span>
 
       <!--Students-->
