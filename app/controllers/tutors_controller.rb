@@ -50,7 +50,7 @@ class TutorsController < ApplicationController
 
   def index
     @tutors = Tutor.where(activated: true).paginate(page: params[:page])
-    @title = "All Tutors"
+    @title = "Tutors"
   end
 
   def students

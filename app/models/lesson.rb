@@ -34,7 +34,7 @@ class Lesson < ApplicationRecord
 
   # Validates that the lesson resources are of the correct file types
   def resources_file_types
-    allowed_file_types = %w[attachment/pdf 
+    allowed_file_types = %w[application/pdf 
     image/png image/jpeg 
     audio/mpeg audio/x-mpeg 
     audio/mp3 audio/x-mp3 

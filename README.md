@@ -59,8 +59,10 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - ~~Upon logging in, Student should be redirected to Home page, Tutor to their Profile page~~
 
 - Tutors Page
-  - each tutor's card should have the information that is currently on their
-    course's page (tutor rating, number of students, etc)
+  - ~~each tutor's card should have the information that is currently on their
+    course's page (tutor rating, number of students, etc)~~
+  - rows of different types of tutors
+    - e.g. Popular Tutors, Tutors Teaching Piano
 
 - Search field in Navbar
   - blend in a bit more to differentiate from search bars on Home and Courses page
@@ -71,7 +73,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - File Uploads
   - grey out the “save changes” and “back” buttons
-  - check why adobe acrobat documents can’t be uploaded (type: ‘application/pdf’)
+  - ~~check why adobe acrobat documents can’t be uploaded (type: ‘application/pdf’)~~
   - for the final showcase, disable file purge due to form errors (ignore orphaned files)
 
 ### Ajax/JSON Improvements
