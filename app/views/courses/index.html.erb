@@ -26,7 +26,11 @@
     <%= render @courses %>
   </div>
 
-  <%= will_paginate @courses, class: "pagination" %>
+  <div class="row">
+    <div class="col-auto" style="margin-left: 25%;">
+      <%= will_paginate @courses, class: "pagination" %>
+    </div>
+  </div>
 
 <% else %>
 

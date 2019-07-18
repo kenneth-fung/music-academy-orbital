@@ -91,9 +91,16 @@
 
                     <div class="col search">
                       <%= form_tag tutor_path(@tutor, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
-                        <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control w-50' %>
+                        <div class="input-group w-50">
+                          <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control outline-secondary w-50' %>
+                          <div class="input-group-append">
+                            <%= button_tag class: 'btn btn-secondary' do %>
+                              <%= image_tag 'search.png' %>
+                            <% end %>
+                          </div>
+                        </div>
                       <% end %>
-                      <small><%= link_to 'clear search', tutor_path(@tutor, anchor: 'courses-tab'), class: 'search-clear ml-2' %></small>
+                      <small><%= link_to 'clear search results', tutor_path(@tutor, anchor: 'courses-tab'), class: 'search-clear ml-2', style: "color:gray;" %></small>
                     </div>
                     <div class="col sort">
                       <%= render 'tutors/courses_sort' %>

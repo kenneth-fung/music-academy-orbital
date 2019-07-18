@@ -26,6 +26,11 @@
         <div class="invalid-feedback d-block">
           account not activated, please check your email for the activation link
         </div>
+      <% elsif params[:error] == 'provider account' %>
+        <%= f.email_field :email, class: 'form-control is-invalid' %>
+        <div class="invalid-feedback d-block">
+          you have already used this email to sign up through Google
+        </div>
       <% else %>
         <%= f.email_field :email, class: 'form-control' %>
       <% end %>
@@ -48,11 +53,6 @@
         <%= f.password_field :password, class: 'form-control is-invalid' %>
         <div class="invalid-feedback d-block">
           invalid email/password combination
-        </div>
-      <% elsif params[:error] == 'unactivated' %>
-        <%= f.password_field :password, class: 'form-control is-invalid' %>
-        <div class="invalid-feedback d-block">
-          account not activated, please check your email for the activation link
         </div>
       <% else %>
         <%= f.password_field :password, class: 'form-control' %>

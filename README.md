@@ -27,7 +27,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
   - try greying out inactive tab
   - try fixing tabs to top of page while scrolling
 
-- Add ‘+ New Course’ button to navbar for tutors
+- ~~Add ‘New Course’ button to navbar for tutors~~
 
 - Course content description should have a few sections (improve template for tutors)
   - Language the course is in
@@ -38,7 +38,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - Course image banner should also be present on course page, probably behind the course title
   - in course edit page, add an example card to show off what the course’s card looks like during editing
 
-- Centralize pagination buttons on ‘courses’ page
+- ~~Centralize pagination buttons on 'courses' and 'tutors' pages~~
 
 - Home Page
   - New User (no account)
@@ -56,7 +56,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
   - Tutor (logged in)
     - same as new user
 
-- Upon logging in, Student should be redirected to Home page, Tutor to their Profile page  
+- ~~Upon logging in, Student should be redirected to Home page, Tutor to their Profile page~~
 
 - Tutors Page
   - each tutor's card should have the information that is currently on their
@@ -66,6 +66,8 @@ expecting <"password_resets/edit"> but rendering with <[]>
   - blend in a bit more to differentiate from search bars on Home and Courses page
     - maybe change background color of search field (more translucent?)
     - or just remove it, since Home and Courses Page already have search bars
+
+- ~~Add search button to search bar on user profile page~~
 
 - File Uploads
   - grey out the “save changes” and “back” buttons

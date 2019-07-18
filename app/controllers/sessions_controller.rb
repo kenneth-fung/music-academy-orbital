@@ -12,16 +12,21 @@ class SessionsController < ApplicationController
       if @user.activated?
         log_in @user
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-        redirect_back_or @user
+        if user_type == Tutor
+          redirect_back_or @user
+        elsif user_type == Student
+          redirect_back_or root_path
+        end
       else
-        # message = "Account not activated."
-        # message += "Please check your email for the activation link."
-        # flash[:warning] = message
+        params[:user_type] = params[:session][:user_type]
         params[:error] = 'unactivated'
-        redirect_to root_path
+        render 'new'
       end
+    elsif @user && !@user.provider.nil?
+      params[:user_type] = params[:session][:user_type]
+      params[:error] = 'provider account'
+      render 'new'
     else
-      # flash.now[:danger] = "Invalid email/password combination."
       params[:user_type] = params[:session][:user_type]
       params[:error] = 'email/password'
       render 'new'

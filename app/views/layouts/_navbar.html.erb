@@ -18,12 +18,20 @@
     <li class="nav-item">
       <%= link_to "Courses", courses_url, class: 'nav-link text-light' %>
     </li>
-    <% if logged_in? %>
 
-      <!--Tutor/Student items-->
+    <% if tutor? %>
+      <li class="nav-item">
+        <%= link_to 'New Course',  new_course_path(back_to: 'show'), class: 'nav-link text-light' %>
+      </li>
+    <% end %>
+
+    <% unless tutor? %>
       <li class="nav-item">
         <%= link_to "Tutors", tutors_path, class: 'nav-link text-light' %>
       </li>
+    <% end %>
+
+    <% if logged_in? %>
 
       <!--Notifications-->
       <%= render 'notifications/dropdown' %>
