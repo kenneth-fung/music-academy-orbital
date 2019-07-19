@@ -40,20 +40,20 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - ~~Centralize pagination buttons on 'courses' and 'tutors' pages~~
 
 - Home Page
-  - New User (no account)
-    - should see the “Welcome” and search bar that are currently there
-    - should see a list of features of the website (immediately, without scrolling down)
-      - e.g. “Hundreds of Courses”, “Dozens of Experienced Tutors”, “One Course, One Price”
-    - rows of recommendations, to give them somewhere to start clicking and going
-      - e.g. Most Popular, New Courses, Guitar Courses, Popular Tutors
-    - it should be made obvious that they can scroll down
-      - either have the current image not take up the whole page, or add a large “down arrow” at the bottom
+  - ~~New User (no account)~~
+    - ~~should see the “Welcome” and search bar that are currently there~~
+    - ~~should see a list of features of the website (immediately, without scrolling down)~~
+      - ~~e.g. “Hundreds of Courses”, “Dozens of Experienced Tutors”, “One Course, One Price”~~
+    - ~~rows of recommendations, to give them somewhere to start clicking and going~~
+      - ~~e.g. Most Popular, New Courses, Guitar Courses, Popular Tutors~~
+    - ~~it should be made obvious that they can scroll down~~
+      - ~~either have the current image not take up the whole page, or add a large “down arrow” at the bottom~~
   - Student (logged in)
     - same as new user, except for two things:
       - replace the list of features and the current search bar with “Welcome back, here’s where you left off”
       - one more row of recommendations: “Courses Similar to What You’re Taking”
-  - Tutor (logged in)
-    - same as new user
+  - ~~Tutor (logged in)~~
+    - ~~same as new user~~
 
 - ~~Upon logging in, Student should be redirected to Home page, Tutor to their Profile page~~
 
