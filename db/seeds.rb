@@ -82,8 +82,8 @@ rand(300..400).times do
   title         = instrument + ': ' + grade
   content       = Faker::Lorem.paragraph(rand(15..50))
   target        = Faker::Lorem.paragraph(rand(3..10))
-  prerequisites = Faker::LOrem.paragraph(rand(2..5))
-  language      = English
+  prerequisites = Faker::Lorem.paragraph(rand(2..5))
+  language      = "English"
   price         = rand(2000).to_f / 100.to_f
 
   # Tags
