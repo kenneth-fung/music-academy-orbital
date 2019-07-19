@@ -5,9 +5,9 @@
 ### To Fix
     
 "**password resets**" test in test/integration/**password_resets_test**.rb
-throws an error on line 44.
+throws an error on line 43.
 
-Line 44:
+Line 43:
 ```
 assert_template 'password_resets/edit'
 ```
@@ -29,13 +29,13 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - ~~Add ‘New Course’ button to navbar for tutors~~
 
-- Course content description should have a few sections (improve template for tutors)
-  - Language the course is in
+- ~~Course content description should have a few sections (improve template for tutors)~~
+  - ~~Language the course is in~~
   - ~~Features: 9 lessons, 24 downloadable resources, 78 students~~
-  - What will you learn from this course?
-  - Prerequisites to taking this course
+  - ~~What will you learn from this course?~~
+  - ~~Prerequisites to taking this course~~
 
-- Course image banner should also be present on course page, probably behind the course title
+- ~~Course image banner should also be present on course page, probably behind the course title~~
   - ~~in course edit page, add an example card to show off what the course’s card looks like during editing~~
 
 - ~~Centralize pagination buttons on 'courses' and 'tutors' pages~~

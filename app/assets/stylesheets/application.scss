@@ -294,26 +294,84 @@ footer {
 }
 
 .show_course {
-  .title {
-    margin-top: 20px;
+  .course-header {
+    .col {
+      padding: 15px;
+    }
   }
-  .enroll-quit {
-    margin-bottom: 30px;
+  .image {
+    background: center no-repeat;
+    height: 50vh;
+    background-size: cover;
+  }
+  .image-text {
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-weight: bold;
+    border: 3px ridge rgb(200, 200, 200);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+    h1, h2 {
+      color: white;
+      text-shadow: 2px 2px 4px black;
+    }
+    .title {
+      margin: 10px 0px;
+    }
+    .tutor-name {
+      color: rgb(210, 210, 210);
+      margin: 10px 0px;
+    }
+  }
+  .enroll {
+    margin: 30px 0px;
+    .col {
+      padding: 0px;
+    }
   }
   .edit-button {
-    margin-bottom: 20px;
+    margin: 20px 0px;
+    .col {
+      padding: 0px;
+    }
+  }
+  .content {
+    color: $gray-light;
+    margin-bottom: 10px;
+    .content-heading {
+      margin-bottom: 10px;
+    }
+    .features-list {
+        margin-top: 5px;
+      .list-inline-item {
+        color: $gray;
+        margin-top: 10px;
+        margin-right: 50px;
+        img {
+          margin-top: -3px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  .target-heading, .prerequisites-heading {
+    margin-top: 20px;
+    font-size: 1.3em;
+    color: $gray;
+  }
+  .target, .prerequisites {
+    color: $gray-light;
+    margin-bottom: 10px;
   }
   .report-button {
     margin-bottom: 20px;
-  }
-  .features-list {
-    img {
-      margin-top: -5px;
-    }
-    .list-inline-item {
-      margin-top: 10px;
-      margin-right: 100px;
-    }
   }
   .tutor {
     margin-bottom: 30px;

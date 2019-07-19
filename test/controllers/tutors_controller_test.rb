@@ -6,16 +6,10 @@ class TutorsControllerTest < ActionDispatch::IntegrationTest
     @other_tutor = tutors(:archer)
   end
 
-  test "should redirect index when not logged in" do
-    get tutors_path
-    assert_not flash.empty?
-    assert_redirected_to login_path
-  end
-
   test "should redirect edit when not logged in" do
     get edit_tutor_path(@tutor)
     assert_not flash.empty?
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
   test "should redirect edit when logged in as wrong tutor" do
@@ -37,7 +31,7 @@ class TutorsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Tutor.count' do
       delete tutor_path(@tutor)
     end
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
   test "should redirect destroy when logged in as a non-admin" do

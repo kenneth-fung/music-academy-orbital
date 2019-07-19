@@ -23,8 +23,9 @@ class Course < ApplicationRecord
     presence: true,
     length: {maximum: 50}
 
-  validates :content,
-    presence: true
+  validates :language,
+    presence: true,
+    length: {maximum: 200}
 
   validates :price,
     presence: true,

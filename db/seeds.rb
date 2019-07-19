@@ -77,11 +77,14 @@ tags = %w[fun music instrument learn best great musician bootcamp course]
 
 # Courses
 rand(300..400).times do
-  instrument = Faker::Music.instrument
-  grade      = 'Grade ' + rand(1..10).to_s
-  title      = instrument + ': ' + grade
-  content    = Faker::Lorem.paragraph(rand(15..50))
-  price      = rand(2000).to_f / 100.to_f
+  instrument    = Faker::Music.instrument
+  grade         = 'Grade ' + rand(1..10).to_s
+  title         = instrument + ': ' + grade
+  content       = Faker::Lorem.paragraph(rand(15..50))
+  target        = Faker::Lorem.paragraph(rand(3..10))
+  prerequisites = Faker::LOrem.paragraph(rand(2..5))
+  language      = English
+  price         = rand(2000).to_f / 100.to_f
 
   # Tags
   tag_list = [instrument.downcase, grade.downcase]
@@ -102,7 +105,10 @@ rand(300..400).times do
 
   tutor      = Tutor.find(Tutor.pluck(:id).sample)
   course     = tutor.courses.create!(title:   title, 
-                                     content: content, 
+                                     content: content,
+                                     target: target,
+                                     prerequisites: prerequisites,
+                                     language: language,
                                      price:   price,
                                      tag_list: tag_list)
 

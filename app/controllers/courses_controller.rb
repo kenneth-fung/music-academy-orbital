@@ -113,7 +113,7 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:title, :content, :price, :image, :search, :tag_list)
+    params.require(:course).permit(:title, :content, :target, :prerequisites, :language, :price, :image, :search, :tag_list)
   end
 
   # Before filters

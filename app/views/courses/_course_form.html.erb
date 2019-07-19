@@ -87,20 +87,82 @@
   </section>
 
   <div class="form-group">
-    <%= f.label :content, "Description" %>
+
+    <%= f.label :content, "Course Description" %>
+    <% placeholder = "Provide some details about your course, such as the instruments involved, the number of lessons, and why it's a great course to take!" %>
     <% if f.object.errors.any? && f.object.errors.include?(:content) %>
-      <%= f.text_area :content, rows: 15, required: "required", class: 'form-control is-invalid' %>
+      <%= f.text_area :content, rows: 15, placeholder: placeholder, class: 'form-control is-invalid' %>
       <div class="invalid-feedback d-block">
         <%= f.object.errors.messages[:content].join(", ") %>
       </div>
     <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:content) %>
-      <%= f.text_area :content, rows: 15, required: "required", class: 'form-control is-valid' %>
+      <%= f.text_area :content, rows: 15, placeholder: placeholder, class: 'form-control is-valid' %>
       <div class="valid-feedback d-block">
         Looks good!
       </div>
     <% else %>
-      <%= f.text_area :content, rows: 15, required: "required", class: 'form-control' %>
+      <%= f.text_area :content, rows: 15, placeholder: placeholder, class: 'form-control' %>
     <% end %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= f.label :target, "Who is this course for?" %>
+    <% placeholder = "Music hobbyists? Serious students? Let people know who this course is for, and how difficult it might be." %>
+    <% if f.object.errors.any? && f.object.errors.include?(:target) %>
+      <%= f.text_area :target, rows: 5, placeholder: placeholder, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:target].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:target) %>
+      <%= f.text_area :target, rows: 5, placeholder: placeholder, class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_area :target, rows: 5, placeholder: placeholder, class: 'form-control' %>
+    <% end %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= f.label :prerequisites, "Prerequisites to Taking this Course" %>
+    <% placeholder = "What instruments will your students need? How much time must they invest? Feel free to list any other requirements your course might need." %>
+    <% if f.object.errors.any? && f.object.errors.include?(:prerequisites) %>
+      <%= f.text_area :prerequisites, rows: 5, placeholder: placeholder, class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:prerequisites].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:prerequisites) %>
+      <%= f.text_area :prerequisites, rows: 5, placeholder: placeholder, class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_area :prerequisites, rows: 5, placeholder: placeholder, class: 'form-control' %>
+    <% end %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= f.label :language, "Course Language" %>
+    <% if f.object.errors.any? && f.object.errors.include?(:language) %>
+      <%= f.text_field :language, max: 200, required: "required", class: 'form-control is-invalid' %>
+      <div class="invalid-feedback d-block">
+        <%= f.object.errors.messages[:language].join(", ") %>
+      </div>
+    <% elsif params[:action] == 'create' && f.object.errors.any? && !f.object.errors.include?(:language) %>
+      <%= f.text_field :language, max: 200, required: "required", class: 'form-control is-valid' %>
+      <div class="valid-feedback d-block">
+        Looks good!
+      </div>
+    <% else %>
+      <%= f.text_field :language, max: 200, required: "required", class: 'form-control' %>
+    <% end %>
+
   </div>
 
   <div class="form-group">

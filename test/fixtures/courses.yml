@@ -2,6 +2,7 @@
 piano:
   title: "Piano grade 5"
   content: "Scale and advanced chords"
+  language: "English"
   created_at: <%= 10.minutes.ago %>
   tutor: michael
 
@@ -9,6 +10,7 @@ piano:
 example-<%= n + 2 %>:
   title: <%= "Example Course #{n + 2}" %>
   content: <%= "This is another example of a course. In fact, this is example number #{n + 2}." %>
+  language: <%= "English" %>
   created_at: <%= 20.minutes.ago %>
   tutor: michael
 <% end %>

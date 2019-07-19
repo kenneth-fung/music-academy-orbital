@@ -9,13 +9,13 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   test "should redirect index when not logged in" do
     get students_path
     assert_not flash.empty?
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
   test "should redirect edit when not logged in" do
     get edit_student_path(@student)
     assert_not flash.empty?
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
   test "should redirect edit when logged in as wrong student" do
@@ -37,7 +37,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Student.count' do
       delete student_path(@student)
     end
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
   test "should redirect destroy when logged in as a non-admin" do

@@ -13,14 +13,14 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
                                              content: 'Lorem', 
                                              course_id: @course.id } }
     end
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
   test "should redirect destroy when not logged in" do
     assert_no_difference 'Review.count' do
       delete review_path(@review)
     end
-    assert_redirected_to login_path
+    assert_redirected_to login_path(user_type: "Student")
   end
 
 end
