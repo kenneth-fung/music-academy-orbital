@@ -1,15 +1,80 @@
 <% provide(:title, 'Home') %>
 
-<h3 class="">
-  <strong>Eight Random Courses</strong>
+<% if student? %>
+  <div class="welcome-back container not-home">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-left mb-2">
+          Welcome back, <%= current_user.name %>.
+        </h1>
+        <h2 class="text-left mb-2">
+          Pick up where you left off on
+        </h2>
+        <h3 class="text-left mb-5">
+          <% course = current_user.courses.reorder(Arel.sql('RANDOM()')).first %>
+          <strong><%= link_to course.title, course_path(course, lesson_page: 1) %></strong>
+        </h3>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @courses_beginners.any? %>
+  <%= render 'courses/collection', heading: 'Courses for Beginners', courses: @courses_beginners %>
+<% end %>
+
+<% if @courses_hot.any? %>
+  <%= render 'courses/collection', heading: 'What Students are Looking at Right Now', courses: @courses_hot %>
+<% end %>
+
+<% if @tutors.any? %>
+
+  <h3 class="home-tutors-heading mt-5">
+    <strong>
+      <%= link_to 'Some of Our Tutors', tutors_path %>
+    </strong>
+  </h3>
+
+  <%= render 'tutors/collection', heading: '', tutors: @tutors %>
+
+<% end %>
+
+<h3 class="text-left my-5">
+  <strong>
+    Searching for an instrument?
+  </strong>
 </h3>
 
-<% if @courses.any? %>
-  <div class="row">
-    <%= render @courses %>
+<% if @courses_instrument.any? %>
+  <%= render 'courses/collection', heading: "#{@instrument} Courses", courses: @courses_instrument %>
+<% end %>
+
+<% if @courses_instrument_two.any? %>
+  <%= render 'courses/collection', heading: "#{@instrument_two} Courses", courses: @courses_instrument_two %>
+<% end %>
+
+<h3 class="my-3">
+  <strong>
+    <%= link_to 'Check out more courses here!', courses_path, style: 'color: gray;' %>
+  </strong>
+</h3>
+
+<% if logged_out? %>
+  <div class="container my-5">
+    <div class="home-signup row">
+      <div class="signup-student col">
+        <h2 class="my-5">
+          Wish to start learning now?<br>
+          <strong><%= link_to 'Sign up as a student.', login_path(user_type: 'Student') %></strong>
+        </h2>
+      </div>
+      <div class="divider"></div>
+      <div class="signup-tutor col">
+        <h2 class="my-5">
+          Want to spread your musical knowledge?<br>
+          <strong><%= link_to 'Sign up as a tutor.', login_path(user_type: 'Tutor') %></strong>
+        </h2>
+      </div>
+    </div>
   </div>
-<% else %>
-  <h2 class="course-index-none">
-    <strong>No courses found...</strong>
-  </h2>
 <% end %>

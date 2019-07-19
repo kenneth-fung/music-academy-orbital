@@ -18,7 +18,7 @@ class Course < ApplicationRecord
   scope :highest_price, -> { order(price: :desc) }
   scope :top_rated,     -> { order(rating: :desc) }
   scope :most_popular,  -> { order(popularity: :desc) }
-  scope :random,        -> { order("RANDOM()") }
+  scope :random,        -> { order(Arel.sql("RANDOM()")) }
 
   validates :title,
     presence: true,

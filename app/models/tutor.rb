@@ -12,7 +12,7 @@ class Tutor < ApplicationRecord
   scope :most_students, -> { order(student_count: :desc) }
   scope :most_courses,  -> { left_outer_joins(:courses).group(:id).order('COUNT(courses.id) DESC') }
   scope :by_name,       -> { order(name: :asc) }
-  scope :random,        -> { order("RANDOM()") }
+  scope :random,        -> { order(Arel.sql("RANDOM()")) }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, 

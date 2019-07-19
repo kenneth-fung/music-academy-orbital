@@ -10,7 +10,7 @@ Student.create!(name:  "Runding",
                 password:              "wangrun123ding",
                 password_confirmation: "wangrun123ding",
                 activated:    true,
-                activated_at: Time.now)
+                activated_at: 1.month.ago)
 
 Tutor.create!(name:  "Runding",
               email: "wangrunding@gmail.com",
@@ -27,7 +27,7 @@ Tutor.create!(name:  "Runding",
               Xylophone, Drums, Violin, Harp, Bagpipes, and most importantly the Saxophone.",
 
               activated:    true,
-              activated_at: Time.now)
+              activated_at: 1.month.ago)
 
 Student.create!(name:  "Mr. Doctor (admin)",
                 email: "admin@student.com",
@@ -35,7 +35,7 @@ Student.create!(name:  "Mr. Doctor (admin)",
                 password_confirmation: "wangrun123ding",
                 admin: true,
                 activated:    true,
-                activated_at: Time.now)
+                activated_at: 1.month.ago)
 
 Tutor.create!(name:  "Master Doctor (admin)",
               email: "admin@tutor.com",
@@ -45,7 +45,7 @@ Tutor.create!(name:  "Master Doctor (admin)",
               bio: "Y'all better keep the peace or I'll delete you off the internet!",
               admin:        true,
               activated:    true,
-              activated_at: Time.now)
+              activated_at: 1.month.ago)
 
 # Tutors
 qualifications = %w[Degree Masters PhD Maestro Guru Sensei Tutor Encik Grade\ 10]
@@ -62,8 +62,10 @@ qualifications = %w[Degree Masters PhD Maestro Guru Sensei Tutor Encik Grade\ 10
                 qualification: qualification,
                 bio: bio,
                 activated:    true,
-                activated_at: Time.now)
+                activated_at: 1.month.ago)
 end
+
+Tutor.find_each {|tutor| tutor.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
 
 # Students
 (41..80).each do |n|
@@ -75,8 +77,10 @@ end
                   password:              password,
                   password_confirmation: password,
                   activated:    true,
-                  activated_at: Time.now)
+                  activated_at: 1.month.ago)
 end
+
+Student.find_each {|student| student.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
 
 # Tags Data
 tags = %w[fun music instrument learn best great musician bootcamp course]
@@ -118,21 +122,34 @@ rand(300..400).times do
                                      price:   price,
                                      tag_list: tag_list)
 
+  course.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)
+
   # Lessons
   rand(1..12).times do
     name = Faker::Food.dish
     description = Faker::Food.description
     course.lessons.create!(name: name, description: description)
   end
+
+  course.lessons.each {|lesson| lesson.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
+end
+
+# Method to generate random time
+def rand_time(from, to = Time.now)
+  rand * (to - from) + from
 end
 
 # Subscriptions
-students = Student.order('RANDOM()')
+students = Student.order(Arel.sql('RANDOM()'))
 students.each do |student|
   number_of_subscriptions = rand(35..50)
-  courses = Course.order('RANDOM()').limit(number_of_subscriptions)
+  courses = Course.order(Arel.sql('RANDOM()')).limit(number_of_subscriptions)
   courses.each do |course|
     student.subscribe(course)
+
+    subscription_time = rand_time(1.month.ago)
+    student.subscriptions.find_by(course_id: course.id).update_attributes(created_at: subscription_time, updated_at: subscription_time)
+
     # Reviews
     if rand > 0.50
       student.reviews.create!(rating: rand(1..5),

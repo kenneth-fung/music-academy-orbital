@@ -50,9 +50,9 @@ class TutorsController < ApplicationController
 
   def index
     @title = "Tutors"
-    popular_benchmark = Tutor.find(Tutor.count / 3 * 2).popularity
+
     popular_benchmark = Tutor.reorder(popularity: :asc).to_a[Tutor.count / 3 * 2].popularity
-    @tutors_popular = Tutor.where(activated: true).where('popularity > ?', popular_benchmark).reorder("RANDOM()").limit(4)
+    @tutors_popular = Tutor.where(activated: true).where('popularity > ?', popular_benchmark).reorder(Arel.sql("RANDOM()")).limit(4)
     @tutors_guitar  = Tutor.where(activated: true).teaches('guitar').limit(4)
     @tutors_piano   = Tutor.where(activated: true).teaches('piano').limit(4)
 

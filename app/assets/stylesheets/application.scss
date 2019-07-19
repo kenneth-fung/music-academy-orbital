@@ -301,6 +301,13 @@ footer {
   }
 }
 
+.courses-collection {
+  margin-bottom: 20px;
+  .heading {
+    font-size: 1.6em;
+  }
+}
+
 .course-lessons-nav-tabs {
   .nav-tabs {
     position: fixed;
@@ -576,15 +583,66 @@ footer {
 }
 
 /* home page */
-.my-bg {
+
+.home-bg {
   background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),
-  image-url('music_bg.jpeg') center no-repeat;
-  height: 100vh;
+  image-url('home_splash.jpeg') center no-repeat;
+  height: 80vh;
   background-size: cover;
+  .home-text {
+    margin-top: 5%;
+    h1, h3 {
+      text-shadow: 2px 2px 4px black;
+    }
+  }
 }
 
-#my-nav {
+#home-nav {
   background: transparent !important;
+}
+
+.home-features {
+  .list-inline {
+    padding: 25px 0px;
+    background-color: purple;
+    background: linear-gradient(to right, rgba(77, 38, 0, 0), rgba(102, 51, 0, 0.5), rgba(128, 64, 0, 1.0), rgba(153, 77, 0, 0.5), rgba(179, 89, 0, 0));
+    .list-inline-item {
+      margin: 5px 50px;
+      font-size: 1.2em;
+      text-shadow: 2px 2px 4px black;
+    }
+  }
+}
+
+.welcome-back {
+  a {
+    color: $gray;
+  }
+}
+
+.home-tutors-heading {
+  a {
+    color: $gray;
+    text-decoration: none;
+  }
+}
+
+.home-signup {
+  border: 1px solid $gray-light;
+  .divider {
+    border-left: 1px solid $gray-lighter;
+    border-right: 1px solid $gray-lighter;
+    height: 20%;
+    position: absolute;
+    right: 50%;
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  a {
+    font-size: 1.4em;
+    color: $gray;
+  }
 }
 
 /* card */
