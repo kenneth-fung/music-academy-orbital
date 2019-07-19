@@ -51,7 +51,8 @@ expecting <"password_resets/edit"> but rendering with <[]>
   - Student (logged in)
     - same as new user, except for two things:
       - replace the list of features and the current search bar with “Welcome back, here’s where you left off”
-      - one more row of recommendations: “Courses Similar to What You’re Taking”
+      - two more rows of recommendations: Your Courses; Recommended Courses for
+        You
   - ~~Tutor (logged in)~~
     - ~~same as new user~~
 

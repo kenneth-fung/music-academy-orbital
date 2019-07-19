@@ -2,7 +2,7 @@
 <% provide(:label_prefix, '') %>
 <% provide(:button_text, 'Create Account') %>
 
-<% if params[:controller].eql?('tutors') %>
+<% if params[:user_type].eql?('Tutor') %>
   <div class="row">
     <div class="col">
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">

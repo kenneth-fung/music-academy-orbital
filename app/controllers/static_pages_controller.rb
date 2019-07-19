@@ -4,14 +4,14 @@ class StaticPagesController < ApplicationController
     .left_outer_joins(:tags)
     .where('LOWER(tags.name) LIKE ? AND rating > ?', '%beginner%', '3')
     .reorder(Arel.sql('RANDOM()'))
-    .distinct
     .limit(4)
 
-    @courses_hot = Course
+    courses_hot = Course
     .left_outer_joins(:subscriptions)
     .where('subscriptions.created_at > ? AND rating > ?', 1.week.ago, '2')
-    .reorder(Arel.sql('RANDOM()'))
     .distinct
+    @courses_hot = courses_hot
+    .offset(rand(1...(courses_hot.count - 4)))
     .limit(4)
 
     @tutors = Tutor
@@ -47,7 +47,6 @@ class StaticPagesController < ApplicationController
     Course
     .where('LOWER(title) LIKE ? AND rating > ?', "%#{instrument.downcase}%", '2')
     .reorder(Arel.sql('RANDOM()'))
-    .distinct
     .limit(4)
   end
 end

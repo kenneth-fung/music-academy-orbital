@@ -134,11 +134,6 @@ rand(300..400).times do
   course.lessons.each {|lesson| lesson.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
 end
 
-# Method to generate random time
-def rand_time(from, to = Time.now)
-  rand * (to - from) + from
-end
-
 # Subscriptions
 students = Student.order(Arel.sql('RANDOM()'))
 students.each do |student|
@@ -147,7 +142,8 @@ students.each do |student|
   courses.each do |course|
     student.subscribe(course)
 
-    subscription_time = rand_time(1.month.ago)
+    # Generates a random date/time from within the past month
+    subscription_time = Time.now - rand(2592000) # 1 month = 2592000 seconds
     student.subscriptions.find_by(course_id: course.id).update_attributes(created_at: subscription_time, updated_at: subscription_time)
 
     # Reviews
@@ -155,19 +151,13 @@ students.each do |student|
       student.reviews.create!(rating: rand(1..5),
                               content: Faker::Lorem.paragraph(rand(1..8)),
                               course: course)
+
+      # Update Course Rating & Popularity
+      course.update_attributes(rating: course.rating_calc)
+      popularity = course.reviews.count + course.rating + course.students.count
+      course.update_attributes(popularity: popularity)
     end
   end
-end
-
-# Course Rating & Popularity
-Course.find_each do |course|
-  rating = course.reviews.any? ?
-    course.rating_calc :
-    course.rating
-  course.update_attributes(rating: rating)
-
-  popularity = course.reviews.count + course.rating + course.students.count
-  course.update_attributes(popularity: popularity)
 end
 
 # Tutor Popularity & Tutor's Student Count

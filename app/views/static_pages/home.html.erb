@@ -39,7 +39,7 @@
 
 <% end %>
 
-<h3 class="text-left my-5">
+<h3 class="text-left mt-5 mb-3">
   <strong>
     Searching for an instrument?
   </strong>
@@ -65,14 +65,14 @@
       <div class="signup-student col">
         <h2 class="my-5">
           Wish to start learning now?<br>
-          <strong><%= link_to 'Sign up as a student.', login_path(user_type: 'Student') %></strong>
+          <strong><%= link_to 'Sign up as a student.', signup_path(user_type: 'Student') %></strong>
         </h2>
       </div>
       <div class="divider"></div>
       <div class="signup-tutor col">
         <h2 class="my-5">
           Want to spread your musical knowledge?<br>
-          <strong><%= link_to 'Sign up as a tutor.', login_path(user_type: 'Tutor') %></strong>
+          <strong><%= link_to 'Sign up as a tutor.', signup_path(user_type: 'Tutor') %></strong>
         </h2>
       </div>
     </div>
