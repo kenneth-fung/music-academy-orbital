@@ -23,9 +23,8 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 **Based on feedback after user test:**
 
-- Course/Lessons tabs not immediately obvious
-  - try greying out inactive tab
-  - try fixing tabs to top of page while scrolling
+- ~~Course/Lessons tabs not immediately obvious~~
+  - ~~fix tabs to top of page while scrolling~~
 
 - ~~Add ‘New Course’ button to navbar for tutors~~
 

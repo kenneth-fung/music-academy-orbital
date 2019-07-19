@@ -293,6 +293,22 @@ footer {
   }
 }
 
+.course-lessons-nav-tabs {
+  .nav-tabs {
+    position: fixed;
+    z-index: 9;
+    background-color: #ffffff;
+    padding: 20px 950px 0px 0px;
+    margin-top: -1.5%;
+  }
+}
+
+.course-lessons-tab-content {
+  .tab-content {
+    margin-top: 3%;
+  }
+}
+
 .show_course {
   .course-header {
     .col {
