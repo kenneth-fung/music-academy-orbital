@@ -214,6 +214,14 @@ footer {
 
 /* user profile */
 
+.profile_heading {
+  a {
+    color: $gray;
+    font-size: 0.5em;
+    letter-spacing: -0.75px;
+  }
+}
+
 .user_profile {
   margin-bottom: 10px;
   .tutor-profile, .student-profile {
@@ -814,6 +822,11 @@ input[type=file][data-direct-upload-url][disabled]
 
 /* tutors */
 
+.tutors-page-heading {
+  margin: 20px 0px;
+  color: $gray-dark;
+}
+
 .tutor-card {
   .card-img-top {
     width: 100%;
@@ -830,8 +843,20 @@ input[type=file][data-direct-upload-url][disabled]
   .tutor-rating, .tutor-students, .tutor-courses {
     color: $gray;
   }
-  .tutor-bio {
-    margin-top: 10px;
+  .tutor-students, .tutor-courses, .tutor-qualification {
+    margin-top: 5px;
+  }
+  .tutor-qualification {
     color: $gray;
+  }
+}
+
+.tutors-collection, .tutors {
+  margin-bottom: 20px;
+}
+
+.tutors-collection, .tutors-all {
+  .heading, .tutors-heading {
+    font-size: 1.6em;
   }
 }

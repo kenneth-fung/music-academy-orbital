@@ -20,15 +20,20 @@
 <!--Courses-->
 <% if @courses.any? %>
 
-  <%= render 'shared/sort_courses' %>
-
   <div class="row">
-    <%= render @courses %>
+    <div class="col">
+  <%= render 'shared/sort_courses' %>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-auto" style="margin-left: 25%;">
-      <%= will_paginate @courses, class: "pagination" %>
+  <div class="row justify-content-center">
+    <div class="row">
+      <%= render @courses %>
+    </div>
+    <div class="row">
+      <div class="col-auto">
+        <%= will_paginate @courses, class: "pagination" %>
+      </div>
     </div>
   </div>
 

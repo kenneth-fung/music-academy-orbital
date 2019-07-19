@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: [:index, :destroy]
   before_action :is_logged_out?, only: [:new, :create]
-  before_action :activated_and_public, only: :show
+  before_action :activated,      only: :show
   before_action :destroy_notifications, only: :destroy
 
   def new
@@ -101,16 +101,9 @@ class StudentsController < ApplicationController
   end
 
   # Confirms that the student's account is activated and public
-  def activated_and_public
+  def activated
     @student = Student.find(params[:id])
     redirect_back fallback_location: root_path unless @student.activated
-    if @student.private
-      # Allow only the student himself to see his page
-      unless current_user?(@student)
-        flash[:danger] = "That student's account is private."
-        redirect_back fallback_location: root_path
-      end
-    end
   end
 
   # Deletes all notifications created for this student

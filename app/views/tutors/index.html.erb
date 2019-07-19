@@ -1,14 +1,49 @@
 <% provide(:title, @title) %>
 
-  <h1><%= @title %></h1>
-  <div class="row">
+<h1 class="tutors-page-heading text-left">Tutors at the Music Academy</h1>
+
+<%= render 'collection', heading: 'Popular Tutors', tutors: @tutors_popular %>
+
+<%= render 'collection', heading: 'Tutors Teaching Guitar', tutors: @tutors_guitar %>
+
+<%= render 'collection', heading: 'Tutors Teaching Piano', tutors: @tutors_piano %>
+
+<div class="tutors-all row">
+  <div class="col">
+
+    <h3 class="tutors-heading text-left">
+      Search for a Tutor
+    </h3>
+
     <div class="row">
+
+      <div class="col">
+        <%= form_tag tutors_path(sort_by: params[:sort_by], anchor: 'tutors'), method: :get, class: 'search-bar my-2 my-lg-0' do %>
+          <div class="input-group w-50">
+            <%= text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control outline-secondary w-50' %>
+            <div class="input-group-append">
+              <%= button_tag class: 'btn btn-outline-secondary' do %>
+                <%= image_tag 'search.png' %>
+              <% end %>
+            </div>
+          </div>
+          <small><%= link_to 'clear search results', tutors_path(anchor: 'tutors'), class: 'search-clear ml-2', style: 'color:gray;' %></small>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <%= render 'sort' %>
+      </div>
+
+    </div>
+
+    <div id="tutors" class="tutors row">
       <%= render @tutors %>
     </div>
-  </div>
-
-<div class="row">
-  <div class="col-auto" style="margin-left: 40%;">
-    <%= will_paginate @tutors, class: "pagination" %>
+    <div class="tutors-pagination row justify-content-center">
+      <div class="col-auto">
+        <%= will_paginate @tutors, params: { anchor: 'tutors' }, class: "pagination" %>
+      </div>
+    </div>
   </div>
 </div>

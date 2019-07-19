@@ -1,146 +1,178 @@
 <% provide(:title, @title) %>
 
-<h1><strong><%= @title %></strong></h1>
-
-<%= render 'shared/user_profile' %>
-
-<div class="row">
-  <div class="col">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-
-        <% if @title.include?('My') %>
-          <% courses_header = 'My Courses' %>
-        <% else %>
-          <% courses_header = "#{@student.name}'s Courses" if @student %>
-          <% courses_header = "#{@tutor.name}'s Courses" if @tutor %>
+<h1 class="profile_heading">
+  <strong><%= @title %></strong>
+  <% if @title == 'My Profile' %>
+    <small>
+        <% if @student %>
+          <%= link_to 'edit', edit_student_path(@student) %>
+        <% elsif @tutor %>
+          <%= link_to 'edit', edit_tutor_path(@tutor) %>
         <% end %>
+    </small>
+  <% end %>
+</h1>
 
-        <% if params[:tab] == 'notifications' %>
-          <a class="nav-link" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true"><%= courses_header %></a>
-        <% else %>
-          <a class="nav-link active" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true"><%= courses_header %></a>
-        <% end %>
+<% private_profile = @student.private && !current_user?(@student) if @student %>
 
-      </li>
+<% if private_profile %>
+  <div class="row justify-content-center">
+    <div class="col" align="center">
+      <%= gravatar_for @student %><br>
+      <h3 style="margin-top: 20px;">
+        <strong>This student's profile is private.</strong>
+      </h3>
+    </div>
+  </div>
+<% else %>
 
-      <% if @title.include? 'My' %>
+  <%= render 'shared/user_profile' %>
+
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
 
-          <% if params[:tab] == 'notifications' %>
-            <a class="nav-link active" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
-              Notifications
-              <% if current_user.notifications_unread.any? %>
-                <span id="" class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
-              <% else %>
-                <span class="badge badge-pill badge-secondary">0</span>
-              <% end %>
-            </a>
+          <% if @title.include?('My') %>
+            <% courses_header = 'My Courses' %>
           <% else %>
-            <a class="nav-link" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
-              Notifications
-              <% if current_user.notifications_unread.any? %>
-                <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
-              <% else %>
-                <span class="badge badge-pill badge-secondary">0</span>
-              <% end %>
-            </a>
+            <% courses_header = "#{@student.name}'s Courses" if @student %>
+            <% courses_header = "#{@tutor.name}'s Courses" if @tutor %>
+          <% end %>
+
+          <% if params[:tab] == 'notifications' %>
+            <a class="nav-link" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true"><%= courses_header %></a>
+          <% else %>
+            <a class="nav-link active" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true"><%= courses_header %></a>
           <% end %>
 
         </li>
-      <% end %>
 
-    </ul>
-  </div>
-</div>
-
-<div class="row user_courses">
-  <div class="col">
-    <div class="tab-content" id="myTabContent">
-
-      <% if params[:tab] == 'notifications' %>
-        <div class="tab-pane fade show" id="courses" role="tabpanel" aria-labelledby="courses-tab">
-        <% else %>
-          <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
-          <% end %>
-
-          <div class="row justify-content-center pt-3">
-            <div class="col-md-12">
-
-              <% if tutor? %>
-                <%= link_to 'Create a New Course', new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
-              <% end %>
-
-              <% if @courses.any? %>
-
-                <div class="row">
-
-                  <% if @student %>
-
-                    <div class="col search">
-                      <%= form_tag student_path(@student, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
-                        <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control w-50' %>
-                      <% end %>
-                      <small><%= link_to 'clear search', student_path(@student, anchor: 'courses-tab'), class: 'search-clear ml-2' %></small>
-                    </div>
-                    <div class="col sort">
-                      <%= render 'students/courses_sort' %>
-                    </div>
-
-                  <% elsif @tutor %>
-
-                    <div class="col search">
-                      <%= form_tag tutor_path(@tutor, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
-                        <div class="input-group w-50">
-                          <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control outline-secondary w-50' %>
-                          <div class="input-group-append">
-                            <%= button_tag class: 'btn btn-secondary' do %>
-                              <%= image_tag 'search.png' %>
-                            <% end %>
-                          </div>
-                        </div>
-                      <% end %>
-                      <small><%= link_to 'clear search results', tutor_path(@tutor, anchor: 'courses-tab'), class: 'search-clear ml-2', style: "color:gray;" %></small>
-                    </div>
-                    <div class="col sort">
-                      <%= render 'tutors/courses_sort' %>
-                    </div>
-
-                  <% end %>
-
-                </div>
-
-                <div class="row"><%= render @courses %></div>
-
-              <% else %>
-
-                <h3 class="course-index-none">
-                  <strong>No courses found...</strong>
-                </h3>
-
-              <% end %>
-
-            </div>
-          </div>
-
-          </div>
-
-          <% if @title.include? 'My' %>
+        <% if @title.include? 'My' %>
+          <li class="nav-item">
 
             <% if params[:tab] == 'notifications' %>
-              <div class="tab-pane fade show  active" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
-              <% else %>
-                <div class="tab-pane fade show" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+              <a class="nav-link active" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                Notifications
+                <% if current_user.notifications_unread.any? %>
+                  <span id="" class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
+                <% else %>
+                  <span class="badge badge-pill badge-secondary">0</span>
                 <% end %>
-
-                <div class="notifications">
-                  <%= render 'notifications/notifications', notifications: @notifications %>
-                </div>
-
-                </div>
-
-              </div>
+              </a>
+            <% else %>
+              <a class="nav-link" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                Notifications
+                <% if current_user.notifications_unread.any? %>
+                  <span class="badge badge-pill badge-primary"><%= current_user.notifications_unread.count %></span>
+                <% else %>
+                  <span class="badge badge-pill badge-secondary">0</span>
+                <% end %>
+              </a>
             <% end %>
 
-        </div>
+          </li>
+        <% end %>
+
+      </ul>
     </div>
+  </div>
+
+  <div class="row user_courses">
+    <div class="col">
+      <div class="tab-content" id="myTabContent">
+
+        <% if params[:tab] == 'notifications' %>
+          <div class="tab-pane fade show" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+          <% else %>
+            <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+            <% end %>
+
+            <div class="row justify-content-center pt-3">
+              <div class="col-md-12">
+
+                <% if tutor? %>
+                  <%= link_to 'Create a New Course', new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
+                <% end %>
+
+                <% if @courses.any? %>
+
+                  <div class="row">
+
+                    <% if @student %>
+
+                      <div class="col search">
+                        <%= form_tag student_path(@student, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
+                            <div class="input-group w-50">
+                            <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control outline-secondary w-50' %>
+                            <div class="input-group-append">
+                              <%= button_tag class: 'btn btn-outline-secondary' do %>
+                                <%= image_tag 'search.png' %>
+                              <% end %>
+                            </div>
+                          </div>
+                        <% end %>
+                        <small><%= link_to 'clear search results', student_path(@student, anchor: 'courses-tab'), class: 'search-clear ml-2', style: 'color:gray;' %></small>
+                      </div>
+                      <div class="col sort">
+                        <%= render 'students/courses_sort' %>
+                      </div>
+
+                    <% elsif @tutor %>
+
+                      <div class="col search">
+                        <%= form_tag tutor_path(@tutor, anchor: 'courses-tab'), method: :get, class: 'search-bar' do %>
+                          <div class="input-group w-50">
+                            <%= text_field_tag :search_profile, params[:search_profile], placeholder: 'Search', class: 'form-control outline-secondary w-50' %>
+                            <div class="input-group-append">
+                              <%= button_tag class: 'btn btn-outline-secondary' do %>
+                                <%= image_tag 'search.png' %>
+                              <% end %>
+                            </div>
+                          </div>
+                        <% end %>
+                        <small><%= link_to 'clear search results', tutor_path(@tutor, anchor: 'courses-tab'), class: 'search-clear ml-2', style: "color:gray;" %></small>
+                      </div>
+                      <div class="col sort">
+                        <%= render 'tutors/courses_sort' %>
+                      </div>
+
+                    <% end %>
+
+                  </div>
+
+                  <div class="row"><%= render @courses %></div>
+
+                <% else %>
+
+                  <h3 class="course-index-none">
+                    <strong>No courses found...</strong>
+                  </h3>
+
+                <% end %>
+
+              </div>
+            </div>
+
+            </div>
+
+            <% if @title.include? 'My' %>
+
+              <% if params[:tab] == 'notifications' %>
+                <div class="tab-pane fade show  active" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                <% else %>
+                  <div class="tab-pane fade show" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                  <% end %>
+
+                  <div class="notifications">
+                    <%= render 'notifications/notifications', notifications: @notifications %>
+                  </div>
+
+                  </div>
+
+                </div>
+              <% end %>
+
+          </div>
+      </div>
+    <% end %>

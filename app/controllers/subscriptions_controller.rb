@@ -2,7 +2,9 @@ class SubscriptionsController < ApplicationController
   before_action :logged_in_user
   before_action :unsubscribed?, only: [:new, :create]
 
-  after_action :update_course_popularity, only: [:hook, :destroy]
+  after_action :update_course_popularity,   only: [:hook, :destroy]
+  after_action :update_tutor_popularity,    only: [:hook, :destroy]
+  after_action :update_tutor_student_count, only: [:hook, :destroy]
 
   def create
     @course = Course.find(params[:course_id])
@@ -48,6 +50,20 @@ class SubscriptionsController < ApplicationController
   def update_course_popularity
     popularity = @course.reviews.count + @course.rating + @course.students.count
     @course.update_attributes(popularity: popularity)
+  end
+
+  # Updates the popularity of the course's tutor
+  def update_tutor_popularity
+    tutor = @course.tutor
+    popularity = 0
+    tutor.courses.each do |course|
+      popularity += course.popularity
+    end
+    tutor.update_attributes(popularity: popularity)
+  end
+
+  def update_tutor_student_count
+    @course.tutor.update_attributes(student_count: @course.tutor.students_unique.count)
   end
 
 end

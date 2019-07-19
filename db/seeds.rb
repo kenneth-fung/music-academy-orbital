@@ -17,6 +17,8 @@ Tutor.create!(name:  "Runding",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",
 
+              qualification: 'Degree in Music, Masters in Experimental Funk, PhD in Post-Orbital Rock',
+
               bio: "Runding graduated from the University of Music with a Degree in Music. 
               From there, he went on to complete his Masters in Experimental Funk, 
               before finally completing his PhD in Post-Orbital Rock. 
@@ -39,21 +41,25 @@ Tutor.create!(name:  "Master Doctor (admin)",
               email: "admin@tutor.com",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",
+              qualification: 'Degree in Administration, PhD in User Deletion',
               bio: "Y'all better keep the peace or I'll delete you off the internet!",
               admin:        true,
               activated:    true,
               activated_at: Time.now)
 
 # Tutors
+qualifications = %w[Degree Masters PhD Maestro Guru Sensei Tutor Encik Grade\ 10]
 (1..40).each do |n|
   name = Faker::Name.name
-  email = "#{name.gsub(/[^a-z0-9]/i, '')}#{n}@gmail.org"
+  email = "#{name.gsub(/[^a-z0-9]/i, '')}#{n}@gmail.com"
   password = "password"
+  qualification = "#{qualifications.sample} in #{Faker::Music.instrument}, from #{Faker::Educator.university}"
   bio = Faker::Lorem.paragraph(rand(15..30))
   Tutor.create!(name:  name,
                 email: email,
                 password:              password,
                 password_confirmation: password,
+                qualification: qualification,
                 bio: bio,
                 activated:    true,
                 activated_at: Time.now)
@@ -98,7 +104,7 @@ rand(300..400).times do
   else
   end
   3.times do
-    tag = tags[rand(0...tags.length)]
+    tag = tags.sample
     tag_list << tag unless tag_list.include?(tag)
   end
   tag_list = tag_list.join(", ")
@@ -128,15 +134,30 @@ students.each do |student|
   courses.each do |course|
     student.subscribe(course)
     # Reviews
-    reviewed = rand > 0.50
-    if reviewed
+    if rand > 0.50
       student.reviews.create!(rating: rand(1..5),
                               content: Faker::Lorem.paragraph(rand(1..8)),
                               course: course)
     end
-    # Ratings & Popularity
-    rating = reviewed ? course.reviews.average(:rating).ceil : course.rating
-    popularity = course.reviews.count + course.rating + course.students.count
-    course.update_columns(rating: rating, popularity: popularity)
   end
+end
+
+# Course Rating & Popularity
+Course.find_each do |course|
+  rating = course.reviews.any? ?
+    course.rating_calc :
+    course.rating
+  course.update_attributes(rating: rating)
+
+  popularity = course.reviews.count + course.rating + course.students.count
+  course.update_attributes(popularity: popularity)
+end
+
+# Tutor Popularity & Tutor's Student Count
+Tutor.find_each do |tutor|
+  popularity = 0
+  tutor.courses.each do |course|
+    popularity += course.popularity
+  end
+  tutor.update_columns(popularity: popularity, student_count: tutor.students_unique.count)
 end

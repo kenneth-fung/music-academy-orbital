@@ -49,8 +49,16 @@ class TutorsController < ApplicationController
   end
 
   def index
-    @tutors = Tutor.where(activated: true).paginate(page: params[:page])
     @title = "Tutors"
+    popular_benchmark = Tutor.find(Tutor.count / 3 * 2).popularity
+    popular_benchmark = Tutor.reorder(popularity: :asc).to_a[Tutor.count / 3 * 2].popularity
+    @tutors_popular = Tutor.where(activated: true).where('popularity > ?', popular_benchmark).reorder("RANDOM()").limit(4)
+    @tutors_guitar  = Tutor.where(activated: true).teaches('guitar').limit(4)
+    @tutors_piano   = Tutor.where(activated: true).teaches('piano').limit(4)
+
+    tutors  = Tutor.sort(params[:sort_by]).where(activated: true)
+    tutors  = tutors.search(params[:search]) if params[:search]
+    @tutors = tutors.paginate(page: params[:page], per_page: 12)
   end
 
   def students
@@ -93,7 +101,7 @@ class TutorsController < ApplicationController
   private
 
   def tutor_params
-    params.require(:tutor).permit(:name, :email, :password, :password_confirmation, :bio)
+    params.require(:tutor).permit(:name, :email, :password, :password_confirmation, :qualification, :bio)
   end
 
   # Confirms that the user is logged out

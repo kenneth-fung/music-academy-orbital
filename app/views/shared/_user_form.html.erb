@@ -83,7 +83,27 @@
     <% end %>
   </div>
 
-  <% if (params[:action] == 'edit' || params[:action] == 'update') && params[:controller] == 'tutors' %>
+  <% if params[:controller] == 'tutors' && (params[:action] == 'edit' || params[:action] == 'update') %>
+    <div class="form-group">
+      <%= f.label :qualification, "Qualifications" %>
+      <% placeholder = 'List any musical qualifications you might have, such as degrees or grade achievements. Self-taught musicians are welcome too.' %>
+      <% if f.object.errors.any? && f.object.errors.include?(:qualification) %>
+        <%= f.text_area :qualification, rows: 3, placeholder: placeholder, class: 'form-control is-invalid' %>
+        <div class="invalid-feedback d-block">
+          <%= f.object.errors.messages[:qualification].join(", ") %>
+        </div>
+      <% elsif f.object.errors.any? && !f.object.errors.include?(:qualification) %>
+        <%= f.text_area :qualification, rows: 3, placeholder: placeholder, class: 'form-control is-valid' %>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      <% else %>
+        <%= f.text_area :qualification, rows: 3, placeholder: placeholder, class: 'form-control' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if params[:controller] == 'tutors' && (params[:action] == 'edit' || params[:action] == 'update') %>
     <div class="form-group">
       <% placeholder = 'Let your students know who you are!' %>
       <% if f.object.errors.any? && f.object.errors.include?(:bio) %>
@@ -91,12 +111,6 @@
         <%= f.text_area :bio, rows: 15, placeholder: placeholder, class: 'form-control is-invalid' %>
         <div class="invalid-feedback d-block">
           <%= f.object.errors.messages[:bio].join(", ") %>
-        </div>
-      <% elsif f.object.errors.any? && !f.object.errors.include?(:bio) %>
-        <%= f.label :bio %>
-        <%= f.text_area :bio, rows: 15, placeholder: placeholder, class: 'form-control is-valid' %>
-        <div class="valid-feedback">
-          Looks good!
         </div>
       <% else %>
         <%= f.label :bio %>
@@ -138,6 +152,14 @@
     or sign up through
     <%= link_to "Google", "auth/google_oauth2?user_type=#{user_type}" %>
     </section>
+  <% end %>
+
+  <% if params[:action] == 'edit' || params[:action] == 'update' %>
+    <div class="row">
+      <div class="col pt-3">
+        <%= link_to "Back to My Profile", current_user, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
   <% end %>
 
 <% end %>

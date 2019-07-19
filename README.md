@@ -57,11 +57,11 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - ~~Upon logging in, Student should be redirected to Home page, Tutor to their Profile page~~
 
-- Tutors Page
+- ~~Tutors Page~~
   - ~~each tutor's card should have the information that is currently on their
     course's page (tutor rating, number of students, etc)~~
-  - rows of different types of tutors
-    - e.g. Popular Tutors, Tutors Teaching Piano
+  - ~~rows of different types of tutors~~
+    - ~~e.g. Popular Tutors, Tutors Teaching Piano~~
 
 - Search field in Navbar
   - blend in a bit more to differentiate from search bars on Home and Courses page

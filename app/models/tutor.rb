@@ -1,9 +1,19 @@
 class Tutor < ApplicationRecord
   has_many :courses, dependent: :destroy
   has_many :messages, as: :chatroom
+
   attr_accessor :remember_token, :activation_token, :reset_token
+
   before_save { email.downcase! }
+
   before_create :create_activation_digest
+
+  scope :most_popular,  -> { order(popularity: :desc) }
+  scope :most_students, -> { order(student_count: :desc) }
+  scope :most_courses,  -> { left_outer_joins(:courses).group(:id).order('COUNT(courses.id) DESC') }
+  scope :by_name,       -> { order(name: :asc) }
+  scope :random,        -> { order("RANDOM()") }
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, 
     presence: true, 
@@ -20,6 +30,9 @@ class Tutor < ApplicationRecord
     presence: true, 
     length: { minimum: 6 },
     allow_nil: true
+
+  validates :qualification,
+    length: { maximum: 200 }
 
   validates :bio,
     length: { maximum: 1000 }
@@ -55,12 +68,46 @@ class Tutor < ApplicationRecord
   # Calculates a rating for the tutor by taking the average rating of their
   # courses (except those without ratings) and the number of unique students
   def rating
-    # if the tutor has no courses yet, or none of their courses has reviews, they get an average course rating of 0
-    if self.courses.any?
-      courses_with_ratings = self.courses.where.not(rating: 0)
-      courses_with_ratings.any? ? courses_with_ratings.average(:rating).ceil : 0
-    else
+    Tutor.count > 0 ?
+      (self.popularity / Tutor.maximum(:popularity) * 5).ceil :
       0
+  end
+
+  # Returns tutors with courses whose titles contain the given instrument
+  def Tutor.teaches(instrument)
+    left_outer_joins(:courses).where('LOWER(courses.title) LIKE ?', "%#{instrument.downcase}%").reorder("RANDOM()")
+  end
+
+  # Returns tutors with names similar to the given query
+  def Tutor.search(query)
+    return self if query.nil? or query.empty?
+    query_terms = query.split
+
+    complete_query = [(['(LOWER(name) LIKE ?)'] * query_terms.length).join(' AND ')]
+
+    # Construct complete array of query terms to feed to SQL fragment
+    complete_query_terms = []
+    query_terms.each {|query_term| complete_query_terms << query_term.downcase}
+    # Add % % to each query term so that it is searched for as a substring
+    complete_query_terms.map! {|query_term| "%#{query_term}%"}
+
+    # Execute the complete SQL query
+    where(complete_query + complete_query_terms)
+  end
+
+  # Changes the scope (order of tutors) based on sort param
+  def Tutor.sort(sort_by)
+    case sort_by
+    when 'most_popular'
+      most_popular
+    when 'most_students'
+      most_students
+    when 'most_courses'
+      most_courses
+    when 'by_name'
+      by_name
+    else
+      random
     end
   end
 

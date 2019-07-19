@@ -12,12 +12,13 @@ class Course < ApplicationRecord
   has_one_attached :image
   validate :image_file_type
 
-  scope :newest, -> {order(created_at: :desc)}
-  scope :oldest, -> {order(created_at: :asc)}
-  scope :lowest_price, -> {order(price: :asc)}
-  scope :highest_price, -> {order(price: :desc)}
-  scope :top_rated, -> {order(rating: :desc)}
-  scope :most_popular, -> {order(popularity: :desc)}
+  scope :newest,        -> { order(created_at: :desc) }
+  scope :oldest,        -> { order(created_at: :asc) }
+  scope :lowest_price,  -> { order(price: :asc) }
+  scope :highest_price, -> { order(price: :desc) }
+  scope :top_rated,     -> { order(rating: :desc) }
+  scope :most_popular,  -> { order(popularity: :desc) }
+  scope :random,        -> { order("RANDOM()") }
 
   validates :title,
     presence: true,
@@ -92,7 +93,7 @@ class Course < ApplicationRecord
     when 'most_popular'
       most_popular
     else
-      newest
+      random
     end
   end
 
@@ -123,6 +124,22 @@ class Course < ApplicationRecord
     else
       self.reorder(created_at: :desc)
     end
+  end
+  
+  # Calculates the course's rating
+  def rating_calc
+    self.reviews.any? ?
+      self.reviews.average(:rating).round :
+      0
+=begin
+    # Uses IMDB's weighted rating formula
+    r = self.reviews.average(:rating).to_f # average rating for this course
+    n = self.reviews.count.to_f            # number of reviews for this course
+    m = 5.0                                # the minimum rating needed to be considered a top-tier course
+    a = Course.average(:rating).to_f       # the average ratings across all courses site-wide
+
+    ((n / (n+m)) * r + (m / (n+m)) * a).round  # the final weighted rating
+=end
   end
 
   # Returns the total number of downloadable resources for the course's lessons
@@ -161,4 +178,5 @@ class Course < ApplicationRecord
       self.tags.clear
     end
   end
+
 end

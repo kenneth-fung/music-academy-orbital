@@ -100,7 +100,7 @@ class ReviewsController < ApplicationController
 
   # Updates the average rating of the course the review belongs to
   def update_course_rating
-    @course.update_attributes(rating: @course.reviews.average(:rating).ceil)
+    @course.update_attributes(rating: @course.rating_calc)
   end
 
   # Updates the popularity of the course the review belongs to
