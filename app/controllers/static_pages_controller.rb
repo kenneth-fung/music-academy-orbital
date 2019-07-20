@@ -23,7 +23,7 @@ class StaticPagesController < ApplicationController
                  .where.not(id: current_user.pending_course)) if student?
     @courses_recommend = courses_recommend
     .offset(rand(0...(courses_recommend.count - 4)))
-    .limit(4) if student?
+    .limit(4) if student? && courses_recommend.any?
 
     # What Students are Looking at Right Now
     courses_hot = Course

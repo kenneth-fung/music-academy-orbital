@@ -1,11 +1,5 @@
 <%= link_to "Music Academy", root_url, id: 'logo' %>
 
-<!--Search-->
-<%= form_with url: courses_path, local: true, method: :get, html: { class: "form-inline my-2 my-lg-0" } do |form| %>
-  <%= form.text_field :search, value: params[:search], placeholder: "Search for a course...", data: { behavior: "autocomplete" }, class: "form-control mr-sm-2" %>
-  <%= form.button "Search", class: "btn btn-outline-light ml-2 my-2 my-sm-0" %>
-<% end %>
-
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>

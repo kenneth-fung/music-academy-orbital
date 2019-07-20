@@ -10,6 +10,18 @@
       </div>
     </div>
 
+    <% if !flash.empty? %>
+      <div class="home-flash row">
+        <div class="col-md-8 offset-md-1 mt-5">
+          <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>" style="word-wrap: break-word;"><%= message %></div>
+          <% end %>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    <% end %>
+
     <div class="home-text row">
       <div class="col offset-md-1 mt-4">
         <h3 class="text-light text-left mb-2" style="margin-top:1%;">
@@ -18,9 +30,7 @@
         <h1 class="text-light text-left">
           The Music Academy
         </h1>
-        <%= form_tag courses_path, method: :get, class: 'home-search my-2 my-lg-0 w-100' do %>
-          <%= text_field_tag :search, params[:search], placeholder: 'What would you like to learn?', class: 'form-control w-50' %>
-        <% end %>
+        <%= render 'static_pages/home_search' %>
       </div>
     </div>
 
@@ -63,6 +73,18 @@
       </div>
     </div>
 
+    <% if !flash.empty? %>
+      <div class="home-flash row">
+        <div class="col-md-8 offset-md-1 mt-5">
+          <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>" style="word-wrap: break-word;"><%= message %></div>
+          <% end %>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    <% end %>
+
     <div class="home-text row">
 
       <div class="col offset-md-1 mt-5">
@@ -73,10 +95,7 @@
         <h2 class="text-light text-left mb-4">
           Our <%= @greeting_language %> tutors say hello.
         </h2>
-        <% placeholder = current_user.lesson_id.nil? ? 'What would you like to learn?' : 'Search for a course...' %>
-        <%= form_tag courses_path, method: :get, class: 'home-search my-2 my-lg-0 w-100' do %>
-          <%= text_field_tag :search, params[:search], placeholder: placeholder, class: 'form-control w-50' %>
-        <% end %>
+        <%= render 'static_pages/home_search' %>
 
         <% if current_user.courses.any? %>
 

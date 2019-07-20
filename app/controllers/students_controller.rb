@@ -57,11 +57,19 @@ class StudentsController < ApplicationController
     .courses
     .where.not(id: @student.pending_course)
     .sort_student_courses(@student, 'newest')
-    .paginate(page: params[:page])
 
     @title = (student? && current_user?(@student)) ?
       "My Courses" :
       "#{@student.name}'s Courses"
+
+    respond_to do |format|
+      format.html {
+        @courses = @courses.paginate(page: params[:page])
+      }
+      format.json {
+        @courses = @courses.search_title(params[:search_profile]).limit(6)
+      }
+    end
   end
 
   def edit

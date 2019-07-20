@@ -17,7 +17,7 @@
 
       <%= render 'layouts/header' %>
       <div class="container pt-4">
-        <% unless params[:controller] == 'courses' && params[:action] == 'show' %>
+        <% unless params[:action] == 'home' || (params[:controller] == 'courses' && params[:action] == 'show') %>
           <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>"><%= message %></div>
           <% end %>

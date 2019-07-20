@@ -20,7 +20,13 @@
       <div class="col">
         <%= form_tag tutors_path(sort_by: params[:sort_by], anchor: 'tutors'), method: :get, class: 'search-bar my-2 my-lg-0' do %>
           <div class="input-group w-50">
-            <%= text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control outline-secondary w-50' %>
+            <%= text_field_tag :search, 
+              params[:search], 
+              placeholder: 'Search', 
+              data: { behavior: 'autocomplete-tutors', 
+                      controller: 'tutors', 
+                      action: 'index' },
+              class: 'form-control outline-secondary' %>
             <div class="input-group-append">
               <%= button_tag class: 'btn btn-outline-secondary' do %>
                 <%= image_tag 'search.png' %>

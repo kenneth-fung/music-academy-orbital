@@ -154,7 +154,8 @@ class Course < ApplicationRecord
 
   # Returns courses with similar tags to a randomly selected course out of the given courses
   def Course.recommended(courses)
-    # return self unless self.any? && self.count != Course.count
+    return Course.all if courses.count == 0
+    return Course.none if courses.count == Course.count
     course_sample = courses.reorder(Arel.sql('RANDOM()')).first
 
     sample_tags = []

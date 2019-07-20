@@ -69,10 +69,10 @@ expecting <"password_resets/edit"> but rendering with <[]>
     - other courses by this tutor
     - other courses similar to this course
 
-- Search field in Navbar
-  - blend in a bit more to differentiate from search bars on Home and Courses page
-    - maybe change background color of search field (more translucent?)
-    - or just remove it, since Home and Courses Page already have search bars
+- ~~Search field in Navbar~~
+  - ~~blend in a bit more to differentiate from search bars on Home and Courses page~~
+    - ~~maybe change background color of search field (more translucent?)~~
+    - ~~or just remove it, since Home and Courses Page already have search bars~~
 
 - ~~Add search button to search bar on user profile page~~
 
@@ -83,7 +83,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 ### Ajax/JSON Improvements
 
-- ~~add autocomplete function to search bar in navbar~~
+- ~~add autocomplete function to all search bars~~
 - ~~update page without reload when clearing notifications~~
 - send/delete posts/messages without reloading page
 - switch between lessons in scrollmenu without reloading page
@@ -97,7 +97,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - ~~delete posts/messages~~
 - ~~prevent tutor's posts/messages on their own course from counting towards their 'unread' count~~
 - ~~sort student's and tutor's courses on their profile page~~
-- fix home page flash message (account activation, password reset)
+- ~~fix home page flash message (account activation, password reset)~~
 - ~~add user names to posts/messages~~
 - ~~add error messages for:~~ 
   - ~~course new/edit~~

@@ -57,8 +57,16 @@ class TutorsController < ApplicationController
     @tutors_piano   = Tutor.where(activated: true).teaches('piano').limit(4)
 
     tutors  = Tutor.sort(params[:sort_by]).where(activated: true)
-    tutors  = tutors.search(params[:search]) if params[:search]
-    @tutors = tutors.paginate(page: params[:page], per_page: 12)
+
+    respond_to do |format|
+      format.html {
+        tutors  = tutors.search(params[:search]) if params[:search]
+        @tutors = tutors.paginate(page: params[:page], per_page: 12)
+      }
+      format.json {
+        @tutors  = tutors.search(params[:search]) if params[:search]
+      }
+    end
   end
 
   def students
@@ -72,10 +80,20 @@ class TutorsController < ApplicationController
 
   def courses
     @tutor = Tutor.find(params[:id])
-    @courses = @tutor.courses.reorder(created_at: :desc).paginate(page: params[:page])
+    @courses = @tutor.courses
     @title = (tutor? && current_user?(@tutor)) ?
       "My Courses" :
       "#{@tutor.name}'s Courses"
+    respond_to do |format|
+      format.html {
+        @courses = @courses.paginate(page: params[:page])
+      }
+      format.json {
+        if params[:search_profile] && !params[:search_profile].blank?
+          @courses = @courses.search_title(params[:search_profile]).limit(6)
+        end
+      }
+    end
   end
 
   def edit
