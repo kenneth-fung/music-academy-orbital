@@ -6,6 +6,7 @@ michael:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
+  popularity: 88
 
 archer:
   name: Sterling Archer
@@ -14,6 +15,7 @@ archer:
   admin: false
   activated: true
   activated_at: <%= Time.zone.now %>
+  popularity: 88
 
 lana:
   name: Lana Kane
@@ -22,6 +24,7 @@ lana:
   admin: false
   activated: true
   activated_at: <%= Time.zone.now %>
+  popularity: 88
 
 malory:
   name: Malory Archer
@@ -30,6 +33,7 @@ malory:
   admin: false
   activated: true
   activated_at: <%= Time.zone.now %>
+  popularity: 88
 
 <% 30.times do |n| %>
 Tutor_<%= n %>:
@@ -39,4 +43,5 @@ Tutor_<%= n %>:
   admin: false
   activated: true
   activated_at: <%= Time.zone.now %>
+  popularity: 88
 <% end %>

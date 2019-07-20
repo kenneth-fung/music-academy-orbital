@@ -223,7 +223,7 @@
 
 <!--by the Tutor-->
 <%= render 'collection', 
-  heading: "...by #{@tutor.name}", 
+  heading: "by #{@tutor.name}", 
   courses: @tutor
             .courses
             .where.not(id: @course.id)
@@ -246,6 +246,6 @@
 %>
 
 <%= render 'collection', 
-  heading: "...like #{@course.title}", 
+  heading: "like #{@course.title}", 
   courses: similar_courses 
 %>
