@@ -585,14 +585,48 @@ footer {
 /* home page */
 
 .home-bg {
-  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),
-  image-url('home_splash.jpeg') center no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), image-url('home_splash.jpeg') center no-repeat;
   height: 80vh;
   background-size: cover;
+  overflow: auto;
   .home-text {
     margin-top: 5%;
     h1, h3 {
       text-shadow: 2px 2px 4px black;
+    }
+  }
+}
+
+.home-student-bg {
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), image-url('home_splash_student.png') center no-repeat;
+  background-size: cover;
+  overflow: auto;
+  .home-text {
+    margin-top: 5%;
+    h1, h3 {
+      text-shadow: 2px 2px 4px black;
+    }
+    h2 {
+      text-shadow: 1px 1px 4px black;
+    }
+    a {
+      color: $gray-lighter;
+      text-decoration: none;
+    }
+    .card {
+      max-width: 580px;
+      height: 150px;
+      h5 {
+        margin-bottom: 5px;
+      }
+      h2 {
+        text-shadow: none;
+      }
+      img {
+        padding: 0px 0px 5px 5px;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
 }

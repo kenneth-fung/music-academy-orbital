@@ -75,6 +75,8 @@ class CoursesController < ApplicationController
     end
     @lessons = @course.lessons.reorder(:position)
     @lesson = @lessons[position.to_i - 1]
+    # if student, update last lesson id
+    current_user.update_attributes(lesson_id: @lesson.id) if student?
 
     @tags = @course.tags
 

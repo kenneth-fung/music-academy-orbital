@@ -39,7 +39,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - ~~Centralize pagination buttons on 'courses' and 'tutors' pages~~
 
-- Home Page
+- ~~Home Page~~
   - ~~New User (no account)~~
     - ~~should see the “Welcome” and search bar that are currently there~~
     - ~~should see a list of features of the website (immediately, without scrolling down)~~
@@ -48,11 +48,10 @@ expecting <"password_resets/edit"> but rendering with <[]>
       - ~~e.g. Most Popular, New Courses, Guitar Courses, Popular Tutors~~
     - ~~it should be made obvious that they can scroll down~~
       - ~~either have the current image not take up the whole page, or add a large “down arrow” at the bottom~~
-  - Student (logged in)
-    - same as new user, except for two things:
-      - replace the list of features and the current search bar with “Welcome back, here’s where you left off”
-      - two more rows of recommendations: Your Courses; Recommended Courses for
-        You
+  - ~~Student (logged in)~~
+    - ~~same as new user, except for two things:~~
+      - ~~replace the list of features and the current search bar with “Welcome back, here’s where you left off”~~
+      - ~~two more rows of recommendations: Your Courses; Recommended Courses for You~~
   - ~~Tutor (logged in)~~
     - ~~same as new user~~
 
@@ -63,6 +62,12 @@ expecting <"password_resets/edit"> but rendering with <[]>
     course's page (tutor rating, number of students, etc)~~
   - ~~rows of different types of tutors~~
     - ~~e.g. Popular Tutors, Tutors Teaching Piano~~
+
+- Courses Page
+  - rows of recommendations, similar to Tutors Page
+  - individual course pages should have a two more rows:
+    - other courses by this tutor
+    - other courses similar to this course
 
 - Search field in Navbar
   - blend in a bit more to differentiate from search bars on Home and Courses page

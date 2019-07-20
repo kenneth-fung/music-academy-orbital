@@ -80,7 +80,7 @@ class Tutor < ApplicationRecord
 
   # Returns tutors with names similar to the given query
   def Tutor.search(query)
-    return self if query.nil? or query.empty?
+    return self if query.nil? or query.blank?
     query_terms = query.split
 
     complete_query = [(['(LOWER(name) LIKE ?)'] * query_terms.length).join(' AND ')]

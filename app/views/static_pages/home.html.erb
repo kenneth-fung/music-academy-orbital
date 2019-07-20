@@ -1,26 +1,17 @@
 <% provide(:title, 'Home') %>
 
-<% if student? %>
-  <div class="welcome-back container not-home">
-    <div class="row">
-      <div class="col">
-        <h1 class="text-left mb-2">
-          Welcome back, <%= current_user.name %>.
-        </h1>
-        <h2 class="text-left mb-2">
-          Pick up where you left off on
-        </h2>
-        <h3 class="text-left mb-5">
-          <% course = current_user.courses.reorder(Arel.sql('RANDOM()')).first %>
-          <strong><%= link_to course.title, course_path(course, lesson_page: 1) %></strong>
-        </h3>
-      </div>
-    </div>
-  </div>
+<% if !student? && @courses_beginners.any? %>
+  <%= render 'courses/collection', heading: 'Courses for Beginners', courses: @courses_beginners %>
 <% end %>
 
-<% if @courses_beginners.any? %>
-  <%= render 'courses/collection', heading: 'Courses for Beginners', courses: @courses_beginners %>
+<% if student? && @courses_student.any? %>
+  <%= render 'courses/collection', heading: 'Your Most Recent Enrollments', courses: @courses_student %>
+<% elsif student? && @courses_student.count <= 0 %>
+  <%= render 'courses/collection', heading: 'Courses to Get You Started', courses: @courses_beginners %>
+<% end %>
+
+<% if student? && @courses_recommend.any? %>
+  <%= render 'courses/collection', heading: 'Recommended Courses for You', courses: @courses_recommend %>
 <% end %>
 
 <% if @courses_hot.any? %>

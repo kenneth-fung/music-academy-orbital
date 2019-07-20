@@ -36,7 +36,7 @@ class Course < ApplicationRecord
 
   # Queries the Course table only, and only its title column
   def Course.search_title(query)
-    return self if query.nil? or query.empty?
+    return self if query.nil? or query.blank?
     query_terms = query.split
 
     title_query = [(['(LOWER(title) LIKE ?)'] * query_terms.length).join(' AND ')]
@@ -53,7 +53,7 @@ class Course < ApplicationRecord
 
   # Queries the Course, Tutor, and Lessons tables
   def Course.search(query)
-    return self if query.nil? or query.empty?
+    return self if query.nil? or query.blank?
     query_terms = query.split
 
     # Create the SQL fragment for individual query terms
@@ -152,6 +152,33 @@ class Course < ApplicationRecord
     return total
   end
 
+  # Returns courses with similar tags to a randomly selected course out of the given courses
+  def Course.recommended(courses)
+    # return self unless self.any? && self.count != Course.count
+    course_sample = courses.reorder(Arel.sql('RANDOM()')).first
+
+    sample_tags = []
+    if course_sample.tags.any?
+      course_sample.tags.each {|tag| sample_tags << tag.name.downcase}
+    else
+      sample_tags += %w[music instrument fun great]
+    end
+    sample_tags.map! {|sample_tag| "%#{sample_tag}%"}
+
+    complete_query = [(['(LOWER(tags.name) LIKE ?)'] * sample_tags.length).join(' OR ')]
+
+    # exclude original courses from which recommendations are made
+    exclusion = [(['courses.id = ?'] * courses.count).join(' AND ')]
+    exclusion_ids = []
+    courses.each {|course| exclusion_ids << course.id}
+
+    Course
+    .left_outer_joins(:tags).where(complete_query + sample_tags)
+    .where.not(exclusion + exclusion_ids)
+    .where('rating > ?', '2')
+    .distinct
+  end
+
   private
 
   # Validates that the image is of the correct file type
@@ -167,7 +194,7 @@ class Course < ApplicationRecord
     if !tag_list.blank?
       arr = tag_list.split(",")
       arr.each do |name|
-        tag = Tag.find_or_create_by(name: name)
+        tag = Tag.find_or_create_by(name: name.strip)
         if self.tags.include?(tag)
         else
           self.tags << tag

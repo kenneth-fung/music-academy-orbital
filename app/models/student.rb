@@ -3,9 +3,13 @@ class Student < ApplicationRecord
   has_many :courses, through: :subscriptions, source: :course
   has_many :messages, as: :chatroom
   has_many :reviews, dependent: :destroy
+  has_one  :lesson, foreign_key: :lesson_id
+
   attr_accessor :remember_token, :activation_token, :reset_token
+
   before_save { email.downcase! }
   before_create :create_activation_digest
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, 
     presence: true, 
