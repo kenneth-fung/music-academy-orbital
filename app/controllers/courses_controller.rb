@@ -4,12 +4,39 @@ class CoursesController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
+    # Trending Courses this Week
+    courses_trending = Course
+    .left_outer_joins(:subscriptions)
+    .where('subscriptions.created_at > ? AND rating > ?', 1.week.ago, '2')
+    .distinct
+    @courses_trending = courses_trending
+    .offset(rand(courses_trending.count - 3))
+    .limit(4)
+
+    # Popular Courses Among Students
+    courses_popular = Course
+    .reorder(popularity: :desc)
+    .where('rating > ?', '2')
+    .limit(24)
+    @courses_popular = courses_popular
+    .offset(rand(courses_popular.count - 3))
+    .limit(4)
+
+    # Freshly Published Courses
+    courses_new = Course
+    .reorder(created_at: :desc)
+    .where('rating > ?', '1')
+    .limit(12)
+    @courses_new = courses_new
+    .offset(rand(courses_new.count - 3))
+    .limit(4)
+
     @courses = Course.sort(params[:sort_by])
 
     respond_to do |format|
       format.html {
         @courses = @courses.search(params[:search]) if params[:search]
-        @courses = @courses.paginate(page: params[:page])
+        @courses = @courses.paginate(page: params[:page], per_page: 8)
         params[:search] ?
           @title = "Search: \"#{params[:search]}\"" :
           @title = "Courses"

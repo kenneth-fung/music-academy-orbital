@@ -41,7 +41,7 @@ document.addEventListener("turbolinks:load", function() {
       function() {
         $(this).removeClass("shadow-sm");
         $(this).addClass("shadow");
-        $(this).css({"width": "101%", "height": "101%", "margin-top": "-1%", "margin-left": "-1%"});
+        $(this).css({"width": "101%", "height": "101%", "margin-top": "-0.5%", "margin-left": "-0.5%"});
       },
       function() {
         $(this).removeClass("shadow");

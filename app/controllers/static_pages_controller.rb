@@ -22,7 +22,7 @@ class StaticPagesController < ApplicationController
                  .courses
                  .where.not(id: current_user.pending_course)) if student?
     @courses_recommend = courses_recommend
-    .offset(rand(0...(courses_recommend.count - 4)))
+    .offset(rand(courses_recommend.count - 3))
     .limit(4) if student? && courses_recommend.any?
 
     # What Students are Looking at Right Now
@@ -31,7 +31,7 @@ class StaticPagesController < ApplicationController
     .where('subscriptions.created_at > ? AND rating > ?', 3.days.ago, '2')
     .distinct
     @courses_hot = courses_hot
-    .offset(rand(0...(courses_hot.count - 4)))
+    .offset(rand(courses_hot.count - 3))
     .limit(4)
 
     # Some of Our Tutors

@@ -67,7 +67,7 @@ class TutorsController < ApplicationController
     respond_to do |format|
       format.html {
         tutors  = tutors.search(params[:search]) if params[:search]
-        @tutors = tutors.paginate(page: params[:page], per_page: 12)
+        @tutors = tutors.paginate(page: params[:page], per_page: 8)
       }
       format.json {
         @tutors  = tutors.search(params[:search]) if params[:search]

@@ -288,17 +288,13 @@ footer {
   }
 }
 
-.course-index {
-  .course-index-title, .course-index-none {
-    text-align: left;
-  }
-  .course-index-title {
-    font-size: 4em;
-  }
-  .search-term {
-    font-size: 0.8em;
-    color: $gray;
-  }
+.course-index-title, .course-index-none {
+  margin: 20px 0px;
+  text-align: left;
+}
+
+.courses-heading {
+  font-size: 1.6em;
 }
 
 .courses-collection {

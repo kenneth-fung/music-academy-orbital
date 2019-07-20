@@ -63,8 +63,8 @@ expecting <"password_resets/edit"> but rendering with <[]>
   - ~~rows of different types of tutors~~
     - ~~e.g. Popular Tutors, Tutors Teaching Piano~~
 
-- Courses Page
-  - rows of recommendations, similar to Tutors Page
+- ~~Courses Page~~
+  - ~~rows of recommendations, similar to Tutors Page~~
   - ~~individual course pages should have a two more rows:~~
     - ~~other courses by this tutor~~
     - ~~other courses similar to this course~~
