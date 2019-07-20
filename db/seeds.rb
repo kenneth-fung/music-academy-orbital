@@ -62,10 +62,10 @@ qualifications = %w[Degree Masters PhD Maestro Guru Sensei Tutor Encik Grade\ 10
                 qualification: qualification,
                 bio: bio,
                 activated:    true,
-                activated_at: 1.month.ago)
+                activated_at: 1.month.ago, 
+                created_at: 1.month.ago, 
+                updated_at: 1.month.ago)
 end
-
-Tutor.find_each {|tutor| tutor.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
 
 # Students
 (41..80).each do |n|
@@ -77,10 +77,10 @@ Tutor.find_each {|tutor| tutor.update_attributes(created_at: 1.month.ago, update
                   password:              password,
                   password_confirmation: password,
                   activated:    true,
-                  activated_at: 1.month.ago)
+                  activated_at: 1.month.ago, 
+                  created_at: 1.month.ago, 
+                  updated_at: 1.month.ago)
 end
-
-Student.find_each {|student| student.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
 
 # Tags Data
 tags = %w[fun music instrument learn best great musician bootcamp course]
@@ -120,18 +120,16 @@ rand(300..400).times do
                                      prerequisites: prerequisites,
                                      language: language,
                                      price:   price,
-                                     tag_list: tag_list)
-
-  course.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)
+                                     tag_list: tag_list, 
+                                     created_at: 1.month.ago, 
+                                     updated_at: 1.month.ago)
 
   # Lessons
   rand(1..12).times do
     name = Faker::Food.dish
     description = Faker::Food.description
-    course.lessons.create!(name: name, description: description)
+    course.lessons.create!(name: name, description: description, created_at: 1.month.ago, updated_at: 1.month.ago)
   end
-
-  course.lessons.each {|lesson| lesson.update_attributes(created_at: 1.month.ago, updated_at: 1.month.ago)}
 end
 
 # Subscriptions
@@ -150,7 +148,9 @@ students.each do |student|
     if rand > 0.50
       student.reviews.create!(rating: rand(1..5),
                               content: Faker::Lorem.paragraph(rand(1..8)),
-                              course: course)
+                              course: course, 
+                              created_at: subscription_time, 
+                              updated_at: subscription_time)
 
       # Update Course Rating & Popularity
       course.update_attributes(rating: course.rating_calc)

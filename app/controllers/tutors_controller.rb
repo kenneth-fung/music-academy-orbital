@@ -53,8 +53,14 @@ class TutorsController < ApplicationController
 
     popular_benchmark = Tutor.reorder(popularity: :asc).to_a[Tutor.count / 3 * 2].popularity
     @tutors_popular = Tutor.where(activated: true).where('popularity > ?', popular_benchmark).reorder(Arel.sql("RANDOM()")).limit(4)
-    @tutors_guitar  = Tutor.where(activated: true).teaches('guitar').limit(4)
-    @tutors_piano   = Tutor.where(activated: true).teaches('piano').limit(4)
+
+    @instrument = Faker::Music.instrument
+    @instrument_two = Faker::Music.instrument
+    while @instrument_two == @instrument
+      @instrument_two = Faker::Music.instrument
+    end
+    @tutors_instrument     = Tutor.where(activated: true).teaches(@instrument.downcase).limit(4)
+    @tutors_instrument_two = Tutor.where(activated: true).teaches(@instrument_two.downcase).limit(4)
 
     tutors  = Tutor.sort(params[:sort_by]).where(activated: true)
 

@@ -66,17 +66,17 @@
 
     <% if @course.target.present? %>
       <h3 class="target-heading text-left"><b>Who is this course for?</b><h3>
-      <h2 class="target mt-2 text-left">
-        <%= @course.target %>
-      </h2>
-    <% end %>
+          <h2 class="target mt-2 text-left">
+            <%= @course.target %>
+          </h2>
+        <% end %>
 
-    <% if @course.prerequisites.present? %>
-      <h3 class="prerequisites-heading text-left"><b>Prerequisites for this Course</b><h3>
-      <h2 class="prerequisites mt-2 text-left">
-        <%= @course.prerequisites %>
-      </h2>
-    <% end %>
+        <% if @course.prerequisites.present? %>
+          <h3 class="prerequisites-heading text-left"><b>Prerequisites for this Course</b><h3>
+              <h2 class="prerequisites mt-2 text-left">
+                <%= @course.prerequisites %>
+              </h2>
+            <% end %>
 
   </div>
 </div>
@@ -149,7 +149,7 @@
 <div class="container reviews-section" id="reviews">
 
   <div class="row reviews-header">
-    <h3>
+    <h3 class="">
       <strong>Reviews (<%= @course.reviews.count %>)</strong>
     </h3>
   </div>
@@ -165,11 +165,15 @@
     <!--Current User's Review-->
     <% if @review %>
       <!--no review written yet-->
-      <h3>Write a Review</h3>
-      <%= render 'reviews/review_form', review: @review %>
-      <!--review already written-->
+      <div class="row">
+        <div class="col">
+          <h3 class="text-left ml-4 mt-2 mb-1">Write a Review</h3>
+          <%= render 'reviews/review_form', review: @review %>
+        </div>
+      </div>
     <% elsif @curr_review %>
-      <h3>Your Review</h3>
+      <!--review already written-->
+      <h3 class="text-left ml-4 mt-2">Your Review</h3>
       <span id="current_user_review">
         <% if params[:review_edit] %>
           <%= render 'reviews/review_form', review: @curr_review %>
@@ -195,11 +199,53 @@
 
     <!--All Reviews-->
     <% if @course.reviews.any? %>
-      <li><%= render 'reviews/sort' %></li>
-      <%= render @reviews %>
+      <% if student? %>
+        <h3 class="text-left ml-4 mt-4" style="font-size:1.7em;">Reviews by Other Students</h3>
+      <% end %>
+      <div class="reviews-all row">
+        <div class="col">
+          <li><%= render 'reviews/sort' %></li>
+          <%= render @reviews %>
+        </div>
+      </div>
     <% end %>
 
   </ol>
 
 </div>
 <!--end of reviews-->
+
+<!--Other Courses-->
+
+<h3 class="text-left mt-5 mb-4">
+  <strong>Other Courses</strong>
+</h3>
+
+<!--by the Tutor-->
+<%= render 'collection', 
+  heading: "...by #{@tutor.name}", 
+  courses: @tutor
+            .courses
+            .where.not(id: @course.id)
+            .reorder(popularity: :desc)
+            .offset(rand(@tutor.courses.count - 4))
+            .limit(4) 
+%>
+
+<!--similar courses-->
+<% 
+  similar_courses = 
+    Course
+    .search(@course.title.downcase.partition(' ').first)
+    .where('rating > ?', '2')
+    .where.not(id: @course.id)
+
+  similar_courses = similar_courses
+    .offset(rand(similar_courses.count - 3))
+    .limit(4) 
+%>
+
+<%= render 'collection', 
+  heading: "...like #{@course.title}", 
+  courses: similar_courses 
+%>

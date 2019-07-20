@@ -4,9 +4,13 @@
 
 <%= render 'collection', heading: 'Popular Tutors', tutors: @tutors_popular %>
 
-<%= render 'collection', heading: 'Tutors Teaching Guitar', tutors: @tutors_guitar %>
+<% if @tutors_instrument.any? %>
+  <%= render 'collection', heading: "Tutors Teaching the #{@instrument}", tutors: @tutors_instrument %>
+<% end %>
 
-<%= render 'collection', heading: 'Tutors Teaching Piano', tutors: @tutors_piano %>
+<% if @tutors_instrument_two.any? %>
+  <%= render 'collection', heading: "Tutors Teaching the #{@instrument_two}", tutors: @tutors_instrument_two %>
+<% end %>
 
 <div class="tutors-all row">
   <div class="col">

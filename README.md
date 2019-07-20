@@ -65,9 +65,9 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - Courses Page
   - rows of recommendations, similar to Tutors Page
-  - individual course pages should have a two more rows:
-    - other courses by this tutor
-    - other courses similar to this course
+  - ~~individual course pages should have a two more rows:~~
+    - ~~other courses by this tutor~~
+    - ~~other courses similar to this course~~
 
 - ~~Search field in Navbar~~
   - ~~blend in a bit more to differentiate from search bars on Home and Courses page~~

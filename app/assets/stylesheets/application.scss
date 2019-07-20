@@ -718,10 +718,18 @@ footer {
 
   .reviews {
 
+    padding: 0px;
+
     .review-form {
       border-top-style: none;
       textarea, button {
         margin: 10px 0px;
+      }
+      .row {
+        margin: 5px;
+        .col {
+          margin: 5px;
+        }
       }
     }
 
@@ -737,6 +745,13 @@ footer {
       border-bottom: 1px solid $gray-lighter;
       border-bottom-style: solid;
       div {
+        margin: 5px;
+      }
+    }
+
+    .reviews-all {
+      margin: 5px;
+      .col {
         margin: 5px;
       }
     }
