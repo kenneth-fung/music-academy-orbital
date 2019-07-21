@@ -41,11 +41,11 @@
 
         <% if params[:review_edit] %>
           <span class="edit-delete float-right">
-            <%= f.button "Save Changes", type: :submit, class: 'btn btn-primary' %>
+            <%= f.button "Save Changes", type: :submit, data: { disable_with: 'Saving...' }, class: 'btn btn-primary' %>
             <%= link_to "Delete Review", review_path(course_id: @course.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
           </span>
         <% else %>
-          <%= f.button "Post Review", type: :submit, class: 'btn btn-primary float-right' %>
+          <%= f.button "Post Review", type: :submit, data: { disable_with: 'Posting...' }, class: 'btn btn-primary float-right' %>
         <% end %>
 
       <% end %>

@@ -11,12 +11,12 @@ document.addEventListener("turbolinks:load", function() {
     getValue: "title",
     url: function(phrase) {
 
-      if (controller == "tutors") {
-        if (action == "show") {
+      if (controller === "tutors") {
+        if (action === "show") {
           id = $('.form-control').data('id');
           return "/tutors/" + id + "/courses.json?search_profile=" + phrase;
         } 
-      } else if (controller == "students") {
+      } else if (controller === "students") {
         id = $('.form-control').data('id');
         return "/students/" + id + "/courses.json?search_profile=" + phrase;
       } else {
@@ -49,4 +49,14 @@ document.addEventListener("turbolinks:load", function() {
         $(this).css({"width": "100%", "height": "100%", "margin-top": "0%", "margin-left": "0%"});
       }
       );
+
+  // disable inputs and links on form submits
+
+  $('form').submit(function() {
+    $('.form-control').attr("readonly", true);
+    $('.form-control-file').css({"display": "none"});
+
+    var links = $('a,#logo').not($(this));
+    links.addClass("disabled");
+  });
 });

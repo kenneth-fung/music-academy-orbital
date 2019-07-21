@@ -23,7 +23,7 @@
           <%= f.hidden_field :origin_id, value: origin.id %>
 
           <span class="buttons float-right">
-            <%= f.submit 'Send Report', class: 'btn btn-danger' %>
+            <%= f.submit 'Send Report', data: { disable_with: 'Sending...' }, class: 'btn btn-danger' %>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </span>
 

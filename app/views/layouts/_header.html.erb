@@ -4,7 +4,7 @@
 
     <div class="row mb-5">
       <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light" id="home-nav">
+        <nav class="navbar navbar-expand-lg navbar-dark" id="home-nav">
           <%= render 'layouts/navbar' %>
         </nav>
       </div>
@@ -67,7 +67,7 @@
 
     <div class="row mb-5">
       <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light" id="home-nav">
+        <nav class="navbar navbar-expand-lg navbar-dark" id="home-nav">
           <%= render 'layouts/navbar' %>
         </nav>
       </div>
@@ -113,7 +113,7 @@
             <% lesson = Lesson.find(current_user.lesson_id) %>
           <% end %>
 
-          <div class="card bg-dark text-white">
+          <div class="welcome-back-card card bg-dark text-white">
             <div class="row mr-1">
               <div class="col">
                 <div class="card-body">
@@ -146,7 +146,7 @@
 
   <div class="row">
     <div class="col pb-0">
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <%= render 'layouts/navbar' %>
       </nav>
     </div>

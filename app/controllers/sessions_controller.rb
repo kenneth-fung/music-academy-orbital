@@ -3,6 +3,9 @@ class SessionsController < ApplicationController
   before_action :is_logged_in?,  only: [:destroy]
 
   def new
+    if params[:user_type].nil?
+      params[:user_type] = 'Student'
+    end
   end
 
   def create

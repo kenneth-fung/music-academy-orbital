@@ -70,7 +70,7 @@
 
   <%= f.hidden_field :user_type, value: 'Tutor' %>
 
-  <%= f.submit "Log In", class: 'btn btn-primary' %>
+  <%= f.submit "Log In", data: { disable_with: 'Logging in...' }, class: 'btn btn-primary' %>
 
   or sign in with
   <%= link_to "Google", "auth/google_oauth2?user_type=Tutor" %>

@@ -11,8 +11,8 @@ document.addEventListener("turbolinks:load", function() {
     getValue: "name",
     url: function(phrase) {
 
-      if (controller == "tutors") {
-        if (action == "index") {
+      if (controller === "tutors") {
+        if (action === "index") {
           return "/tutors.json?search=" + phrase;
         }
       }

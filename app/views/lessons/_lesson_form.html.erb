@@ -98,7 +98,7 @@
 <%= hidden_field_tag :course_id, @course.id %>
 
 <section class="btn-submit">
-  <%= f.button yield(:submit_text), type: :submit, class: 'btn btn-primary mt-3' %>
+  <%= f.button yield(:submit_text), type: :submit, data: { disable_with: yield(:submit_text).eql?("Save Changes") ? 'Saving...' : 'Publishing...' }, class: 'btn btn-primary mt-3' %>
 </section>
 
 <!--Back Button-->

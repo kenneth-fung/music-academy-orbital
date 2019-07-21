@@ -98,7 +98,7 @@
             <%= hidden_field_tag :lesson_id, @lesson.id %>
             <%= hidden_field_tag :course_id, @course.id %>
 
-            <%= f.submit "Post Question", class: 'btn btn-primary ' %>
+            <%= f.submit "Post Question", data: { disable_with: 'Posting...' }, class: 'btn btn-primary ' %>
 
           <% end %>
         </div>

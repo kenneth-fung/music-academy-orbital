@@ -1,8 +1,6 @@
 # README
 
-## Please Note:
-
-### To Fix
+## To Fix
     
 "**password resets**" test in test/integration/**password_resets_test**.rb
 throws an error on line 43.
@@ -77,7 +75,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - ~~Add search button to search bar on user profile page~~
 
 - File Uploads
-  - grey out the “save changes” and “back” buttons
+  - ~~grey out the “save changes” and “back” buttons, as well as disable all links~~
   - ~~check why adobe acrobat documents can’t be uploaded (type: ‘application/pdf’)~~
   - for the final showcase, disable file purge due to form errors (ignore orphaned files)
 
@@ -144,15 +142,13 @@ To enable direct upload to Amazon S3, go to: Your Bucket -> Permissions -> CORS 
 
 Solution to prevent video downloads could be improved.
 - Currently, 'download button' and 'right click & save as' methods disabled,
-  but **not** on Internet Explorer.
+  **except** on Internet Explorer.
 - If time permits, change it to a system where the video gets uploaded to
   youtube/vimeo and then embedded, both automatically.
 
 #### SSO Services
 
 - Google available as option during sign up and log in. Tested on heroku.
-  For niibori heroku, most likely just need to add RAILS_MASTER_KEY to Heroku
-config, since app on Google is already set up. Ask me for key.
 - Facebook not added as it requires a privacy policy.
 
 #### Payment System

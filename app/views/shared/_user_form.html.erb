@@ -145,7 +145,7 @@
     </div>
   <% end %>
 
-  <%= f.submit yield(:button_text), class: "btn btn-primary mt-3" %>
+  <%= f.submit yield(:button_text), data: { disable_with: yield(:button_text).eql?('Save Changes') ? 'Saving...' : 'Creating...' }, class: "btn btn-primary mt-3" %>
 
   <% if params[:action] != 'edit' && params[:action] != 'update' %>
     <section class="signup-options">
