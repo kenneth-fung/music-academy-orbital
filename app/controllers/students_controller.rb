@@ -34,9 +34,9 @@ class StudentsController < ApplicationController
       'My Profile' :
       "#{@student.name}"
 
-    @notifications = @student
-    .notifications
-    .reorder(created_at: :desc) if current_user? @student
+    @notifications = current_user?(@student) ?
+      @student.notifications.reorder(created_at: :desc) :
+      Notification.none
 
     respond_to do |format|
       format.html

@@ -1,6 +1,6 @@
 <% placeholder = student? && !current_user.lesson_id.nil? ? 'Search for a course...' : 'What would you like to learn?' %>
 
-<%= form_with url: courses_path, local: true, method: :get, html: { class: 'home-search my-2 my-lg-0 w-50' } do |form| %>
+<%= form_with url: courses_path, local: true, method: :get, html: { class: 'home-search search-bar my-2 my-lg-0 w-50' } do |form| %>
   <%= form.text_field :search, 
     value: params[:search], 
     placeholder: placeholder, 

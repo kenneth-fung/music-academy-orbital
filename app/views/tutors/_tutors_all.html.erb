@@ -1,0 +1,8 @@
+<div id="tutors" class="tutors row">
+  <%= render @tutors %>
+</div>
+<div class="tutors-pagination row justify-content-center">
+  <div class="col-auto">
+    <%= will_paginate @tutors, params: { anchor: 'tutors-all' }, class: "pagination" %>
+  </div>
+</div>

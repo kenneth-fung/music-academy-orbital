@@ -14,7 +14,7 @@
   <%= render 'collection', heading: "Tutors Teaching the #{@instrument_two}", tutors: @tutors_instrument_two %>
 <% end %>
 
-<div class="tutors-all row" id="tutors-all">
+<div class="tutors-all row" id="tutors-all-section">
   <div class="col">
 
     <h3 class="tutors-heading text-left">
@@ -24,7 +24,7 @@
     <div class="row">
 
       <div class="col">
-        <%= form_tag tutors_path(sort_by: params[:sort_by], anchor: 'tutors-all'), method: :get, class: 'search-bar my-2 my-lg-0' do %>
+        <%= form_tag tutors_path(sort_by: params[:sort_by], anchor: 'tutors-all-section'), method: :get, class: 'search-bar my-2 my-lg-0' do %>
           <div class="input-group w-50">
             <%= text_field_tag :search, 
               params[:search], 
@@ -39,7 +39,7 @@
               <% end %>
             </div>
           </div>
-          <small><%= link_to 'clear search results', tutors_path(anchor: 'tutors-all'), class: 'search-clear ml-2', style: 'color:gray;' %></small>
+          <small><%= link_to 'clear search results', tutors_path(anchor: 'tutors-all-section'), class: 'search-clear ml-2', style: 'color:gray;' %></small>
         <% end %>
       </div>
 
@@ -49,13 +49,9 @@
 
     </div>
 
-    <div id="tutors" class="tutors row">
-      <%= render @tutors %>
+    <div id="tutors-all">
+      <%= render 'tutors_all' %>
     </div>
-    <div class="tutors-pagination row justify-content-center">
-      <div class="col-auto">
-        <%= will_paginate @tutors, params: { anchor: 'tutors-all' }, class: "pagination" %>
-      </div>
-    </div>
+    
   </div>
 </div>

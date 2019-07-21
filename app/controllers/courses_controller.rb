@@ -4,6 +4,8 @@ class CoursesController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
+    @title = 'Courses'
+
     # Trending Courses this Week
     courses_trending = Course
     .left_outer_joins(:subscriptions)
@@ -37,9 +39,10 @@ class CoursesController < ApplicationController
       format.html {
         @courses = @courses.search(params[:search]) if params[:search]
         @courses = @courses.paginate(page: params[:page], per_page: 8)
-        params[:search] ?
-          @title = "Search: \"#{params[:search]}\"" :
-          @title = "Courses"
+      }
+      format.js {
+        @courses = @courses.search(params[:search]) if params[:search]
+        @courses = @courses.paginate(page: params[:page], per_page: 8)
       }
       format.json {
         if params[:search] && !params[:search].blank?

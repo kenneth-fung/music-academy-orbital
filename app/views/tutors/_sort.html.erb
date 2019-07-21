@@ -3,9 +3,9 @@
     Sort By
   </button>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-    <%= link_to "Popularity", tutors_path(sort_by: :most_popular,  search: params[:search], anchor: 'tutors'), class: 'dropdown-item' %>
-    <%= link_to "Students",   tutors_path(sort_by: :most_students, search: params[:search], anchor: 'tutors'), class: 'dropdown-item' %>
-    <%= link_to "Courses",    tutors_path(sort_by: :most_courses,  search: params[:search], anchor: 'tutors'), class: 'dropdown-item' %>
-    <%= link_to "Name",       tutors_path(sort_by: :by_name,       search: params[:search], anchor: 'tutors'), class: 'dropdown-item' %>
+    <%= link_to "Popularity", tutors_path(sort_by: :most_popular,  search: params[:search]), remote: true, class: 'dropdown-item' %>
+    <%= link_to "Students",   tutors_path(sort_by: :most_students, search: params[:search]), remote: true, class: 'dropdown-item' %>
+    <%= link_to "Courses",    tutors_path(sort_by: :most_courses,  search: params[:search]), remote: true, class: 'dropdown-item' %>
+    <%= link_to "Name",       tutors_path(sort_by: :by_name,       search: params[:search]), remote: true, class: 'dropdown-item' %>
   </div>
 </div>

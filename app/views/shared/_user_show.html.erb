@@ -97,8 +97,6 @@
                   <%= link_to 'Create a New Course', new_course_path(back_to: params[:action]), class: 'btn btn-primary btn-lg btn-course-new' %>
                 <% end %>
 
-                <% if @courses.any? %>
-
                   <div class="row">
 
                     <% if @student %>
@@ -171,16 +169,10 @@
 
                   </div>
 
-                  <div class="row"><%= render @courses %></div>
-
-                <% else %>
-
-                  <h3 class="course-index-none">
-                    <strong>No courses found...</strong>
-                  </h3>
-
-                <% end %>
-
+                  <div id="courses-user-all">
+                    <%= render 'shared/user_show_courses', courses: @courses %>
+                  </div>
+                
               </div>
             </div>
 

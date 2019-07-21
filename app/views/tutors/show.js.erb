@@ -10,3 +10,5 @@ $("#notifications-tab").html(function() {
 });
 
 $(".notifications").html("<%= escape_javascript(render partial: 'notifications/notifications', locals: {notifications: @notifications}) %>");
+
+$('#courses-user-all').html("<%= escape_javascript(render partial: 'shared/user_show_courses', locals: {courses: @courses}) %>");

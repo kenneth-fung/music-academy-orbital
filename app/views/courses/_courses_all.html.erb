@@ -1,0 +1,24 @@
+<!--Courses-->
+<% if @courses.any? %>
+
+  <div class="courses row" id="courses">
+    <%= render @courses %>
+  </div>
+
+  <div class="courses-pagination row justify-content-center">
+    <div class="col-auto">
+      <%= will_paginate @courses, params: { anchor: 'courses-all' }, class: "pagination" %>
+    </div>
+  </div>
+
+<% else %>
+
+  <div class="row">
+    <div class="col-auto">
+      <h3 class="mt-4 course-index-none">
+        <strong>No courses found...</strong>
+      </h3>
+    </div>
+  </div>
+
+<% end %>

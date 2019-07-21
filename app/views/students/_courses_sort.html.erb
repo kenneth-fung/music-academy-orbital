@@ -3,7 +3,7 @@
     Sort By
   </button>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-    <li><%= link_to "Newest", student_path(@student, sort_by: :newest, search_profile: params[:search_profile], anchor: 'courses-tab'), class: 'dropdown-item' %></li>
-    <li><%= link_to "Oldest", student_path(@student, sort_by: :oldest, search_profile: params[:search_profile], anchor: 'courses-tab'), class: 'dropdown-item' %></li>
+    <li><%= link_to "Newest", student_path(@student, sort_by: :newest, search_profile: params[:search_profile]), remote: true, class: 'dropdown-item' %></li>
+    <li><%= link_to "Oldest", student_path(@student, sort_by: :oldest, search_profile: params[:search_profile]), remote: true, class: 'dropdown-item' %></li>
   </div>
 </div>

@@ -18,7 +18,7 @@
   <%= render 'collection', heading: 'Freshly Published Courses', courses: @courses_new %>
 <% end %>
 
-<div class="courses-all row" id="courses-all">
+<div class="courses-all row" id="courses-all-section">
   <div class="col">
 
     <h3 class="courses-heading text-left">
@@ -30,7 +30,7 @@
       <div class="col">
 
         <!--Search Bar-->
-        <%= form_with url: courses_path(sort_by: params[:sort_by], anchor: 'courses-all'), local: true, method: :get, html: { class: 'search-bar my-2 my-lg-0 w-50' } do |form| %>
+        <%= form_with url: courses_path(sort_by: params[:sort_by], anchor: 'courses-all-section'), local: true, method: :get, html: { class: 'search-bar my-2 my-lg-0 w-50' } do |form| %>
           <div class="input-group">
             <%= form.text_field :search, value: params[:search], placeholder: 'Search', data: { behavior: 'autocomplete', controller: 'courses', action: 'index' }, class: 'form-control' %>
             <div class="input-group-append">
@@ -39,7 +39,7 @@
               <% end %>
             </div>
           </div>
-          <small><%= link_to 'clear search results', courses_path(anchor: 'courses-all'), class: 'search-clear ml-2', style: 'color:gray;' %></small>
+          <small><%= link_to 'clear search results', courses_path(anchor: 'courses-all-section'), class: 'search-clear ml-2', style: 'color:gray;' %></small>
         <% end %>
 
       </div>
@@ -50,30 +50,9 @@
 
     </div>
 
-    <!--Courses-->
-    <% if @courses.any? %>
-
-      <div class="courses row" id="courses">
-        <%= render @courses %>
-      </div>
-
-      <div class="courses-pagination row justify-content-center">
-        <div class="col-auto">
-          <%= will_paginate @courses, params: { anchor: 'courses-all' }, class: "pagination" %>
-        </div>
-      </div>
-
-    <% else %>
-
-      <div class="row">
-        <div class="col-auto">
-          <h3 class="mt-4 course-index-none">
-            <strong>No courses found...</strong>
-          </h3>
-        </div>
-      </div>
-
-    <% end %>
+    <div id="courses-all">
+      <%= render 'courses_all' %>
+    </div>
 
   </div>
 </div>

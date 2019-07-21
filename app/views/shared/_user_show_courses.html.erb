@@ -1,0 +1,14 @@
+<% if courses.any? %>
+
+  <div class="row">
+    <%= render courses %>
+  </div>
+
+<% else %>
+
+  <h3 class="course-index-none">
+    <strong>No courses found...</strong>
+  </h3>
+
+<% end %>
+

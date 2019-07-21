@@ -3,10 +3,10 @@
     Sort By
   </button>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-    <li><%= link_to "Newest", tutor_path(@tutor, sort_by: :newest, search_profile: params[:search_profile], anchor: 'courses-tab'), class: 'dropdown-item' %></li>
-    <li><%= link_to "Oldest", tutor_path(@tutor, sort_by: :oldest, search_profile: params[:search_profile], anchor: 'courses-tab'), class: 'dropdown-item' %></li>
+    <li><%= link_to "Newest", tutor_path(@tutor, sort_by: :newest, search_profile: params[:search_profile]), remote: true, class: 'dropdown-item' %></li>
+    <li><%= link_to "Oldest", tutor_path(@tutor, sort_by: :oldest, search_profile: params[:search_profile]), remote: true, class: 'dropdown-item' %></li>
     <% if tutor? && current_user?(@tutor) %>
-      <li><%= link_to "Messages", tutor_path(@tutor, sort_by: :messages, search_profile: params[:search_profile], anchor: 'courses-tab'), class: 'dropdown-item' %></li>
+      <li><%= link_to "Messages", tutor_path(@tutor, sort_by: :messages, search_profile: params[:search_profile]), remote: true, class: 'dropdown-item' %></li>
     <% end %>
   </div>
 </div>

@@ -36,27 +36,30 @@ document.addEventListener("turbolinks:load", function() {
   $input.easyAutocomplete(options);
 
   // course card hover shadow
-  
-  $('.course-card').hover(
-      function() {
-        $(this).removeClass("shadow-sm");
-        $(this).addClass("shadow");
-        $(this).css({"width": "101%", "height": "101%", "margin-top": "-0.5%", "margin-left": "-0.5%"});
-      },
-      function() {
-        $(this).removeClass("shadow");
-        $(this).addClass("shadow-sm");
-        $(this).css({"width": "100%", "height": "100%", "margin-top": "0%", "margin-left": "0%"});
-      }
-      );
+
+  $(document).on({
+    mouseenter: function() {
+      $(this).removeClass("shadow-sm");
+      $(this).addClass("shadow");
+      $(this).css({"width": "101%", "height": "101%", "margin-top": "-0.5%", "margin-left": "-0.5%"});
+    },
+    mouseleave: function() {
+      $(this).removeClass("shadow");
+      $(this).addClass("shadow-sm");
+      $(this).css({"width": "100%", "height": "100%", "margin-top": "0%", "margin-left": "0%"});
+    }
+  }, '.course-card');
 
   // disable inputs and links on form submits
 
   $('form').submit(function() {
-    $('.form-control').attr("readonly", true);
-    $('.form-control-file').css({"display": "none"});
+    // greys out form links and inputs only if the form was not a search form
+    if ($(this).hasClass("search-bar") === false) {
+      $('.form-control').attr("readonly", true);
+      $('.form-control-file').css({"display": "none"});
 
-    var links = $('a,#logo').not($(this));
-    links.addClass("disabled");
+      var links = $('a,#logo').not($(this));
+      links.addClass("disabled");
+    }
   });
 });

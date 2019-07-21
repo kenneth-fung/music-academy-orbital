@@ -86,7 +86,7 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - send/delete posts/messages without reloading page
 - switch between lessons in scrollmenu without reloading page
 - post/update/delete reviews without reloading page
-- sort courses on courses/profile page without reloading page
+- ~~sort courses on courses/tutors/profile page without reloading page~~
 - clear search field on profile page without reloading page
 - save changes to courses/lessons without reloading page
 

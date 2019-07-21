@@ -38,6 +38,10 @@ class TutorsController < ApplicationController
     .notifications
     .reorder(created_at: :desc) if current_user? @tutor
 
+    @notifications = current_user?(@tutor) ?
+      @tutor.notifications.reorder(created_at: :desc) :
+      Notification.none
+
     if params[:mark_read]
       Notification.find(params[:mark_read]).update_attribute(:read, true)
     end
@@ -66,6 +70,10 @@ class TutorsController < ApplicationController
 
     respond_to do |format|
       format.html {
+        tutors  = tutors.search(params[:search]) if params[:search]
+        @tutors = tutors.paginate(page: params[:page], per_page: 8)
+      }
+      format.js {
         tutors  = tutors.search(params[:search]) if params[:search]
         @tutors = tutors.paginate(page: params[:page], per_page: 8)
       }
