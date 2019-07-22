@@ -1,0 +1,33 @@
+<h3 id="forum-heading" class="text-left">
+  Discussions
+</h3>
+
+<% count = lesson.posts.count %>
+
+<% lesson.posts.each_with_index do |post, index| %>
+  <%= render post, index: index, count: count, lesson: lesson, course: course %>
+<% end %>
+
+<p>
+<button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#collapsePostForm" aria-expanded="false" aria-controls="collapsePostForm">
+  Ask a question!
+</button>
+</p>
+
+<div class="collapse" id="collapsePostForm">
+  <div class="card card-body">
+    <%= form_for(:post, url: posts_path, method: :post, remote: true, html: { class: 'post-form' }) do |f| %>
+
+      <div class="form-group">
+        <%= f.text_field :content, placeholder: 'Ask here...', class: 'form-control post-field' %>
+      </div>
+
+      <%= hidden_field_tag :lesson_id, lesson.id %>
+      <%= hidden_field_tag :course_id, course.id %>
+
+      <%= f.submit "Post Question", data: { disable_with: 'Posting...' }, class: 'btn btn-primary ' %>
+
+    <% end %>
+  </div>
+
+</div>

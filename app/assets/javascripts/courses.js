@@ -53,8 +53,15 @@ document.addEventListener("turbolinks:load", function() {
   // disable inputs and links on form submits
 
   $('form').submit(function() {
-    // greys out form links and inputs only if the form was not a search form
-    if ($(this).hasClass("search-bar") === false) {
+    // greys out form links and inputs only if the form is not
+    // (1) a search form
+    // (2) a post/message form
+    var readonly = 
+      $(this).hasClass("search-bar") === false && 
+      $(this).hasClass("post-form") === false && 
+      $(this).hasClass("message-form") === false;
+
+    if (readonly) {
       $('.form-control').attr("readonly", true);
       $('.form-control-file').css({"display": "none"});
 
@@ -62,4 +69,5 @@ document.addEventListener("turbolinks:load", function() {
       links.addClass("disabled");
     }
   });
+
 });

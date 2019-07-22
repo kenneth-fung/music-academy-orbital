@@ -83,11 +83,10 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - ~~add autocomplete function to all search bars~~
 - ~~update page without reload when clearing notifications~~
-- send/delete posts/messages without reloading page
+- ~~send/delete posts/messages without reloading page~~
 - switch between lessons in scrollmenu without reloading page
 - post/update/delete reviews without reloading page
 - ~~sort courses on courses/tutors/profile page without reloading page~~
-- clear search field on profile page without reloading page
 - save changes to courses/lessons without reloading page
 
 ### Features / Other Improvements

@@ -32,7 +32,7 @@
             <small>
               <i>
                 <% if logged_in? && (current_user?(message.sender) || current_user.admin?) %>
-                  <%= link_to "delete", message_path(message), method: :delete %>
+                  <%= link_to "delete", message_path(message), method: :delete, remote: true %>
                 <% end %>
                 <% if logged_in? && !current_user?(message.sender) && !current_user.admin? %>
                   <a href="#reportMessage" data-toggle="modal" data-target="#reportMessage">report</a>

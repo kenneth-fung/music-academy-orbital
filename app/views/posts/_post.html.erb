@@ -37,7 +37,7 @@
                 <small>
                   <i>
                     <% if logged_in? && (current_user?(post.sender) || current_user.admin?) %>
-                      <%= link_to "delete", post_path(post), method: :delete, lesson_id: lesson.id, course_id: course.id %>
+                      <%= link_to "delete", post_path(post), method: :delete, remote: true, lesson_id: lesson.id, course_id: course.id %>
                     <% end %>
                     <% if logged_in? && !current_user?(post.sender) && !current_user.admin? %>
                       <a href="#reportPost" data-toggle="modal" data-target="#reportPost">report</a>
@@ -71,10 +71,10 @@
 
     <div class="collapse" id="post<%= index.to_s %>">
       <div class="card card-body">
-        <%= form_for(:message, url: messages_path, method: :post) do |f| %>
+        <%= form_for(:message, url: messages_path, method: :post, remote: true, html: { class: 'message-form' }) do |f| %>
 
           <div class="form-group">
-            <%= f.text_field :content, placeholder: 'Type your reply here...', class: 'form-control' %>
+            <%= f.text_field :content, placeholder: 'Type your reply here...', class: 'form-control message-field' %>
           </div>
 
           <%= hidden_field_tag :lesson_id, lesson.id %>

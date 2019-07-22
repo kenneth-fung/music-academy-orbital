@@ -16,12 +16,18 @@ class MessagesController < ApplicationController
       read_notifications
       generate_notifications
     end
-    back_to_course
+    respond_to do |format|
+      format.html { back_to_course }
+      format.js
+    end
   end
 
   def destroy
     @message.destroy
-    back_to_course
+    respond_to do |format|
+      format.html { back_to_course }
+      format.js
+    end
   end
 
   private

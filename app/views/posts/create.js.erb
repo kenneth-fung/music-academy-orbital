@@ -1,0 +1,2 @@
+$('#forum').html("<%= escape_javascript(render partial: 'lessons/forum', locals: { course: @course, lesson: @lesson }) %>");
+$('.post-field').val("");

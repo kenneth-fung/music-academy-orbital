@@ -23,7 +23,7 @@
           <%= link_to notification.content, course_path(notification.origin, notified_id: notification.id) %>
 
         <% elsif notification.origin_type == 'Post' || notification.origin_type == 'Message' %>
-          <%= link_to notification.content, course_path(notification.lesson.course, lesson_page: notification.lesson.position, anchor: "forum") %>
+          <%= link_to notification.content, course_path(notification.lesson.course, notified_id: notification.id, lesson_page: notification.lesson.position, anchor: "forum") %>
 
         <% end %>
 

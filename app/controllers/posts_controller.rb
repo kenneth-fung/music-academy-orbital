@@ -14,12 +14,18 @@ class PostsController < ApplicationController
       @post.update_attributes(user_id: current_user.id, user_type: current_user.class.name)
       generate_notification unless @post.sender == @course.tutor
     end
-    back_to_course
+    respond_to do |format|
+      format.html { back_to_course }
+      format.js
+    end
   end
 
   def destroy
     @post.destroy
-    back_to_course
+    respond_to do |format|
+      format.html { back_to_course }
+      format.js
+    end
   end
 
   private
