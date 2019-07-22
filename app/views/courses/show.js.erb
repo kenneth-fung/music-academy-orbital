@@ -1,1 +1,14 @@
 $('#reviews').html("<%= escape_javascript(render partial: 'reviews/reviews', locals: { course: @course, review: @review, curr_review: @curr_review, reviews: @reviews }) %>");
+
+$('#show_lesson').html("<%= escape_javascript(render partial: 'courses/show_lesson', locals: { course: @course, lessons: @lessons, lesson: @lesson }) %>");
+
+$.ajax({
+  success: function(data) {
+    var lesson_link = $('.lesson-selected').attr("href");
+    if (lesson_link === undefined) {
+      history.pushState({}, '', "/courses/" + <%= @course.id %>);
+    } else {
+      history.pushState({}, '', lesson_link);
+    }
+  }
+});

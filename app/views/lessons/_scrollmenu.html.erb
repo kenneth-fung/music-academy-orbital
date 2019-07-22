@@ -2,22 +2,15 @@
   <% @lessons.each do |lesson| %>
 
     <% if params[:lesson_page] && params[:lesson_page].to_i.eql?(lesson.position) %>
-      <li class="list-group-item list-group-item-secondary" id="lesson-selected">
-      <% else %>
-        <li class="list-group-item">
-        <% end %>
+      <li class="list-group-item list-group-item-secondary">
+        <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), remote: true, class: 'nav-link text-dark lesson-link lesson-selected' %>
+      </li>
 
-        <% if @course.tutor == current_user %>
-
-          <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' %>
-
-        <% else %>
-
-          <%= link_to course_path(@course, lesson_page: lesson.position), class: 'nav-link text-dark' do %>
-            <%= lesson.name %>
-          <% end %>
-
-        <% end %>
-        </li>
+    <% else %>
+      <li class="list-group-item">
+        <%= link_to lesson.name, course_path(@course, lesson_page: lesson.position), remote: true, class: 'nav-link text-dark lesson-link' %>
+      </li>
       <% end %>
+
+    <% end %>
 </ul>

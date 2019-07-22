@@ -1,91 +1,97 @@
-<div class="row justify-content-center mt-3">
-  <h1>Lessons</h1>
-</div>
+<div class="col">
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+  <% end %>
 
-<div class="lesson row justify-content-center">
-  <div class="col">
+  <div class="row justify-content-center mt-3">
+    <h1>Lessons</h1>
+  </div>
 
-    <% if @lessons.any? %>
+  <div class="lesson row justify-content-center">
+    <div class="col">
 
-      <% exclusivity_check = subscribing?(@course) || course_owner?(@course) %>
+      <% if lessons.any? %>
 
-      <% if subscribing?(@course) %>
-        <% find_subscription(current_user, @course).update_left_off(@lesson.position) %>
-      <% end %>
+        <% exclusivity_check = subscribing?(course) || course_owner?(course) %>
 
-      <!--Lessons exist-->
-      <div class="lessons row">
+        <% if subscribing?(course) %>
+          <% find_subscription(current_user, course).update_left_off(lesson.position) %>
+        <% end %>
 
-        <!--Scroll Menu-->
-        <div class="scrollmenu col-md-3 pr-0">
-          <%= render 'lessons/scrollmenu' %>
+        <!--Lessons exist-->
+        <div class="lessons row">
+
+          <!--Scroll Menu-->
+          <div class="scrollmenu col-md-3 pr-0">
+            <%= render 'lessons/scrollmenu' %>
+          </div>
+
+          <!--Lesson Video-->
+          <div class="col-md-9 border border-secondary">
+            <% if exclusivity_check && lesson.video.attached? %>
+
+              <!--Subscribed/Course Owner-->
+              <div class="embed-responsive embed-responsive-16by9 height-80">
+                <video controls controlslist="nodownload" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" class="embed-responsive-item bg-dark">
+                  <source src="<%= url_for(lesson.video) %>">
+                </video>
+              </div>
+
+            <% else %>
+
+              <% if exclusivity_check %>
+                <!--Video Not Present-->
+                <h3 class="video-none"><strong>No video was prepared for <%= lesson.name %>.</strong></h3>
+              <% else %>
+                <!--Video Blocked-->
+                <section class="video-block">
+                  <% if tutor? %>
+                    <h3><strong>You are currently logged in as a tutor.</strong></h3>
+                    <h2>Please log in as a student to purchase this course and unlock its lessons.</h2>
+                  <% else %>
+                    <h3><strong>Interested in this course?</strong></h3>
+                    <h2>Please purchase it to unlock its lessons.</h2>
+                  <% end %>
+                </section>
+              <% end %>
+            <% end %>
+
+          </div>
+
         </div>
 
-        <!--Lesson Video-->
-        <div class="col-md-9 border border-secondary">
-          <% if exclusivity_check && @lesson.video.attached? %>
-
-            <!--Subscribed/Course Owner-->
-            <div class="embed-responsive embed-responsive-16by9 height-80">
-              <video controls controlslist="nodownload" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" class="embed-responsive-item bg-dark">
-                <source src="<%= url_for(@lesson.video) %>">
-              </video>
-            </div>
-
-          <% else %>
+        <div class="info row">
+          <div class="col">
 
             <% if exclusivity_check %>
-              <!--Video Not Present-->
-              <h3 class="video-none"><strong>No video was prepared for <%= @lesson.name %>.</strong></h3>
-            <% else %>
-              <!--Video Blocked-->
-              <section class="video-block">
-                <% if tutor? %>
-                  <h3><strong>You are currently logged in as a tutor.</strong></h3>
-                  <h2>Please log in as a student to purchase this course and unlock its lessons.</h2>
-                <% else %>
-                  <h3><strong>Interested in this course?</strong></h3>
-                  <h2>Please purchase it to unlock its lessons.</h2>
-                <% end %>
-              </section>
+
+              <h3 class="name text-left" id="lesson-name" data-position="<%= lesson.position %>"><%= lesson.name %></h3>
+              <section class="description"><%= lesson.description %></section>
+              <span class="resources m-2">
+                <strong>Resources</strong><br>
+                <%= render 'lessons/resources', lesson: lesson %>
+              </span>
+
             <% end %>
-          <% end %>
 
+          </div>
         </div>
 
-      </div>
-
-      <div class="info row">
-        <div class="col">
-
-          <% if exclusivity_check %>
-
-            <h3 class="name text-left"><%= @lesson.name %></h3>
-            <section class="description"><%= @lesson.description %></section>
-            <span class="resources m-2">
-              <strong>Resources</strong><br>
-              <%= render 'lessons/resources', lesson: @lesson %>
-            </span>
-
-          <% end %>
-
+        <!-- Forum -->
+        <div id="forum">
+          <%= render 'lessons/forum', course: course, lesson: lesson %>
         </div>
-      </div>
 
-      <!-- Forum -->
-      <div id="forum">
-        <%= render 'lessons/forum', course: @course, lesson: @lesson %>
-      </div>
+      <% else %>
 
-    <% else %>
+        <!--No Lessons currently exist-->
 
-      <!--No Lessons currently exist-->
+        <div class="center jumbotron">
+          <h3><b>This course currently has no lessons.</b></h3>
+        </div>
 
-      <div class="center jumbotron">
-        <h3><b>This course currently has no lessons.</b></h3>
-      </div>
+      <% end %>
 
-    <% end %>
-
+    </div>
   </div>
 </div>

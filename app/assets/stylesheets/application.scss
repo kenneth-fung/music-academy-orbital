@@ -503,6 +503,16 @@ footer {
 .lesson {
   .lessons {
     margin-bottom: 20px;
+    .scrollmenu {
+      .list-group {
+        padding-right: 0px;
+        direction: rtl;
+        overflow: auto;
+        .item-direction {
+          direction: ltr;
+        }
+      }
+    }
     .video-none, .video-block {
       margin-top: 30%;
     }

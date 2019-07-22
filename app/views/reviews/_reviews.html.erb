@@ -37,7 +37,7 @@
               <span class="content"><%= curr_review.content %></span>
               <section>
                 <span class="timestamp"><%= time_ago_in_words(curr_review.created_at) %> ago</span>
-                <span class="edit">
+                <span class="edit" id="review-edit">
                   <%= link_to "click here to edit review", course_path(course, anchor: "reviews", review_edit: 'edit', sort_by: params[:sort_by]), remote: true %>
                 </span>
             </div>

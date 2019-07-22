@@ -1,186 +1,193 @@
 <%= render 'reports/form_course', title: "Report Course \"#{@course.title}\"", origin: @course %>
 
-<!--Title-->
-<div class="course-header row">
-  <div class="col">
+<div class="col-auto">
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+  <% end %>
 
-    <% if @course.image.attached? %>
-      <div class="image" style="background-image: url('<%= url_for(@course.image) %>');"></div>
-    <% else %>
-      <div class="image" style="background-image: url(<%= asset_path('course_bg.jpg') %>);"></div>
-    <% end %>
-    <div class="image-text">
-      <h1 class="title">
-        <%= @course.title %>
-      </h1>
-      <h2 class="tutor-name"><i>by <%= @tutor.name %></i></h2>
-    </div>
+  <!--Title-->
+  <div class="course-header row">
+    <div class="col">
 
-  </div>
-</div>
-
-<!--Enroll Button-->
-<% unless tutor? || subscribing?(@course) %>
-  <div class="enroll row ">
-    <%= render 'courses/subscribe_form', course: @course %>
-  </div>
-<% end %>
-
-<!--Edit Course Button-->
-<% if tutor? && (current_user?(@tutor) || current_user.admin?) %>
-  <div class="edit-button row">
-    <div class="col d-flex">
-      <%=
-        link_to "Edit Course",
-          edit_course_path(@course,
-                           course_id: @course.id,
-                           page: params[:page]),
-          class: 'btn btn-secondary'
-        %>
-  </div>
-  </div>
-<% end %>
-
-<!--Course Content-->
-<div class="row">
-  <div class="col">
-
-    <h3 class="content-heading text-left"><strong>About the Course</strong></h3>
-
-    <h2 class="content mt-2 text-left">
-
-      <ul class="features-list list-inline">
-        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@lessons.count, "lesson") %></li>
-        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@course.resources_count, "downloadable resource") %></li>
-        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@course.students.count, "student") %></li>
-        <li class="list-inline-item"><%= image_tag 'tick.png' %><%= @course.language %></li>
-      </ul>
-
-      <% if @course.content.present? %>
-        <%= @course.content %>
+      <% if @course.image.attached? %>
+        <div class="image" style="background-image: url('<%= url_for(@course.image) %>');"></div>
       <% else %>
-        <i>No information provided.</i>
+        <div class="image" style="background-image: url(<%= asset_path('course_bg.jpg') %>);"></div>
       <% end %>
+      <div class="image-text">
+        <h1 class="title" data-id="<%= @course.id %>">
+          <%= @course.title %>
+        </h1>
+        <h2 class="tutor-name"><i>by <%= @tutor.name %></i></h2>
+      </div>
 
-    </h2>
-
-    <% if @course.target.present? %>
-      <h3 class="target-heading text-left"><b>Who is this course for?</b><h3>
-          <h2 class="target mt-2 text-left">
-            <%= @course.target %>
-          </h2>
-        <% end %>
-
-        <% if @course.prerequisites.present? %>
-          <h3 class="prerequisites-heading text-left"><b>Prerequisites for this Course</b><h3>
-              <h2 class="prerequisites mt-2 text-left">
-                <%= @course.prerequisites %>
-              </h2>
-            <% end %>
-
+    </div>
   </div>
-</div>
 
-<% if subscribing?(@course) %>
-  <div class="row justify-content-center">
-    <%= render 'courses/subscribe_form', course: @course %>
-  </div>
-<% end %>
+  <!--Enroll Button-->
+  <% unless tutor? || subscribing?(@course) %>
+    <div class="enroll row ">
+      <%= render 'courses/subscribe_form', course: @course %>
+    </div>
+  <% end %>
 
-<!--Tags-->
-<div class="tags row justify-content-start">
-  <div class="col-10">
-    <h6 class="tags-header text-left">Tags for this Course</h6>
-    <%= render @tags %>
-  </div>
-</div>
+  <!--Edit Course Button-->
+  <% if tutor? && (current_user?(@tutor) || current_user.admin?) %>
+    <div class="edit-button row">
+      <div class="col d-flex">
+        <%=
+          link_to "Edit Course",
+            edit_course_path(@course,
+                             course_id: @course.id,
+                             page: params[:page]),
+            class: 'btn btn-secondary'
+          %>
+    </div>
+    </div>
+  <% end %>
 
-<% if logged_in? && !course_owner?(@course) && !current_user.admin? %>
+  <!--Course Content-->
   <div class="row">
     <div class="col">
 
-      <button type="button" class="report-button btn btn-sm btn-secondary" data-toggle="modal" data-target="#reportCourse">
-        Report this Course
-      </button>
+      <h3 class="content-heading text-left"><strong>About the Course</strong></h3>
 
-    </div>
-  </div>
-<% end %>
+      <h2 class="content mt-2 text-left">
 
-<!--Tutor-->
-<div class="row tutor">
-  <div class="col">
-    <h2 class="tutor-header text-left">About the Tutor</h2>
-    <div class="row">
-      <div class="tutor-stats col-2">
-        <%= link_to gravatar_for(@tutor, size: 80), @tutor, class: 'tutor-gravatar' %>
+        <ul class="features-list list-inline">
+          <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@lessons.count, "lesson") %></li>
+          <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@course.resources_count, "downloadable resource") %></li>
+          <li class="list-inline-item"><%= image_tag 'tick.png' %><%= pluralize(@course.students.count, "student") %></li>
+          <li class="list-inline-item"><%= image_tag 'tick.png' %><%= @course.language %></li>
+        </ul>
 
-        <span class="tutor-rating text-left">
-          <%= image_tag "tutor-rating.png" %>
-          <strong><%= @tutor.rating %></strong> tutor rating
-        </span>
-
-        <span class="tutor-students text-left">
-          <%= image_tag "tutor-students.png" %>
-          <strong><%= @tutor.students_unique.count %></strong> students
-        </span>
-
-        <span class="tutor-courses text-left">
-          <%= image_tag "tutor-courses.png" %>
-          <strong><%= @tutor.courses.count %></strong> courses
-        </span>
-
-      </div>
-      <div class="col-7">
-        <h2 class="tutor-name text-left">
-          <strong><%= link_to @tutor.name, @tutor %></strong>
-        </h2>
-        <% if @tutor.bio.blank? %>
-          <h2 class="tutor-bio text-left"><i>no information provided</i></h2>
+        <% if @course.content.present? %>
+          <%= @course.content %>
         <% else %>
-          <h2 class="tutor-bio text-left"><%= @tutor.bio %></h2>
+          <i>No information provided.</i>
         <% end %>
+
+      </h2>
+
+      <% if @course.target.present? %>
+        <h3 class="target-heading text-left"><b>Who is this course for?</b><h3>
+            <h2 class="target mt-2 text-left">
+              <%= @course.target %>
+            </h2>
+          <% end %>
+
+          <% if @course.prerequisites.present? %>
+            <h3 class="prerequisites-heading text-left"><b>Prerequisites for this Course</b><h3>
+                <h2 class="prerequisites mt-2 text-left">
+                  <%= @course.prerequisites %>
+                </h2>
+              <% end %>
+
+    </div>
+  </div>
+
+  <% if subscribing?(@course) %>
+    <div class="row justify-content-center">
+      <%= render 'courses/subscribe_form', course: @course %>
+    </div>
+  <% end %>
+
+  <!--Tags-->
+  <div class="tags row justify-content-start">
+    <div class="col-10">
+      <h6 class="tags-header text-left">Tags for this Course</h6>
+      <%= render @tags %>
+    </div>
+  </div>
+
+  <% if logged_in? && !course_owner?(@course) && !current_user.admin? %>
+    <div class="row">
+      <div class="col">
+
+        <button type="button" class="report-button btn btn-sm btn-secondary" data-toggle="modal" data-target="#reportCourse">
+          Report this Course
+        </button>
+
+      </div>
+    </div>
+  <% end %>
+
+  <!--Tutor-->
+  <div class="row tutor">
+    <div class="col">
+      <h2 class="tutor-header text-left">About the Tutor</h2>
+      <div class="row">
+        <div class="tutor-stats col-2">
+          <%= link_to gravatar_for(@tutor, size: 80), @tutor, class: 'tutor-gravatar' %>
+
+          <span class="tutor-rating text-left">
+            <%= image_tag "tutor-rating.png" %>
+            <strong><%= @tutor.rating %></strong> tutor rating
+          </span>
+
+          <span class="tutor-students text-left">
+            <%= image_tag "tutor-students.png" %>
+            <strong><%= @tutor.students_unique.count %></strong> students
+          </span>
+
+          <span class="tutor-courses text-left">
+            <%= image_tag "tutor-courses.png" %>
+            <strong><%= @tutor.courses.count %></strong> courses
+          </span>
+
+        </div>
+        <div class="col-7">
+          <h2 class="tutor-name text-left">
+            <strong><%= link_to @tutor.name, @tutor %></strong>
+          </h2>
+          <% if @tutor.bio.blank? %>
+            <h2 class="tutor-bio text-left"><i>no information provided</i></h2>
+          <% else %>
+            <h2 class="tutor-bio text-left"><%= @tutor.bio %></h2>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!--Reviews-->
-<div class="container reviews-section" id="reviews">
-  <%= render 'reviews/reviews', course: @course, curr_review: @curr_review, review: @review, reviews: @reviews %>
-</div>
+  <!--Reviews-->
+  <div class="container reviews-section" id="reviews">
+    <%= render 'reviews/reviews', course: @course, curr_review: @curr_review, review: @review, reviews: @reviews %>
+  </div>
 
-<!--Other Courses-->
+  <!--Other Courses-->
 
-<h3 class="text-left mt-5 mb-4">
-  <strong>Other Courses</strong>
-</h3>
+  <h3 class="text-left mt-5 mb-4">
+    <strong>Other Courses</strong>
+  </h3>
 
-<!--by the Tutor-->
-<%= render 'collection', 
-  heading: "by #{@tutor.name}", 
-  courses: @tutor
-            .courses
-            .where.not(id: @course.id)
-            .reorder(popularity: :desc)
-            .offset(rand(@tutor.courses.count - 4))
-            .limit(4) 
+  <!--by the Tutor-->
+  <%= render 'collection', 
+    heading: "by #{@tutor.name}", 
+    courses: @tutor
+  .courses
+  .where.not(id: @course.id)
+  .reorder(popularity: :desc)
+  .offset(rand(@tutor.courses.count - 4))
+  .limit(4) 
 %>
 
 <!--similar courses-->
 <% 
-  similar_courses = 
+    similar_courses = 
     Course
-    .search(@course.title.downcase.partition(' ').first)
-    .where('rating > ?', '2')
-    .where.not(id: @course.id)
+.search(@course.title.downcase.partition(' ').first)
+.where('rating > ?', '2')
+.where.not(id: @course.id)
 
-  similar_courses = similar_courses
-    .offset(rand(similar_courses.count - 3))
-    .limit(4) 
+similar_courses = similar_courses
+.offset(rand(similar_courses.count - 3))
+.limit(4) 
 %>
 
 <%= render 'collection', 
   heading: "like #{@course.title}", 
   courses: similar_courses 
 %>
+
+</div>

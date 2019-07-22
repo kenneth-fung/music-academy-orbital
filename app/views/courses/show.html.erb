@@ -36,12 +36,7 @@
           <% end %>
 
           <div class="show_course row justify-content-center pt-3">
-            <div class="col-auto">
-              <% flash.each do |message_type, message| %>
-                <div class="alert alert-<%= message_type %>"><%= message %></div>
-              <% end %>
-              <%= render 'courses/show_course' %>
-            </div>
+            <%= render 'courses/show_course' %>
           </div>
 
           </div>
@@ -52,13 +47,8 @@
               <div class="tab-pane fade show" id="lessons" role="tabpanel" aria-labelledby="lessons-tab">
               <% end %>
 
-              <div class="show_lesson row justify-content-center pt-3">
-                <div class="col">
-                  <% flash.each do |message_type, message| %>
-                    <div class="alert alert-<%= message_type %>"><%= message %></div>
-                  <% end %>
-                  <%= render 'courses/show_lesson' %>
-                </div>
+              <div class="show_lesson row justify-content-center pt-3" id="show_lesson">
+                <%= render 'courses/show_lesson', course: @course, lessons: @lessons, lesson: @lesson %>
               </div>
 
               </div>
