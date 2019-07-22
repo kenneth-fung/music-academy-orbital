@@ -11,17 +11,32 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
+
     if @review.update_attributes(course_id: params[:course_id])
       generate_notification
-      flash[:success] = "Review posted!"
-      redirect_to course_path(@course, anchor: "reviews")
+      respond_to do |format|
+        format.html {
+          flash[:success] = 'Review posted.'
+          redirect_to course_path(@course, anchor: 'reviews')
+        }
+        format.js {
+          @curr_review = @review
+          @review = nil
+          @reviews = Review.sort(params[:sort_by]).where(course_id: @course.id)
+        }
+      end
     else
-      @tutor = @course.tutor
-      @lessons = @course.lessons.reorder(:position)
-      @lesson = @lessons[0]
-      @tags = @course.tags
-      @reviews = @course.reviews.paginate(page: params[:page])
-      render 'courses/show'
+      @reviews = Review.sort(params[:sort_by]).where(course_id: @course.id)
+      respond_to do |format|
+        format.html {
+          @tutor = @course.tutor
+          @lessons = @course.lessons.reorder(:position)
+          @lesson = @lessons[0]
+          @tags = @course.tags
+          render 'courses/show'
+        }
+        format.js
+      end
     end
   end
 
@@ -31,14 +46,20 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update_attributes(review_params)
-      flash[:success] = "Changes saved!"
-      redirect_to course_path(@course, anchor: "reviews")
+      respond_to do |format|
+        format.html { redirect_to course_path(@course, anchor: 'reviews') }
+        format.js {
+          @curr_review = @review
+          @review = nil
+          @reviews = Review.sort(params[:sort_by]).where(course_id: @course.id)
+        }
+      end
     else
       @tutor = @course.tutor
       @lessons = @course.lessons.reorder(:position)
       @lesson = @lessons[0]
       @tags = @course.tags
-      @reviews = @course.reviews.paginate(page: params[:page])
+      @reviews = Review.sort(params[:sort_by]).where(course_id: @course.id)
       params[:review_edit] = true
       render 'courses/show'
     end
@@ -46,8 +67,20 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy
-    flash[:success] = "Review deleted."
-    redirect_to @course
+    respond_to do |format|
+      format.html { 
+        flash[:success] = "Review deleted."
+        redirect_to @course
+      }
+      format.js {
+        if subscribing?(@course)
+          current_user.review_for(@course).nil? ?
+            @review = current_user.reviews.build :
+            @curr_review = current_user.review_for(@course)
+        end
+        @reviews = Review.sort(params[:sort_by]).where(course_id: @course.id)
+      }
+    end
   end
 
   private

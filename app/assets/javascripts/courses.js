@@ -56,10 +56,12 @@ document.addEventListener("turbolinks:load", function() {
     // greys out form links and inputs only if the form is not
     // (1) a search form
     // (2) a post/message form
+    // (3) a review form
     var readonly = 
       $(this).hasClass("search-bar") === false && 
       $(this).hasClass("post-form") === false && 
-      $(this).hasClass("message-form") === false;
+      $(this).hasClass("message-form") === false &&
+      $(this).hasClass("review-form") === false;
 
     if (readonly) {
       $('.form-control').attr("readonly", true);

@@ -1,0 +1,1 @@
+$('#reviews').html("<%= escape_javascript(render partial: 'reviews/reviews', locals: { course: @course, review: @review, curr_review: @curr_review, reviews: @reviews }) %>");

@@ -41,7 +41,7 @@
 
       <% if logged_in? && current_user.admin? && !current_user?(tutor) %>
         <%= link_to "delete", tutor, method: :delete, data: { confirm: "Are you sure?" },
-          class: 'btn btn-secondary btn-sm' %>
+          class: 'btn btn-outline-secondary btn-sm' %>
       <% end %>
 
     </div>

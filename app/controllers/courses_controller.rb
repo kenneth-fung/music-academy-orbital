@@ -125,6 +125,11 @@ class CoursesController < ApplicationController
       notification = Notification.find_by(id: params[:notified_id])
       notification.update_attribute(:read, true) unless notification.nil?
     end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy

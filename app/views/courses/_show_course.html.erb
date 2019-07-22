@@ -147,73 +147,8 @@
 
 <!--Reviews-->
 <div class="container reviews-section" id="reviews">
-
-  <div class="row reviews-header">
-    <h3 class="">
-      <strong>Reviews (<%= @course.reviews.count %>)</strong>
-    </h3>
-  </div>
-
-  <div class="row">
-    <h2>
-      <strong>Course Rating: <%= render 'reviews/rating', rating: @course.rating %></strong>
-    </h2>
-  </div>
-
-  <ol class="reviews">
-
-    <!--Current User's Review-->
-    <% if @review %>
-      <!--no review written yet-->
-      <div class="row">
-        <div class="col">
-          <h3 class="text-left ml-4 mt-2 mb-1">Write a Review</h3>
-          <%= render 'reviews/review_form', review: @review %>
-        </div>
-      </div>
-    <% elsif @curr_review %>
-      <!--review already written-->
-      <h3 class="text-left ml-4 mt-2">Your Review</h3>
-      <span id="current_user_review">
-        <% if params[:review_edit] %>
-          <%= render 'reviews/review_form', review: @curr_review %>
-        <% else %>
-          <li>
-            <div class="row">
-              <div class="col review">
-                <span class="rating">
-                  <%= render 'reviews/rating', rating: @curr_review.rating %>
-                </span>
-                <span class="content"><%= @curr_review.content %></span>
-                <section>
-                  <span class="timestamp"><%= time_ago_in_words(@curr_review.created_at) %> ago</span>
-                  <span class="edit">
-                    <%= link_to "click here to edit review", course_path(@course, anchor: "reviews", review_edit: 'edit') %>
-                  </span>
-              </div>
-            </div>
-          </li>
-        <% end %>
-      </span>
-    <% end %>
-
-    <!--All Reviews-->
-    <% if @course.reviews.any? %>
-      <% if student? %>
-        <h3 class="text-left ml-4 mt-4" style="font-size:1.7em;">Reviews by Other Students</h3>
-      <% end %>
-      <div class="reviews-all row">
-        <div class="col">
-          <li><%= render 'reviews/sort' %></li>
-          <%= render @reviews %>
-        </div>
-      </div>
-    <% end %>
-
-  </ol>
-
+  <%= render 'reviews/reviews', course: @course, curr_review: @curr_review, review: @review, reviews: @reviews %>
 </div>
-<!--end of reviews-->
 
 <!--Other Courses-->
 

@@ -1,7 +1,7 @@
 <li class="review-form">
   <div class="row">
     <div class="col">
-      <%= form_for(review) do |f| %>
+      <%= form_for(review, remote: true, html: { class: 'review-form' }) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
         <div class="rating">
@@ -38,11 +38,12 @@
         </div>
 
         <%= hidden_field_tag :course_id, @course.id %>
+        <%= hidden_field_tag :sort_by, params[:sort_by] %>
 
         <% if params[:review_edit] %>
           <span class="edit-delete float-right">
             <%= f.button "Save Changes", type: :submit, data: { disable_with: 'Saving...' }, class: 'btn btn-primary' %>
-            <%= link_to "Delete Review", review_path(course_id: @course.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+            <%= link_to "Delete Review", review_path(course_id: @course.id, sort_by: params[:sort_by]), method: :delete, data: { confirm: "Are you sure?" }, remote: true, class: 'btn btn-danger' %>
           </span>
         <% else %>
           <%= f.button "Post Review", type: :submit, data: { disable_with: 'Posting...' }, class: 'btn btn-primary float-right' %>
