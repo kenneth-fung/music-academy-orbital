@@ -88,6 +88,9 @@ $(document).on("click", "#course-tab", function() {
 // update url on pressing lesson tab
 $(document).on("click", "#lessons-tab", function() {
   var lesson_page = $('#lesson-name').data('position');
+  if (lesson_page === undefined) {
+    lesson_page = 1;
+  }
   $('.list-group-item').eq(lesson_page - 1).addClass('list-group-item-secondary lesson-selected');
   history.pushState({}, '', window.location.pathname + "?lesson_page=" + lesson_page);
 });

@@ -77,10 +77,12 @@
           </div>
         </div>
 
-        <!-- Forum -->
-        <div id="forum">
-          <%= render 'lessons/forum', course: course, lesson: lesson %>
-        </div>
+        <% if exclusivity_check %>
+          <!-- Forum -->
+          <div id="forum">
+            <%= render 'lessons/forum', course: course, lesson: lesson %>
+          </div>
+        <% end %>
 
       <% else %>
 
