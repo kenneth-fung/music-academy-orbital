@@ -348,6 +348,7 @@ footer {
     background: center no-repeat;
     height: 50vh;
     background-size: cover;
+    background-color: black;
   }
   .image-text {
     background-color: rgb(0, 0, 0);
@@ -615,7 +616,8 @@ footer {
 /* home page */
 
 .home-bg {
-  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), image-url('home_splash.jpeg') center no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), image-url('home_splash.jpg') center no-repeat;
+  background-color: black;
   height: 80vh;
   background-size: cover;
   overflow: hidden;
@@ -650,7 +652,8 @@ footer {
 }
 
 .home-student-bg {
-  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), image-url('home_splash_student.png') center no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), image-url('home_splash_student.jpg') center no-repeat;
+  background-color: black;
   background-size: cover;
   overflow: hidden;
   .home-flash {
