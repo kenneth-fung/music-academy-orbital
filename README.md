@@ -1,5 +1,19 @@
 # README
 
+## Seeding
+
+Seeding has broken into multiple parts due to the large amount of data.
+Also, this affords more control over the process.
+
+To seed, enter the following commands in the console.
+**Wait** until each command is finished executing before entering the next command.
+```
+rails db:migrate:reset
+rails db:seed 01=yes // students, tutors, courses, lessons, subscriptions, reviews
+rails db:seed 02=yes // posts
+rails db:seed 03=yes // messages
+```
+
 ## To Fix
     
 "**password resets**" test in test/integration/**password_resets_test**.rb
@@ -74,10 +88,9 @@ expecting <"password_resets/edit"> but rendering with <[]>
 
 - ~~Add search button to search bar on user profile page~~
 
-- File Uploads
+- ~~File Uploads~~
   - ~~grey out the “save changes” and “back” buttons, as well as disable all links~~
   - ~~check why adobe acrobat documents can’t be uploaded (type: ‘application/pdf’)~~
-  - for the final showcase, disable file purge due to form errors (ignore orphaned files)
 
 ### Ajax/JSON Improvements
 
@@ -113,9 +126,10 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - ~~public/private accounts for students~~
 - ~~payment system~~ **_(some notes, see below)_**
 
-- seed posts/messages
-
-- add automated testing (rails test)
+- ~~seed posts/messages~~
+- seed course images
+- seed lesson videos
+- seed lesson resources
 
 #### Direct Upload
 

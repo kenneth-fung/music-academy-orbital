@@ -7,6 +7,53 @@
     </div>
   <% end %>
 
+  <!--Image-->
+  <section class="image">
+    <% if @course.image.attached? && !@course.image.id.nil? %>
+
+      <%= f.label :image do %>
+        Banner Image <i>(please choose a landscape image)</i>
+      <% end %>
+
+      <!--Image display-->
+      <div><%= image_tag url_for(@course.image), height: "100%", width: "100%" %></div>
+
+      <!--Image deletion link-->
+      <div><i><%= link_to "(delete and upload another image)",
+        delete_image_course_path(@course.image.id, course_id: @course.id),
+        method: :delete,
+        data: {confirm: "Are you sure?"}
+        %></i></div>
+
+    <% else %>
+
+      <!--Image upload button-->
+      <div class="form-group">
+
+        <%= f.label :image, for: 'imageFile' do %>
+          Banner Image <i>(please choose a landscape image)</i>
+        <% end %>
+
+        <!--Display default image-->
+        <div class="mb-2"><%= image_tag 'course_bg.jpg', height: "100%", width: "100%" %></div>
+
+        <%= f.file_field :image, accept: 'image/png, image/jpeg, image/gif', direct_upload: true, class: 'form-control-file', id: "imageFile" %>
+
+        <% if f.object.errors.any? && f.object.errors.include?(:image) %>
+          <div class="invalid-feedback d-block">
+            <%= f.object.errors.messages[:image].join(", ") %>
+          </div>
+        <% elsif f.object.errors.any? && !f.object.errors.include?(:image) %>
+          <div class="invalid-feedback d-block">
+            upload cancelled due to other errors in this form, please re-upload image
+          </div>
+        <% end %>
+
+      </div>
+
+    <% end %>
+  </section>
+
   <div class="form-group">
     <%= f.label :title %>
     <% if f.object.errors.any? && f.object.errors.include?(:title) %>
@@ -45,53 +92,6 @@
       <% end %>
     </div>
   </div>
-
-  <!--Image-->
-  <section class="image">
-    <% if @course.image.attached? && !@course.image.id.nil? %>
-
-      <%= f.label :image do %>
-        Banner Image <i>(please choose a landscape image)</i>
-      <% end %>
-
-      <!--Image display-->
-      <div><%= image_tag url_for(@course.image), height: "100%", width: "100%" %></div>
-
-      <!--Image deletion link-->
-      <div><i><%= link_to "(delete and upload another image)",
-        delete_image_course_path(@course.image.id, course_id: @course.id),
-        method: :delete,
-        data: {confirm: "Are you sure?"}
-        %></i></div>
-
-    <% else %>
-
-      <!--Image upload button-->
-      <div class="form-group">
-
-        <%= f.label :image, for: 'imageFile' do %>
-          Banner Image <i>(please choose a landscape image)</i>
-        <% end %>
-
-        <!--Display default image-->
-        <div class="mb-2"><%= image_tag 'course_bg.jpg', height: "100%", width: "100%" %></div>
-
-        <%= f.file_field :image, accept: 'image/png, image/jpeg, image/gif', direct_upload: true, class: 'form-control-file', id: "imageFile" %>
-
-        <% if f.object.errors.any? && f.object.errors.include?(:image) %>
-          <div class="invalid-feedback d-block">
-            <%= f.object.errors.messages[:image].join(", ") %>
-          </div>
-        <% elsif @course.image.attached? && f.object.errors.any? && !f.object.errors.include?(:image) %>
-          <div class="invalid-feedback d-block">
-            upload cancelled due to other errors in this form, please re-upload image
-          </div>
-        <% end %>
-
-      </div>
-
-    <% end %>
-  </section>
 
   <div class="form-group">
 

@@ -63,7 +63,8 @@ class CoursesController < ApplicationController
     if @course.save
       redirect_to @course
     else
-      @course.image.purge if @course.errors.any? && @course.errors.include?(:image)
+      @course.image.purge if @course.errors.any?
+      flash[:danger] = 'Course not created.'
       render 'courses/new'
     end
   end
@@ -76,7 +77,8 @@ class CoursesController < ApplicationController
       flash[:success] = "Changes saved!"
       redirect_to edit_course_path(@course, course_id: @course.id)
     else
-      @course.image.purge if @course.errors.any? && @course.errors.include?(:image)
+      @course.image.purge if @course.errors.any?
+      flash[:danger] = 'Changes not saved.'
       render 'edit'
     end
   end
