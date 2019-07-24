@@ -7,31 +7,59 @@ document.addEventListener("turbolinks:load", function() {
   var controller = $('.form-control').data('controller');
   var action     = $('.form-control').data('action');
 
-  var options = {
-    getValue: "title",
-    url: function(phrase) {
+  if (controller === "tutors" && action === "index") {
 
-      if (controller === "tutors") {
-        if (action === "show") {
-          id = $('.form-control').data('id');
-          return "/tutors/" + id + "/courses.json?search_profile=" + phrase;
-        } 
-      } else if (controller === "students") {
-        id = $('.form-control').data('id');
-        return "/students/" + id + "/courses.json?search_profile=" + phrase;
-      } else {
-        return "/courses.json?search=" + phrase; 
-      }
+    // autocomplete for tutors index page
 
-    },
-    list: {
-      onChooseEvent: function() {
-        var url = $input.getSelectedItemData().url;
-        $input.val("");
-        Turbolinks.visit(url);
+    var options = {
+      getValue: "name",
+      url: function(phrase) {
+        return "/tutors.json?search=" + phrase;
       },
-    }
-  };
+      list: {
+        onChooseEvent: function() {
+          var url = $input.getSelectedItemData().url;
+          $input.val("");
+          Turbolinks.visit(url);
+        }
+      }
+    };
+
+  } else {
+
+    // autocomplete for home, courses index, profile courses pages
+
+    var options = {
+      getValue: "title",
+      url: function(phrase) {
+
+        if (controller === "tutors") {
+          if (action === "show") {
+            // tutor profile page
+            id = $('.form-control').data('id');
+            return "/tutors/" + id + "/courses.json?search_profile=" + phrase;
+          } 
+        } else if (controller === "students") {
+          // student profile page
+          id = $('.form-control').data('id');
+          return "/students/" + id + "/courses.json?search_profile=" + phrase;
+        } else {
+          // home and courses index page
+          return "/courses.json?search=" + phrase; 
+        }
+
+      },
+      list: {
+        onChooseEvent: function() {
+          var url = $input.getSelectedItemData().url;
+          console.log($input);
+          $input.val("");
+          Turbolinks.visit(url);
+        }
+      }
+    };
+
+  }
 
   $input.easyAutocomplete(options);
 
@@ -87,7 +115,7 @@ $(document).on("click", "#course-tab", function() {
 
 // update url on pressing lesson tab
 $(document).on("click", "#lessons-tab", function() {
-  var lesson_page = $('#lesson-name').data('position');
+  var lesson_page = $('#scrollmenu').data('position');
   if (lesson_page === undefined) {
     lesson_page = 1;
   }

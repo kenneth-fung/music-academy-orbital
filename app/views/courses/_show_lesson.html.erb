@@ -22,7 +22,7 @@
         <div class="lessons row">
 
           <!--Scroll Menu-->
-          <div class="scrollmenu col-md-3 pr-0">
+          <div class="scrollmenu col-md-3 pr-0" id="scrollmenu" data-position="<%= lesson.position %>">
             <%= render 'lessons/scrollmenu' %>
           </div>
 
@@ -65,7 +65,7 @@
 
             <% if exclusivity_check %>
 
-              <h3 class="name text-left" id="lesson-name" data-position="<%= lesson.position %>"><%= lesson.name %></h3>
+              <h3 class="name text-left"><%= lesson.name %></h3>
               <section class="description"><%= lesson.description %></section>
               <span class="resources m-2">
                 <strong>Resources</strong><br>
