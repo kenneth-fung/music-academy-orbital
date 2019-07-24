@@ -1,4 +1,6 @@
 class VideosController < ApplicationController
+  before_action :admin_user
+
   def index
     @videos = Video.order('created_at DESC')
   end
@@ -18,8 +20,8 @@ class VideosController < ApplicationController
   end
 
   def destroy
-    @video
   end
+
   private
 
   def video_params

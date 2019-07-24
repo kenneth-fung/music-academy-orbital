@@ -11,9 +11,9 @@
 
   <% if yield(:title).include?('Home') %>
     <body class="home pr-0">
-    <% else %>
-      <body class="not-home pr-0">
-      <% end %>
+  <% else %>
+    <body class="not-home pr-0">
+  <% end %>
 
       <%= render 'layouts/header' %>
       <div class="container pt-4">

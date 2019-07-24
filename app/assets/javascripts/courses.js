@@ -78,6 +78,17 @@ document.addEventListener("turbolinks:load", function() {
     }
   }, '.course-card');
 
+  $(document).on({
+    mouseenter: function() {
+      $(this).removeClass("shadow-sm");
+      $(this).addClass("shadow");
+    },
+    mouseleave: function() {
+      $(this).removeClass("shadow");
+      $(this).addClass("shadow-sm");
+    }
+  }, '.welcome-back-card');
+
   // disable inputs and links on form submits
 
   $('form').submit(function() {

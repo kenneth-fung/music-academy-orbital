@@ -1,9 +1,13 @@
 <div class="col-md-6 col-lg-3 my-3 p5" align="center">
   <div class="tutor-card card height-10 shadow-sm">
 
-    <span class="card-img-top">
-      <%= gravatar_for(tutor, size: 100) %>
-    </span>
+    <div class="tutor-image row justify-content-center">
+      <div class="col-auto">
+        <span class="card-img-top">
+          <%= gravatar_for(tutor, size: 100) %>
+        </span>
+      </div>
+    </div>
 
     <div class="card-body p-3">
 
@@ -11,18 +15,16 @@
         <strong><%= link_to tutor.name, tutor, class: 'stretched-link' %></strong>
       </h5>
 
-      <div class="row justify-content-center">
+      <div class="tutor-rating row justify-content-center">
         <div class="col-auto">
-          <span class="tutor-rating">
-            <% tutor.rating.times do %>
-              <%= image_tag "tutor-rating.png" %>
-            <% end %>
-          </span>
+          <% tutor.rating.times do %>
+            <%= image_tag "tutor-rating.png" %>
+          <% end %>
         </div>
-        
+
       </div>
 
-      <div class="row justify-content-center">
+      <div class="tutor-students-courses row justify-content-center">
         <div class="tutor-students col" align="center">
           <strong><%= tutor.students_unique.count %></strong><br>
           students
@@ -34,7 +36,7 @@
       </div>
 
       <div class="tutor-qualification row justify-content-center">
-        <div class="col">
+        <div class="col-auto">
           <small><%= tutor.qualification %></small>
         </div>
       </div>

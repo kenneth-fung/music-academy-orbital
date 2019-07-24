@@ -1,5 +1,46 @@
 <% provide(:title, 'Home') %>
 
+<% if student? && current_user.courses.any? %>
+
+  <div class="row mb-3" id="welcome-back">
+
+    <div class="col-md-6">
+
+      <h2 class="welcome-back-message text-left">
+        <% if current_user.lesson_id.nil? %>
+          Start on your newest course
+        <% else %>
+          Pick up where you left off
+        <% end %>
+      </h2>
+
+      <% if current_user.lesson_id.nil? %>
+        <% lesson = @courses_student.first.lessons.first %>
+      <% else %>
+        <% lesson = Lesson.find(current_user.lesson_id) %>
+      <% end %>
+
+      <div class="welcome-back-card card bg-dark text-white shadow-sm">
+        <% if lesson.course.image.attached? %>
+          <%= image_tag url_for(lesson.course.image), alt: 'course-image', class: 'card-img' %>
+        <% else %>
+          <%= image_tag 'course_bg.jpg', alt: 'course-image-default', class: 'card-img' %>
+        <% end %>
+        <div class="card-img-overlay">
+            <h5 class="card-title mb-1">
+              <strong><%= link_to lesson.course.title, course_path(lesson.course, lesson_page: lesson.position), class: 'stretched-link' %></strong>
+            </h5>
+            <small class="card-subtitle mt-1"><i>by <%= lesson.course.tutor.name %></i></small>
+            <h2 class="text-light mt-3"><%= lesson.name %></h2>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+<% end %>
+
 <% if !student? && @courses_beginners.any? %>
   <%= render 'courses/collection', heading: 'Courses for Beginners', courses: @courses_beginners %>
 <% end %>

@@ -61,7 +61,6 @@ class CoursesController < ApplicationController
   def create
     @course = current_user.courses.build(course_params)
     if @course.save
-      flash[:success] = "Successfully created"
       redirect_to @course
     else
       @course.image.purge if @course.errors.any? && @course.errors.include?(:image)
