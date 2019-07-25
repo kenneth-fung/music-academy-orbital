@@ -5,14 +5,31 @@
 Seeding has broken into multiple parts due to the large amount of data.
 Also, this affords more control over the process.
 
-To seed, enter the following commands in the console.
+To seed, enter the following commands (excluding the comments).
 **Wait** until each command is finished executing before entering the next command.
 ```
 rails db:migrate:reset
 rails db:seed 01=yes // students, tutors, courses, lessons, subscriptions, reviews
 rails db:seed 02=yes // posts
 rails db:seed 03=yes // messages
+rails db:seed images=yes // course images
+rails db:seed videos=yes // lesson videos for Tutor with ID 1 only
+rails db:seed resources=yes // lesson resources
 ```
+For Heroku:
+```
+heroku pg:reset DATABASE
+heroku run rails db:migrate
+heroku run rails db:seed 01=yes // students, tutors, courses, lessons, subscriptions, reviews
+heroku run rails db:seed 02=yes // posts
+heroku run rails db:seed 03=yes // messages
+heroku run rails db:seed images=yes // course images
+heroku run rails db:seed videos=yes // lesson videos for Tutor with ID 1 only
+heroku run rails db:seed resources=yes // lesson resources
+```
+Each seed command **except 01** can be run multiple times if the initial amount
+is insufficient (e.g. not enough messages or resources). But beware of the
+Heroku row limit.
 
 ## To Fix
     
