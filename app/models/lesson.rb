@@ -15,7 +15,7 @@ class Lesson < ApplicationRecord
 
   validates :name,
     presence: true,
-    length: { maximum: 50 }
+    length: { maximum: 100 }
 
   validates :description,
     presence: true

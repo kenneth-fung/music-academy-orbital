@@ -1,3 +1,21 @@
+Student.create!(name: "Example Student",
+                email: "student@example.com",
+                password: "password",
+                password_confirmation: "password",
+                activated: true,
+                activated_at: 1.month.ago)
+
+Tutor.create!(name: "Example Tutor",
+              email: "tutor@example.com",
+              password: "password",
+              password_confirmation: "password",
+              
+              qualification: "PhD in Demonstration, University of Examples",
+              bio: "Example Tutor graduated from the University of Examples with a degree in Examples. From there, they went on to complete their Masters in Presentation, before finally completing their PhD in Demonstration. Now, they have come to the Music Academy to showcase their awe-inspiring power in the art of giving examples and demonstrating demonstrations. Be amazed! Be excited! And above all, be afraid.",
+
+              activated: true,
+              activated_at: 1.month.ago)
+
 Student.create!(name:  "Runding",
                 email: "wangrunding@gmail.com",
                 password:              "wangrun123ding",
@@ -8,7 +26,7 @@ Student.create!(name:  "Runding",
 custom_bio =
   "Runding graduated from the University of Music with a Degree in Music. From there, he went on to complete his Masters in Experimental Funk, before finally completing his PhD in Post-Orbital Rock. Now, he has come to the Music Academy to spread his love and passion for the musical arts. He is proficient in many instruments, most notably the Piano, Guitar, Oboe, Electric Guitar, Xylophone, Drums, Violin, Harp, Bagpipes, and most importantly the Saxophone."
 
-Tutor.create!(name:  "Runding",
+Tutor.create!(name:  "Wang Runding",
               email: "wangrunding@gmail.com",
               password:              "wangrun123ding",
               password_confirmation: "wangrun123ding",

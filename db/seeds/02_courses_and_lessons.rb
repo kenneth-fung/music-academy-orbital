@@ -42,7 +42,18 @@ rand(300..400).times do
 
   # Lessons
   rand(1..12).times do
-    name = Faker::Food.dish
+    name = "Sample Lesson"
+    case rand(0..3)
+    when 0
+      name = rand > 0.50 ? "Learning #{Faker::Music.instrument}" : "Mastering #{Faker::Music.instrument}"
+    when 1
+      name =  "#{Faker::Music.album}"
+    when 2
+      name = rand > 0.50 ? "The Sound of #{Faker::Music.genre}" : "#{Faker::Music.genre} and the #{instrument}"
+    when 3
+      name = rand > 0.50 ? "#{Faker::Music.band}: A History" : "Composing for #{Faker::Music.band}"
+    else
+    end
     description = Faker::Food.description
     course.lessons.create!(name: name, description: description, created_at: 1.month.ago, updated_at: 1.month.ago)
   end
