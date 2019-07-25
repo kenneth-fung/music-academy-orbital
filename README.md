@@ -143,9 +143,8 @@ expecting <"password_resets/edit"> but rendering with <[]>
 - ~~payment system~~ **_(some notes, see below)_**
 
 - ~~seed posts/messages~~
-- seed course images
-- seed lesson videos
-- seed lesson resources
+- ~~seed course images~~
+- ~~seed lesson resources~~
 
 #### Direct Upload
 
