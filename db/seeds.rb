@@ -23,6 +23,21 @@ elsif ENV["03"]
   %w[06_messages].each do |part|
     require File.expand_path(File.dirname(__FILE__)) + "/seeds/#{part}.rb"
   end
+elsif ENV["images"]
+  # seed course images
+  %w[07_course_images].each do |part|
+    require File.expand_path(File.dirname(__FILE__)) + "/seeds/#{part}.rb"
+  end
+elsif ENV["videos"]
+  # seed lesson videos
+  %w[08_lesson_videos].each do |part|
+    require File.expand_path(File.dirname(__FILE__)) + "/seeds/#{part}.rb"
+  end
+elsif ENV["resources"]
+  # seed lesson resources
+  %w[09_lesson_resources].each do |part|
+    require File.expand_path(File.dirname(__FILE__)) + "/seeds/#{part}.rb"
+  end
 else
   # seed everything
   Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].each do |seed|

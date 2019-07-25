@@ -2,7 +2,7 @@
 
 ## Seeding
 
-Seeding has broken into multiple parts due to the large amount of data.
+Seeding has been broken into multiple parts due to the large amount of data.
 Also, this affords more control over the process.
 
 To seed, enter the following commands (excluding the comments).
@@ -13,7 +13,6 @@ rails db:seed 01=yes // students, tutors, courses, lessons, subscriptions, revie
 rails db:seed 02=yes // posts
 rails db:seed 03=yes // messages
 rails db:seed images=yes // course images
-rails db:seed videos=yes // lesson videos for Tutor with ID 1 only
 rails db:seed resources=yes // lesson resources
 ```
 For Heroku:
@@ -24,12 +23,12 @@ heroku run rails db:seed 01=yes // students, tutors, courses, lessons, subscript
 heroku run rails db:seed 02=yes // posts
 heroku run rails db:seed 03=yes // messages
 heroku run rails db:seed images=yes // course images
-heroku run rails db:seed videos=yes // lesson videos for Tutor with ID 1 only
 heroku run rails db:seed resources=yes // lesson resources
 ```
 Each seed command **except 01** can be run multiple times if the initial amount
 is insufficient (e.g. not enough messages or resources). But beware of the
-Heroku row limit.
+Heroku row limit. Lesson videos not seeded due to time limit on seed (takes too
+long).
 
 ## To Fix
     

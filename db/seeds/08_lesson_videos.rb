@@ -1,3 +1,4 @@
+=begin
 Tutor.first.courses.each do |course|
   course.lessons.each do |lesson|
     # Lesson Video
@@ -6,3 +7,4 @@ Tutor.first.courses.each do |course|
     lesson.video.attach(io: file, filename: filename, content_type: 'video/mp4') if file.present?
   end
 end
+=end
