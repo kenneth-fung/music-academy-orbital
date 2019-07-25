@@ -27,11 +27,11 @@
           </div>
 
           <!--Lesson Video-->
-          <div class="col-md-9 border border-secondary">
+          <div class="video col align-self-center">
             <% if exclusivity_check && lesson.video.attached? %>
 
               <!--Subscribed/Course Owner-->
-              <div class="embed-responsive embed-responsive-16by9 height-80">
+              <div class="embed-responsive embed-responsive-16by9">
                 <video controls controlslist="nodownload" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" class="embed-responsive-item bg-dark">
                   <source src="<%= url_for(lesson.video) %>">
                 </video>

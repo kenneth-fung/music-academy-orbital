@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'open-uri'
+
 if ENV["01"]
   # seed students, tutors, courses, lessons, subscriptions, and reviews
   %w[01_students_and_tutors 02_courses_and_lessons 03_subscriptions 04_reviews].each do |part|

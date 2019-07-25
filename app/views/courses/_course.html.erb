@@ -60,7 +60,13 @@
       <!--Price-->
       <h3 class="price float-right">
         <% unless subscribing?(course) %>
-          <%= number_to_currency(course.price) %>
+          <% if course.price >= 1000000 %>
+            <%= "> $1M" %>
+          <% elsif course.price >= 1000 %>
+            <%= "$#{(course.price.to_f / 1000.00).to_i}K" %>
+          <% else %>
+            <%= number_to_currency(course.price) %>
+          <% end %>
         <% end %>
       </h3>
 

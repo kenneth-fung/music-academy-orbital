@@ -527,8 +527,11 @@ footer {
 
 .lesson {
   .lessons {
+    background-color: black;
     margin-bottom: 20px;
+    padding: 0px;
     .scrollmenu {
+      background-color: white;
       .list-group {
         padding-right: 0px;
         direction: rtl;
@@ -538,8 +541,14 @@ footer {
         }
       }
     }
+    .video {
+      padding: 0px;
+    }
     .video-none, .video-block {
-      margin-top: 30%;
+      color: white;
+      h2, h3 {
+        color: white;
+      }
     }
   }
   .info {
