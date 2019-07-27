@@ -34,7 +34,7 @@ post_ids = Post.pluck(:id).sample((Post.count / 100).round)
 posts = Post.where(id: post_ids)
 
 posts.each do |post|
-  Notification.create!(content: "New Question about '#{post.lesson.id} for #{post.lesson.course.id}'",
+  Notification.create!(content: "New Question about '#{post.lesson.name} for #{post.lesson.course.title}'",
                        user_id: post.lesson.course.tutor.id,
                        user_type: 'Tutor',
                        origin_type: 'Post',
