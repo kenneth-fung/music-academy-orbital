@@ -6,7 +6,7 @@ The Music Academy is a web application project completed for [NUS Orbital 2019](
 
 Work on the Music Academy began in May 2019 and ended in July 2019. This process included everything from initial conceptualization, learning of new technologies, implementation, testing and deployment to production. For displaying strong evidence of software engineering, testing and documentation, the project was awarded the highest level of achievement: Apollo 11.
 
-Check out the website [here](music-academy-orbital.herokuapp.com)!
+Check out the website [here](https://music-academy-orbital.herokuapp.com/)!
 
 ## Built With
 
